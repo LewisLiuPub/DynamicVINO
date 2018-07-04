@@ -19,7 +19,10 @@ project(Samples)
 list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 # environment variable InferenceEngine_DIR can be use instead of relaive path to specify location of configuration file
-get_filename_component(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/../share" ABSOLUTE)
+set(InferenceEngine_DIR /opt/intel/computer_vision_sdk_2018.2.299/deployment_tools/inference_engine/share)
+set(OpenCV_DIR /opt/intel/computer_vision_sdk_2018.2.299/opencv/share/OpenCV)
+
+
 
 message(STATUS "Looking for inference engine configuration file at: ${CMAKE_PREFIX_PATH}")
 find_package(InferenceEngine 1.1)
@@ -129,6 +132,8 @@ include_directories (
 if (UNIX)
     SET(LIB_DL dl)
 endif()
+
+set(DEPENDENCIES realsense2 ${OpenCV_LIBS})
 
 add_subdirectory(object_detection_sample)
 add_subdirectory(interactive_face_detection_sample)

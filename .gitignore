@@ -1,4 +1,3 @@
-file.txt
 # Prerequisites
 *.d
 
@@ -34,3 +33,5 @@ file.txt
 
 # Folders
 /samples/build/
+/.idea
+/samples/cmake-build-debug/

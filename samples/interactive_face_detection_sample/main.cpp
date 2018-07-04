@@ -40,11 +40,17 @@
 
 #include "interactive_face_detection.hpp"
 #include "mkldnn/mkldnn_extension_ptr.hpp"
+#include "cv_helpers.hpp"
 #include <ext_list.hpp>
 
 #include <opencv2/opencv.hpp>
 
+#include <librealsense2/rs.hpp>
+
+#include "cv_helpers.hpp"
+
 using namespace InferenceEngine;
+using namespace rs2;
 
 bool ParseAndCheckCommandLine(int argc, char *argv[]) {
     // ---------------------------Parsing and validation of input args--------------------------------------
@@ -74,26 +80,26 @@ bool ParseAndCheckCommandLine(int argc, char *argv[]) {
     return true;
 }
 
-template <typename T>
-void matU8ToBlob(const cv::Mat& orig_image, Blob::Ptr& blob, float scaleFactor = 1.0, int batchIndex = 0) {
+template<typename T>
+void matU8ToBlob(const cv::Mat &orig_image, Blob::Ptr &blob, float scaleFactor = 1.0, int batchIndex = 0) {
     SizeVector blobSize = blob->getTensorDesc().getDims();
     const size_t width = blobSize[3];
     const size_t height = blobSize[2];
     const size_t channels = blobSize[1];
-    T* blob_data = blob->buffer().as<T*>();
+    T *blob_data = blob->buffer().as<T *>();
 
     cv::Mat resized_image(orig_image);
-    if (width != orig_image.size().width || height!= orig_image.size().height) {
+    if (width != orig_image.size().width || height != orig_image.size().height) {
         cv::resize(orig_image, resized_image, cv::Size(width, height));
     }
 
     int batchOffset = batchIndex * width * height * channels;
 
     for (size_t c = 0; c < channels; c++) {
-        for (size_t  h = 0; h < height; h++) {
+        for (size_t h = 0; h < height; h++) {
             for (size_t w = 0; w < width; w++) {
                 blob_data[batchOffset + c * width * height + h * width + w] =
-                    resized_image.at<cv::Vec3b>(h, w)[c] * scaleFactor;
+                        resized_image.at<cv::Vec3b>(h, w)[c] * scaleFactor;
             }
         }
     }
@@ -103,20 +109,21 @@ void matU8ToBlob(const cv::Mat& orig_image, Blob::Ptr& blob, float scaleFactor =
 
 struct BaseDetection {
     ExecutableNetwork net;
-    InferencePlugin * plugin;
+    InferencePlugin *plugin;
     InferRequest::Ptr request;
-    std::string & commandLineFlag;
+    std::string &commandLineFlag;
     std::string topoName;
     const int maxBatch;
 
     BaseDetection(std::string &commandLineFlag, std::string topoName, int maxBatch)
-        : commandLineFlag(commandLineFlag), topoName(topoName), maxBatch(maxBatch) {}
+            : commandLineFlag(commandLineFlag), topoName(topoName), maxBatch(maxBatch) {}
 
     virtual ~BaseDetection() {}
 
-    ExecutableNetwork* operator ->() {
+    ExecutableNetwork *operator->() {
         return &net;
     }
+
     virtual CNNNetwork read()  = 0;
 
     virtual void submitRequest() {
@@ -125,13 +132,14 @@ struct BaseDetection {
     }
 
     virtual void wait() {
-        if (!enabled()|| !request) return;
+        if (!enabled() || !request) return;
         request->Wait(IInferRequest::WaitMode::RESULT_READY);
     }
+
     mutable bool enablingChecked = false;
     mutable bool _enabled = false;
 
-    bool enabled() const  {
+    bool enabled() const {
         if (!enablingChecked) {
             _enabled = !commandLineFlag.empty();
             if (!_enabled) {
@@ -141,6 +149,7 @@ struct BaseDetection {
         }
         return _enabled;
     }
+
     void printPerformanceCounts() {
         if (!enabled()) {
             return;
@@ -187,22 +196,23 @@ struct FaceDetectionClass : BaseDetection {
         width = frame.cols;
         height = frame.rows;
 
-        Blob::Ptr  inputBlob = request->GetBlob(input);
+        Blob::Ptr inputBlob = request->GetBlob(input);
 
-        matU8ToBlob<uint8_t >(frame, inputBlob);
+        matU8ToBlob<uint8_t>(frame, inputBlob);
 
         enquedFrames = 1;
     }
 
 
     FaceDetectionClass() : BaseDetection(FLAGS_m, "Face Detection", 1) {}
+
     CNNNetwork read() override {
         slog::info << "Loading network files for Face Detection" << slog::endl;
         CNNNetReader netReader;
         /** Read network model **/
         netReader.ReadNetwork(FLAGS_m);
         /** Set batch size to 1 **/
-        slog::info << "Batch size is set to  "<< maxBatch << slog::endl;
+        slog::info << "Batch size is set to  " << maxBatch << slog::endl;
         netReader.getNetwork().setBatchSize(maxBatch);
         /** Extract model name and load it's weights **/
         std::string binFileName = fileNameNoExt(FLAGS_m) + ".bin";
@@ -234,18 +244,18 @@ struct FaceDetectionClass : BaseDetection {
         if (outputInfo.size() != 1) {
             throw std::logic_error("Face Detection network should have only one output");
         }
-        DataPtr& _output = outputInfo.begin()->second;
+        DataPtr &_output = outputInfo.begin()->second;
         output = outputInfo.begin()->first;
 
         const CNNLayerPtr outputLayer = netReader.getNetwork().getLayerByName(output.c_str());
         if (outputLayer->type != "DetectionOutput") {
             throw std::logic_error("Face Detection network output layer(" + outputLayer->name +
-                ") should be DetectionOutput, but was " +  outputLayer->type);
+                                   ") should be DetectionOutput, but was " + outputLayer->type);
         }
 
         if (outputLayer->params.find("num_classes") == outputLayer->params.end()) {
             throw std::logic_error("Face Detection network output layer (" +
-                output + ") should have num_classes integer attribute");
+                                   output + ") should have num_classes integer attribute");
         }
 
         const int num_classes = outputLayer->GetParamAsInt("num_classes");
@@ -263,12 +273,12 @@ struct FaceDetectionClass : BaseDetection {
         }
         if (outputDims.size() != 4) {
             throw std::logic_error("Face Detection network output dimensions not compatible shoulld be 4, but was " +
-                                           std::to_string(outputDims.size()));
+                                   std::to_string(outputDims.size()));
         }
         _output->setPrecision(Precision::FP32);
         _output->setLayout(Layout::NCHW);
 
-        slog::info << "Loading Face Detection model to the "<< FLAGS_d << " plugin" << slog::endl;
+        slog::info << "Loading Face Detection model to the " << FLAGS_d << " plugin" << slog::endl;
         input = inputInfo.begin()->first;
         return netReader.getNetwork();
     }
@@ -328,27 +338,32 @@ struct AgeGenderDetection : BaseDetection {
             return;
         }
         if (enquedFaces == maxBatch) {
-            slog::warn << "Number of detected faces more than maximum(" << maxBatch << ") processed by Age Gender detector" << slog::endl;
+            slog::warn << "Number of detected faces more than maximum(" << maxBatch
+                       << ") processed by Age Gender detector" << slog::endl;
             return;
         }
         if (!request) {
             request = net.CreateInferRequestPtr();
         }
 
-        Blob::Ptr  inputBlob = request->GetBlob(input);
+        Blob::Ptr inputBlob = request->GetBlob(input);
 
         matU8ToBlob<float>(face, inputBlob, 1.0f, enquedFaces);
 
         enquedFaces++;
     }
 
-    struct Result { float age; float maleProb;};
-    Result operator[] (int idx) const {
-        Blob::Ptr  genderBlob = request->GetBlob(outputGender);
-        Blob::Ptr  ageBlob    = request->GetBlob(outputAge);
+    struct Result {
+        float age;
+        float maleProb;
+    };
 
-        return {ageBlob->buffer().as<float*>()[idx] * 100,
-                genderBlob->buffer().as<float*>()[idx * 2 + 1]};
+    Result operator[](int idx) const {
+        Blob::Ptr genderBlob = request->GetBlob(outputGender);
+        Blob::Ptr ageBlob = request->GetBlob(outputAge);
+
+        return {ageBlob->buffer().as<float *>()[idx] * 100,
+                genderBlob->buffer().as<float *>()[idx * 2 + 1]};
     }
 
     CNNNetwork read() override {
@@ -359,7 +374,8 @@ struct AgeGenderDetection : BaseDetection {
 
         /** Set batch size to 16 **/
         netReader.getNetwork().setBatchSize(maxBatch);
-        slog::info << "Batch size is set to " << netReader.getNetwork().getBatchSize() << " for Age Gender" << slog::endl;
+        slog::info << "Batch size is set to " << netReader.getNetwork().getBatchSize() << " for Age Gender"
+                   << slog::endl;
 
 
         /** Extract model name and load it's weights **/
@@ -375,7 +391,7 @@ struct AgeGenderDetection : BaseDetection {
         if (inputInfo.size() != 1) {
             throw std::logic_error("Age gender topology should have only one input");
         }
-        InputInfo::Ptr& inputInfoFirst = inputInfo.begin()->second;
+        InputInfo::Ptr &inputInfoFirst = inputInfo.begin()->second;
         inputInfoFirst->setPrecision(Precision::FP32);
         inputInfoFirst->getInputData()->setLayout(Layout::NCHW);
         input = inputInfo.begin()->first;
@@ -398,20 +414,21 @@ struct AgeGenderDetection : BaseDetection {
 
         if (ageOutput->getCreatorLayer().lock()->type != "Convolution") {
             throw std::logic_error("In Age Gender network, age layer (" + ageOutput->getCreatorLayer().lock()->name +
-                ") should be a Convolution, but was: " + ageOutput->getCreatorLayer().lock()->type);
+                                   ") should be a Convolution, but was: " + ageOutput->getCreatorLayer().lock()->type);
         }
 
         if (genderOutput->getCreatorLayer().lock()->type != "SoftMax") {
-            throw std::logic_error("In Age Gender network, gender layer (" + genderOutput->getCreatorLayer().lock()->name +
-                ") should be a SoftMax, but was: " + genderOutput->getCreatorLayer().lock()->type);
+            throw std::logic_error(
+                    "In Age Gender network, gender layer (" + genderOutput->getCreatorLayer().lock()->name +
+                    ") should be a SoftMax, but was: " + genderOutput->getCreatorLayer().lock()->type);
         }
-        slog::info << "Age layer: " << ageOutput->getCreatorLayer().lock()->name<< slog::endl;
-        slog::info << "Gender layer: " << genderOutput->getCreatorLayer().lock()->name<< slog::endl;
+        slog::info << "Age layer: " << ageOutput->getCreatorLayer().lock()->name << slog::endl;
+        slog::info << "Gender layer: " << genderOutput->getCreatorLayer().lock()->name << slog::endl;
 
         outputAge = ageOutput->name;
         outputGender = genderOutput->name;
 
-        slog::info << "Loading Age Gender model to the "<< FLAGS_d_ag << " plugin" << slog::endl;
+        slog::info << "Loading Age Gender model to the " << FLAGS_d_ag << " plugin" << slog::endl;
         _enabled = true;
         return netReader.getNetwork();
     }
@@ -424,6 +441,7 @@ struct HeadPoseDetection : BaseDetection {
     std::string outputAngleY = "angle_y_fc";
     int enquedFaces = 0;
     cv::Mat cameraMatrix;
+
     HeadPoseDetection() : BaseDetection(FLAGS_m_hp, "Head Pose", FLAGS_n_hp) {}
 
     void submitRequest() override {
@@ -437,14 +455,15 @@ struct HeadPoseDetection : BaseDetection {
             return;
         }
         if (enquedFaces == maxBatch) {
-            slog::warn << "Number of detected faces more than maximum(" << maxBatch << ") processed by Head Pose detector" << slog::endl;
+            slog::warn << "Number of detected faces more than maximum(" << maxBatch
+                       << ") processed by Head Pose detector" << slog::endl;
             return;
         }
         if (!request) {
             request = net.CreateInferRequestPtr();
         }
 
-        Blob::Ptr  inputBlob = request->GetBlob(input);
+        Blob::Ptr inputBlob = request->GetBlob(input);
 
         matU8ToBlob<float>(face, inputBlob, 1.0f, enquedFaces);
 
@@ -457,14 +476,14 @@ struct HeadPoseDetection : BaseDetection {
         float angle_y;
     };
 
-    Results operator[] (int idx) const {
-        Blob::Ptr  angleR = request->GetBlob(outputAngleR);
-        Blob::Ptr  angleP = request->GetBlob(outputAngleP);
-        Blob::Ptr  angleY = request->GetBlob(outputAngleY);
+    Results operator[](int idx) const {
+        Blob::Ptr angleR = request->GetBlob(outputAngleR);
+        Blob::Ptr angleP = request->GetBlob(outputAngleP);
+        Blob::Ptr angleY = request->GetBlob(outputAngleY);
 
-        return {angleR->buffer().as<float*>()[idx],
-                angleP->buffer().as<float*>()[idx],
-                angleY->buffer().as<float*>()[idx]};
+        return {angleR->buffer().as<float *>()[idx],
+                angleP->buffer().as<float *>()[idx],
+                angleY->buffer().as<float *>()[idx]};
     }
 
     CNNNetwork read() override {
@@ -475,7 +494,8 @@ struct HeadPoseDetection : BaseDetection {
         /** Set batch size to maximum currently set to one provided from command line **/
         netReader.getNetwork().setBatchSize(maxBatch);
         netReader.getNetwork().setBatchSize(maxBatch);
-        slog::info << "Batch size is sey to  " << netReader.getNetwork().getBatchSize() << " for Head Pose Network" << slog::endl;
+        slog::info << "Batch size is sey to  " << netReader.getNetwork().getBatchSize() << " for Head Pose Network"
+                   << slog::endl;
         /** Extract model name and load it's weights **/
         std::string binFileName = fileNameNoExt(FLAGS_m_hp) + ".bin";
         netReader.ReadWeights(binFileName);
@@ -488,7 +508,7 @@ struct HeadPoseDetection : BaseDetection {
         if (inputInfo.size() != 1) {
             throw std::logic_error("Head Pose topology should have only one input");
         }
-        InputInfo::Ptr& inputInfoFirst = inputInfo.begin()->second;
+        InputInfo::Ptr &inputInfoFirst = inputInfo.begin()->second;
         inputInfoFirst->setPrecision(Precision::FP32);
         inputInfoFirst->getInputData()->setLayout(Layout::NCHW);
         input = inputInfo.begin()->first;
@@ -501,30 +521,30 @@ struct HeadPoseDetection : BaseDetection {
             throw std::logic_error("Head Pose network should have 3 outputs");
         }
         std::map<std::string, bool> layerNames = {
-            {outputAngleR, false},
-            {outputAngleP, false},
-            {outputAngleY, false}
+                {outputAngleR, false},
+                {outputAngleP, false},
+                {outputAngleY, false}
         };
 
-        for (auto && output : outputInfo) {
+        for (auto &&output : outputInfo) {
             CNNLayerPtr layer = output.second->getCreatorLayer().lock();
             if (layerNames.find(layer->name) == layerNames.end()) {
                 throw std::logic_error("Head Pose network output layer unknown: " + layer->name + ", should be " +
-                    outputAngleR + " or " + outputAngleP + " or " + outputAngleY);
+                                       outputAngleR + " or " + outputAngleP + " or " + outputAngleY);
             }
             if (layer->type != "FullyConnected") {
                 throw std::logic_error("Head Pose network output layer (" + layer->name + ") has invalid type: " +
-                    layer->type + ", should be FullyConnected");
+                                       layer->type + ", should be FullyConnected");
             }
-            auto fc = dynamic_cast<FullyConnectedLayer*>(layer.get());
+            auto fc = dynamic_cast<FullyConnectedLayer *>(layer.get());
             if (fc->_out_num != 1) {
                 throw std::logic_error("Head Pose network output layer (" + layer->name + ") has invalid out-size=" +
-                    std::to_string(fc->_out_num) + ", should be 1");
+                                       std::to_string(fc->_out_num) + ", should be 1");
             }
             layerNames[layer->name] = true;
         }
 
-        slog::info << "Loading Head Pose model to the "<< FLAGS_d_hp << " plugin" << slog::endl;
+        slog::info << "Loading Head Pose model to the " << FLAGS_d_hp << " plugin" << slog::endl;
 
         _enabled = true;
         return netReader.getNetwork();
@@ -540,31 +560,31 @@ struct HeadPoseDetection : BaseDetection {
         cameraMatrix.at<float>(8) = 1;
     }
 
-    void drawAxes(cv::Mat& frame, cv::Point3f cpoint, Results headPose, float scale) {
-        double yaw   = headPose.angle_y;
+    void drawAxes(cv::Mat &frame, cv::Point3f cpoint, Results headPose, float scale) {
+        double yaw = headPose.angle_y;
         double pitch = headPose.angle_p;
-        double roll  = headPose.angle_r;
+        double roll = headPose.angle_r;
 
         if (FLAGS_r) {
             std::cout << "Head pose results: yaw, pitch, roll = " << yaw << ";" << pitch << ";" << roll << std::endl;
         }
 
         pitch *= CV_PI / 180.0;
-        yaw   *= CV_PI / 180.0;
-        roll  *= CV_PI / 180.0;
+        yaw *= CV_PI / 180.0;
+        roll *= CV_PI / 180.0;
 
-        cv::Matx33f        Rx(1,           0,            0,
-                              0,  cos(pitch),  -sin(pitch),
-                              0,  sin(pitch),  cos(pitch));
-        cv::Matx33f Ry(cos(yaw),           0,    -sin(yaw),
-                              0,           1,            0,
-                       sin(yaw),           0,    cos(yaw));
-        cv::Matx33f Rz(cos(roll), -sin(roll),            0,
-                       sin(roll),  cos(roll),            0,
-                              0,           0,            1);
+        cv::Matx33f Rx(1, 0, 0,
+                       0, cos(pitch), -sin(pitch),
+                       0, sin(pitch), cos(pitch));
+        cv::Matx33f Ry(cos(yaw), 0, -sin(yaw),
+                       0, 1, 0,
+                       sin(yaw), 0, cos(yaw));
+        cv::Matx33f Rz(cos(roll), -sin(roll), 0,
+                       sin(roll), cos(roll), 0,
+                       0, 0, 1);
 
 
-        auto r = cv::Mat(Rz*Ry*Rx);
+        auto r = cv::Mat(Rz * Ry * Rx);
         buildCameraMatrix(frame.cols / 2, frame.rows / 2, 950.0);
 
         cv::Mat xAxis(3, 1, CV_32F), yAxis(3, 1, CV_32F), zAxis(3, 1, CV_32F), zAxis1(3, 1, CV_32F);
@@ -631,7 +651,8 @@ struct EmotionsDetectionClass : BaseDetection {
             return;
         }
         if (enquedFaces == maxBatch) {
-            slog::warn << "Number of detected faces more than maximum(" << maxBatch << ") processed by Emotions detector" << slog::endl;
+            slog::warn << "Number of detected faces more than maximum(" << maxBatch
+                       << ") processed by Emotions detector" << slog::endl;
             return;
         }
         if (!request) {
@@ -645,7 +666,7 @@ struct EmotionsDetectionClass : BaseDetection {
         enquedFaces++;
     }
 
-    std::string operator[] (int idx) const {
+    std::string operator[](int idx) const {
         /* vector of supported emotions */
         static const std::vector<std::string> emotionsVec = {"neutral", "happy", "sad", "surprise", "anger"};
         auto emotionsVecSize = emotionsVec.size();
@@ -679,7 +700,8 @@ struct EmotionsDetectionClass : BaseDetection {
 
         /** Default batch size is 16 **/
         netReader.getNetwork().setBatchSize(maxBatch);
-        slog::info << "Batch size is set to " << netReader.getNetwork().getBatchSize() << " for Emotions recognition" << slog::endl;
+        slog::info << "Batch size is set to " << netReader.getNetwork().getBatchSize() << " for Emotions recognition"
+                   << slog::endl;
 
 
         /** Extract model name and load it's weights **/
@@ -695,7 +717,7 @@ struct EmotionsDetectionClass : BaseDetection {
         if (inputInfo.size() != 1) {
             throw std::logic_error("Emotions Recognition topology should have only one input");
         }
-        auto& inputInfoFirst = inputInfo.begin()->second;
+        auto &inputInfoFirst = inputInfo.begin()->second;
         inputInfoFirst->setPrecision(Precision::FP32);
         inputInfoFirst->getInputData()->setLayout(Layout::NCHW);
         input = inputInfo.begin()->first;
@@ -716,21 +738,22 @@ struct EmotionsDetectionClass : BaseDetection {
                                    ") should be a SoftMax, but was: " +
                                    emotionsOutput->getCreatorLayer().lock()->type);
         }
-        slog::info << "Emotions layer: " << emotionsOutput->getCreatorLayer().lock()->name<< slog::endl;
+        slog::info << "Emotions layer: " << emotionsOutput->getCreatorLayer().lock()->name << slog::endl;
 
         outputEmotions = emotionsOutput->name;
 
-        slog::info << "Loading Emotions Recognition model to the "<< FLAGS_d_em << " plugin" << slog::endl;
+        slog::info << "Loading Emotions Recognition model to the " << FLAGS_d_em << " plugin" << slog::endl;
         _enabled = true;
         return netReader.getNetwork();
     }
 };
 
 struct Load {
-    BaseDetection& detector;
-    explicit Load(BaseDetection& detector) : detector(detector) { }
+    BaseDetection &detector;
 
-    void into(InferencePlugin & plg) const {
+    explicit Load(BaseDetection &detector) : detector(detector) {}
+
+    void into(InferencePlugin &plg) const {
         if (detector.enabled()) {
             detector.net = plg.LoadNetwork(detector.read(), {});
             detector.plugin = &plg;
@@ -749,17 +772,36 @@ int main(int argc, char *argv[]) {
         }
 
         slog::info << "Reading input" << slog::endl;
+
         cv::VideoCapture cap;
+        // Declare RealSense pipeline, encapsulating the actual device and sensors
+        rs2::pipeline pipe;
+
+        size_t width;
+        size_t height;
+        const bool isRealSense = FLAGS_i == "realSense";
         const bool isCamera = FLAGS_i == "cam";
-        if (!(FLAGS_i == "cam" ? cap.open(0) : cap.open(FLAGS_i))) {
-            throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
+
+        if (isRealSense) {
+            // Start streaming with default recommended configuration
+            pipe.start();
+        } else {
+            if (!(isCamera ? cap.open(0) : cap.open(FLAGS_i))) {
+                throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
+            }
+            width = (size_t) cap.get(CV_CAP_PROP_FRAME_WIDTH);
+            height = (size_t) cap.get(CV_CAP_PROP_FRAME_HEIGHT);
         }
-        const size_t width  = (size_t) cap.get(CV_CAP_PROP_FRAME_WIDTH);
-        const size_t height = (size_t) cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+
 
         // read input (video) frame
         cv::Mat frame;
-        if (!cap.read(frame)) {
+        if (isRealSense) {
+            rs2::frameset data = pipe.wait_for_frames(); // Wait for next set of frames from the camera
+            frame = frame_to_mat(data.get_color_frame());
+            width = (size_t) frame.cols;
+            height = (size_t) frame.rows;
+        } else if (!cap.read(frame)) {
             throw std::logic_error("Failed to get frame from cv::VideoCapture");
         }
         // -----------------------------------------------------------------------------------------------------
@@ -767,8 +809,10 @@ int main(int argc, char *argv[]) {
         // --------------------------- 1. Load Plugin for inference engine -------------------------------------
         std::map<std::string, InferencePlugin> pluginsForDevices;
         std::vector<std::pair<std::string, std::string>> cmdOptions = {
-            {FLAGS_d, FLAGS_m}, {FLAGS_d_ag, FLAGS_m_ag}, {FLAGS_d_hp, FLAGS_m_hp},
-            {FLAGS_d_em, FLAGS_m_em}
+                {FLAGS_d,    FLAGS_m},
+                {FLAGS_d_ag, FLAGS_m_ag},
+                {FLAGS_d_hp, FLAGS_m_hp},
+                {FLAGS_d_em, FLAGS_m_em}
         };
 
         FaceDetectionClass FaceDetection;
@@ -776,7 +820,7 @@ int main(int argc, char *argv[]) {
         HeadPoseDetection HeadPose;
         EmotionsDetectionClass EmotionsDetection;
 
-        for (auto && option : cmdOptions) {
+        for (auto &&option : cmdOptions) {
             auto deviceName = option.first;
             auto networkName = option.second;
 
@@ -804,14 +848,14 @@ int main(int argc, char *argv[]) {
                 }
             } else if (!FLAGS_c.empty()) {
                 // Load Extensions for other plugins not CPU
-                plugin.SetConfig({ { PluginConfigParams::KEY_CONFIG_FILE, FLAGS_c } });
+                plugin.SetConfig({{PluginConfigParams::KEY_CONFIG_FILE, FLAGS_c}});
             }
             pluginsForDevices[deviceName] = plugin;
         }
 
         /** Per layer metrics **/
         if (FLAGS_pc) {
-            for (auto && plugin : pluginsForDevices) {
+            for (auto &&plugin : pluginsForDevices) {
                 plugin.second.SetConfig({{PluginConfigParams::KEY_PERF_COUNT, PluginConfigParams::YES}});
             }
         }
@@ -831,11 +875,21 @@ int main(int argc, char *argv[]) {
 
         double ocv_decode_time = 0, ocv_render_time = 0;
         bool firstFrame = true;
-        /** Start inference & calc performance **/
 
-        while (true) {
-            /** requesting new frame if any*/
-            cap.grab();
+
+        using namespace cv;
+        const auto window_name = "Detection results";
+        namedWindow(window_name, WINDOW_AUTOSIZE);
+
+        /** Start inference & calc performance **/
+        while (waitKey(1) < 0 && cvGetWindowHandle(window_name)) {
+            if (isRealSense) {
+                rs2::frameset data = pipe.wait_for_frames(); // Wait for next set of frames from the camera
+                frame = frame_to_mat(data.get_color_frame());
+            } else {
+                /** requesting new frame if any*/
+                cap.grab();
+            }
 
             auto t0 = std::chrono::high_resolution_clock::now();
             FaceDetection.enqueue(frame);
@@ -852,7 +906,7 @@ int main(int argc, char *argv[]) {
 
             FaceDetection.fetchResults();
 
-            for (auto && face : FaceDetection.results) {
+            for (auto &&face : FaceDetection.results) {
                 if (AgeGender.enabled() || HeadPose.enabled() || EmotionsDetection.enabled()) {
                     auto clippedRect = face.location & cv::Rect(0, 0, width, height);
                     cv::Mat face = frame(clippedRect);
@@ -890,12 +944,12 @@ int main(int argc, char *argv[]) {
 
             if (HeadPose.enabled() || AgeGender.enabled() || EmotionsDetection.enabled()) {
                 out.str("");
-                out << (AgeGender.enabled() ? "Age Gender "  : "")
-                    << (AgeGender.enabled() && (HeadPose.enabled() || EmotionsDetection.enabled()) ? "+ "  : "")
-                    << (HeadPose.enabled() ? "Head Pose "  : "")
+                out << (AgeGender.enabled() ? "Age Gender " : "")
+                    << (AgeGender.enabled() && (HeadPose.enabled() || EmotionsDetection.enabled()) ? "+ " : "")
+                    << (HeadPose.enabled() ? "Head Pose " : "")
                     << (HeadPose.enabled() && EmotionsDetection.enabled() ? "+ " : "")
                     << (EmotionsDetection.enabled() ? "Emotions Recognition " : "")
-                    << "time: "<< std::fixed << std::setprecision(2) << secondDetection.count()
+                    << "time: " << std::fixed << std::setprecision(2) << secondDetection.count()
                     << " ms ";
                 if (!FaceDetection.results.empty()) {
                     out << "(" << 1000.f / secondDetection.count() << " fps)";
@@ -904,7 +958,7 @@ int main(int argc, char *argv[]) {
             }
 
             int i = 0;
-            for (auto & result : FaceDetection.results) {
+            for (auto &result : FaceDetection.results) {
                 cv::Rect rect = result.location;
 
                 out.str("");
@@ -917,7 +971,7 @@ int main(int argc, char *argv[]) {
                     }
                 } else {
                     out << (result.label < FaceDetection.labels.size() ? FaceDetection.labels[result.label] :
-                             std::string("label #") + std::to_string(result.label))
+                            std::string("label #") + std::to_string(result.label))
                         << ": " << std::fixed << std::setprecision(3) << result.confidence;
                 }
 
@@ -943,8 +997,8 @@ int main(int argc, char *argv[]) {
                 }
 
                 auto genderColor = (AgeGender.enabled() && (i < AgeGender.maxBatch)) ?
-                              ((AgeGender[i].maleProb < 0.5) ? cv::Scalar(147, 20, 255) : cv::Scalar(255, 0, 0)) :
-                              cv::Scalar(100, 100, 100);
+                                   ((AgeGender[i].maleProb < 0.5) ? cv::Scalar(147, 20, 255) : cv::Scalar(255, 0, 0)) :
+                                   cv::Scalar(100, 100, 100);
 
                 cv::rectangle(frame, result.location, genderColor, 1);
 
@@ -956,18 +1010,20 @@ int main(int argc, char *argv[]) {
 
             t0 = std::chrono::high_resolution_clock::now();
             if (!FLAGS_no_show) {
-                cv::imshow("Detection results", frame);
+                cv::imshow(window_name, frame);
             }
             t1 = std::chrono::high_resolution_clock::now();
             ocv_render_time = std::chrono::duration_cast<ms>(t1 - t0).count();
 
             // end of file, for single frame file, like image we just keep it displayed to let user check what was shown
-            if (!cap.retrieve(frame)) {
-                if (!FLAGS_no_wait) {
-                    slog::info << "Press any key to exit" << slog::endl;
-                    cv::waitKey(0);
+            if (!isRealSense) {
+                if (!cap.retrieve(frame)) {
+                    if (!FLAGS_no_wait) {
+                        slog::info << "Press any key to exit" << slog::endl;
+                        cv::waitKey(0);
+                    }
+                    break;
                 }
-                break;
             }
 
             if (firstFrame) {
@@ -985,7 +1041,7 @@ int main(int argc, char *argv[]) {
         }
         // -----------------------------------------------------------------------------------------------------
     }
-    catch (const std::exception& error) {
+    catch (const std::exception &error) {
         slog::err << error.what() << slog::endl;
         return 1;
     }
