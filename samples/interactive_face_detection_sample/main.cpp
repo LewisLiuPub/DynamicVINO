@@ -48,7 +48,6 @@
 #include <librealsense2/rs.hpp>
 
 #include "cv_helpers.hpp"
-#include <unistd.h>
 
 using namespace InferenceEngine;
 using namespace rs2;
@@ -894,7 +893,6 @@ int main(int argc, char *argv[]) {
 
         /** Start inference & calc performance **/
         while (waitKey(1) < 0 && cvGetWindowHandle(window_name)) {
-            //sleep(2);
             if (isRealSense) {
                 rs2::frameset data = pipe.wait_for_frames(); // Wait for next set of frames from the camera
                 rs2::frame color_frame = data.get_color_frame();
