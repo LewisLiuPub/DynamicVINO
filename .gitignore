@@ -35,3 +35,4 @@
 /samples/build/
 /.idea
 /samples/cmake-build-debug/
+/samples/Release/

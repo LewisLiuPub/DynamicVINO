@@ -48,6 +48,7 @@
 #include <librealsense2/rs.hpp>
 
 #include "cv_helpers.hpp"
+#include <unistd.h>
 
 using namespace InferenceEngine;
 using namespace rs2;
@@ -776,15 +777,19 @@ int main(int argc, char *argv[]) {
         cv::VideoCapture cap;
         // Declare RealSense pipeline, encapsulating the actual device and sensors
         rs2::pipeline pipe;
+        //Create a configuration for configuring the pipeline with a non default profile
+        rs2::config cfg;
+        //Add desired streams to configuration
+        cfg.enable_stream(RS2_STREAM_COLOR, 640, 480, RS2_FORMAT_BGR8, 30);
 
-        size_t width;
-        size_t height;
+        size_t width = 0;
+        size_t height = 0;
         const bool isRealSense = FLAGS_i == "realSense";
         const bool isCamera = FLAGS_i == "cam";
 
         if (isRealSense) {
             // Start streaming with default recommended configuration
-            pipe.start();
+            pipe.start(cfg);
         } else {
             if (!(isCamera ? cap.open(0) : cap.open(FLAGS_i))) {
                 throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
@@ -797,10 +802,16 @@ int main(int argc, char *argv[]) {
         // read input (video) frame
         cv::Mat frame;
         if (isRealSense) {
-            rs2::frameset data = pipe.wait_for_frames(); // Wait for next set of frames from the camera
-            frame = frame_to_mat(data.get_color_frame());
-            width = (size_t) frame.cols;
-            height = (size_t) frame.rows;
+            // Camera warmup - dropping several first frames to let auto-exposure stabilize
+            rs2::frameset frames;
+            for(int i = 0; i < 30; i++)
+            {
+                //Wait for all configured streams to produce a frame
+                frames = pipe.wait_for_frames();
+            }
+
+            width = 640;
+            height = 480;
         } else if (!cap.read(frame)) {
             throw std::logic_error("Failed to get frame from cv::VideoCapture");
         }
@@ -883,9 +894,11 @@ int main(int argc, char *argv[]) {
 
         /** Start inference & calc performance **/
         while (waitKey(1) < 0 && cvGetWindowHandle(window_name)) {
+            //sleep(2);
             if (isRealSense) {
                 rs2::frameset data = pipe.wait_for_frames(); // Wait for next set of frames from the camera
-                frame = frame_to_mat(data.get_color_frame());
+                rs2::frame color_frame = data.get_color_frame();
+                frame = Mat(Size(640, 480), CV_8UC3, (void*)color_frame.get_data(), Mat::AUTO_STEP);
             } else {
                 /** requesting new frame if any*/
                 cap.grab();

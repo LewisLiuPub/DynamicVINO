@@ -36,6 +36,7 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "")
     message(STATUS "CMAKE_BUILD_TYPE not defined, 'Release' will be used")
     set(CMAKE_BUILD_TYPE "Release")
 endif()
+#set(CMAKE_BUILD_TYPE "Release")
 
 if (NOT(BIN_FOLDER))
     if("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
