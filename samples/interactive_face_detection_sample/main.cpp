@@ -41,13 +41,13 @@
 #include "interactive_face_detection.hpp"
 #include "mkldnn/mkldnn_extension_ptr.hpp"
 #include "cv_helpers.hpp"
+
 #include <ext_list.hpp>
 
 #include <opencv2/opencv.hpp>
 
 #include <librealsense2/rs.hpp>
 
-#include "cv_helpers.hpp"
 
 using namespace InferenceEngine;
 using namespace rs2;
