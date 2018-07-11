@@ -7,11 +7,24 @@
 
 #include <opencv2/opencv.hpp>
 #include <librealsense2/rs.hpp>
-
+/**
+* @class BaseInputDevice
+* @brief This class is an interface for three kinds of input devices: realsense camera, standard camera and video
+*/
 class BaseInputDevice {
 public:
+    /**
+    * @brief initialize the input device, for cameras, it will turn the camera on and get ready to read frames,
+     * for videos, it will open a video file
+    * @return whether the input device is successfully turned on
+    */
     virtual bool initialize() = 0;
+    /**
+    * @brief read next frame, and give the value to argument frame
+    * @return whether the next frame is successfully read
+    */
     virtual bool read(cv::Mat *frame) = 0;
+    //TODO
     virtual void config() = 0;
     virtual ~BaseInputDevice() = default;
     inline size_t getWidth() { return width_; }

@@ -5,7 +5,6 @@
 
 #include "factory.h"
 
-
 std::unique_ptr<BaseInputDevice> Factory::makeInputDevice(const std::string &FLAGS_i) {
     if (FLAGS_i == "RealSenseCamera") {
         return std::unique_ptr<RealSenseCamera>(new RealSenseCamera());
