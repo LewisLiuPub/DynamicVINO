@@ -3,7 +3,7 @@
 (Ubuntu instructions..)
 
 This tutorial demonstrate an end to end video analytics example.
-The code includes few pipe stages.  
+The code includes few pipe_ stages.
 	1. Decode				..OpenCV decode h.264 video input
 	2. Pre-processin		..OpenCV resize the image, format convert and prepare for inference
 	3. Inference			..inference using the inference engine (SSD)

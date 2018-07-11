@@ -120,10 +120,12 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 set(GFLAGS_IS_SUBPROJECT TRUE)
 add_subdirectory(thirdparty/gflags)
 add_subdirectory(common/format_reader)
+add_subdirectory(common/new_functions)
 
 # Properties->C/C++->General->Additional Include Directories
 include_directories (
     ${CMAKE_CURRENT_SOURCE_DIR}/common/format_reader
+    ${CMAKE_CURRENT_SOURCE_DIR}/common/new_functions
     ${InferenceEngine_INCLUDE_DIRS}
     ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/gflags/include
     ${CMAKE_CURRENT_SOURCE_DIR}/common

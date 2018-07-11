@@ -277,7 +277,7 @@ struct PersonAttribsDetection : BaseDetection {
 
         auto outputValues = attribsBlob->buffer().as<float*>();
 
-        std::string returnStr = (outputValues[0] > 0.5) ? "M" : "F";
+        std::string returnStr = (outputValues[0] > 0.5) ? "M" : "Factory";
 
         for (int i = 1; i < attributesVec.size(); i++) {
             returnStr += (outputValues[i] > 0.5) ? ", " + attributesVec[i] : "";
