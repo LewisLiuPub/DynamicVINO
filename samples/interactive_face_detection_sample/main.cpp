@@ -37,17 +37,16 @@
 
 #include <samples/common.hpp>
 #include <samples/slog.hpp>
+#include <new_functions/factory.h>
 
 #include "interactive_face_detection.hpp"
 #include "mkldnn/mkldnn_extension_ptr.hpp"
-#include "cv_helpers.hpp"
+
 #include <ext_list.hpp>
 
 #include <opencv2/opencv.hpp>
 
 #include <librealsense2/rs.hpp>
-
-#include "cv_helpers.hpp"
 
 using namespace InferenceEngine;
 using namespace rs2;
@@ -773,45 +772,12 @@ int main(int argc, char *argv[]) {
 
         slog::info << "Reading input" << slog::endl;
 
-        cv::VideoCapture cap;
-        // Declare RealSense pipeline, encapsulating the actual device and sensors
-        rs2::pipeline pipe;
-        //Create a configuration for configuring the pipeline with a non default profile
-        rs2::config cfg;
-        //Add desired streams to configuration
-        cfg.enable_stream(RS2_STREAM_COLOR, 640, 480, RS2_FORMAT_BGR8, 30);
-
-        size_t width = 0;
-        size_t height = 0;
-        const bool isRealSense = FLAGS_i == "realSense";
-        const bool isCamera = FLAGS_i == "cam";
-
-        if (isRealSense) {
-            // Start streaming with default recommended configuration
-            pipe.start(cfg);
-        } else {
-            if (!(isCamera ? cap.open(0) : cap.open(FLAGS_i))) {
-                throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
-            }
-            width = (size_t) cap.get(CV_CAP_PROP_FRAME_WIDTH);
-            height = (size_t) cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+        std::unique_ptr<BaseInputDevice> input_device(Factory::makeInputDevice(FLAGS_i));
+        if (!input_device->initialize()) {
+            throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
         }
-
-
-        // read input (video) frame
         cv::Mat frame;
-        if (isRealSense) {
-            // Camera warmup - dropping several first frames to let auto-exposure stabilize
-            rs2::frameset frames;
-            for(int i = 0; i < 30; i++)
-            {
-                //Wait for all configured streams to produce a frame
-                frames = pipe.wait_for_frames();
-            }
-
-            width = 640;
-            height = 480;
-        } else if (!cap.read(frame)) {
+        if (!input_device->read(&frame)) {
             throw std::logic_error("Failed to get frame from cv::VideoCapture");
         }
         // -----------------------------------------------------------------------------------------------------
@@ -893,15 +859,14 @@ int main(int argc, char *argv[]) {
 
         /** Start inference & calc performance **/
         while (waitKey(1) < 0 && cvGetWindowHandle(window_name)) {
-            if (isRealSense) {
-                rs2::frameset data = pipe.wait_for_frames(); // Wait for next set of frames from the camera
-                rs2::frame color_frame = data.get_color_frame();
-                frame = Mat(Size(640, 480), CV_8UC3, (void*)color_frame.get_data(), Mat::AUTO_STEP);
-            } else {
-                /** requesting new frame if any*/
-                cap.grab();
+            if (!input_device->read(&frame)) {
+                // if end of file, for single frame file, like image we just keep it displayed to let user check what was shown
+                if (!FLAGS_no_wait) {
+                    slog::info << "Press any key to exit" << slog::endl;
+                    cv::waitKey(0);
+                }
+                break;
             }
-
             auto t0 = std::chrono::high_resolution_clock::now();
             FaceDetection.enqueue(frame);
             auto t1 = std::chrono::high_resolution_clock::now();
@@ -919,7 +884,7 @@ int main(int argc, char *argv[]) {
 
             for (auto &&face : FaceDetection.results) {
                 if (AgeGender.enabled() || HeadPose.enabled() || EmotionsDetection.enabled()) {
-                    auto clippedRect = face.location & cv::Rect(0, 0, width, height);
+                    auto clippedRect = face.location & cv::Rect(0, 0, (int) input_device->getWidth(), (int) input_device->getHeight());
                     cv::Mat face = frame(clippedRect);
                     AgeGender.enqueue(face);
                     HeadPose.enqueue(face);
@@ -975,7 +940,7 @@ int main(int argc, char *argv[]) {
                 out.str("");
 
                 if (AgeGender.enabled() && i < AgeGender.maxBatch) {
-                    out << (AgeGender[i].maleProb > 0.5 ? "M" : "F");
+                    out << (AgeGender[i].maleProb > 0.5 ? "M" : "Factory");
                     out << std::fixed << std::setprecision(0) << "," << AgeGender[i].age;
                     if (FLAGS_r) {
                         std::cout << "Predicted gender, age = " << out.str() << std::endl;
@@ -1025,17 +990,6 @@ int main(int argc, char *argv[]) {
             }
             t1 = std::chrono::high_resolution_clock::now();
             ocv_render_time = std::chrono::duration_cast<ms>(t1 - t0).count();
-
-            // end of file, for single frame file, like image we just keep it displayed to let user check what was shown
-            if (!isRealSense) {
-                if (!cap.retrieve(frame)) {
-                    if (!FLAGS_no_wait) {
-                        slog::info << "Press any key to exit" << slog::endl;
-                        cv::waitKey(0);
-                    }
-                    break;
-                }
-            }
 
             if (firstFrame) {
                 slog::info << "Press any key to stop" << slog::endl;
