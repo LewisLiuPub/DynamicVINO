@@ -774,7 +774,7 @@ int main(int argc, char *argv[]) {
         slog::info << "Reading input" << slog::endl;
 
         std::unique_ptr<BaseInputDevice> input_device(Factory::makeInputDevice(FLAGS_i));
-        if (!input_device->initialize()) {
+        if (!input_device->initialize(640,480)) {
             throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
         }
         cv::Mat frame;
