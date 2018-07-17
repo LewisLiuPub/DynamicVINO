@@ -14,7 +14,7 @@
 
 cmake_minimum_required(VERSION 2.8)
 
-set (TARGET_NAME "new_functions")
+set (TARGET_NAME "input_device")
 
 file (GLOB MAIN_SRC
         ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
@@ -45,7 +45,7 @@ include_directories (
 
 # Create library file from sources.
 add_library(${TARGET_NAME} SHARED ${MAIN_SRC} ${LIBRARY_HEADERS})
-target_link_libraries(${TARGET_NAME} ${OpenCV_LIBRARIES} realsense2)
+target_link_libraries(${TARGET_NAME} ${OpenCV_LIBRARIES} realsense2 ${InferenceEngine_LIBRARIES})
 
 set_target_properties(${TARGET_NAME} PROPERTIES "CMAKE_CXX_FLAGS" "${CMAKE_CXX_FLAGS} -fPIE"
         COMPILE_PDB_NAME ${TARGET_NAME})
