@@ -9,10 +9,6 @@ bool RealSenseCamera::initialize() {
     setIsInit(pipe_.start(cfg_));
     setWidth(640);
     setHeight(480);
-    return bool(getIsInit());
-}
-
-bool RealSenseCamera::read(cv::Mat *frame) {
     if (!getIsInit()) { return false; }
     if (first_read_) {
         rs2::frameset frames;
@@ -27,6 +23,11 @@ bool RealSenseCamera::read(cv::Mat *frame) {
         }
         first_read_ = false;
     }
+    return true;
+}
+
+bool RealSenseCamera::read(cv::Mat *frame) {
+    if (!getIsInit()) { return false; }
     rs2::frameset data = pipe_.wait_for_frames(); // Wait for next set of frames from the camera
     rs2::frame color_frame;
     try {
@@ -42,11 +43,21 @@ void RealSenseCamera::config() {
     //TODO
 }
 
-
 bool StandardCamera::initialize() {
     setIsInit(cap.open(0));
     setWidth((size_t)cap.get(CV_CAP_PROP_FRAME_WIDTH));
     setHeight((size_t)cap.get(CV_CAP_PROP_FRAME_HEIGHT));
+    return getIsInit();
+}
+
+bool StandardCamera::initialize(size_t width, size_t height) {
+    setWidth(width);
+    setHeight(height);
+    setIsInit(cap.open(0));
+    if (getIsInit()) {
+        cap.set(CV_CAP_PROP_FRAME_WIDTH, width);
+        cap.set(CV_CAP_PROP_FRAME_HEIGHT, height);
+    }
     return getIsInit();
 }
 

@@ -371,7 +371,7 @@ struct LPRDetection : BaseDetection {
                 "<Shandong>", "<Shanghai>", "<Shanxi>", "<Sichuan>",
                 "<Tianjin>", "<Tibet>", "<Xinjiang>", "<Yunnan>",
                 "<Zhejiang>", "<police>",
-                "A", "B", "C", "D", "E", "Factory", "G", "H", "I", "J",
+                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
                 "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
                 "U", "V", "W", "X", "Y", "Z"
         };

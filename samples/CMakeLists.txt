@@ -120,12 +120,12 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 set(GFLAGS_IS_SUBPROJECT TRUE)
 add_subdirectory(thirdparty/gflags)
 add_subdirectory(common/format_reader)
-add_subdirectory(common/new_functions)
 
 # Properties->C/C++->General->Additional Include Directories
 include_directories (
     ${CMAKE_CURRENT_SOURCE_DIR}/common/format_reader
-    ${CMAKE_CURRENT_SOURCE_DIR}/common/new_functions
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/input_devices
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/detection_class
     ${InferenceEngine_INCLUDE_DIRS}
     ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/gflags/include
     ${CMAKE_CURRENT_SOURCE_DIR}/common
@@ -137,6 +137,8 @@ endif()
 
 set(DEPENDENCIES realsense2 ${OpenCV_LIBS})
 
+add_subdirectory(common/input_devices)
+add_subdirectory(common/detection_class)
 add_subdirectory(object_detection_sample)
 add_subdirectory(interactive_face_detection_sample)
 add_subdirectory(security_barrier_camera_sample)

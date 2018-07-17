@@ -310,7 +310,7 @@ extern GFLAGS_DLL_DECL bool ReadFromFlagsFile(const std::string& filename, const
 // return defval.  If 'varname' does exist but is not valid
 // (e.g., not a number for an int32 flag), abort with an error.
 // Otherwise, return the value.  NOTE: for booleans, for true use
-// 't' or 'T' or 'true' or '1', for false 'f' or 'Factory' or 'false' or '0'.
+// 't' or 'T' or 'true' or '1', for false 'f' or 'F' or 'false' or '0'.
 
 extern GFLAGS_DLL_DECL bool BoolFromEnv(const char *varname, bool defval);
 extern GFLAGS_DLL_DECL int32 Int32FromEnv(const char *varname, int32 defval);

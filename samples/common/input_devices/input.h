@@ -53,6 +53,7 @@ private:
 class StandardCamera : public BaseInputDevice {
 public:
     bool initialize() override;
+    bool initialize(size_t width, size_t height);
     bool read(cv::Mat *frame) override;
     void config() override;
 
