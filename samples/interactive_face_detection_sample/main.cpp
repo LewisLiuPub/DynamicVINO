@@ -872,23 +872,23 @@ int main(int argc, char *argv[]) {
             }
             auto t0 = std::chrono::high_resolution_clock::now();
             //FaceDetection.enqueue(frame);
-            face_detection.Enqueue(frame);
+            face_detection.enqueue(frame);
             auto t1 = std::chrono::high_resolution_clock::now();
             ocv_decode_time = std::chrono::duration_cast<ms>(t1 - t0).count();
 
             t0 = std::chrono::high_resolution_clock::now();
             // ----------------------------Run face detection inference-----------------------------------------
             //FaceDetection.submitRequest();
-            face_detection.SubmitRequest();
+            face_detection.submitRequest();
             //FaceDetection.wait();
-            face_detection.Wait();
+            face_detection.wait();
             t1 = std::chrono::high_resolution_clock::now();
             ms detection = std::chrono::duration_cast<ms>(t1 - t0);
 
             //FaceDetection.fetchResults();
             face_detection.fetchResults();
 
-            for (auto &&face : face_detection.GetResults()) {
+            for (auto &&face : face_detection.getResults()) {
                 if (AgeGender.enabled() || HeadPose.enabled() || EmotionsDetection.enabled()) {
                     auto clippedRect = face.location & cv::Rect(0, 0, (int) input_device->getWidth(), (int) input_device->getHeight());
                     cv::Mat face_mat = frame(clippedRect);
@@ -933,14 +933,14 @@ int main(int argc, char *argv[]) {
                     << (EmotionsDetection.enabled() ? "Emotions Recognition " : "")
                     << "time: " << std::fixed << std::setprecision(2) << secondDetection.count()
                     << " ms ";
-                if (!face_detection.GetResults().empty()) {
+                if (!face_detection.getResults().empty()) {
                     out << "(" << 1000.f / secondDetection.count() << " fps)";
                 }
                 cv::putText(frame, out.str(), cv::Point2f(0, 65), cv::FONT_HERSHEY_TRIPLEX, 0.5, cv::Scalar(255, 0, 0));
             }
 
             int i = 0;
-            for (auto &result : face_detection.GetResults()) {
+            for (auto &result : face_detection.getResults()) {
                 cv::Rect rect = result.location;
 
                 out.str("");
@@ -952,7 +952,7 @@ int main(int argc, char *argv[]) {
                         std::cout << "Predicted gender, age = " << out.str() << std::endl;
                     }
                 } else {
-                    out << (result.label < face_detection.GetLabels().size() ? face_detection.GetLabels()[result.label] :
+                    out << (result.label < face_detection.getLabels().size() ? face_detection.getLabels()[result.label] :
                             std::string("label #") + std::to_string(result.label))
                         << ": " << std::fixed << std::setprecision(3) << result.confidence;
                 }
@@ -1006,7 +1006,7 @@ int main(int argc, char *argv[]) {
 
         /** Show performace results **/
         if (FLAGS_pc) {
-            face_detection.PrintPerformanceCounts();
+            face_detection.printPerformanceCounts();
             AgeGender.printPerformanceCounts();
             HeadPose.printPerformanceCounts();
         }

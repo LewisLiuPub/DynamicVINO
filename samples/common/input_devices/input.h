@@ -5,10 +5,10 @@
 #ifndef SAMPLES_BASEINPUTDEVICE_H
 #define SAMPLES_BASEINPUTDEVICE_H
 
-#include <samples/slog.hpp>
 #include <opencv2/opencv.hpp>
 #include <librealsense2/rs.hpp>
 
+#include <samples/slog.hpp>
 /**
 * @class BaseInputDevice
 * @brief This class is an interface for three kinds of input devices: realsense camera, standard camera and video

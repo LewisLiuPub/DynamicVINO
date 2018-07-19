@@ -40,49 +40,49 @@ Detection::Detection(const std::string &model_loc, const std::string &device, in
 CNNNetwork Detection::Read() {
     try {
         CNNNetReader net_reader;
-        NetworkInit(&net_reader);
-        InitAndCheckInput(&net_reader);
-        InitAndCheckOutput(&net_reader);
+        networkInit(&net_reader);
+        initAndCheckInput(&net_reader);
+        initAndCheckOutput(&net_reader);
         return net_reader.getNetwork();
     }
     catch (...) {
         throw std::runtime_error("read CNNNetwork error!");
     }
 }
-bool Detection::Enabled() const {
+bool Detection::enabled() const {
     if (!enablingChecked_) {
         enable_ = !model_loc_.empty() && !device_.empty();
         if (!enable_) {
-            slog::info << GetName() << " DISABLED" << slog::endl;
+            slog::info << getName() << " DISABLED" << slog::endl;
         }
         enablingChecked_ = true;
     }
     return enable_;
 }
 
-void Detection::Wait() {
-    if (!Enabled() || !request_) return;
+void Detection::wait() {
+    if (!enabled() || !request_) return;
     request_->Wait(IInferRequest::WaitMode::RESULT_READY);
 }
 
-void Detection::SubmitRequest() {
-    if (!Enabled() || request_ == nullptr) return;
+void Detection::submitRequest() {
+    if (!enabled() || request_ == nullptr) return;
     request_->StartAsync();
 }
 
 void Detection::load(InferenceEngine::InferencePlugin &plg) {
-    if (Enabled()) {
+    if (enabled()) {
         network_ = plg.LoadNetwork(Read(), {});
         plugin_ = &plg;
     }
 }
 
-void Detection::PrintPerformanceCounts() {
-    if (!Enabled()) {
+void Detection::printPerformanceCounts() {
+    if (!enabled()) {
         return;
     }
-    slog::info << "Performance counts for " << GetName() << slog::endl << slog::endl;
-    ::printPerformanceCounts(GetRequest()->GetPerformanceCounts(), std::cout, false);
+    slog::info << "Performance counts for " << getName() << slog::endl << slog::endl;
+    ::printPerformanceCounts(getRequest()->GetPerformanceCounts(), std::cout, false);
 }
 
 //FaceDetection
@@ -90,45 +90,45 @@ void Detection::PrintPerformanceCounts() {
 FaceDetection::FaceDetection(const std::string &model_loc,
                              const std::string &device, double show_output_thresh) : Detection(model_loc, device, 1), show_output_thresh_(show_output_thresh){};
 
-void FaceDetection::Enqueue(const cv::Mat &frame) {
-    if (!Enabled()) { return; }
-    if (!GetRequest()) {
-        SetRequest(GetNetwork().CreateInferRequestPtr());
+void FaceDetection::enqueue(const cv::Mat &frame) {
+    if (!enabled()) { return; }
+    if (!getRequest()) {
+        setRequest(getNetwork().CreateInferRequestPtr());
     }
     width_ = frame.cols;
     height_ = frame.rows;
-    Blob::Ptr input_blob = GetRequest()->GetBlob(input_);
+    Blob::Ptr input_blob = getRequest()->GetBlob(input_);
     matU8ToBlob<uint8_t>(frame, input_blob);
     enqueued_frames = 1;
 }
 
-void FaceDetection::SubmitRequest() {
+void FaceDetection::submitRequest() {
     if (!enqueued_frames) return;
     enqueued_frames = 0;
     results_fetched_ = false;
     results_.clear();
-    Detection::SubmitRequest();
+    Detection::submitRequest();
 };
 
-void FaceDetection::NetworkInit(CNNNetReader *net_reader) {
+void FaceDetection::networkInit(CNNNetReader *net_reader) {
     slog::info << "Loading network files for Face Detection" << slog::endl;
     //Read network model
-    net_reader->ReadNetwork(GetModelLoc());
+    net_reader->ReadNetwork(getModelLoc());
     //Set batch size to 1
-    slog::info << "Batch size is set to  " << GetMaxBatchSize() << slog::endl;
-    net_reader->getNetwork().setBatchSize(GetMaxBatchSize());
+    slog::info << "Batch size is set to  " << getMaxBatchSize() << slog::endl;
+    net_reader->getNetwork().setBatchSize(getMaxBatchSize());
     //Extract model name and load it's weights
-    std::string bin_file_name = fileNameNoExt(GetModelLoc()) + ".bin";
+    std::string bin_file_name = fileNameNoExt(getModelLoc()) + ".bin";
     net_reader->ReadWeights(bin_file_name);
     //Read labels (if any)
-    std::string label_file_name = fileNameNoExt(GetModelLoc()) + ".labels";
+    std::string label_file_name = fileNameNoExt(getModelLoc()) + ".labels";
     std::ifstream inputFile(label_file_name);
     std::copy(std::istream_iterator<std::string>(inputFile),
               std::istream_iterator<std::string>(),
-              std::back_inserter(GetLabels()));
+              std::back_inserter(getLabels()));
 }
 
-void FaceDetection::InitAndCheckInput(CNNNetReader *net_reader) {
+void FaceDetection::initAndCheckInput(CNNNetReader *net_reader) {
     slog::info << "Checking Face Detection inputs" << slog::endl;
     InputsDataMap input_info(net_reader->getNetwork().getInputsInfo());
     if (input_info.size() != 1) {
@@ -140,7 +140,7 @@ void FaceDetection::InitAndCheckInput(CNNNetReader *net_reader) {
     input_ = input_info.begin()->first;
 }
 
-void FaceDetection::InitAndCheckOutput(CNNNetReader *net_reader) {
+void FaceDetection::initAndCheckOutput(CNNNetReader *net_reader) {
     slog::info << "Checking Face Detection outputs" << slog::endl;
     OutputsDataMap output_info(net_reader->getNetwork().getOutputsInfo());
     if (output_info.size() != 1) {
@@ -158,11 +158,11 @@ void FaceDetection::InitAndCheckOutput(CNNNetReader *net_reader) {
                                output_ + ") should have num_classes integer attribute");
     }
     const int num_classes = output_layer->GetParamAsInt("num_classes");
-    if (GetLabels().size() != num_classes) {
-        if (GetLabels().size() == (num_classes - 1))  // if network assumes default "background" class, having no label
-            GetLabels().insert(GetLabels().begin(), "fake");
+    if (getLabels().size() != num_classes) {
+        if (getLabels().size() == (num_classes - 1))  // if network assumes default "background" class, having no label
+            getLabels().insert(getLabels().begin(), "fake");
         else
-            GetLabels().clear();
+            getLabels().clear();
     }
     const SizeVector output_dims = output_data_ptr->getTensorDesc().getDims();
     max_proposal_count_ = output_dims[2];
@@ -176,15 +176,15 @@ void FaceDetection::InitAndCheckOutput(CNNNetReader *net_reader) {
     }
     output_data_ptr->setPrecision(Precision::FP32);
     output_data_ptr->setLayout(Layout::NCHW);
-    slog::info << "Loading Face Detection model to the " << GetDevice() << " plugin" << slog::endl;
+    slog::info << "Loading Face Detection model to the " << getDevice() << " plugin" << slog::endl;
 }
 
 void FaceDetection::fetchResults() {
-    if (!Enabled()) return;
+    if (!enabled()) return;
     results_.clear();
     if (results_fetched_) return;
     results_fetched_ = true;
-    const float *detections = GetRequest()->GetBlob(output_)->buffer().as<float *>();
+    const float *detections = getRequest()->GetBlob(output_)->buffer().as<float *>();
 
     for (int i = 0; i < max_proposal_count_; i++) {
         float image_id = detections[i * object_size_ + 0];
@@ -202,7 +202,7 @@ void FaceDetection::fetchResults() {
         if (image_id < 0) {
             break;
         }
-        if (GetRawOutput()) {
+        if (getRawOutput()) {
             std::cout << "[" << i << "," << r.label << "] element, prob = " << r.confidence <<
                       "    (" << r.location.x << "," << r.location.y << ")-(" << r.location.width << ","
                       << r.location.height << ")"
