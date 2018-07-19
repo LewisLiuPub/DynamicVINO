@@ -27,59 +27,59 @@ namespace DetectionClass {
          */
         InferenceEngine::CNNNetwork Read();
 
-        virtual void SubmitRequest();
+        virtual void submitRequest();
 
-        virtual void Wait();
+        virtual void wait();
 
-        bool Enabled() const;
+        bool enabled() const;
 
         void load(InferenceEngine::InferencePlugin &plg);
 
-        inline std::vector<std::string> &GetLabels() { return labels_; }
+        inline std::vector<std::string> &getLabels() { return labels_; }
 
-        void PrintPerformanceCounts();
+        void printPerformanceCounts();
 
         virtual void fetchResults() = 0;
 
     protected:
         //setter
-        inline void SetMaxBatchSize(int max_batch_size) { max_batch_size_ = max_batch_size; }
+        inline void setMaxBatchSize(int max_batch_size) { max_batch_size_ = max_batch_size; }
 
-        inline void SetModelLoc(const std::string &model_loc) { model_loc_ = model_loc; }
+        inline void setModelLoc(const std::string &model_loc) { model_loc_ = model_loc; }
 
-        inline void SetLabels(const std::vector<std::string> &labels) { labels_ = labels; }
+        inline void setLabels(const std::vector<std::string> &labels) { labels_ = labels; }
 
-        inline void SetDevice(const std::string &device) { device_ = device; };
+        inline void setDevice(const std::string &device) { device_ = device; };
 
-        inline void SetRequest(const InferenceEngine::InferRequest::Ptr &request) { request_ = request; };
+        inline void setRequest(const InferenceEngine::InferRequest::Ptr &request) { request_ = request; };
 
-        inline void SetNetwork(InferenceEngine::ExecutableNetwork &network) { network_ = network; }
+        inline void setNetwork(InferenceEngine::ExecutableNetwork &network) { network_ = network; }
 
-        inline void SetRawOutput(bool raw_output) { raw_output_ = raw_output; }
+        inline void setRawOutput(bool raw_output) { raw_output_ = raw_output; }
 
         //getter
-        inline const int GetMaxBatchSize() const { return max_batch_size_; }
+        inline const int getMaxBatchSize() const { return max_batch_size_; }
 
-        inline const std::string &GetModelLoc() const { return model_loc_; }
+        inline const std::string &getModelLoc() const { return model_loc_; }
 
-        inline const std::string &GetDevice() const { return device_; }
+        inline const std::string &getDevice() const { return device_; }
 
-        inline InferenceEngine::InferRequest::Ptr &GetRequest() { return request_; }
+        inline InferenceEngine::InferRequest::Ptr &getRequest() { return request_; }
 
-        inline InferenceEngine::ExecutableNetwork &GetNetwork() { return network_; }
+        inline InferenceEngine::ExecutableNetwork &getNetwork() { return network_; }
 
-        inline bool GetRawOutput() { return raw_output_; }
+        inline bool getRawOutput() { return raw_output_; }
 
-        inline bool const GetEnable() const { return enable_; }
+        inline bool const getEnable() const { return enable_; }
 
-        virtual const std::string GetName() const = 0;
+        virtual const std::string getName() const = 0;
 
         //exclusive for Read()
-        virtual void NetworkInit(InferenceEngine::CNNNetReader *netReader) = 0;
+        virtual void networkInit(InferenceEngine::CNNNetReader *netReader) = 0;
 
-        virtual void InitAndCheckInput(InferenceEngine::CNNNetReader *netReader) = 0;
+        virtual void initAndCheckInput(InferenceEngine::CNNNetReader *netReader) = 0;
 
-        virtual void InitAndCheckOutput(InferenceEngine::CNNNetReader *net_reader) = 0;
+        virtual void initAndCheckOutput(InferenceEngine::CNNNetReader *net_reader) = 0;
 
     private:
         mutable bool enablingChecked_ = false;
@@ -108,22 +108,22 @@ namespace DetectionClass {
          * @brief This function will add the content of frame into input blob of the network
          * @param frame
          */
-        void Enqueue(const cv::Mat &frame);
+        void enqueue(const cv::Mat &frame);
 
-        void SubmitRequest() override;
+        void submitRequest() override;
 
         void fetchResults() override ;
 
-        inline const std::vector<Result> &GetResults() const { return results_; }
+        inline const std::vector<Result> &getResults() const { return results_; }
 
     protected:
-        void NetworkInit(InferenceEngine::CNNNetReader *net_reader) override;
+        void networkInit(InferenceEngine::CNNNetReader *net_reader) override;
 
-        void InitAndCheckInput(InferenceEngine::CNNNetReader *net_reader) override;
+        void initAndCheckInput(InferenceEngine::CNNNetReader *net_reader) override;
 
-        void InitAndCheckOutput(InferenceEngine::CNNNetReader *net_reader) override;
+        void initAndCheckOutput(InferenceEngine::CNNNetReader *net_reader) override;
 
-        const std::string GetName() const override { return "Face Detection"; };
+        const std::string getName() const override { return "Face Detection"; };
     private:
         std::vector<Result> results_;
         std::string input_;

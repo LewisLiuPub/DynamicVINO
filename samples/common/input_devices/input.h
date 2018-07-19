@@ -7,6 +7,8 @@
 
 #include <opencv2/opencv.hpp>
 #include <librealsense2/rs.hpp>
+
+#include <samples/slog.hpp>
 /**
 * @class BaseInputDevice
 * @brief This class is an interface for three kinds of input devices: realsense camera, standard camera and video
@@ -19,13 +21,14 @@ public:
     * @return whether the input device is successfully turned on
     */
     virtual bool initialize() = 0;
+
+    virtual bool initialize(size_t width, size_t height) = 0;
     /**
     * @brief read next frame, and give the value to argument frame
     * @return whether the next frame is successfully read
     */
     virtual bool read(cv::Mat *frame) = 0;
-    //TODO
-    virtual void config() = 0;
+    virtual void config() = 0; //< TODO
     virtual ~BaseInputDevice() = default;
     inline size_t getWidth() { return width_; }
     inline void setWidth(size_t width) { width_ = width; }
@@ -42,6 +45,7 @@ private:
 class RealSenseCamera : public BaseInputDevice {
 public:
     bool initialize() override;
+    bool initialize(size_t width, size_t height) override;
     bool read(cv::Mat *frame) override;
     void config() override;
 private:
@@ -53,7 +57,7 @@ private:
 class StandardCamera : public BaseInputDevice {
 public:
     bool initialize() override;
-    bool initialize(size_t width, size_t height);
+    bool initialize(size_t width, size_t height) override ;
     bool read(cv::Mat *frame) override;
     void config() override;
 
@@ -64,8 +68,9 @@ private:
 
 class Video: public BaseInputDevice {
 public:
-    Video(const std::string&);
+    explicit Video(const std::string&);
     bool initialize() override;
+    bool initialize(size_t width, size_t height) override ;
     bool read(cv::Mat *frame) override;
     void config() override;
 

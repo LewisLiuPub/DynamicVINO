@@ -126,6 +126,7 @@ include_directories (
     ${CMAKE_CURRENT_SOURCE_DIR}/common/format_reader
         ${CMAKE_CURRENT_SOURCE_DIR}/common/input_devices
         ${CMAKE_CURRENT_SOURCE_DIR}/common/detection_class
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/pipeline
     ${InferenceEngine_INCLUDE_DIRS}
     ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/gflags/include
     ${CMAKE_CURRENT_SOURCE_DIR}/common
@@ -139,6 +140,7 @@ set(DEPENDENCIES realsense2 ${OpenCV_LIBS})
 
 add_subdirectory(common/input_devices)
 add_subdirectory(common/detection_class)
+add_subdirectory(common/pipeline)
 add_subdirectory(object_detection_sample)
 add_subdirectory(interactive_face_detection_sample)
 add_subdirectory(security_barrier_camera_sample)
