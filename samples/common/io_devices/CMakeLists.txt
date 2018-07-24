@@ -45,7 +45,7 @@ include_directories (
 
 # Create library file from sources.
 add_library(${TARGET_NAME} SHARED ${MAIN_SRC} ${LIBRARY_HEADERS})
-target_link_libraries(${TARGET_NAME} ${OpenCV_LIBRARIES} realsense2 ${InferenceEngine_LIBRARIES})
+target_link_libraries(${TARGET_NAME} ${OpenCV_LIBRARIES} realsense2 cpu_extension ${InferenceEngine_LIBRARIES})
 
 set_target_properties(${TARGET_NAME} PROPERTIES "CMAKE_CXX_FLAGS" "${CMAKE_CXX_FLAGS} -fPIE"
         COMPILE_PDB_NAME ${TARGET_NAME})

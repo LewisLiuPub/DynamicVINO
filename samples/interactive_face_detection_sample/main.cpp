@@ -19,6 +19,18 @@
 * \file interactive_face_detection_sample/main.cpp
 * \example interactive_face_detection_sample/main.cpp
 */
+#include "detection.h"
+#include "pipeline.h"
+#include "interactive_face_detection.hpp"
+#include "mkldnn/mkldnn_extension_ptr.hpp"
+#include "inference_engine.hpp"
+#include "samples/common.hpp"
+#include "samples/slog.hpp"
+#include "io_devices/factory.h"
+#include "ext_list.hpp"
+#include "opencv2/opencv.hpp"
+#include "librealsense2/rs.hpp"
+
 #include <gflags/gflags.h>
 #include <functional>
 #include <iostream>
@@ -33,21 +45,6 @@
 #include <iterator>
 #include <map>
 
-#include <inference_engine.hpp>
-
-#include <samples/common.hpp>
-#include <samples/slog.hpp>
-#include <input_devices/factory.h>
-#include "detection.h"
-
-#include "interactive_face_detection.hpp"
-#include "mkldnn/mkldnn_extension_ptr.hpp"
-
-#include <ext_list.hpp>
-
-#include <opencv2/opencv.hpp>
-
-#include <librealsense2/rs.hpp>
 
 using namespace InferenceEngine;
 using namespace rs2;
@@ -773,14 +770,18 @@ int main(int argc, char *argv[]) {
 
         slog::info << "Reading input" << slog::endl;
 
-        std::unique_ptr<BaseInputDevice> input_device(Factory::makeInputDevice(FLAGS_i));
+        std::unique_ptr<BaseInputDevice> input_device = Factory::makeInputDeviceByName(FLAGS_i);
         if (!input_device->initialize(640,480)) {
             throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
         }
+
+        Pipeline pipe;
+        pipe.add("", "video_input", std::move(input_device));
+
         cv::Mat frame;
-        if (!input_device->read(&frame)) {
+        /*if (!input_device->read(&frame)) {
             throw std::logic_error("Failed to get frame from cv::VideoCapture");
-        }
+        }*/
         // -----------------------------------------------------------------------------------------------------
 
         // --------------------------- 1. Load Plugin for inference engine -------------------------------------
@@ -802,13 +803,15 @@ int main(int argc, char *argv[]) {
             auto deviceName = option.first;
             auto networkName = option.second;
 
-            if (deviceName == "" || networkName == "") {
+            if (deviceName.empty() || networkName.empty()) {
                 continue;
             }
 
             if (pluginsForDevices.find(deviceName) != pluginsForDevices.end()) {
                 continue;
             }
+            pluginsForDevices[deviceName] = *Factory::makePluginByName(deviceName,FLAGS_l, FLAGS_c, FLAGS_pc);
+            continue;
             slog::info << "Loading plugin " << deviceName << slog::endl;
             InferencePlugin plugin = PluginDispatcher({"../../../lib/intel64", ""}).getPluginByDevice(deviceName);
 
@@ -832,11 +835,11 @@ int main(int argc, char *argv[]) {
         }
 
         /** Per layer metrics **/
-        if (FLAGS_pc) {
+        /*if (FLAGS_pc) {
             for (auto &&plugin : pluginsForDevices) {
                 plugin.second.SetConfig({{PluginConfigParams::KEY_PERF_COUNT, PluginConfigParams::YES}});
             }
-        }
+        }*/
         // -----------------------------------------------------------------------------------------------------
 
         // --------------------------- 2. Read IR models and load them to plugins ------------------------------
@@ -847,6 +850,10 @@ int main(int argc, char *argv[]) {
         Load(EmotionsDetection).into(pluginsForDevices[FLAGS_d_em]);
         // -----------------------------------------------------------------------------------------------------
 
+        // --------------------------- 3. Test Pipeline ---------------------------------------------------------
+        std::unique_ptr<DetectionClass::Detection> face_detection_ptr(&face_detection);
+        pipe.add("video_input", "face_detection", std::move(face_detection_ptr));
+        pipe.runOnce();
         // --------------------------- 3. Do inference ---------------------------------------------------------
         slog::info << "Start inference " << slog::endl;
         typedef std::chrono::duration<double, std::ratio<1, 1000>> ms;
@@ -888,7 +895,7 @@ int main(int argc, char *argv[]) {
             //FaceDetection.fetchResults();
             face_detection.fetchResults();
 
-            for (auto &&face : face_detection.getResults()) {
+            for (auto &&face : face_detection.getAllDetectionResults()) {
                 if (AgeGender.enabled() || HeadPose.enabled() || EmotionsDetection.enabled()) {
                     auto clippedRect = face.location & cv::Rect(0, 0, (int) input_device->getWidth(), (int) input_device->getHeight());
                     cv::Mat face_mat = frame(clippedRect);
@@ -933,14 +940,14 @@ int main(int argc, char *argv[]) {
                     << (EmotionsDetection.enabled() ? "Emotions Recognition " : "")
                     << "time: " << std::fixed << std::setprecision(2) << secondDetection.count()
                     << " ms ";
-                if (!face_detection.getResults().empty()) {
+                if (!face_detection.getAllDetectionResults().empty()) {
                     out << "(" << 1000.f / secondDetection.count() << " fps)";
                 }
                 cv::putText(frame, out.str(), cv::Point2f(0, 65), cv::FONT_HERSHEY_TRIPLEX, 0.5, cv::Scalar(255, 0, 0));
             }
 
             int i = 0;
-            for (auto &result : face_detection.getResults()) {
+            for (auto &result : face_detection.getAllDetectionResults()) {
                 cv::Rect rect = result.location;
 
                 out.str("");

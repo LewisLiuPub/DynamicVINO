@@ -124,7 +124,7 @@ add_subdirectory(common/format_reader)
 # Properties->C/C++->General->Additional Include Directories
 include_directories (
     ${CMAKE_CURRENT_SOURCE_DIR}/common/format_reader
-        ${CMAKE_CURRENT_SOURCE_DIR}/common/input_devices
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/io_devices
         ${CMAKE_CURRENT_SOURCE_DIR}/common/detection_class
         ${CMAKE_CURRENT_SOURCE_DIR}/common/pipeline
     ${InferenceEngine_INCLUDE_DIRS}
@@ -138,7 +138,7 @@ endif()
 
 set(DEPENDENCIES realsense2 ${OpenCV_LIBS})
 
-add_subdirectory(common/input_devices)
+add_subdirectory(common/io_devices)
 add_subdirectory(common/detection_class)
 add_subdirectory(common/pipeline)
 add_subdirectory(object_detection_sample)

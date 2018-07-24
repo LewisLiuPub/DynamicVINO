@@ -36,8 +36,9 @@ void matU8ToBlob(const cv::Mat &orig_image, Blob::Ptr &blob, float scaleFactor =
 //Detection
 
 Detection::Detection(const std::string &model_loc, const std::string &device, int max_batch_size) : model_loc_(model_loc), device_(device), max_batch_size_(max_batch_size) {}
+Detection::~Detection() = default;
 
-CNNNetwork Detection::Read() {
+CNNNetwork Detection::read() {
     try {
         CNNNetReader net_reader;
         networkInit(&net_reader);
@@ -62,7 +63,7 @@ bool Detection::enabled() const {
 
 void Detection::wait() {
     if (!enabled() || !request_) return;
-    request_->Wait(IInferRequest::WaitMode::RESULT_READY);
+    slog::info<<request_->Wait(IInferRequest::WaitMode::RESULT_READY)<<slog::endl<<InferenceEngine::StatusCode::OK;
 }
 
 void Detection::submitRequest() {
@@ -70,9 +71,14 @@ void Detection::submitRequest() {
     request_->StartAsync();
 }
 
+template <class T>
+void Detection::setCompletionCallback(const T & callbackToSet) {
+    return request_->SetCompletionCallback(callbackToSet);
+}
+
 void Detection::load(InferenceEngine::InferencePlugin &plg) {
     if (enabled()) {
-        network_ = plg.LoadNetwork(Read(), {});
+        network_ = plg.LoadNetwork(read(), {});
         plugin_ = &plg;
     }
 }
@@ -189,7 +195,9 @@ void FaceDetection::fetchResults() {
     for (int i = 0; i < max_proposal_count_; i++) {
         float image_id = detections[i * object_size_ + 0];
         Result r;
-        r.label = static_cast<int>(detections[i * object_size_ + 1]);
+        int label_num = static_cast<int>(detections[i * object_size_ + 1]);
+        r.label = label_num < getLabels().size() ? getLabels()[label_num] :
+                  std::string("label #") + std::to_string(label_num));
         r.confidence = detections[i * object_size_ + 2];
         if (r.confidence <= show_output_thresh_) {
             continue;
