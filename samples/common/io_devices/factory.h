@@ -7,6 +7,14 @@
 
 #include "input.h"
 
+#include <memory>
+
+#include <inference_engine.hpp>
+#include <ext_list.hpp>
+
+#include "mkldnn/mkldnn_extension_ptr.hpp"
+#include "samples/common.hpp"
+
 /**
 * @class Factory
 * @brief This class is a factory class that produces the derived input device class corresponding to the input string
@@ -17,7 +25,9 @@ public:
   * @brief This function produces the derived input device class corresponding to the input string
   * @return the object of derived input device referenced by a smart pointer
   */
-    static std::unique_ptr<BaseInputDevice> makeInputDevice(const std::string &);
+    static std::unique_ptr<BaseInputDevice> makeInputDeviceByName(const std::string &);
+    static std::shared_ptr<InferenceEngine::InferencePlugin> makePluginByName(
+            const std::string &, const std::string &, const std::string &, bool);
 };
 
 #endif //SAMPLES_FACTORY_H

@@ -19,27 +19,42 @@ namespace DetectionClass {
      */
     class Detection {
     public:
+        struct Result {};
 
         Detection(const std::string &model_loc, const std::string &device, int max_batch_size);
+        virtual ~Detection();
         /**
          * @brief Read model into network reader, initialize and config the network' s input and output.
          * @return the configured network object
          */
-        InferenceEngine::CNNNetwork Read();
+        InferenceEngine::CNNNetwork read();
+
+        virtual void enqueue(const cv::Mat &frame) = 0;
 
         virtual void submitRequest();
 
         virtual void wait();
 
+        virtual size_t getResultsLength() = 0;
+
         bool enabled() const;
 
         void load(InferenceEngine::InferencePlugin &plg);
 
-        inline std::vector<std::string> &getLabels() { return labels_; }
+        inline std::vector<std::string> &getLabels() { return labels_; } //TODO can be protected?
 
         void printPerformanceCounts();
 
         virtual void fetchResults() = 0;
+
+        inline InferenceEngine::InferRequest::Ptr &getRequest() { return request_; } //TODO can be protected?
+
+        template<typename T>
+        void setCompletionCallback(const T & callbackToSet);
+
+        virtual inline const Result &getResults(int) const = 0;
+
+        virtual const Result* getResultPtr(int idx) const = 0;
 
     protected:
         //setter
@@ -60,11 +75,9 @@ namespace DetectionClass {
         //getter
         inline const int getMaxBatchSize() const { return max_batch_size_; }
 
-        inline const std::string &getModelLoc() const { return model_loc_; }
+        inline const std::string getModelLoc() const { return model_loc_; }
 
-        inline const std::string &getDevice() const { return device_; }
-
-        inline InferenceEngine::InferRequest::Ptr &getRequest() { return request_; }
+        inline const std::string getDevice() const { return device_; }
 
         inline InferenceEngine::ExecutableNetwork &getNetwork() { return network_; }
 
@@ -96,8 +109,8 @@ namespace DetectionClass {
 
     class FaceDetection : public Detection {
     public:
-        struct Result {
-            int label;
+        struct Result : Detection::Result {
+            std::string label;
             float confidence;
             cv::Rect location;
         };
@@ -108,13 +121,19 @@ namespace DetectionClass {
          * @brief This function will add the content of frame into input blob of the network
          * @param frame
          */
-        void enqueue(const cv::Mat &frame);
+        void enqueue(const cv::Mat &frame) override;
 
         void submitRequest() override;
 
         void fetchResults() override ;
 
-        inline const std::vector<Result> &getResults() const { return results_; }
+        inline size_t getResultsLength() override { return results_.size(); }
+
+        inline const Result* getResultPtr(int idx) const override {
+            return &results_[idx];
+        }
+
+        inline const std::vector<Result> &getAllDetectionResults() const { return results_; }
 
     protected:
         void networkInit(InferenceEngine::CNNNetReader *net_reader) override;
