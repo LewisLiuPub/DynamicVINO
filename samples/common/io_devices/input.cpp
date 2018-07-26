@@ -74,6 +74,12 @@ bool StandardCamera::initialize() {
     setHeight((size_t)cap.get(CV_CAP_PROP_FRAME_HEIGHT));
     return getIsInit();
 }
+bool StandardCamera::initialize(int camera_num) {
+    setIsInit(cap.open(camera_num));
+    setWidth((size_t)cap.get(CV_CAP_PROP_FRAME_WIDTH));
+    setHeight((size_t)cap.get(CV_CAP_PROP_FRAME_HEIGHT));
+    return getIsInit();
+}
 bool StandardCamera::initialize(size_t width, size_t height) {
     setWidth(width);
     setHeight(height);

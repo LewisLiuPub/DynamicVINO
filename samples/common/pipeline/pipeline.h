@@ -37,9 +37,9 @@ private:
     std::multimap<std::string, std::string> next_;
     std::map<std::string, std::shared_ptr<DetectionClass::Detection>> name_to_detection_map_;
     void printPipeline();
-    std::shared_ptr<BaseOutput> output_;
+    std::vector<std::shared_ptr<BaseOutput>> outputs_;
     int total_detection_ = 0;
-    std::string output_name_;
+    std::vector<std::string> output_names_;
 };
 
 

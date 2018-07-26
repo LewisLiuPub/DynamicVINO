@@ -771,10 +771,9 @@ int main(int argc, char *argv[]) {
         slog::info << "Reading input" << slog::endl;
 
         std::unique_ptr<BaseInputDevice> input_device = Factory::makeInputDeviceByName(FLAGS_i);
-        if (!input_device->initialize(640,480)) {
+        if (!input_device->initialize(1)) {
             throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
         }
-
         Pipeline pipe;
         pipe.add("", "video_input", std::move(input_device));
 
@@ -856,6 +855,8 @@ int main(int argc, char *argv[]) {
         std::string window_name = "Detection results";
         std::unique_ptr<BaseOutput> output_ptr(new ImageWindow(window_name));
         pipe.add("face_detection", "video_output", std::move(output_ptr));
+        std::unique_ptr<BaseOutput> output_ptr_2(new ImageWindow(window_name + "2"));
+        pipe.add("face_detection", "video_output_2", std::move(output_ptr_2));
         using namespace cv;
         while (waitKey(1) < 0 && cvGetWindowHandle(window_name.c_str())) {
             pipe.runOnce();

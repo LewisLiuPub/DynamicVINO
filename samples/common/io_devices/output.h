@@ -22,7 +22,7 @@ public:
     }
 
     void prepareData(
-            const DetectionClass::Detection::Result&);
+            const DetectionClass::Detection::Result&) override ;
 
     void feedFrame(const cv::Mat&);
 

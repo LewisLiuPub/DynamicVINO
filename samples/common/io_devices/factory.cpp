@@ -7,12 +7,12 @@ using namespace InferenceEngine;
 
 std::unique_ptr<BaseInputDevice> Factory::makeInputDeviceByName(const std::string &input_device_name) {
     if (input_device_name == "RealSenseCamera") {
-        return std::unique_ptr<RealSenseCamera>(new RealSenseCamera());
+        return std::make_unique<RealSenseCamera>();
     }
     else if (input_device_name == "StandardCamera") {
-        return std::unique_ptr<StandardCamera>(new StandardCamera());
+        return std::make_unique<StandardCamera>();
     } else {
-        return std::unique_ptr<Video>(new Video(input_device_name));
+        return std::make_unique<Video>(input_device_name);
     }
 }
 
