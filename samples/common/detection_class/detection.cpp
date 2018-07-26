@@ -71,11 +71,6 @@ void Detection::submitRequest() {
     request_->StartAsync();
 }
 
-template <class T>
-void Detection::setCompletionCallback(const T & callbackToSet) {
-    return request_->SetCompletionCallback(callbackToSet);
-}
-
 void Detection::load(InferenceEngine::InferencePlugin &plg) {
     if (enabled()) {
         network_ = plg.LoadNetwork(read(), {});
@@ -105,7 +100,9 @@ void FaceDetection::enqueue(const cv::Mat &frame) {
     height_ = frame.rows;
     Blob::Ptr input_blob = getRequest()->GetBlob(input_);
     matU8ToBlob<uint8_t>(frame, input_blob);
+    getBoundingBox().clear();
     enqueued_frames = 1;
+    getBoundingBox().emplace_back(cv::Rect(width_/2, height_/2, width_, height_));
 }
 
 void FaceDetection::submitRequest() {
@@ -197,7 +194,7 @@ void FaceDetection::fetchResults() {
         Result r;
         int label_num = static_cast<int>(detections[i * object_size_ + 1]);
         r.label = label_num < getLabels().size() ? getLabels()[label_num] :
-                  std::string("label #") + std::to_string(label_num));
+                  std::string("label #") + std::to_string(label_num);
         r.confidence = detections[i * object_size_ + 2];
         if (r.confidence <= show_output_thresh_) {
             continue;
@@ -219,4 +216,9 @@ void FaceDetection::fetchResults() {
 
         results_.push_back(r);
     }
+}
+
+size_t FaceDetection::getResultsLength()
+{
+    return results_.size();
 }

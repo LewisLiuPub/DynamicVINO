@@ -19,7 +19,11 @@ namespace DetectionClass {
      */
     class Detection {
     public:
-        struct Result {};
+        struct Result {
+            std::string label;
+            float confidence = -1;
+            cv::Rect location;
+        };
 
         Detection(const std::string &model_loc, const std::string &device, int max_batch_size);
         virtual ~Detection();
@@ -49,12 +53,12 @@ namespace DetectionClass {
 
         inline InferenceEngine::InferRequest::Ptr &getRequest() { return request_; } //TODO can be protected?
 
+        virtual const Result operator[](int idx) const = 0;
+
         template<typename T>
-        void setCompletionCallback(const T & callbackToSet);
-
-        virtual inline const Result &getResults(int) const = 0;
-
-        virtual const Result* getResultPtr(int idx) const = 0;
+        void setCompletionCallback(const T & callbackToSet) {
+            request_->SetCompletionCallback(callbackToSet);
+        }
 
     protected:
         //setter
@@ -87,6 +91,8 @@ namespace DetectionClass {
 
         virtual const std::string getName() const = 0;
 
+        inline std::vector<cv::Rect> &getBoundingBox() { return bounding_boxes_; };
+
         //exclusive for Read()
         virtual void networkInit(InferenceEngine::CNNNetReader *netReader) = 0;
 
@@ -105,15 +111,13 @@ namespace DetectionClass {
         InferenceEngine::InferencePlugin *plugin_;
         InferenceEngine::InferRequest::Ptr request_ = nullptr;
         bool raw_output_ = false;
+        std::vector<cv::Rect> bounding_boxes_;
     };
 
+    // Face Detection
     class FaceDetection : public Detection {
     public:
-        struct Result : Detection::Result {
-            std::string label;
-            float confidence;
-            cv::Rect location;
-        };
+        using Result = Detection::Result;
 
         FaceDetection(const std::string &model_loc, const std::string &device, double show_output_thresh);
 
@@ -127,13 +131,11 @@ namespace DetectionClass {
 
         void fetchResults() override ;
 
-        inline size_t getResultsLength() override { return results_.size(); }
-
-        inline const Result* getResultPtr(int idx) const override {
-            return &results_[idx];
-        }
+        size_t getResultsLength() override;
 
         inline const std::vector<Result> &getAllDetectionResults() const { return results_; }
+
+        const Result operator[](int idx) const override { return results_[idx]; };
 
     protected:
         void networkInit(InferenceEngine::CNNNetReader *net_reader) override;
