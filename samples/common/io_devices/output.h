@@ -10,18 +10,23 @@
 
 class BaseOutput {
 public:
-    virtual void prepareData(const DetectionClass::FaceDetection::Result&) = 0;
-    virtual void handleOutput() = 0;
+    virtual void prepareData(
+            const DetectionClass::Detection::Result&) = 0;
+    virtual void handleOutput(const std::string &overall_output_text) = 0;
 };
 
-class ImageWindow {
+class ImageWindow : public BaseOutput{
 public:
     explicit ImageWindow(const std::string &window_name): window_name_(window_name) {
         cv::namedWindow(window_name, cv::WINDOW_AUTOSIZE);
     }
+
+    void prepareData(
+            const DetectionClass::Detection::Result&) override ;
+
     void feedFrame(const cv::Mat&);
-    void prepareData(const DetectionClass::FaceDetection::Result&);
-    void handleOutput();
+
+    void handleOutput(const std::string &overall_output_text) override ;
 
 private:
     const std::string window_name_;

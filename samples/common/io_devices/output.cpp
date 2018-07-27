@@ -8,7 +8,8 @@ void ImageWindow::feedFrame(const cv::Mat & frame) {
     frame_ = frame;
 }
 
-void ImageWindow::prepareData(const DetectionClass::FaceDetection::Result& result){
+void ImageWindow::prepareData(
+        const DetectionClass::Detection::Result& result) {
     std::ostringstream out;
     /**
      * Text Output
@@ -25,24 +26,23 @@ void ImageWindow::prepareData(const DetectionClass::FaceDetection::Result& resul
         << 1000.f / detection.count() << " fps)";
     cv::putText(frame, out.str(), cv::Point2f(0, 45), cv::FONT_HERSHEY_TRIPLEX, 0.5,
                 cv::Scalar(255, 0, 0));*/
-        cv::Rect rect = result.location;
+    cv::Rect rect = result.location;
 
-        out.str("");
-
-        {
-            out << result.label
-                << ": " << std::fixed << std::setprecision(3) << result.confidence;
-        }
-        cv::putText(frame_,
-                    out.str(),
-                    cv::Point2f(result.location.x, result.location.y - 15),
-                    cv::FONT_HERSHEY_COMPLEX_SMALL,
-                    0.8,
-                    cv::Scalar(0, 0, 255));
-        cv::rectangle(frame_, result.location, cv::Scalar(100, 100, 100), 1);
+    out.str("");
+    {
+        out << result.label
+            << ": " << std::fixed << std::setprecision(3) << result.confidence; }
+    cv::putText(frame_,
+                out.str(),
+                cv::Point2f(result.location.x, result.location.y - 15),
+                cv::FONT_HERSHEY_COMPLEX_SMALL,
+                0.8,
+                cv::Scalar(0, 0, 255));
+    cv::rectangle(frame_, result.location, cv::Scalar(100, 100, 100), 1);
 
 }
 
-void ImageWindow::handleOutput() {
+void ImageWindow::handleOutput(const std::string &overall_output_text) {
+    cv::putText(frame_, overall_output_text, cv::Point2f(0, 65), cv::FONT_HERSHEY_TRIPLEX, 0.5, cv::Scalar(255, 0, 0));
     cv::imshow(window_name_, frame_);
 }

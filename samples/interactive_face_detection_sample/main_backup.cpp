@@ -771,9 +771,10 @@ int main(int argc, char *argv[]) {
         slog::info << "Reading input" << slog::endl;
 
         std::unique_ptr<BaseInputDevice> input_device = Factory::makeInputDeviceByName(FLAGS_i);
-        if (!input_device->initialize(1)) {
+        if (!input_device->initialize(640,480)) {
             throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
         }
+
         Pipeline pipe;
         pipe.add("", "video_input", std::move(input_device));
 
@@ -854,13 +855,175 @@ int main(int argc, char *argv[]) {
         pipe.add("video_input", "face_detection", std::move(face_detection_ptr));
         std::string window_name = "Detection results";
         std::unique_ptr<BaseOutput> output_ptr(new ImageWindow(window_name));
-        pipe.add("face_detection", "video_output", std::move(output_ptr));
-        std::unique_ptr<BaseOutput> output_ptr_2(new ImageWindow(window_name + "2"));
-        pipe.add("face_detection", "video_output_2", std::move(output_ptr_2));
         using namespace cv;
-        while (waitKey(1) < 0 && cvGetWindowHandle(window_name.c_str())) {
+        /*while (waitKey(1) < 0 && cvGetWindowHandle(window_name.c_str())) {
             pipe.runOnce();
+        }*/
+
+        // --------------------------- 3. Do inference ---------------------------------------------------------
+        slog::info << "Start inference " << slog::endl;
+        typedef std::chrono::duration<double, std::ratio<1, 1000>> ms;
+        auto wallclock = std::chrono::high_resolution_clock::now();
+
+        double ocv_decode_time = 0, ocv_render_time = 0;
+        bool firstFrame = true;
+
+
+        using namespace cv;
+        const auto window_name = "Detection results";
+        namedWindow(window_name, WINDOW_AUTOSIZE);
+
+        /** Start inference & calc performance **/
+        while (waitKey(1) < 0 && cvGetWindowHandle(window_name)) {
+            if (!input_device->read(&frame)) {
+                // if end of file, for single frame file, like image we just keep it displayed to let user check what was shown
+                if (!FLAGS_no_wait) {
+                    slog::info << "Press any key to exit" << slog::endl;
+                    cv::waitKey(0);
+                }
+                break;
+            }
+            auto t0 = std::chrono::high_resolution_clock::now();
+            //FaceDetection.enqueue(frame);
+            face_detection.enqueue(frame);
+            auto t1 = std::chrono::high_resolution_clock::now();
+            ocv_decode_time = std::chrono::duration_cast<ms>(t1 - t0).count();
+
+            t0 = std::chrono::high_resolution_clock::now();
+            // ----------------------------Run face detection inference-----------------------------------------
+            //FaceDetection.submitRequest();
+            face_detection.submitRequest();
+            //FaceDetection.wait();
+            face_detection.wait();
+            t1 = std::chrono::high_resolution_clock::now();
+            ms detection = std::chrono::duration_cast<ms>(t1 - t0);
+
+            //FaceDetection.fetchResults();
+            face_detection.fetchResults();
+
+            for (auto &&face : face_detection.getAllDetectionResults()) {
+                if (AgeGender.enabled() || HeadPose.enabled() || EmotionsDetection.enabled()) {
+                    auto clippedRect = face.location & cv::Rect(0, 0, (int) input_device->getWidth(), (int) input_device->getHeight());
+                    cv::Mat face_mat = frame(clippedRect);
+                    AgeGender.enqueue(face_mat);
+                    HeadPose.enqueue(face_mat);
+                    EmotionsDetection.enqueue(face_mat);
+                }
+            }
+            // ----------------------------Run age-gender, and head pose detection simultaneously---------------
+            t0 = std::chrono::high_resolution_clock::now();
+            if (AgeGender.enabled() || HeadPose.enabled() || EmotionsDetection.enabled()) {
+                AgeGender.submitRequest();
+                HeadPose.submitRequest();
+                EmotionsDetection.submitRequest();
+
+                AgeGender.wait();
+                HeadPose.wait();
+                EmotionsDetection.wait();
+            }
+            t1 = std::chrono::high_resolution_clock::now();
+            ms secondDetection = std::chrono::duration_cast<ms>(t1 - t0);
+
+            // ----------------------------Processing outputs---------------------------------------------------
+            std::ostringstream out;
+            out << "OpenCV cap/render time: " << std::fixed << std::setprecision(2)
+                << (ocv_decode_time + ocv_render_time) << " ms";
+            cv::putText(frame, out.str(), cv::Point2f(0, 25), cv::FONT_HERSHEY_TRIPLEX, 0.5, cv::Scalar(255, 0, 0));
+
+            out.str("");
+            out << "Face detection time: " << std::fixed << std::setprecision(2) << detection.count()
+                << " ms ("
+                << 1000.f / detection.count() << " fps)";
+            cv::putText(frame, out.str(), cv::Point2f(0, 45), cv::FONT_HERSHEY_TRIPLEX, 0.5,
+                        cv::Scalar(255, 0, 0));
+
+            if (HeadPose.enabled() || AgeGender.enabled() || EmotionsDetection.enabled()) {
+                out.str("");
+                out << (AgeGender.enabled() ? "Age Gender " : "")
+                    << (AgeGender.enabled() && (HeadPose.enabled() || EmotionsDetection.enabled()) ? "+ " : "")
+                    << (HeadPose.enabled() ? "Head Pose " : "")
+                    << (HeadPose.enabled() && EmotionsDetection.enabled() ? "+ " : "")
+                    << (EmotionsDetection.enabled() ? "Emotions Recognition " : "")
+                    << "time: " << std::fixed << std::setprecision(2) << secondDetection.count()
+                    << " ms ";
+                if (!face_detection.getAllDetectionResults().empty()) {
+                    out << "(" << 1000.f / secondDetection.count() << " fps)";
+                }
+                cv::putText(frame, out.str(), cv::Point2f(0, 65), cv::FONT_HERSHEY_TRIPLEX, 0.5, cv::Scalar(255, 0, 0));
+            }
+
+            int i = 0;
+            for (auto &result : face_detection.getAllDetectionResults()) {
+                cv::Rect rect = result.location;
+
+                out.str("");
+
+                if (AgeGender.enabled() && i < AgeGender.maxBatch) {
+                    out << (AgeGender[i].maleProb > 0.5 ? "M" : "F");
+                    out << std::fixed << std::setprecision(0) << "," << AgeGender[i].age;
+                    if (FLAGS_r) {
+                        std::cout << "Predicted gender, age = " << out.str() << std::endl;
+                    }
+                } else {
+/*                    out << (result.label < face_detection.getLabels().size() ? face_detection.getLabels()[result.label] :
+                            std::string("label #") + std::to_string(result.label))
+                        << ": " << std::fixed << std::setprecision(3) << result.confidence;*/
+                }
+
+                if (EmotionsDetection.enabled()) {
+                    /* currently we display only most probable emotion */
+                    std::string emotion = EmotionsDetection[i];
+                    if (FLAGS_r) {
+                        std::cout << "Predicted emotion = " << emotion << std::endl;
+                    }
+                    out << "," << emotion;
+                }
+
+                cv::putText(frame,
+                            out.str(),
+                            cv::Point2f(result.location.x, result.location.y - 15),
+                            cv::FONT_HERSHEY_COMPLEX_SMALL,
+                            0.8,
+                            cv::Scalar(0, 0, 255));
+
+                if (HeadPose.enabled() && i < HeadPose.maxBatch) {
+                    cv::Point3f center(rect.x + rect.width / 2, rect.y + rect.height / 2, 0);
+                    HeadPose.drawAxes(frame, center, HeadPose[i], 50);
+                }
+
+                auto genderColor = (AgeGender.enabled() && (i < AgeGender.maxBatch)) ?
+                                   ((AgeGender[i].maleProb < 0.5) ? cv::Scalar(147, 20, 255) : cv::Scalar(255, 0, 0)) :
+                                   cv::Scalar(100, 100, 100);
+
+                cv::rectangle(frame, result.location, genderColor, 1);
+
+                i++;
+            }
+
+            if (-1 != cv::waitKey(1))
+                break;
+
+            t0 = std::chrono::high_resolution_clock::now();
+            if (!FLAGS_no_show) {
+                cv::imshow(window_name, frame);
+            }
+            t1 = std::chrono::high_resolution_clock::now();
+            ocv_render_time = std::chrono::duration_cast<ms>(t1 - t0).count();
+
+            if (firstFrame) {
+                slog::info << "Press any key to stop" << slog::endl;
+            }
+
+            firstFrame = false;
         }
+
+        /** Show performace results **/
+        if (FLAGS_pc) {
+            face_detection.printPerformanceCounts();
+            AgeGender.printPerformanceCounts();
+            HeadPose.printPerformanceCounts();
+        }
+        // -----------------------------------------------------------------------------------------------------
     }
     catch (const std::exception &error) {
         slog::err << error.what() << slog::endl;

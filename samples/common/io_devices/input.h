@@ -22,6 +22,9 @@ public:
     */
     virtual bool initialize() = 0;
 
+    //TODO: this function is not defined! This function is used for multiple input with the same type
+    virtual bool initialize(int) = 0;
+
     virtual bool initialize(size_t width, size_t height) = 0;
     /**
     * @brief read next frame, and give the value to argument frame
@@ -45,6 +48,7 @@ private:
 class RealSenseCamera : public BaseInputDevice {
 public:
     bool initialize() override;
+    bool initialize(int t) override {return true;};
     bool initialize(size_t width, size_t height) override;
     bool read(cv::Mat *frame) override;
     void config() override;
@@ -57,6 +61,7 @@ private:
 class StandardCamera : public BaseInputDevice {
 public:
     bool initialize() override;
+    bool initialize(int t) override;
     bool initialize(size_t width, size_t height) override ;
     bool read(cv::Mat *frame) override;
     void config() override;
@@ -70,6 +75,7 @@ class Video: public BaseInputDevice {
 public:
     explicit Video(const std::string&);
     bool initialize() override;
+    bool initialize(int t) override {return true;};
     bool initialize(size_t width, size_t height) override ;
     bool read(cv::Mat *frame) override;
     void config() override;
