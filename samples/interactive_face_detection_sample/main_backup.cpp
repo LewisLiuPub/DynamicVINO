@@ -770,18 +770,15 @@ int main(int argc, char *argv[]) {
 
         slog::info << "Reading input" << slog::endl;
 
-        std::unique_ptr<BaseInputDevice> input_device = Factory::makeInputDeviceByName(FLAGS_i);
-        if (!input_device->initialize(640,480)) {
+        std::shared_ptr<BaseInputDevice> input_device = Factory::makeInputDeviceByName(FLAGS_i);
+        if (!input_device->initialize(1)) {
             throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
         }
 
-        Pipeline pipe;
-        pipe.add("", "video_input", std::move(input_device));
-
         cv::Mat frame;
-        /*if (!input_device->read(&frame)) {
+        if (!input_device->read(&frame)) {
             throw std::logic_error("Failed to get frame from cv::VideoCapture");
-        }*/
+        }
         // -----------------------------------------------------------------------------------------------------
 
         // --------------------------- 1. Load Plugin for inference engine -------------------------------------
@@ -797,7 +794,8 @@ int main(int argc, char *argv[]) {
         DetectionClass::FaceDetection face_detection(FLAGS_m,FLAGS_d,FLAGS_t);
         AgeGenderDetection AgeGender;
         HeadPoseDetection HeadPose;
-        EmotionsDetectionClass EmotionsDetection;
+        //EmotionsDetectionClass EmotionsDetection;
+        DetectionClass::EmotionsDetection emotion_detection(FLAGS_m_em, FLAGS_d_em, 16);
 
         for (auto &&option : cmdOptions) {
             auto deviceName = option.first;
@@ -811,7 +809,6 @@ int main(int argc, char *argv[]) {
                 continue;
             }
             pluginsForDevices[deviceName] = *Factory::makePluginByName(deviceName,FLAGS_l, FLAGS_c, FLAGS_pc);
-            continue;
             slog::info << "Loading plugin " << deviceName << slog::endl;
             InferencePlugin plugin = PluginDispatcher({"../../../lib/intel64", ""}).getPluginByDevice(deviceName);
 
@@ -847,18 +844,9 @@ int main(int argc, char *argv[]) {
         face_detection.load(pluginsForDevices[FLAGS_d]);
         Load(AgeGender).into(pluginsForDevices[FLAGS_d_ag]);
         Load(HeadPose).into(pluginsForDevices[FLAGS_d_hp]);
-        Load(EmotionsDetection).into(pluginsForDevices[FLAGS_d_em]);
+        //Load(EmotionsDetection).into(pluginsForDevices[FLAGS_d_em]);
+        emotion_detection.load(pluginsForDevices[FLAGS_d_em]);
         // -----------------------------------------------------------------------------------------------------
-
-        // --------------------------- 3. Test Pipeline ---------------------------------------------------------
-        std::unique_ptr<DetectionClass::Detection> face_detection_ptr(&face_detection);
-        pipe.add("video_input", "face_detection", std::move(face_detection_ptr));
-        std::string window_name = "Detection results";
-        std::unique_ptr<BaseOutput> output_ptr(new ImageWindow(window_name));
-        using namespace cv;
-        /*while (waitKey(1) < 0 && cvGetWindowHandle(window_name.c_str())) {
-            pipe.runOnce();
-        }*/
 
         // --------------------------- 3. Do inference ---------------------------------------------------------
         slog::info << "Start inference " << slog::endl;
@@ -885,7 +873,8 @@ int main(int argc, char *argv[]) {
             }
             auto t0 = std::chrono::high_resolution_clock::now();
             //FaceDetection.enqueue(frame);
-            face_detection.enqueue(frame);
+            cv::Rect rct = Rect();
+            face_detection.enqueue(frame, rct);
             auto t1 = std::chrono::high_resolution_clock::now();
             ocv_decode_time = std::chrono::duration_cast<ms>(t1 - t0).count();
 
@@ -901,25 +890,26 @@ int main(int argc, char *argv[]) {
             //FaceDetection.fetchResults();
             face_detection.fetchResults();
 
-            for (auto &&face : face_detection.getAllDetectionResults()) {
-                if (AgeGender.enabled() || HeadPose.enabled() || EmotionsDetection.enabled()) {
+            for (auto &&face : face_detection.getAllResults()) {
+                if (AgeGender.enabled() || HeadPose.enabled() || emotion_detection.enabled()) {
                     auto clippedRect = face.location & cv::Rect(0, 0, (int) input_device->getWidth(), (int) input_device->getHeight());
                     cv::Mat face_mat = frame(clippedRect);
                     AgeGender.enqueue(face_mat);
                     HeadPose.enqueue(face_mat);
-                    EmotionsDetection.enqueue(face_mat);
+                    emotion_detection.enqueue(face_mat, face.location);
                 }
             }
             // ----------------------------Run age-gender, and head pose detection simultaneously---------------
             t0 = std::chrono::high_resolution_clock::now();
-            if (AgeGender.enabled() || HeadPose.enabled() || EmotionsDetection.enabled()) {
+            if (AgeGender.enabled() || HeadPose.enabled() || emotion_detection.enabled()) {
                 AgeGender.submitRequest();
                 HeadPose.submitRequest();
-                EmotionsDetection.submitRequest();
+                emotion_detection.submitRequest();
 
                 AgeGender.wait();
                 HeadPose.wait();
-                EmotionsDetection.wait();
+                emotion_detection.wait();
+                emotion_detection.fetchResults();
             }
             t1 = std::chrono::high_resolution_clock::now();
             ms secondDetection = std::chrono::duration_cast<ms>(t1 - t0);
@@ -937,23 +927,23 @@ int main(int argc, char *argv[]) {
             cv::putText(frame, out.str(), cv::Point2f(0, 45), cv::FONT_HERSHEY_TRIPLEX, 0.5,
                         cv::Scalar(255, 0, 0));
 
-            if (HeadPose.enabled() || AgeGender.enabled() || EmotionsDetection.enabled()) {
+            if (HeadPose.enabled() || AgeGender.enabled() || emotion_detection.enabled()) {
                 out.str("");
                 out << (AgeGender.enabled() ? "Age Gender " : "")
-                    << (AgeGender.enabled() && (HeadPose.enabled() || EmotionsDetection.enabled()) ? "+ " : "")
+                    << (AgeGender.enabled() && (HeadPose.enabled() || emotion_detection.enabled()) ? "+ " : "")
                     << (HeadPose.enabled() ? "Head Pose " : "")
-                    << (HeadPose.enabled() && EmotionsDetection.enabled() ? "+ " : "")
-                    << (EmotionsDetection.enabled() ? "Emotions Recognition " : "")
+                    << (HeadPose.enabled() && emotion_detection.enabled() ? "+ " : "")
+                    << (emotion_detection.enabled() ? "Emotions Recognition " : "")
                     << "time: " << std::fixed << std::setprecision(2) << secondDetection.count()
                     << " ms ";
-                if (!face_detection.getAllDetectionResults().empty()) {
+                if (!face_detection.getAllResults().empty()) {
                     out << "(" << 1000.f / secondDetection.count() << " fps)";
                 }
                 cv::putText(frame, out.str(), cv::Point2f(0, 65), cv::FONT_HERSHEY_TRIPLEX, 0.5, cv::Scalar(255, 0, 0));
             }
 
             int i = 0;
-            for (auto &result : face_detection.getAllDetectionResults()) {
+            for (auto &result : face_detection.getAllResults()) {
                 cv::Rect rect = result.location;
 
                 out.str("");
@@ -970,9 +960,9 @@ int main(int argc, char *argv[]) {
                         << ": " << std::fixed << std::setprecision(3) << result.confidence;*/
                 }
 
-                if (EmotionsDetection.enabled()) {
+                if (emotion_detection.enabled()) {
                     /* currently we display only most probable emotion */
-                    std::string emotion = EmotionsDetection[i];
+                    std::string emotion = emotion_detection[i].label;
                     if (FLAGS_r) {
                         std::cout << "Predicted emotion = " << emotion << std::endl;
                     }
@@ -1020,6 +1010,7 @@ int main(int argc, char *argv[]) {
         /** Show performace results **/
         if (FLAGS_pc) {
             face_detection.printPerformanceCounts();
+            //FaceDetection.printPerformanceCounts();
             AgeGender.printPerformanceCounts();
             HeadPose.printPerformanceCounts();
         }

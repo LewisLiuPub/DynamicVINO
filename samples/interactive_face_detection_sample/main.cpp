@@ -770,12 +770,12 @@ int main(int argc, char *argv[]) {
 
         slog::info << "Reading input" << slog::endl;
 
-        std::unique_ptr<BaseInputDevice> input_device = Factory::makeInputDeviceByName(FLAGS_i);
-        if (!input_device->initialize(1)) {
+        std::shared_ptr<BaseInputDevice> input_device = Factory::makeInputDeviceByName(FLAGS_i);
+        if (!input_device->initialize(0)) {
             throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
         }
         Pipeline pipe;
-        pipe.add("", "video_input", std::move(input_device));
+        pipe.add("", "video_input", input_device);
 
         cv::Mat frame;
         /*if (!input_device->read(&frame)) {
@@ -794,9 +794,10 @@ int main(int argc, char *argv[]) {
 
         //FaceDetectionClass FaceDetection;
         DetectionClass::FaceDetection face_detection(FLAGS_m,FLAGS_d,FLAGS_t);
+        DetectionClass::EmotionsDetection emotion_detection(FLAGS_m_em, FLAGS_d_em, 16);
         AgeGenderDetection AgeGender;
         HeadPoseDetection HeadPose;
-        EmotionsDetectionClass EmotionsDetection;
+        //EmotionsDetectionClass EmotionsDetection;
 
         for (auto &&option : cmdOptions) {
             auto deviceName = option.first;
@@ -809,54 +810,32 @@ int main(int argc, char *argv[]) {
             if (pluginsForDevices.find(deviceName) != pluginsForDevices.end()) {
                 continue;
             }
-            pluginsForDevices[deviceName] = *Factory::makePluginByName(deviceName,FLAGS_l, FLAGS_c, FLAGS_pc);
-            continue;
-            slog::info << "Loading plugin " << deviceName << slog::endl;
-            InferencePlugin plugin = PluginDispatcher({"../../../lib/intel64", ""}).getPluginByDevice(deviceName);
-
-            /** Printing plugin version **/
-            printPluginVersion(plugin, std::cout);
-
-            /** Load extensions for the CPU plugin **/
-            if ((deviceName.find("CPU") != std::string::npos)) {
-                plugin.AddExtension(std::make_shared<Extensions::Cpu::CpuExtensions>());
-
-                if (!FLAGS_l.empty()) {
-                    // CPU(MKLDNN) extensions are loaded as a shared library and passed as a pointer to base extension
-                    auto extension_ptr = make_so_pointer<MKLDNNPlugin::IMKLDNNExtension>(FLAGS_l);
-                    plugin.AddExtension(std::static_pointer_cast<IExtension>(extension_ptr));
-                }
-            } else if (!FLAGS_c.empty()) {
-                // Load Extensions for other plugins not CPU
-                plugin.SetConfig({{PluginConfigParams::KEY_CONFIG_FILE, FLAGS_c}});
-            }
-            pluginsForDevices[deviceName] = plugin;
+            pluginsForDevices[deviceName] = *Factory::makePluginByName(
+                    deviceName, FLAGS_l, FLAGS_c, FLAGS_pc);
+            //continue;
         }
-
-        /** Per layer metrics **/
-        /*if (FLAGS_pc) {
-            for (auto &&plugin : pluginsForDevices) {
-                plugin.second.SetConfig({{PluginConfigParams::KEY_PERF_COUNT, PluginConfigParams::YES}});
-            }
-        }*/
         // -----------------------------------------------------------------------------------------------------
 
         // --------------------------- 2. Read IR models and load them to plugins ------------------------------
         //Load(FaceDetection).into(pluginsForDevices[FLAGS_d]);
         face_detection.load(pluginsForDevices[FLAGS_d]);
+        emotion_detection.load(pluginsForDevices[FLAGS_d_em]);
         Load(AgeGender).into(pluginsForDevices[FLAGS_d_ag]);
         Load(HeadPose).into(pluginsForDevices[FLAGS_d_hp]);
-        Load(EmotionsDetection).into(pluginsForDevices[FLAGS_d_em]);
+        //Load(EmotionsDetection).into(pluginsForDevices[FLAGS_d_em]);
         // -----------------------------------------------------------------------------------------------------
 
         // --------------------------- 3. Test Pipeline ---------------------------------------------------------
-        std::unique_ptr<DetectionClass::Detection> face_detection_ptr(&face_detection);
-        pipe.add("video_input", "face_detection", std::move(face_detection_ptr));
+        std::shared_ptr<DetectionClass::Detection> face_detection_ptr(&face_detection);
+        pipe.add("video_input", "face_detection", face_detection_ptr);
+
+        std::shared_ptr<DetectionClass::Detection> emotion_detection_ptr(&emotion_detection);
+        pipe.add("face_detection", "emotion_detection",emotion_detection_ptr);
+
         std::string window_name = "Detection results";
-        std::unique_ptr<BaseOutput> output_ptr(new ImageWindow(window_name));
-        pipe.add("face_detection", "video_output", std::move(output_ptr));
-        std::unique_ptr<BaseOutput> output_ptr_2(new ImageWindow(window_name + "2"));
-        pipe.add("face_detection", "video_output_2", std::move(output_ptr_2));
+        std::shared_ptr<BaseOutput> output_ptr(new ImageWindow(window_name));
+        pipe.add("emotion_detection", "video_output", output_ptr);
+
         using namespace cv;
         while (waitKey(1) < 0 && cvGetWindowHandle(window_name.c_str())) {
             pipe.runOnce();

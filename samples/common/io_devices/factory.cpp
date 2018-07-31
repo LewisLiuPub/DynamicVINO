@@ -5,14 +5,14 @@
 
 using namespace InferenceEngine;
 
-std::unique_ptr<BaseInputDevice> Factory::makeInputDeviceByName(const std::string &input_device_name) {
+std::shared_ptr<BaseInputDevice> Factory::makeInputDeviceByName(const std::string &input_device_name) {
     if (input_device_name == "RealSenseCamera") {
-        return std::make_unique<RealSenseCamera>();
+        return std::make_shared<RealSenseCamera>();
     }
     else if (input_device_name == "StandardCamera") {
-        return std::make_unique<StandardCamera>();
+        return std::make_shared<StandardCamera>();
     } else {
-        return std::make_unique<Video>(input_device_name);
+        return std::make_shared<Video>(input_device_name);
     }
 }
 

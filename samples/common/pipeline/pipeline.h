@@ -23,23 +23,32 @@ class Pipeline {
 public:
     Pipeline() = default;
     bool add(const std::string &parent, const std::string &name,
-                       std::unique_ptr<BaseInputDevice> input_device);
+             std::shared_ptr<BaseInputDevice> input_device);
     bool add(const std::string &parent, const std::string &name,
-                       std::unique_ptr<DetectionClass::Detection> detection);
+             std::shared_ptr<DetectionClass::Detection> detection);
     bool add(const std::string &parent, const std::string &name,
-                       std::unique_ptr<BaseOutput> output);
+             std::shared_ptr<BaseOutput> output);
     bool add(const std::string &parent, const std::string &name);
     void runOnce();
+    void callback(
+            const std::string &detection_name,
+            const cv::Mat &frame,
+            std::atomic<int> *counter,
+            std::mutex *counter_mutex,
+            std::condition_variable *cv
+    );
 
 private:
-    std::unique_ptr<BaseInputDevice> input_device_;
+    std::shared_ptr<BaseInputDevice> input_device_;
     std::string input_device_name_;
     std::multimap<std::string, std::string> next_;
     std::map<std::string, std::shared_ptr<DetectionClass::Detection>> name_to_detection_map_;
+    std::map<std::string, std::shared_ptr<BaseOutput>> name_to_output_map_;
     void printPipeline();
-    std::vector<std::shared_ptr<BaseOutput>> outputs_;
     int total_detection_ = 0;
-    std::vector<std::string> output_names_;
+    std::set<std::string> output_names_;
+    int width_;
+    int height_;
 };
 
 
