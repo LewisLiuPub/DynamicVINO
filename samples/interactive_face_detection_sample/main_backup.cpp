@@ -771,7 +771,7 @@ int main(int argc, char *argv[]) {
         slog::info << "Reading input" << slog::endl;
 
         std::shared_ptr<BaseInputDevice> input_device = Factory::makeInputDeviceByName(FLAGS_i);
-        if (!input_device->initialize(1)) {
+        if (!input_device->initialize(0)) {
             throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
         }
 

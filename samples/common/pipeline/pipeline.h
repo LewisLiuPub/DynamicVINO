@@ -30,13 +30,8 @@ public:
              std::shared_ptr<BaseOutput> output);
     bool add(const std::string &parent, const std::string &name);
     void runOnce();
-    void callback(
-            const std::string &detection_name,
-            const cv::Mat &frame,
-            std::atomic<int> *counter,
-            std::mutex *counter_mutex,
-            std::condition_variable *cv
-    );
+    void callback(const std::string &detection_name);
+    void setcallback();
 
 private:
     std::shared_ptr<BaseInputDevice> input_device_;
@@ -49,6 +44,11 @@ private:
     std::set<std::string> output_names_;
     int width_;
     int height_;
+    cv::Mat frame;
+    // for multi threads
+    std::atomic<int> counter;
+    std::mutex counter_mutex;
+    std::condition_variable cv;
 };
 
 

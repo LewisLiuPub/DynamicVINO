@@ -63,12 +63,8 @@ bool Pipeline::add(const std::string &parent, const std::string &name,
 };
 
 void Pipeline::runOnce() {
-    cv::Mat frame;
-    std::list<std::string> detection_list;
+    counter = 0;
     //slog::info << "Reading input" << slog::endl;
-    std::atomic<int> counter(0);
-    std::mutex counter_mutex;
-    std::condition_variable cv;
     if (!input_device_->read(&frame)) {
         throw std::logic_error("Failed to get frame from cv::VideoCapture");
     }
@@ -78,14 +74,16 @@ void Pipeline::runOnce() {
         pair.second->feedFrame(frame);
     }
     auto t0 = std::chrono::high_resolution_clock::now();
+    /*std::function<void(void)> callb;
     for (auto &pair: name_to_detection_map_) {
         std::string detection_name = pair.first;
-        auto callback_wrapper = [detection_name, &frame, &counter,
+        callb = [detection_name, &frame, &counter,
                                  &counter_mutex,&cv, self=this]() {
-            self->callback(detection_name, frame,&counter,&counter_mutex,&cv);
+            self->callback(detection_name, frame, &counter,&counter_mutex,&cv);
+            return;
         };
-        pair.second->setCompletionCallback(callback_wrapper);
-    }
+        pair.second->setCompletionCallback(callb);
+    }*/
     for (auto pos = next_.equal_range(input_device_name_);
             pos.first != pos.second; ++pos.first) {
         std::string detection_name = pos.first->second;
@@ -97,7 +95,7 @@ void Pipeline::runOnce() {
     }
 
     std::unique_lock<std::mutex> lock(counter_mutex);
-    cv.wait(lock, [&counter](){ return counter == 0; });
+    cv.wait(lock, [self=this](){ return self->counter == 0; });
     auto t1 = std::chrono::high_resolution_clock::now();
     typedef std::chrono::duration<double, std::ratio<1, 1000>> ms;
     //calculate fps
@@ -115,13 +113,28 @@ void Pipeline::printPipeline() {
     }
 }
 
-void Pipeline::callback(
-        const std::string &detection_name,
-        const cv::Mat &frame,
-        std::atomic<int> *counter,
-        std::mutex *counter_mutex,
-        std::condition_variable *cv
-) {
+void Pipeline::setcallback() {
+    //slog::info << "Reading input" << slog::endl;
+    if (!input_device_->read(&frame)) {
+        throw std::logic_error("Failed to get frame from cv::VideoCapture");
+    }
+    width_ = frame.cols;
+    height_ = frame.rows;
+    for (auto &pair: name_to_output_map_) {
+        pair.second->feedFrame(frame);
+    }
+    auto t0 = std::chrono::high_resolution_clock::now();
+    for (auto &pair: name_to_detection_map_) {
+        std::string detection_name = pair.first;
+        std::function<void(void)> callb;
+        callb = [detection_name, self=this]() {
+            self->callback(detection_name);
+            return;
+        };
+        pair.second->setCompletionCallback(callb);
+    }
+}
+void Pipeline::callback(const std::string &detection_name) {
     //slog::info<<"Hello callback"<<slog::endl;
     auto detection_ptr = name_to_detection_map_[detection_name];
     detection_ptr->fetchResults();
@@ -136,10 +149,10 @@ void Pipeline::callback(
                         (*detection_ptr)[i]);
             }
         }
-        // if next is input, set input for next network
+        // if next is network, set input for next network
         else {
             auto detection_ptr_iter = name_to_detection_map_.find(
-                    detection_name);
+                    next_name);
             if (detection_ptr_iter != name_to_detection_map_.end()) {
                 auto next_detection_ptr = detection_ptr_iter->second;
                 for (size_t i = 0; i < detection_ptr->getResultsLength(); ++i) {
@@ -150,18 +163,14 @@ void Pipeline::callback(
                     cv::Mat next_input = frame(clippedRect);
                     next_detection_ptr->enqueue(next_input, prev_result.location);
                 }
-                ++(*counter);
-                slog::info << "after ++counter: " << *counter << slog::endl;
-                slog::info << "ready to submit request for: "
-                           << detection_ptr->getName() << slog::endl;
-                next_detection_ptr->submitRequest();
+                if (detection_ptr->getResultsLength() > 0) {
+                    ++counter;
+                    next_detection_ptr->submitRequest();
+                }
             }
         }
     }
-    std::lock_guard<std::mutex> lk(*counter_mutex);
-    --(*counter);
-    slog::info<<"after --counter: " <<counter<<slog::endl;
-    slog::info<<counter<<slog::endl;
-    slog::info<<detection_name<<slog::endl;
-    (*cv).notify_all();
+    std::lock_guard<std::mutex> lk(counter_mutex);
+    --counter;
+    cv.notify_all();
 }

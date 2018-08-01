@@ -837,6 +837,7 @@ int main(int argc, char *argv[]) {
         pipe.add("emotion_detection", "video_output", output_ptr);
 
         using namespace cv;
+        pipe.setcallback();
         while (waitKey(1) < 0 && cvGetWindowHandle(window_name.c_str())) {
             pipe.runOnce();
         }
