@@ -24,7 +24,7 @@ class Pipeline {
   bool add(const std::string &parent, const std::string &name,
            std::shared_ptr<BaseInputDevice> input_device);
   bool add(const std::string &parent, const std::string &name,
-           std::shared_ptr<DetectionClass::Detection> detection);
+           std::shared_ptr<InferenceClass::BaseInference> detection);
   bool add(const std::string &parent, const std::string &name,
            std::shared_ptr<BaseOutput> output);
   bool add(const std::string &parent, const std::string &name);
@@ -36,7 +36,7 @@ class Pipeline {
   std::shared_ptr<BaseInputDevice> input_device_;
   std::string input_device_name_;
   std::multimap<std::string, std::string> next_;
-  std::map<std::string, std::shared_ptr<DetectionClass::Detection>>
+  std::map<std::string, std::shared_ptr<InferenceClass::BaseInference>>
       name_to_detection_map_;
   std::map<std::string, std::shared_ptr<BaseOutput>> name_to_output_map_;
   void printPipeline();

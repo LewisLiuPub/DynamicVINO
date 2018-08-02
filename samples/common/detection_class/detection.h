@@ -5,19 +5,21 @@
 #ifndef SAMPLES_DETECTION_H
 #define SAMPLES_DETECTION_H
 
-#include <opencv2/opencv.hpp>
-#include <inference_engine.hpp>
-#include <samples/common.hpp>
-#include <samples/slog.hpp>
+#include "ValidatedNetwork.h"
+#include "Engine.h"
+#include "opencv2/opencv.hpp"
+#include "inference_engine.hpp"
+#include "samples/common.hpp"
+#include "samples/slog.hpp"
 
 /**
  * @brief This namespace contains all classes needed for detection jobs.
  */
-namespace DetectionClass {
+namespace InferenceClass {
 /**
  * @brief base class for detection
  */
-class Detection {
+class BaseInference {
  public:
   struct Result {
     std::string label = "";
@@ -30,11 +32,19 @@ class Detection {
     float male_prob = -1;
   };
 
-  Detection(const std::string &model_loc, const std::string &device,
+  BaseInference(const std::string &model_loc, const std::string &device,
             size_t max_batch_size);
+  virtual ~BaseInference();
+  void loadNetwork(std::shared_ptr<ValidatedBaseNetwork>);
+  void loadEngine(std::shared_ptr<NetworkEngine>);
+  virtual void enqueue(const cv::Mat &frame) = 0;
+  virtual void submitRequest();
 
-  virtual ~Detection();
+ private:
+  std::shared_ptr<ValidatedBaseNetwork> model_;
+  std::shared_ptr<NetworkEngine> engine_;
 
+ protected:
   /**
    * @brief Read model into network reader, initialize and config the network' s input and output.
    * @return the configured network object
@@ -74,7 +84,7 @@ class Detection {
   Result
   &operator[](int idx) { return results_[idx]; };
 
-  inline std::vector<Detection::Result> &getAllResults() { return results_; }
+  inline std::vector<BaseInference::Result> &getAllResults() { return results_; }
 
   virtual const std::string getName() const = 0;
 
@@ -155,9 +165,9 @@ class Detection {
 };
 
 // Face Detection
-class FaceDetection : public Detection {
+class FaceDetection : public BaseInference {
  public:
-  using Result = Detection::Result;
+  using Result = BaseInference::Result;
 
   FaceDetection(const std::string &model_loc, const std::string &device,
                 double show_output_thresh);
@@ -195,9 +205,9 @@ class FaceDetection : public Detection {
 };
 
 // Emotions Detection
-class EmotionsDetection : public Detection {
+class EmotionsDetection : public BaseInference {
  public:
-  using Result = Detection::Result;
+  using Result = BaseInference::Result;
 
   EmotionsDetection(const std::string &model_loc,
                     const std::string &device, size_t max_batch_size);
@@ -233,9 +243,9 @@ class EmotionsDetection : public Detection {
 };
 
 // HeadPose Detection
-class HeadPoseDetection : public Detection {
+class HeadPoseDetection : public BaseInference {
  public:
-  using Result = Detection::Result;
+  using Result = BaseInference::Result;
 
   HeadPoseDetection(const std::string &model_loc,
                     const std::string &device, size_t max_batch_size);
@@ -279,9 +289,9 @@ class HeadPoseDetection : public Detection {
 };
 
 // AgeGender Detection
-class AgeGenderDetection : public Detection {
+class AgeGenderDetection : public BaseInference {
  public:
-  using Result = Detection::Result;
+  using Result = BaseInference::Result;
 
   AgeGenderDetection(const std::string &model_loc,
                      const std::string &device, size_t max_batch_size);

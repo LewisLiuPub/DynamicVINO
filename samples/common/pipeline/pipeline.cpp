@@ -52,7 +52,7 @@ bool Pipeline::add(const std::string &parent, const std::string &name) {
 }
 
 bool Pipeline::add(const std::string &parent, const std::string &name,
-                   std::shared_ptr<DetectionClass::Detection> detection) {
+                   std::shared_ptr<InferenceClass::BaseInference> detection) {
   if (name_to_detection_map_.find(parent) == name_to_detection_map_.end()
       && input_device_name_ != parent) {
     slog::err << "parent device/detection does not exists!" << slog::endl;
@@ -151,7 +151,7 @@ void Pipeline::callback(const std::string &detection_name) {
       if (detection_ptr_iter != name_to_detection_map_.end()) {
         auto next_detection_ptr = detection_ptr_iter->second;
         for (size_t i = 0; i < detection_ptr->getResultsLength(); ++i) {
-          DetectionClass::Detection::Result prev_result = (*detection_ptr)[i];
+          InferenceClass::BaseInference::Result prev_result = (*detection_ptr)[i];
           auto clippedRect = prev_result.location & cv::Rect(0, 0,
                                                              width_,
                                                              height_);

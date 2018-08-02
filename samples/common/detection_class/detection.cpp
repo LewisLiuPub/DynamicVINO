@@ -4,7 +4,7 @@
 #include "detection.h"
 
 using namespace InferenceEngine;//TODO need to be deleted to not pollute namespace
-using namespace DetectionClass;
+using namespace InferenceClass;
 
 // utils
 template<typename T>
@@ -35,16 +35,26 @@ matU8ToBlob(const cv::Mat &orig_image, Blob::Ptr &blob, float scaleFactor = 1.0,
   }
 }
 
-//Detection
-Detection::Detection(const std::string &model_loc,
-                     const std::string &device,
-                     size_t max_batch_size)
-    : model_loc_(model_loc), device_(device),
-      max_batch_size_(max_batch_size) {}
+//BaseInference
+BaseInference::BaseInference(
+    const std::string &model_loc,
+    const std::string &device,
+    size_t max_batch_size)
+    : model_loc_(model_loc), device_(device), max_batch_size_(max_batch_size) {}
 
-Detection::~Detection() = default;
+BaseInference::~BaseInference() = default;
 
-CNNNetwork Detection::read() {
+void BaseInference::loadNetwork(
+    const std::shared_ptr<ValidatedBaseNetwork> model) {
+  model_ = model;
+}
+
+void BaseInference::loadEngine(const std::shared_ptr<NetworkEngine> engine) {
+  engine_ = engine;
+};
+
+
+CNNNetwork BaseInference::read() {
   try {
     CNNNetReader net_reader;
     networkInit(&net_reader);
@@ -57,7 +67,7 @@ CNNNetwork Detection::read() {
   }
 }
 
-bool Detection::enabled() {
+bool BaseInference::enabled() {
   if (!enablingChecked_) {
     enable_ = !model_loc_.empty() && !device_.empty();
     if (!enable_) {
@@ -68,18 +78,18 @@ bool Detection::enabled() {
   return enable_;
 }
 
-void Detection::wait() {
+void BaseInference::wait() {
   if (!enabled() || !request_) return;
   slog::info << request_->Wait(IInferRequest::WaitMode::RESULT_READY)
              << slog::endl << InferenceEngine::StatusCode::OK;
 }
 
-void Detection::submitRequest() {
+void BaseInference::submitRequest() {
   if (!enabled() || request_ == nullptr) return;
   request_->StartAsync();
 }
 
-void Detection::networkInit(InferenceEngine::CNNNetReader *net_reader) {
+void BaseInference::networkInit(InferenceEngine::CNNNetReader *net_reader) {
   slog::info << "Loading network files for " << getName() << slog::endl;
   //Read network model
   net_reader->ReadNetwork(model_loc_);
@@ -97,14 +107,14 @@ void Detection::networkInit(InferenceEngine::CNNNetReader *net_reader) {
             std::back_inserter(labels_));
 }
 
-void Detection::load(InferenceEngine::InferencePlugin &plg) {
+void BaseInference::load(InferenceEngine::InferencePlugin &plg) {
   if (enabled()) {
     network_ = plg.LoadNetwork(read(), {});
     plugin_ = &plg;
   }
 }
 
-void Detection::printPerformanceCounts() {
+void BaseInference::printPerformanceCounts() {
   if (!enabled()) {
     return;
   }
@@ -118,7 +128,7 @@ void Detection::printPerformanceCounts() {
 FaceDetection::FaceDetection(const std::string &model_loc,
                              const std::string &device,
                              double show_output_thresh)
-    : Detection(model_loc, device, 1),
+    : BaseInference(model_loc, device, 1),
       show_output_thresh_(show_output_thresh) {};
 
 void
@@ -140,7 +150,7 @@ void FaceDetection::submitRequest() {
   enqueued_frames = 0;
   results_fetched_ = false;
   clearResults();
-  Detection::submitRequest();
+  BaseInference::submitRequest();
 };
 
 void FaceDetection::initAndCheckInput(CNNNetReader *net_reader) {
@@ -252,11 +262,11 @@ void FaceDetection::fetchResults() {
 EmotionsDetection::EmotionsDetection(
     const std::string &model_loc,
     const std::string &device,
-    size_t max_batch_size) : Detection(model_loc, device, max_batch_size) {};
+    size_t max_batch_size) : BaseInference(model_loc, device, max_batch_size) {};
 
 void EmotionsDetection::submitRequest() {
   if (!enqueued_faces_num_) return;
-  Detection::submitRequest();
+  BaseInference::submitRequest();
   results_fetched_ = false;
   enqueued_faces_num_ = 0;
 }
@@ -362,11 +372,11 @@ void EmotionsDetection::fetchResults() {
 HeadPoseDetection::HeadPoseDetection(
     const std::string &model_loc,
     const std::string &device,
-    size_t max_batch_size) : Detection(model_loc, device, max_batch_size) {};
+    size_t max_batch_size) : BaseInference(model_loc, device, max_batch_size) {};
 
 void HeadPoseDetection::submitRequest() {
   if (!enqueued_faces_num_) return;
-  Detection::submitRequest();
+  BaseInference::submitRequest();
   results_fetched_ = false;
   enqueued_faces_num_ = 0;
 }
@@ -453,7 +463,7 @@ void HeadPoseDetection::initAndCheckOutput(
   enabled();
 }
 
-void DetectionClass::HeadPoseDetection::buildCameraMatrix(
+void InferenceClass::HeadPoseDetection::buildCameraMatrix(
     int cx, int cy, float focalLength) {
   if (!camera_matrix_.empty()) return;
   camera_matrix_ = cv::Mat::zeros(3, 3, CV_32F);
@@ -464,7 +474,7 @@ void DetectionClass::HeadPoseDetection::buildCameraMatrix(
   camera_matrix_.at<float>(8) = 1;
 }
 
-void DetectionClass::HeadPoseDetection::fetchResults() {
+void InferenceClass::HeadPoseDetection::fetchResults() {
   Blob::Ptr angleR = getRequest()->GetBlob(outputAngleR);
   Blob::Ptr angleP = getRequest()->GetBlob(outputAngleP);
   Blob::Ptr angleY = getRequest()->GetBlob(outputAngleY);
@@ -476,10 +486,10 @@ void DetectionClass::HeadPoseDetection::fetchResults() {
   }
 }
 
-void DetectionClass::HeadPoseDetection::drawAxes(
+void InferenceClass::HeadPoseDetection::drawAxes(
     cv::Mat &frame,
     cv::Point3f cpoint,
-    DetectionClass::HeadPoseDetection::Result head_pose,
+    InferenceClass::HeadPoseDetection::Result head_pose,
     float scale) {
   double yaw = head_pose.angle_y;
   double pitch = head_pose.angle_p;
@@ -573,11 +583,11 @@ void DetectionClass::HeadPoseDetection::drawAxes(
 AgeGenderDetection::AgeGenderDetection(
     const std::string &model_loc,
     const std::string &device,
-    size_t max_batch_size) : Detection(model_loc, device, max_batch_size) {};
+    size_t max_batch_size) : BaseInference(model_loc, device, max_batch_size) {};
 
 void AgeGenderDetection::submitRequest() {
   if (!enqueued_faces_num_) return;
-  Detection::submitRequest();
+  BaseInference::submitRequest();
   results_fetched_ = false;
   enqueued_faces_num_ = 0;
 }

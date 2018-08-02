@@ -9,7 +9,7 @@ void ImageWindow::feedFrame(const cv::Mat &frame) {
 }
 
 void ImageWindow::prepareData(
-    const DetectionClass::Detection::Result &result) {
+    const InferenceClass::BaseInference::Result &result) {
   std::ostringstream out;
   cv::Rect rect = result.location;
 

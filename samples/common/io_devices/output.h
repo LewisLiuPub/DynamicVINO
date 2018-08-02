@@ -11,7 +11,7 @@
 class BaseOutput {
  public:
   virtual void prepareData(
-      const DetectionClass::Detection::Result &) = 0;
+      const InferenceClass::BaseInference::Result &) = 0;
   virtual void handleOutput(const std::string &overall_output_text) = 0;
   virtual void feedFrame(const cv::Mat &frame) {}
 };
@@ -24,7 +24,7 @@ class ImageWindow : public BaseOutput {
   }
 
   void prepareData(
-      const DetectionClass::Detection::Result &) override;
+      const InferenceClass::BaseInference::Result &) override;
 
   void feedFrame(const cv::Mat &) override;
 

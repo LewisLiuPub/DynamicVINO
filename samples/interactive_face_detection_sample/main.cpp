@@ -872,10 +872,10 @@ int main(int argc, char *argv[]) {
     };
 
     //FaceDetectionClass FaceDetection;
-    DetectionClass::FaceDetection face_detection(FLAGS_m, FLAGS_d, FLAGS_t);
-    DetectionClass::EmotionsDetection
+    InferenceClass::FaceDetection face_detection(FLAGS_m, FLAGS_d, FLAGS_t);
+    InferenceClass::EmotionsDetection
         emotion_detection(FLAGS_m_em, FLAGS_d_em, 16);
-    DetectionClass::AgeGenderDetection
+    InferenceClass::AgeGenderDetection
         age_gender_detection(FLAGS_m_ag, FLAGS_d_ag, 16);
     HeadPoseDetection HeadPose;
     //EmotionsDetectionClass EmotionsDetection;
@@ -907,11 +907,11 @@ int main(int argc, char *argv[]) {
     // -----------------------------------------------------------------------------------------------------
 
     // --------------------------- 3. Test Pipeline ---------------------------------------------------------
-    std::shared_ptr<DetectionClass::Detection>
+    std::shared_ptr<InferenceClass::BaseInference>
         face_detection_ptr(&face_detection);
     pipe.add("video_input", "face_detection", face_detection_ptr);
 
-    std::shared_ptr<DetectionClass::Detection> age_gender_detection_ptr(
+    std::shared_ptr<InferenceClass::BaseInference> age_gender_detection_ptr(
         &age_gender_detection);
     pipe.add("face_detection", "age_gender_detection", age_gender_detection_ptr);
 
