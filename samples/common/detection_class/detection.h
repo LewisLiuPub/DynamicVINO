@@ -23,6 +23,11 @@ class Detection {
     std::string label = "";
     float confidence = -1;
     cv::Rect location;
+    float angle_y = -1;
+    float angle_p = -1;
+    float angle_r = -1;
+    float age = -1;
+    float male_prob = -1;
   };
 
   Detection(const std::string &model_loc, const std::string &device,
@@ -248,7 +253,7 @@ class HeadPoseDetection : public Detection {
 
   void drawAxes(cv::Mat &frame,
                 cv::Point3f cpoint,
-                Result headPose,
+                Result head_pose,
                 float scale);
 
  protected:
@@ -260,6 +265,7 @@ class HeadPoseDetection : public Detection {
 
   const std::string
   getName() const override { return "HeadPose Detection"; };
+
  private:
   std::vector<Result> results_;
   int enqueued_faces_num_ = 0;
@@ -269,6 +275,7 @@ class HeadPoseDetection : public Detection {
   std::string outputAngleR = "angle_r_fc";
   std::string outputAngleP = "angle_p_fc";
   std::string outputAngleY = "angle_y_fc";
+  cv::Mat camera_matrix_;
 };
 
 // AgeGender Detection
@@ -303,9 +310,10 @@ class AgeGenderDetection : public Detection {
  private:
   std::vector<Result> results_;
   int enqueued_faces_num_ = 0;
-  std::string input;
-  std::string outputAge;
-  std::string outputGender;
+  std::string input_;
+  std::string output_age_;
+  std::string output_gender_;
+  bool results_fetched_;
 };
 
 }

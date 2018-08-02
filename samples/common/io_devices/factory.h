@@ -20,14 +20,14 @@
 * @brief This class is a factory class that produces the derived input device class corresponding to the input string
 */
 class Factory {
-public:
+ public:
 /**
   * @brief This function produces the derived input device class corresponding to the input string
   * @return the object of derived input device referenced by a smart pointer
   */
-    static std::shared_ptr<BaseInputDevice> makeInputDeviceByName(const std::string &);
-    static std::shared_ptr<InferenceEngine::InferencePlugin> makePluginByName(
-            const std::string &, const std::string &, const std::string &, bool);
+  static std::shared_ptr<BaseInputDevice> makeInputDeviceByName(const std::string &);
+  static std::shared_ptr<InferenceEngine::InferencePlugin> makePluginByName(
+      const std::string &, const std::string &, const std::string &, bool);
 };
 
 #endif //SAMPLES_FACTORY_H
