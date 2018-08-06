@@ -61,7 +61,7 @@ class ValidatedEmotionsClassificationNetwork : public ValidatedBaseNetwork {
  public:
   ValidatedEmotionsClassificationNetwork(
       const std::string &, const std::string &, int, int, int);
-  inline const std::string getInputName() {return output_;}
+  inline const std::string getInputName() {return input_;}
   inline const std::string getOutputName() {return output_;}
   const std::string getNetworkName() const override ;
 

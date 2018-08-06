@@ -169,12 +169,12 @@ int main(int argc, char *argv[]) {
         emotions_detection_ptr(&emotions_detection);
     std::shared_ptr<openvino_service::BaseInference>
         agegender_detection_ptr(&agegender_detection);
-    pipe.add("video_input", "agegender_detection", agegender_detection_ptr);
-    //pipe.add("face_detection", "agegender_detection", agegender_detection_ptr);
+    pipe.add("video_input", "face_detection", face_detection_ptr);
+    pipe.add("face_detection", "agegender", agegender_detection_ptr);
 
     std::string window_name = "Detection results";
     std::shared_ptr<BaseOutput> output_ptr(new ImageWindow(window_name));
-    pipe.add("agegender_detection", "video_output", output_ptr);
+    pipe.add("agegender", "video_output", output_ptr);
 
     using namespace cv;
     pipe.setcallback();

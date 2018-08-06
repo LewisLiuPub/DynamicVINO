@@ -41,7 +41,7 @@ void ImageWindow::prepareData(
       result.confidence << ",";
   cv::putText(frame_,
               out.str(),
-              cv::Point2f(result.location.x, result.location.y + 15),
+              cv::Point2f(result.location.x, result.location.y - 15),
               cv::FONT_HERSHEY_COMPLEX_SMALL,
               0.8,
               cv::Scalar(0, 0, 255));

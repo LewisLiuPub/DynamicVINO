@@ -7,6 +7,6 @@
 NetworkEngine::NetworkEngine(
     InferenceEngine::InferencePlugin *plg,
     const ValidatedBaseNetwork & validated_network) {
-  request_ = plg->LoadNetwork(validated_network.net_reader_->getNetwork(), {})
+  request_ = (plg->LoadNetwork(validated_network.net_reader_->getNetwork(), {}))
       .CreateInferRequestPtr();
 };

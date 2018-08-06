@@ -33,8 +33,8 @@ void ValidatedBaseNetwork::networkInit() {
             std::istream_iterator<std::string>(),
             std::back_inserter(labels_));
   checkNetworkSize(input_num_, output_num_, net_reader_);
-  setLayerProperty(net_reader_);
   checkLayerProperty(net_reader_);
+  setLayerProperty(net_reader_);
 }
 
 void ValidatedBaseNetwork::checkNetworkSize(
@@ -42,7 +42,7 @@ void ValidatedBaseNetwork::checkNetworkSize(
     int output_size,
     InferenceEngine::CNNNetReader::Ptr net_reader) {
   //check input size
-  slog::info << "Checking inputs" << slog::endl;
+  slog::info << "Checking input size" << slog::endl;
   InferenceEngine::InputsDataMap
       input_info(net_reader->getNetwork().getInputsInfo());
   if (input_info.size() != input_size) {
@@ -50,7 +50,7 @@ void ValidatedBaseNetwork::checkNetworkSize(
         "Face Detection network should have only one input");
   }
   //check output size
-  slog::info << "Checking outputs" << slog::endl;
+  slog::info << "Checking output size" << slog::endl;
   InferenceEngine::OutputsDataMap
       output_info(net_reader->getNetwork().getOutputsInfo());
   if (output_info.size() != output_size) {
@@ -89,6 +89,10 @@ void ValidatedFaceDetectionNetwork::setLayerProperty(
 void ValidatedFaceDetectionNetwork::checkLayerProperty(
     const InferenceEngine::CNNNetReader::Ptr &net_reader) {
   slog::info << "Checking Face Detection outputs" << slog::endl;
+  InferenceEngine::OutputsDataMap
+      output_info_map(net_reader->getNetwork().getOutputsInfo());
+  InferenceEngine::DataPtr &output_data_ptr = output_info_map.begin()->second;
+  output_ = output_info_map.begin()->first;
   const InferenceEngine::CNNLayerPtr
       output_layer = net_reader->getNetwork().getLayerByName(
       output_.c_str());
@@ -116,9 +120,6 @@ void ValidatedFaceDetectionNetwork::checkLayerProperty(
     }
   }
   //last dimension of output layer should be 7
-  InferenceEngine::OutputsDataMap
-      output_info_map(net_reader->getNetwork().getOutputsInfo());
-  InferenceEngine::DataPtr &output_data_ptr = output_info_map.begin()->second;
   const InferenceEngine::SizeVector output_dims
       = output_data_ptr->getTensorDesc().getDims();
   max_proposal_count_ = static_cast<int>(output_dims[2]);

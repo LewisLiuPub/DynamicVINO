@@ -85,7 +85,6 @@ void Pipeline::runOnce() {
     ++counter;
     detection_ptr->submitRequest();
   }
-
   std::unique_lock<std::mutex> lock(counter_mutex);
   cv.wait(lock, [self = this]() { return self->counter == 0; });
   auto t1 = std::chrono::high_resolution_clock::now();
@@ -124,7 +123,7 @@ void Pipeline::setcallback() {
       self->callback(detection_name);
       return;
     };
-    pair.second->getEngine()->setCompletionCallback(callb);
+    pair.second->getEngine()->getRequest()->SetCompletionCallback(callb);
   }
 }
 void Pipeline::callback(const std::string &detection_name) {
@@ -146,7 +145,8 @@ void Pipeline::callback(const std::string &detection_name) {
       if (detection_ptr_iter != name_to_detection_map_.end()) {
         auto next_detection_ptr = detection_ptr_iter->second;
         for (size_t i = 0; i < detection_ptr->getResultsLength(); ++i) {
-          InferenceResult::Result prev_result = detection_ptr->getLocationResult(i);
+          InferenceResult::Result prev_result =
+              detection_ptr->getLocationResult(i);
           auto clippedRect = prev_result.location & cv::Rect(0, 0,
                                                              width_,
                                                              height_);

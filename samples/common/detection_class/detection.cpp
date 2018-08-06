@@ -43,6 +43,7 @@ void BaseInference::loadEngine(const std::shared_ptr<NetworkEngine> engine) {
   engine_ = engine;
 };
 
+template <typename T>
 bool BaseInference::enqueue(const cv::Mat &frame, const cv::Rect &,
                             float scale_factor, int batch_index,
                             const std::string &input_name) {
@@ -55,7 +56,7 @@ bool BaseInference::enqueue(const cv::Mat &frame, const cv::Rect &,
   }
   Blob::Ptr input_blob
       = engine_->getRequest()->GetBlob(input_name);
-  matU8ToBlob<uint8_t>(frame, input_blob, scale_factor, batch_index);
+  matU8ToBlob<T>(frame, input_blob, scale_factor, batch_index);
   enqueued_frames += 1;
   return true;
 }
@@ -96,7 +97,7 @@ FaceDetection::enqueue(const cv::Mat &frame, const cv::Rect &input_frame_loc) {
     width_ = frame.cols;
     height_ = frame.rows;
   }
-  if (!BaseInference::enqueue(frame, input_frame_loc, 1, 0,
+  if (!BaseInference::enqueue<u_int8_t>(frame, input_frame_loc, 1, 0,
                               valid_network_->getInputName())) {
     return false;
   };
@@ -182,7 +183,7 @@ void EmotionsDetection::loadNetwork(
 bool EmotionsDetection::enqueue(const cv::Mat &frame,
                                 const cv::Rect &input_frame_loc) {
   if (getEnqueuedNum() == 0) { results_.clear(); }
-  bool succeed = BaseInference::enqueue(
+  bool succeed = BaseInference::enqueue<float>(
       frame, input_frame_loc, 1, getResultsLength(),
       valid_network_->getInputName());
   if (!succeed ) return false;
@@ -200,9 +201,8 @@ bool EmotionsDetection::fetchResults() {
   bool can_fetch = BaseInference::fetchResults();
   if (!can_fetch) return false;
   int label_length = static_cast<int>(valid_network_->getLabels().size());
-  auto request = getEngine()->getRequest();
   std::string output_name = valid_network_->getOutputName();
-  Blob::Ptr emotions_blob = request->GetBlob(output_name);
+  Blob::Ptr emotions_blob = getEngine()->getRequest()->GetBlob(output_name);
   /** emotions vector must have the same size as number of channels
       in model output. Default output format is NCHW so we check index 1 */
   long num_of_channels = emotions_blob->getTensorDesc().getDims().at(1);
@@ -259,7 +259,7 @@ void AgeGenderDetection::loadNetwork(
 bool AgeGenderDetection::enqueue(const cv::Mat &frame,
                                  const cv::Rect &input_frame_loc) {
   if (getEnqueuedNum() == 0) { results_.clear(); }
-  bool succeed = BaseInference::enqueue(
+  bool succeed = BaseInference::enqueue<float>(
       frame, input_frame_loc, 1, getResultsLength(),
       valid_network_->getInputName());
   if (!succeed ) return false;

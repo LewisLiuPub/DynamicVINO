@@ -44,5 +44,4 @@ std::shared_ptr<InferencePlugin> Factory::makePluginByName(const std::string &de
   }
   return std::make_shared<InferencePlugin>(InferenceEngine::InferenceEnginePluginPtr(
       plugin));
-
 }

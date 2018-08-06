@@ -45,6 +45,7 @@ class BaseInference {
   virtual const std::string getName() const = 0;
 
  protected:
+  template <typename T>
   bool enqueue(const cv::Mat &frame, const cv::Rect &, float, int,
                const std::string&);
   inline void setMaxBatchSize(int max_batch_size) {
