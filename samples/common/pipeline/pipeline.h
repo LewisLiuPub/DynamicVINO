@@ -18,29 +18,37 @@
 #include <mutex>
 #include <future>
 
-
 class Pipeline {
-public:
-    Pipeline() = default;
-    bool add(const std::string &parent, const std::string &name,
-                       std::unique_ptr<BaseInputDevice> input_device);
-    bool add(const std::string &parent, const std::string &name,
-                       std::unique_ptr<DetectionClass::Detection> detection);
-    bool add(const std::string &parent, const std::string &name,
-                       std::unique_ptr<BaseOutput> output);
-    bool add(const std::string &parent, const std::string &name);
-    void runOnce();
+ public:
+  Pipeline() = default;
+  bool add(const std::string &parent, const std::string &name,
+           std::shared_ptr<BaseInputDevice> input_device);
+  bool add(const std::string &parent, const std::string &name,
+           std::shared_ptr<InferenceClass::BaseInference> detection);
+  bool add(const std::string &parent, const std::string &name,
+           std::shared_ptr<BaseOutput> output);
+  bool add(const std::string &parent, const std::string &name);
+  void runOnce();
+  void callback(const std::string &detection_name);
+  void setcallback();
 
-private:
-    std::unique_ptr<BaseInputDevice> input_device_;
-    std::string input_device_name_;
-    std::multimap<std::string, std::string> next_;
-    std::map<std::string, std::shared_ptr<DetectionClass::Detection>> name_to_detection_map_;
-    void printPipeline();
-    std::vector<std::shared_ptr<BaseOutput>> outputs_;
-    int total_detection_ = 0;
-    std::vector<std::string> output_names_;
+ private:
+  std::shared_ptr<BaseInputDevice> input_device_;
+  std::string input_device_name_;
+  std::multimap<std::string, std::string> next_;
+  std::map<std::string, std::shared_ptr<InferenceClass::BaseInference>>
+      name_to_detection_map_;
+  std::map<std::string, std::shared_ptr<BaseOutput>> name_to_output_map_;
+  void printPipeline();
+  int total_detection_ = 0;
+  std::set<std::string> output_names_;
+  int width_;
+  int height_;
+  cv::Mat frame;
+  // for multi threads
+  std::atomic<int> counter;
+  std::mutex counter_mutex;
+  std::condition_variable cv;
 };
-
 
 #endif //SAMPLES_PIPELINE_H
