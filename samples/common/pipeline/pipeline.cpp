@@ -52,7 +52,7 @@ bool Pipeline::add(const std::string &parent, const std::string &name) {
 }
 
 bool Pipeline::add(const std::string &parent, const std::string &name,
-                   std::shared_ptr<InferenceClass::BaseInference> detection) {
+                   std::shared_ptr<openvino_service::BaseInference> detection) {
   if (name_to_detection_map_.find(parent) == name_to_detection_map_.end()
       && input_device_name_ != parent) {
     slog::err << "parent device/detection does not exists!" << slog::endl;
@@ -109,7 +109,6 @@ void Pipeline::printPipeline() {
 }
 
 void Pipeline::setcallback() {
-  //slog::info << "Reading input" << slog::endl;
   if (!input_device_->read(&frame)) {
     throw std::logic_error("Failed to get frame from cv::VideoCapture");
   }
@@ -118,7 +117,6 @@ void Pipeline::setcallback() {
   for (auto &pair: name_to_output_map_) {
     pair.second->feedFrame(frame);
   }
-  auto t0 = std::chrono::high_resolution_clock::now();
   for (auto &pair: name_to_detection_map_) {
     std::string detection_name = pair.first;
     std::function<void(void)> callb;
@@ -126,7 +124,7 @@ void Pipeline::setcallback() {
       self->callback(detection_name);
       return;
     };
-    pair.second->setCompletionCallback(callb);
+    pair.second->getEngine()->setCompletionCallback(callb);
   }
 }
 void Pipeline::callback(const std::string &detection_name) {
@@ -139,10 +137,7 @@ void Pipeline::callback(const std::string &detection_name) {
     std::string next_name = pos.first->second;
     // if next is output, then print
     if (output_names_.find(next_name) != output_names_.end()) {
-      for (size_t i = 0; i < detection_ptr->getResultsLength(); ++i) {
-        name_to_output_map_[next_name]->prepareData(
-            (*detection_ptr)[i]);
-      }
+      detection_ptr->accepts(name_to_output_map_[next_name]);
     }
       // if next is network, set input for next network
     else {
@@ -151,7 +146,7 @@ void Pipeline::callback(const std::string &detection_name) {
       if (detection_ptr_iter != name_to_detection_map_.end()) {
         auto next_detection_ptr = detection_ptr_iter->second;
         for (size_t i = 0; i < detection_ptr->getResultsLength(); ++i) {
-          InferenceClass::BaseInference::Result prev_result = (*detection_ptr)[i];
+          InferenceResult::Result prev_result = detection_ptr->getLocationResult(i);
           auto clippedRect = prev_result.location & cv::Rect(0, 0,
                                                              width_,
                                                              height_);

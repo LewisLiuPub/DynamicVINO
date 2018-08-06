@@ -5,13 +5,15 @@
 #ifndef SAMPLES_OUTPUT_H
 #define SAMPLES_OUTPUT_H
 
-#include "detection.h"
+#include "result.h"
 #include "opencv2/opencv.hpp"
 
 class BaseOutput {
  public:
-  virtual void prepareData(
-      const InferenceClass::BaseInference::Result &) = 0;
+  BaseOutput() = default;
+  virtual void prepareData(const InferenceResult::FaceDetectionResult&) = 0;
+  virtual void prepareData(const InferenceResult::EmotionsDetectionResult&) = 0;
+  virtual void prepareData(const InferenceResult::AgeGenderResult&) = 0;
   virtual void handleOutput(const std::string &overall_output_text) = 0;
   virtual void feedFrame(const cv::Mat &frame) {}
 };
@@ -22,12 +24,11 @@ class ImageWindow : public BaseOutput {
       window_name) {
     cv::namedWindow(window_name, cv::WINDOW_AUTOSIZE);
   }
-
+  void prepareData(const InferenceResult::FaceDetectionResult&) override;
+  void prepareData(const InferenceResult::EmotionsDetectionResult&) override;
   void prepareData(
-      const InferenceClass::BaseInference::Result &) override;
-
+      const InferenceResult::AgeGenderResult&) override;
   void feedFrame(const cv::Mat &) override;
-
   void handleOutput(const std::string &overall_output_text) override;
 
  private:

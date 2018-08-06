@@ -5,10 +5,11 @@
 #ifndef SAMPLES_ENGINE_H
 #define SAMPLES_ENGINE_H
 
-#include "ValidatedNetwork.h"
+#include "validated_network.h"
 #include "inference_engine.hpp"
 
 class NetworkEngine {
+ public:
   NetworkEngine(InferenceEngine::InferencePlugin*,
                 const ValidatedBaseNetwork&);
   inline InferenceEngine::InferRequest::Ptr &getRequest() { return request_; }
@@ -18,7 +19,7 @@ class NetworkEngine {
   }
 
  private:
-  inline InferenceEngine::InferRequest::Ptr request_;
+  InferenceEngine::InferRequest::Ptr request_;
 
 };
 
