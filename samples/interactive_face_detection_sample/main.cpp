@@ -131,11 +131,12 @@ int main(int argc, char *argv[]) {
     auto face_detection_engine =
         std::make_shared<NetworkEngine>(
             &pluginsForDevices[FLAGS_d],*face_detection_network);
-    openvino_service::FaceDetection face_detection(
-        face_detection_network->getMaxProposalCount(),
-        face_detection_network->getObjectSize(), FLAGS_t);
-    face_detection.loadNetwork(face_detection_network);
-    face_detection.loadEngine(face_detection_engine);
+    auto face_detection_ptr =
+        std::make_shared<openvino_service::FaceDetection >(
+            face_detection_network->getMaxProposalCount(),
+            face_detection_network->getObjectSize(), FLAGS_t);
+    face_detection_ptr->loadNetwork(face_detection_network);
+    face_detection_ptr->loadEngine(face_detection_engine);
 
     //generate emotions detection object
     auto emotions_detection_network =
@@ -145,9 +146,10 @@ int main(int argc, char *argv[]) {
     auto emotions_detection_engine =
         std::make_shared<NetworkEngine>(
             &pluginsForDevices[FLAGS_d_em],*emotions_detection_network);
-    openvino_service::EmotionsDetection emotions_detection;
-    emotions_detection.loadNetwork(emotions_detection_network);
-    emotions_detection.loadEngine(emotions_detection_engine);
+    auto emotions_detection_ptr =
+        std::make_shared<openvino_service::EmotionsDetection>();
+    emotions_detection_ptr->loadNetwork(emotions_detection_network);
+    emotions_detection_ptr->loadEngine(emotions_detection_engine);
 
     //generate agegender detection object
     auto agegender_detection_network =
@@ -157,30 +159,26 @@ int main(int argc, char *argv[]) {
     auto agegender_detection_engine =
         std::make_shared<NetworkEngine>(
             &pluginsForDevices[FLAGS_d_ag],*agegender_detection_network);
-    openvino_service::AgeGenderDetection agegender_detection;
-    agegender_detection.loadNetwork(agegender_detection_network);
-    agegender_detection.loadEngine(agegender_detection_engine);
+    auto agegender_detection_ptr = std::make_shared<openvino_service::AgeGenderDetection>();
+    agegender_detection_ptr->loadNetwork(agegender_detection_network);
+    agegender_detection_ptr->loadEngine(agegender_detection_engine);
     // -----------------------------------------------------------------------------------------------------
 
     // --------------------------- 3. Test Pipeline ---------------------------------------------------------
-    std::shared_ptr<openvino_service::BaseInference>
-        face_detection_ptr(&face_detection);
-    std::shared_ptr<openvino_service::BaseInference>
-        emotions_detection_ptr(&emotions_detection);
-    std::shared_ptr<openvino_service::BaseInference>
-        agegender_detection_ptr(&agegender_detection);
     pipe.add("video_input", "face_detection", face_detection_ptr);
-    pipe.add("face_detection", "agegender", agegender_detection_ptr);
+    pipe.add("face_detection", "emotion_detection", emotions_detection_ptr);
 
     std::string window_name = "Detection results";
     std::shared_ptr<BaseOutput> output_ptr(new ImageWindow(window_name));
-    pipe.add("agegender", "video_output", output_ptr);
+    pipe.add("emotion_detection", "video_output", output_ptr);
 
     using namespace cv;
     pipe.setcallback();
     while (waitKey(1) < 0 && cvGetWindowHandle(window_name.c_str())) {
       pipe.runOnce();
     }
+    slog::info << "Execution successful" << slog::endl;
+    return 0;
   }
   catch (const std::exception &error) {
     slog::err << error.what() << slog::endl;

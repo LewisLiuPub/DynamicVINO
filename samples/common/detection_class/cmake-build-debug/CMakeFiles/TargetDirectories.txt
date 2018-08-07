@@ -1,3 +1,0 @@
-/home/chris/workspace/cv_temp/samples/common/detection_class/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/chris/workspace/cv_temp/samples/common/detection_class/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/chris/workspace/cv_temp/samples/common/detection_class/cmake-build-debug/CMakeFiles/detection_class.dir

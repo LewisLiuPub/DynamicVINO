@@ -42,8 +42,8 @@ class Pipeline {
   void printPipeline();
   int total_detection_ = 0;
   std::set<std::string> output_names_;
-  int width_;
-  int height_;
+  int width_ = 0;
+  int height_ = 0;
   cv::Mat frame;
   // for multi threads
   std::atomic<int> counter;

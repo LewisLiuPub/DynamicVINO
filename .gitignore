@@ -32,7 +32,7 @@
 *.app
 
 # Folders
-/samples/build/
+build/
 /.idea
-/samples/cmake-build-debug/
-/samples/Release/
+cmake-build-debug/
+Release/
