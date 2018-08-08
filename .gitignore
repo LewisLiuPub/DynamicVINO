@@ -33,6 +33,7 @@
 
 # Folders
 build/
-/.idea
+.idea/
 cmake-build-debug/
 Release/
+.vscode/

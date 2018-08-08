@@ -14,13 +14,14 @@
 
 cmake_minimum_required (VERSION 2.8)
 
-project(OPENVINO_PIPELINE_LIB)
+project(Samples)
 
 list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 # environment variable InferenceEngine_DIR can be use instead of relaive path to specify location of configuration file
 set(InferenceEngine_DIR /opt/intel/computer_vision_sdk_2018.2.299/deployment_tools/inference_engine/share)
 set(OpenCV_DIR /opt/intel/computer_vision_sdk_2018.2.299/opencv/share/OpenCV)
+
 
 
 message(STATUS "Looking for inference engine configuration file at: ${CMAKE_PREFIX_PATH}")
@@ -123,7 +124,9 @@ add_subdirectory(common/format_reader)
 # Properties->C/C++->General->Additional Include Directories
 include_directories (
     ${CMAKE_CURRENT_SOURCE_DIR}/common/format_reader
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/io_devices
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/detection_class
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/pipeline
     ${InferenceEngine_INCLUDE_DIRS}
     ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/gflags/include
     ${CMAKE_CURRENT_SOURCE_DIR}/common
@@ -135,7 +138,10 @@ endif()
 
 set(DEPENDENCIES realsense2 ${OpenCV_LIBS})
 
-add_subdirectory(lib)
+add_subdirectory(common/io_devices)
+add_subdirectory(common/detection_class)
+add_subdirectory(common/pipeline)
+add_subdirectory(interactive_face_detection_sample)
 
 if (NEED_EXTENSIONS)
     add_subdirectory(extension)

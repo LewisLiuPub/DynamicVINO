@@ -1,13 +1,21 @@
 //
 // Created by chris on 18-7-20.
 //
-
+/**
+ * @brief a header file with definition of Output class
+ * @file output.h
+ */
 #ifndef SAMPLES_OUTPUT_H
 #define SAMPLES_OUTPUT_H
 
 #include "opencv2/opencv.hpp"
 #include "result.h"
-
+/**
+ * @class BaseOutput
+ * @brief This class is a base class for various output devices. It employs
+ * visitor pattern to perform different operations to different inference
+ * result with different output device
+ */
 class BaseOutput {
  public:
   BaseOutput() = default;

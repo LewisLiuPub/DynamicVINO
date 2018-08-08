@@ -1,7 +1,10 @@
 //
 // Created by chris on 18-8-2.
 //
-
+/**
+ * @brief a header file with denifition of the return result type of each network
+ * @file data_struct.h
+ */
 #ifndef SAMPLES_INFERENCERESULT_H
 #define SAMPLES_INFERENCERESULT_H
 

@@ -21,11 +21,16 @@
 */
 class Factory {
  public:
-/**
+  /**
   * @brief This function produces the derived input device class corresponding to the input string
-  * @return the object of derived input device referenced by a smart pointer
+  * @param[in] input device name, can be RealSenseCamera, StandardCamera or video directory
+  * @return the instance of derived input device referenced by a smart pointer
   */
   static std::shared_ptr<BaseInputDevice> makeInputDeviceByName(const std::string &);
+  /**
+  * @brief This function produces the derived inference plugin corresponding to the input string
+  * @return the instance of derived inference plugin referenced by a smart pointer
+  */
   static std::shared_ptr<InferenceEngine::InferencePlugin> makePluginByName(
       const std::string &, const std::string &, const std::string &, bool);
 };
