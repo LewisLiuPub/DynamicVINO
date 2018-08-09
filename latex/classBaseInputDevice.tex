@@ -1,0 +1,233 @@
+\hypertarget{classBaseInputDevice}{}\section{Base\+Input\+Device Class Reference}
+\label{classBaseInputDevice}\index{Base\+Input\+Device@{Base\+Input\+Device}}
+
+
+This class is an interface for three kinds of input devices\+: realsense camera, standard camera and video.  
+
+
+
+
+{\ttfamily \#include $<$input.\+h$>$}
+
+
+
+Inheritance diagram for Base\+Input\+Device\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{classBaseInputDevice__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \hyperlink{classBaseInputDevice_a487cef7725bab9c8cd7141b9b2f83eea}{initialize} ()=0
+\begin{DoxyCompactList}\small\item\em initialize the input device, for cameras, it will turn the camera on and get ready to read frames, for videos, it will open a video file \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classBaseInputDevice_a7fb82b301d42d63e1b98455eb88ccddd}{initialize} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int})=0
+\item 
+virtual bool \hyperlink{classBaseInputDevice_a8ad1f513052fd4c43e030c3958808bfa}{initialize} (size\+\_\+t width, size\+\_\+t height)=0
+\item 
+virtual bool \hyperlink{classBaseInputDevice_a49b0a9ff7286d5fb3bccf61a0baaa32a}{read} (cv\+::\+Mat $\ast$frame)=0
+\begin{DoxyCompactList}\small\item\em read next frame, and give the value to argument frame \end{DoxyCompactList}\item 
+virtual void \hyperlink{classBaseInputDevice_a6f88b6eae38b58dd534f082690f840b3}{config} ()=0
+\item 
+virtual \hyperlink{classBaseInputDevice_af3f4d01b6e32f62ea6b3d475f12a1a5a}{$\sim$\+Base\+Input\+Device} ()=default
+\item 
+size\+\_\+t \hyperlink{classBaseInputDevice_a27846cadcc13830798fa92be6800f764}{get\+Width} ()
+\item 
+void \hyperlink{classBaseInputDevice_a980073308aee4edf67d43a85fdaa2f81}{set\+Width} (size\+\_\+t width)
+\item 
+size\+\_\+t \hyperlink{classBaseInputDevice_ad38b119a840adacf04c16d75462fc4b7}{get\+Height} ()
+\item 
+void \hyperlink{classBaseInputDevice_a3312adc6b71bc08da39b5df1be565cef}{set\+Height} (size\+\_\+t height)
+\item 
+bool \hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{get\+Is\+Init} ()
+\item 
+void \hyperlink{classBaseInputDevice_a92e8c0f893c1eb9dcbdd7fb38daf5da1}{set\+Is\+Init} (bool is\+\_\+init)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class is an interface for three kinds of input devices\+: realsense camera, standard camera and video. 
+
+Definition at line 16 of file input.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Base\+Input\+Device@{Base\+Input\+Device}!````~Base\+Input\+Device@{$\sim$\+Base\+Input\+Device}}
+\index{````~Base\+Input\+Device@{$\sim$\+Base\+Input\+Device}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{$\sim$\+Base\+Input\+Device()=default}{~BaseInputDevice()=default}}]{\setlength{\rightskip}{0pt plus 5cm}virtual Base\+Input\+Device\+::$\sim$\+Base\+Input\+Device (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}\hypertarget{classBaseInputDevice_af3f4d01b6e32f62ea6b3d475f12a1a5a}{}\label{classBaseInputDevice_af3f4d01b6e32f62ea6b3d475f12a1a5a}
+
+
+\subsection{Member Function Documentation}
+\index{Base\+Input\+Device@{Base\+Input\+Device}!config@{config}}
+\index{config@{config}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{config()=0}{config()=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Base\+Input\+Device\+::config (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classBaseInputDevice_a6f88b6eae38b58dd534f082690f840b3}{}\label{classBaseInputDevice_a6f88b6eae38b58dd534f082690f840b3}
+
+
+Implemented in \hyperlink{classVideo_a027d05e5a0391601cb0fea11a063a957}{Video}, \hyperlink{classStandardCamera_a728cfa57a28a8683d9f05a983aae6caa}{Standard\+Camera}, and \hyperlink{classRealSenseCamera_aa701d355ffa10f58d664201523097486}{Real\+Sense\+Camera}.
+
+\index{Base\+Input\+Device@{Base\+Input\+Device}!get\+Height@{get\+Height}}
+\index{get\+Height@{get\+Height}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{get\+Height()}{getHeight()}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t Base\+Input\+Device\+::get\+Height (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classBaseInputDevice_ad38b119a840adacf04c16d75462fc4b7}{}\label{classBaseInputDevice_ad38b119a840adacf04c16d75462fc4b7}
+
+
+Definition at line 37 of file input.\+h.
+
+
+\begin{DoxyCode}
+37 \{ \textcolor{keywordflow}{return} height\_; \}
+\end{DoxyCode}
+\index{Base\+Input\+Device@{Base\+Input\+Device}!get\+Is\+Init@{get\+Is\+Init}}
+\index{get\+Is\+Init@{get\+Is\+Init}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{get\+Is\+Init()}{getIsInit()}}]{\setlength{\rightskip}{0pt plus 5cm}bool Base\+Input\+Device\+::get\+Is\+Init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classBaseInputDevice_a560fe86d007739992af04198237909a5}{}\label{classBaseInputDevice_a560fe86d007739992af04198237909a5}
+
+
+Definition at line 39 of file input.\+h.
+
+
+\begin{DoxyCode}
+39 \{ \textcolor{keywordflow}{return} is\_init\_; \}
+\end{DoxyCode}
+\index{Base\+Input\+Device@{Base\+Input\+Device}!get\+Width@{get\+Width}}
+\index{get\+Width@{get\+Width}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{get\+Width()}{getWidth()}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t Base\+Input\+Device\+::get\+Width (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classBaseInputDevice_a27846cadcc13830798fa92be6800f764}{}\label{classBaseInputDevice_a27846cadcc13830798fa92be6800f764}
+
+
+Definition at line 35 of file input.\+h.
+
+
+\begin{DoxyCode}
+35 \{ \textcolor{keywordflow}{return} width\_; \}
+\end{DoxyCode}
+\index{Base\+Input\+Device@{Base\+Input\+Device}!initialize@{initialize}}
+\index{initialize@{initialize}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{initialize()=0}{initialize()=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Base\+Input\+Device\+::initialize (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classBaseInputDevice_a487cef7725bab9c8cd7141b9b2f83eea}{}\label{classBaseInputDevice_a487cef7725bab9c8cd7141b9b2f83eea}
+
+
+initialize the input device, for cameras, it will turn the camera on and get ready to read frames, for videos, it will open a video file 
+
+\begin{DoxyReturn}{Returns}
+whether the input device is successfully turned on 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classVideo_a276f977e85c9f6815d4d0419d59285bd}{Video}, \hyperlink{classStandardCamera_ae748ec2c2cc35897391b0dacc78140f3}{Standard\+Camera}, and \hyperlink{classRealSenseCamera_abef31b3c9da59cc9071d3ab5b91d5722}{Real\+Sense\+Camera}.
+
+\index{Base\+Input\+Device@{Base\+Input\+Device}!initialize@{initialize}}
+\index{initialize@{initialize}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{initialize(int)=0}{initialize(int)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Base\+Input\+Device\+::initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classBaseInputDevice_a7fb82b301d42d63e1b98455eb88ccddd}{}\label{classBaseInputDevice_a7fb82b301d42d63e1b98455eb88ccddd}
+
+
+Implemented in \hyperlink{classVideo_a70f040b7eb1e967f9fb52d5fb866814a}{Video}, \hyperlink{classStandardCamera_ac6060f251351e98c0d1f9066f197cf3a}{Standard\+Camera}, and \hyperlink{classRealSenseCamera_a258741364cc8e535f16a9995bc067c0e}{Real\+Sense\+Camera}.
+
+\index{Base\+Input\+Device@{Base\+Input\+Device}!initialize@{initialize}}
+\index{initialize@{initialize}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{initialize(size\+\_\+t width, size\+\_\+t height)=0}{initialize(size_t width, size_t height)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Base\+Input\+Device\+::initialize (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{width, }
+\item[{size\+\_\+t}]{height}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classBaseInputDevice_a8ad1f513052fd4c43e030c3958808bfa}{}\label{classBaseInputDevice_a8ad1f513052fd4c43e030c3958808bfa}
+
+
+Implemented in \hyperlink{classVideo_a5c1a49fb9e4151123b9e4721f31f55ec}{Video}, \hyperlink{classStandardCamera_a1d7f1c06cff1a76ed2c951cf6d3e2efa}{Standard\+Camera}, and \hyperlink{classRealSenseCamera_a347e9d320a3e42dccf60b3433c00ccd1}{Real\+Sense\+Camera}.
+
+\index{Base\+Input\+Device@{Base\+Input\+Device}!read@{read}}
+\index{read@{read}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{read(cv\+::\+Mat $\ast$frame)=0}{read(cv::Mat *frame)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Base\+Input\+Device\+::read (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat $\ast$}]{frame}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classBaseInputDevice_a49b0a9ff7286d5fb3bccf61a0baaa32a}{}\label{classBaseInputDevice_a49b0a9ff7286d5fb3bccf61a0baaa32a}
+
+
+read next frame, and give the value to argument frame 
+
+\begin{DoxyReturn}{Returns}
+whether the next frame is successfully read 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classVideo_a4653f5a44dc2697e6d2093353f8e2be8}{Video}, \hyperlink{classStandardCamera_ac0e08505998e2f0f21ab8120b6f8cf5b}{Standard\+Camera}, and \hyperlink{classRealSenseCamera_ad64fc570435b61d47f349e6f0636085a}{Real\+Sense\+Camera}.
+
+\index{Base\+Input\+Device@{Base\+Input\+Device}!set\+Height@{set\+Height}}
+\index{set\+Height@{set\+Height}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{set\+Height(size\+\_\+t height)}{setHeight(size_t height)}}]{\setlength{\rightskip}{0pt plus 5cm}void Base\+Input\+Device\+::set\+Height (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{height}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classBaseInputDevice_a3312adc6b71bc08da39b5df1be565cef}{}\label{classBaseInputDevice_a3312adc6b71bc08da39b5df1be565cef}
+
+
+Definition at line 38 of file input.\+h.
+
+
+\begin{DoxyCode}
+38 \{ height\_ = height; \}
+\end{DoxyCode}
+\index{Base\+Input\+Device@{Base\+Input\+Device}!set\+Is\+Init@{set\+Is\+Init}}
+\index{set\+Is\+Init@{set\+Is\+Init}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{set\+Is\+Init(bool is\+\_\+init)}{setIsInit(bool is_init)}}]{\setlength{\rightskip}{0pt plus 5cm}void Base\+Input\+Device\+::set\+Is\+Init (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+\_\+init}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classBaseInputDevice_a92e8c0f893c1eb9dcbdd7fb38daf5da1}{}\label{classBaseInputDevice_a92e8c0f893c1eb9dcbdd7fb38daf5da1}
+
+
+Definition at line 40 of file input.\+h.
+
+
+\begin{DoxyCode}
+40 \{ is\_init\_ = is\_init; \}
+\end{DoxyCode}
+\index{Base\+Input\+Device@{Base\+Input\+Device}!set\+Width@{set\+Width}}
+\index{set\+Width@{set\+Width}!Base\+Input\+Device@{Base\+Input\+Device}}
+\subsubsection[{\texorpdfstring{set\+Width(size\+\_\+t width)}{setWidth(size_t width)}}]{\setlength{\rightskip}{0pt plus 5cm}void Base\+Input\+Device\+::set\+Width (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{width}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classBaseInputDevice_a980073308aee4edf67d43a85fdaa2f81}{}\label{classBaseInputDevice_a980073308aee4edf67d43a85fdaa2f81}
+
+
+Definition at line 36 of file input.\+h.
+
+
+\begin{DoxyCode}
+36 \{ width\_ = width; \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/openvino\+\_\+service/inputs/\hyperlink{input_8h}{input.\+h}\end{DoxyCompactItemize}

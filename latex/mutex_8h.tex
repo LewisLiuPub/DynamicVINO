@@ -1,0 +1,91 @@
+\hypertarget{mutex_8h}{}\section{thirdparty/gflags/src/mutex.h File Reference}
+\label{mutex_8h}\index{thirdparty/gflags/src/mutex.\+h@{thirdparty/gflags/src/mutex.\+h}}
+{\ttfamily \#include \char`\"{}gflags/gflags\+\_\+declare.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+Include dependency graph for mutex.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{mutex_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{mutex_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classMUTEX__NAMESPACE_1_1Mutex}{M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Mutex}
+\item 
+class \hyperlink{classMUTEX__NAMESPACE_1_1MutexLock}{M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Mutex\+Lock}
+\item 
+class \hyperlink{classMUTEX__NAMESPACE_1_1ReaderMutexLock}{M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Reader\+Mutex\+Lock}
+\item 
+class \hyperlink{classMUTEX__NAMESPACE_1_1WriterMutexLock}{M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Writer\+Mutex\+Lock}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceMUTEX__NAMESPACE}{M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mutex_8h_aef64c560b80d03cd3c7198968164548c}{M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}~gflags\+\_\+mutex\+\_\+namespace
+\item 
+\#define \hyperlink{mutex_8h_a9d139fb6a1be2e912734ef65c2b508ea}{Mutex\+Lock}(x)~\hyperlink{util_8h_a52d78863c5180209f6587dc8bd02de12}{C\+O\+M\+P\+I\+L\+E\+\_\+\+A\+S\+S\+E\+RT}(0, mutex\+\_\+lock\+\_\+decl\+\_\+missing\+\_\+var\+\_\+name)
+\item 
+\#define \hyperlink{mutex_8h_acfee8352dc6349f0de3ce8c262128d57}{Reader\+Mutex\+Lock}(x)~\hyperlink{util_8h_a52d78863c5180209f6587dc8bd02de12}{C\+O\+M\+P\+I\+L\+E\+\_\+\+A\+S\+S\+E\+RT}(0, rmutex\+\_\+lock\+\_\+decl\+\_\+missing\+\_\+var\+\_\+name)
+\item 
+\#define \hyperlink{mutex_8h_af4c3515ab8adf3660c3e9b7e6828ccb9}{Writer\+Mutex\+Lock}(x)~\hyperlink{util_8h_a52d78863c5180209f6587dc8bd02de12}{C\+O\+M\+P\+I\+L\+E\+\_\+\+A\+S\+S\+E\+RT}(0, wmutex\+\_\+lock\+\_\+decl\+\_\+missing\+\_\+var\+\_\+name)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{mutex.\+h@{mutex.\+h}!M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE@{M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}}
+\index{M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE@{M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}!mutex.\+h@{mutex.\+h}}
+\subsubsection[{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}{MUTEX_NAMESPACE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+U\+T\+E\+X\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE~gflags\+\_\+mutex\+\_\+namespace}\hypertarget{mutex_8h_aef64c560b80d03cd3c7198968164548c}{}\label{mutex_8h_aef64c560b80d03cd3c7198968164548c}
+
+
+Definition at line 153 of file mutex.\+h.
+
+\index{mutex.\+h@{mutex.\+h}!Mutex\+Lock@{Mutex\+Lock}}
+\index{Mutex\+Lock@{Mutex\+Lock}!mutex.\+h@{mutex.\+h}}
+\subsubsection[{\texorpdfstring{Mutex\+Lock}{MutexLock}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Mutex\+Lock(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~{\bf C\+O\+M\+P\+I\+L\+E\+\_\+\+A\+S\+S\+E\+RT}(0, mutex\+\_\+lock\+\_\+decl\+\_\+missing\+\_\+var\+\_\+name)}\hypertarget{mutex_8h_a9d139fb6a1be2e912734ef65c2b508ea}{}\label{mutex_8h_a9d139fb6a1be2e912734ef65c2b508ea}
+
+
+Definition at line 341 of file mutex.\+h.
+
+\index{mutex.\+h@{mutex.\+h}!Reader\+Mutex\+Lock@{Reader\+Mutex\+Lock}}
+\index{Reader\+Mutex\+Lock@{Reader\+Mutex\+Lock}!mutex.\+h@{mutex.\+h}}
+\subsubsection[{\texorpdfstring{Reader\+Mutex\+Lock}{ReaderMutexLock}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Reader\+Mutex\+Lock(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~{\bf C\+O\+M\+P\+I\+L\+E\+\_\+\+A\+S\+S\+E\+RT}(0, rmutex\+\_\+lock\+\_\+decl\+\_\+missing\+\_\+var\+\_\+name)}\hypertarget{mutex_8h_acfee8352dc6349f0de3ce8c262128d57}{}\label{mutex_8h_acfee8352dc6349f0de3ce8c262128d57}
+
+
+Definition at line 342 of file mutex.\+h.
+
+\index{mutex.\+h@{mutex.\+h}!Writer\+Mutex\+Lock@{Writer\+Mutex\+Lock}}
+\index{Writer\+Mutex\+Lock@{Writer\+Mutex\+Lock}!mutex.\+h@{mutex.\+h}}
+\subsubsection[{\texorpdfstring{Writer\+Mutex\+Lock}{WriterMutexLock}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Writer\+Mutex\+Lock(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~{\bf C\+O\+M\+P\+I\+L\+E\+\_\+\+A\+S\+S\+E\+RT}(0, wmutex\+\_\+lock\+\_\+decl\+\_\+missing\+\_\+var\+\_\+name)}\hypertarget{mutex_8h_af4c3515ab8adf3660c3e9b7e6828ccb9}{}\label{mutex_8h_af4c3515ab8adf3660c3e9b7e6828ccb9}
+
+
+Definition at line 343 of file mutex.\+h.
+

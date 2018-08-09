@@ -1,0 +1,91 @@
+\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalFactory}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Proposal\+Factory Class Reference}
+\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalFactory}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory}}
+
+
+Inheritance diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Proposal\+Factory\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalFactory__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Proposal\+Factory\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalFactory__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalFactory_a6a8e5f0081abbcf8db84d8e37337ce07}{Proposal\+Factory} (const C\+N\+N\+Layer $\ast$layer)
+\item 
+Status\+Code \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalFactory_af55cd62ce5ffe6d22b708fb00befca55}{get\+Shapes} (const std\+::vector$<$ Tensor\+Desc $>$ \&in\+Shapes, std\+::vector$<$ Tensor\+Desc $>$ \&out\+Shapes, Response\+Desc $\ast$resp) noexceptoverride
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 497 of file ext\+\_\+proposal.\+cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory}!Proposal\+Factory@{Proposal\+Factory}}
+\index{Proposal\+Factory@{Proposal\+Factory}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory}}
+\subsubsection[{\texorpdfstring{Proposal\+Factory(const C\+N\+N\+Layer $\ast$layer)}{ProposalFactory(const CNNLayer *layer)}}]{\setlength{\rightskip}{0pt plus 5cm}Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory\+::\+Proposal\+Factory (
+\begin{DoxyParamCaption}
+\item[{const C\+N\+N\+Layer $\ast$}]{layer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalFactory_a6a8e5f0081abbcf8db84d8e37337ce07}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalFactory_a6a8e5f0081abbcf8db84d8e37337ce07}
+
+
+Definition at line 499 of file ext\+\_\+proposal.\+cpp.
+
+
+\begin{DoxyCode}
+499 : \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ImplFactory_a86837f88ce5c196382c1f7c38e3ba3a8}{ImplFactory}(layer) \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory}!get\+Shapes@{get\+Shapes}}
+\index{get\+Shapes@{get\+Shapes}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory}}
+\subsubsection[{\texorpdfstring{get\+Shapes(const std\+::vector$<$ Tensor\+Desc $>$ \&in\+Shapes, std\+::vector$<$ Tensor\+Desc $>$ \&out\+Shapes, Response\+Desc $\ast$resp) noexceptoverride}{getShapes(const std::vector< TensorDesc > &inShapes, std::vector< TensorDesc > &outShapes, ResponseDesc *resp) noexceptoverride}}]{\setlength{\rightskip}{0pt plus 5cm}Status\+Code Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Factory\+::get\+Shapes (
+\begin{DoxyParamCaption}
+\item[{const std\+::vector$<$ Tensor\+Desc $>$ \&}]{in\+Shapes, }
+\item[{std\+::vector$<$ Tensor\+Desc $>$ \&}]{out\+Shapes, }
+\item[{Response\+Desc $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalFactory_af55cd62ce5ffe6d22b708fb00befca55}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalFactory_af55cd62ce5ffe6d22b708fb00befca55}
+
+
+Definition at line 501 of file ext\+\_\+proposal.\+cpp.
+
+
+\begin{DoxyCode}
+502                                                                \{
+503         \textcolor{keywordflow}{if} (inShapes.size() != 1) \{
+504             \textcolor{keywordflow}{if} (resp) \{
+505                 std::string errorMsg = \textcolor{stringliteral}{"Incorrect input shapes!"};
+506                 errorMsg.copy(resp->msg, \textcolor{keyword}{sizeof}(resp->msg) - 1);
+507             \}
+508             \textcolor{keywordflow}{return} GENERAL\_ERROR;
+509         \}
+510         outShapes.clear();
+511         outShapes.emplace\_back(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ImplFactory_a03cc9ae94115704d93b27a9a62b0619a}{cnnLayer}.precision, inShapes[0].getDims(), inShapes[0].getLayout());
+512         \textcolor{keywordflow}{return} OK;
+513     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__proposal_8cpp}{ext\+\_\+proposal.\+cpp}\end{DoxyCompactItemize}

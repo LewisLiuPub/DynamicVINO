@@ -1,0 +1,137 @@
+\hypertarget{classBaseOutput}{}\section{Base\+Output Class Reference}
+\label{classBaseOutput}\index{Base\+Output@{Base\+Output}}
+
+
+This class is a base class for various output devices. It employs visitor pattern to perform different operations to different inference result with different output device.  
+
+
+
+
+{\ttfamily \#include $<$output.\+h$>$}
+
+
+
+Inheritance diagram for Base\+Output\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=159pt]{classBaseOutput__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBaseOutput_ae88037c3f5a3bd416f3a64e756c75102}{Base\+Output} ()=default
+\item 
+virtual void \hyperlink{classBaseOutput_ac8e9c0077758e64648fd1bd28661dec7}{prepare\+Data} (const \hyperlink{structInferenceResult_1_1FaceDetectionResult}{Inference\+Result\+::\+Face\+Detection\+Result} \&)=0
+\item 
+virtual void \hyperlink{classBaseOutput_a67d7a495441233da42b134667a312202}{prepare\+Data} (const \hyperlink{structInferenceResult_1_1EmotionsResult}{Inference\+Result\+::\+Emotions\+Result} \&)=0
+\item 
+virtual void \hyperlink{classBaseOutput_a6a51c16ebfd7a58829bfa675e562b8f1}{prepare\+Data} (const \hyperlink{structInferenceResult_1_1AgeGenderResult}{Inference\+Result\+::\+Age\+Gender\+Result} \&)=0
+\item 
+virtual void \hyperlink{classBaseOutput_a3549ade1424963fff201fd946075fd4e}{prepare\+Data} (const \hyperlink{structInferenceResult_1_1HeadPoseResult}{Inference\+Result\+::\+Head\+Pose\+Result} \&)=0
+\item 
+virtual void \hyperlink{classBaseOutput_ac516cfd7a05af7d710b5dd44d5b79878}{handle\+Output} (const std\+::string \&overall\+\_\+output\+\_\+text)=0
+\item 
+virtual void \hyperlink{classBaseOutput_acdcbc58abecbf5671b1705937cd1cf02}{feed\+Frame} (const cv\+::\+Mat \&frame)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class is a base class for various output devices. It employs visitor pattern to perform different operations to different inference result with different output device. 
+
+Definition at line 19 of file output.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Base\+Output@{Base\+Output}!Base\+Output@{Base\+Output}}
+\index{Base\+Output@{Base\+Output}!Base\+Output@{Base\+Output}}
+\subsubsection[{\texorpdfstring{Base\+Output()=default}{BaseOutput()=default}}]{\setlength{\rightskip}{0pt plus 5cm}Base\+Output\+::\+Base\+Output (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}}\hypertarget{classBaseOutput_ae88037c3f5a3bd416f3a64e756c75102}{}\label{classBaseOutput_ae88037c3f5a3bd416f3a64e756c75102}
+
+
+\subsection{Member Function Documentation}
+\index{Base\+Output@{Base\+Output}!feed\+Frame@{feed\+Frame}}
+\index{feed\+Frame@{feed\+Frame}!Base\+Output@{Base\+Output}}
+\subsubsection[{\texorpdfstring{feed\+Frame(const cv\+::\+Mat \&frame)}{feedFrame(const cv::Mat &frame)}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Base\+Output\+::feed\+Frame (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{frame}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\hypertarget{classBaseOutput_acdcbc58abecbf5671b1705937cd1cf02}{}\label{classBaseOutput_acdcbc58abecbf5671b1705937cd1cf02}
+
+
+Reimplemented in \hyperlink{classImageWindow_a802e96acaba82b2f83eb3184c702fbcc}{Image\+Window}.
+
+
+
+Definition at line 27 of file output.\+h.
+
+
+\begin{DoxyCode}
+27 \{\}
+\end{DoxyCode}
+\index{Base\+Output@{Base\+Output}!handle\+Output@{handle\+Output}}
+\index{handle\+Output@{handle\+Output}!Base\+Output@{Base\+Output}}
+\subsubsection[{\texorpdfstring{handle\+Output(const std\+::string \&overall\+\_\+output\+\_\+text)=0}{handleOutput(const std::string &overall_output_text)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Base\+Output\+::handle\+Output (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{overall\+\_\+output\+\_\+text}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classBaseOutput_ac516cfd7a05af7d710b5dd44d5b79878}{}\label{classBaseOutput_ac516cfd7a05af7d710b5dd44d5b79878}
+
+
+Implemented in \hyperlink{classImageWindow_a2927e0003c1f4579fb59aff50a9c7de3}{Image\+Window}.
+
+\index{Base\+Output@{Base\+Output}!prepare\+Data@{prepare\+Data}}
+\index{prepare\+Data@{prepare\+Data}!Base\+Output@{Base\+Output}}
+\subsubsection[{\texorpdfstring{prepare\+Data(const Inference\+Result\+::\+Face\+Detection\+Result \&)=0}{prepareData(const InferenceResult::FaceDetectionResult &)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Base\+Output\+::prepare\+Data (
+\begin{DoxyParamCaption}
+\item[{const {\bf Inference\+Result\+::\+Face\+Detection\+Result} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classBaseOutput_ac8e9c0077758e64648fd1bd28661dec7}{}\label{classBaseOutput_ac8e9c0077758e64648fd1bd28661dec7}
+
+
+Implemented in \hyperlink{classImageWindow_a26fa3309cf79914dfe09b3b42b85e49e}{Image\+Window}.
+
+\index{Base\+Output@{Base\+Output}!prepare\+Data@{prepare\+Data}}
+\index{prepare\+Data@{prepare\+Data}!Base\+Output@{Base\+Output}}
+\subsubsection[{\texorpdfstring{prepare\+Data(const Inference\+Result\+::\+Emotions\+Result \&)=0}{prepareData(const InferenceResult::EmotionsResult &)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Base\+Output\+::prepare\+Data (
+\begin{DoxyParamCaption}
+\item[{const {\bf Inference\+Result\+::\+Emotions\+Result} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classBaseOutput_a67d7a495441233da42b134667a312202}{}\label{classBaseOutput_a67d7a495441233da42b134667a312202}
+
+
+Implemented in \hyperlink{classImageWindow_a4fdaf7f1728e60672c22ddf57a4071b1}{Image\+Window}.
+
+\index{Base\+Output@{Base\+Output}!prepare\+Data@{prepare\+Data}}
+\index{prepare\+Data@{prepare\+Data}!Base\+Output@{Base\+Output}}
+\subsubsection[{\texorpdfstring{prepare\+Data(const Inference\+Result\+::\+Age\+Gender\+Result \&)=0}{prepareData(const InferenceResult::AgeGenderResult &)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Base\+Output\+::prepare\+Data (
+\begin{DoxyParamCaption}
+\item[{const {\bf Inference\+Result\+::\+Age\+Gender\+Result} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classBaseOutput_a6a51c16ebfd7a58829bfa675e562b8f1}{}\label{classBaseOutput_a6a51c16ebfd7a58829bfa675e562b8f1}
+
+
+Implemented in \hyperlink{classImageWindow_a09a86f7b0c0e0eec807a4e1458a057c1}{Image\+Window}.
+
+\index{Base\+Output@{Base\+Output}!prepare\+Data@{prepare\+Data}}
+\index{prepare\+Data@{prepare\+Data}!Base\+Output@{Base\+Output}}
+\subsubsection[{\texorpdfstring{prepare\+Data(const Inference\+Result\+::\+Head\+Pose\+Result \&)=0}{prepareData(const InferenceResult::HeadPoseResult &)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Base\+Output\+::prepare\+Data (
+\begin{DoxyParamCaption}
+\item[{const {\bf Inference\+Result\+::\+Head\+Pose\+Result} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classBaseOutput_a3549ade1424963fff201fd946075fd4e}{}\label{classBaseOutput_a3549ade1424963fff201fd946075fd4e}
+
+
+Implemented in \hyperlink{classImageWindow_abb0b9b0c103ec0460a2cbeee414b53c4}{Image\+Window}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/openvino\+\_\+service/outputs/\hyperlink{output_8h}{output.\+h}\end{DoxyCompactItemize}

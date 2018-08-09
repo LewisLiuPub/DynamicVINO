@@ -2,7 +2,7 @@
 // Created by chris on 18-7-20.
 //
 
-#include "output.h"
+#include "openvino_service/outputs/output.h"
 
 ImageWindow::ImageWindow(
     const std::string &window_name, int focal_length) :

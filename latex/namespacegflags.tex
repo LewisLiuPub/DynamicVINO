@@ -1,0 +1,29 @@
+\hypertarget{namespacegflags}{}\section{gflags Namespace Reference}
+\label{namespacegflags}\index{gflags@{gflags}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespacegflags_a29230105b7cc556e634fbabd6a491c17}{Handle\+Command\+Line\+Completions} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{gflags@{gflags}!Handle\+Command\+Line\+Completions@{Handle\+Command\+Line\+Completions}}
+\index{Handle\+Command\+Line\+Completions@{Handle\+Command\+Line\+Completions}!gflags@{gflags}}
+\subsubsection[{\texorpdfstring{Handle\+Command\+Line\+Completions(void)}{HandleCommandLineCompletions(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void gflags\+::\+Handle\+Command\+Line\+Completions (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacegflags_a29230105b7cc556e634fbabd6a491c17}{}\label{namespacegflags_a29230105b7cc556e634fbabd6a491c17}
+
+
+Definition at line 761 of file gflags\+\_\+completions.\+cc.
+
+
+\begin{DoxyCode}
+761                                         \{
+762   \textcolor{keywordflow}{if} (FLAGS\_tab\_completion\_word.empty()) \textcolor{keywordflow}{return};
+763   PrintFlagCompletionInfo();
+764   \hyperlink{namespaceGFLAGS__NAMESPACE_a92540f20c8cabd198b987ac84a539078}{gflags\_exitfunc}(0);
+765 \}
+\end{DoxyCode}

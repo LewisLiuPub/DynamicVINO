@@ -1,0 +1,120 @@
+\hypertarget{classGFLAGS__NAMESPACE_1_1FlagSaverImpl}{}\section{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE\+:\+:Flag\+Saver\+Impl Class Reference}
+\label{classGFLAGS__NAMESPACE_1_1FlagSaverImpl}\index{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_aea68c700bea03690d22019e00aa9c59a}{Flag\+Saver\+Impl} (Flag\+Registry $\ast$main\+\_\+registry)
+\item 
+\hyperlink{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_a479a7316da81d6d3767b2940118071d8}{$\sim$\+Flag\+Saver\+Impl} ()
+\item 
+void \hyperlink{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_a1837d4337e8093b087a862b2f7e55f1e}{Save\+From\+Registry} ()
+\item 
+void \hyperlink{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_aff23b2a8c68020ee000c5083d4ed9c75}{Restore\+To\+Registry} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 1707 of file gflags.\+cc.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl}!Flag\+Saver\+Impl@{Flag\+Saver\+Impl}}
+\index{Flag\+Saver\+Impl@{Flag\+Saver\+Impl}!G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl}}
+\subsubsection[{\texorpdfstring{Flag\+Saver\+Impl(\+Flag\+Registry $\ast$main\+\_\+registry)}{FlagSaverImpl(FlagRegistry *main_registry)}}]{\setlength{\rightskip}{0pt plus 5cm}G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl\+::\+Flag\+Saver\+Impl (
+\begin{DoxyParamCaption}
+\item[{Flag\+Registry $\ast$}]{main\+\_\+registry}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_aea68c700bea03690d22019e00aa9c59a}{}\label{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_aea68c700bea03690d22019e00aa9c59a}
+
+
+Definition at line 1710 of file gflags.\+cc.
+
+
+\begin{DoxyCode}
+1711       : main\_registry\_(main\_registry) \{ \}
+\end{DoxyCode}
+\index{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl}!````~Flag\+Saver\+Impl@{$\sim$\+Flag\+Saver\+Impl}}
+\index{````~Flag\+Saver\+Impl@{$\sim$\+Flag\+Saver\+Impl}!G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl}}
+\subsubsection[{\texorpdfstring{$\sim$\+Flag\+Saver\+Impl()}{~FlagSaverImpl()}}]{\setlength{\rightskip}{0pt plus 5cm}G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl\+::$\sim$\+Flag\+Saver\+Impl (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_a479a7316da81d6d3767b2940118071d8}{}\label{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_a479a7316da81d6d3767b2940118071d8}
+
+
+Definition at line 1712 of file gflags.\+cc.
+
+
+\begin{DoxyCode}
+1712                    \{
+1713     \textcolor{comment}{// reclaim memory from each of our CommandLineFlags}
+1714     vector<CommandLineFlag*>::const\_iterator it;
+1715     \textcolor{keywordflow}{for} (it = backup\_registry\_.begin(); it != backup\_registry\_.end(); ++it)
+1716       \textcolor{keyword}{delete} *it;
+1717   \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl}!Restore\+To\+Registry@{Restore\+To\+Registry}}
+\index{Restore\+To\+Registry@{Restore\+To\+Registry}!G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl}}
+\subsubsection[{\texorpdfstring{Restore\+To\+Registry()}{RestoreToRegistry()}}]{\setlength{\rightskip}{0pt plus 5cm}void G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl\+::\+Restore\+To\+Registry (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_aff23b2a8c68020ee000c5083d4ed9c75}{}\label{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_aff23b2a8c68020ee000c5083d4ed9c75}
+
+
+Definition at line 1743 of file gflags.\+cc.
+
+
+\begin{DoxyCode}
+1743                            \{
+1744     FlagRegistryLock frl(main\_registry\_);
+1745     vector<CommandLineFlag*>::const\_iterator it;
+1746     \textcolor{keywordflow}{for} (it = backup\_registry\_.begin(); it != backup\_registry\_.end(); ++it) \{
+1747       CommandLineFlag* \hyperlink{CMakeCCompilerId_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} = main\_registry\_->FindFlagLocked((*it)->name());
+1748       \textcolor{keywordflow}{if} (main != NULL) \{       \textcolor{comment}{// if NULL, flag got deleted from registry(!)}
+1749         main->CopyFrom(**it);
+1750       \}
+1751     \}
+1752   \}
+\end{DoxyCode}
+\index{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl}!Save\+From\+Registry@{Save\+From\+Registry}}
+\index{Save\+From\+Registry@{Save\+From\+Registry}!G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl}}
+\subsubsection[{\texorpdfstring{Save\+From\+Registry()}{SaveFromRegistry()}}]{\setlength{\rightskip}{0pt plus 5cm}void G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl\+::\+Save\+From\+Registry (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_a1837d4337e8093b087a862b2f7e55f1e}{}\label{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_a1837d4337e8093b087a862b2f7e55f1e}
+
+
+Definition at line 1722 of file gflags.\+cc.
+
+
+\begin{DoxyCode}
+1722                           \{
+1723     FlagRegistryLock frl(main\_registry\_);
+1724     assert(backup\_registry\_.empty());   \textcolor{comment}{// call only once!}
+1725     \textcolor{keywordflow}{for} (FlagRegistry::FlagConstIterator it = main\_registry\_->flags\_.begin();
+1726          it != main\_registry\_->flags\_.end();
+1727          ++it) \{
+1728       \textcolor{keyword}{const} CommandLineFlag* \hyperlink{CMakeCCompilerId_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} = it->second;
+1729       \textcolor{comment}{// Sets up all the const variables in backup correctly}
+1730       CommandLineFlag* backup = \textcolor{keyword}{new} CommandLineFlag(
+1731           main->name(), main->help(), main->filename(),
+1732           main->current\_->New(), main->defvalue\_->New());
+1733       \textcolor{comment}{// Sets up all the non-const variables in backup correctly}
+1734       backup->CopyFrom(*main);
+1735       backup\_registry\_.push\_back(backup);   \textcolor{comment}{// add it to a convenient list}
+1736     \}
+1737   \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/gflags/src/\hyperlink{gflags_8cc}{gflags.\+cc}\end{DoxyCompactItemize}

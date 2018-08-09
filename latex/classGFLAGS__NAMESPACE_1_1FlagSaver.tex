@@ -1,0 +1,64 @@
+\hypertarget{classGFLAGS__NAMESPACE_1_1FlagSaver}{}\section{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE\+:\+:Flag\+Saver Class Reference}
+\label{classGFLAGS__NAMESPACE_1_1FlagSaver}\index{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver}}
+
+
+{\ttfamily \#include $<$gflags.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGFLAGS__NAMESPACE_1_1FlagSaver_a7b459e22bdcf8adcf7a22fbeb321cc3d}{Flag\+Saver} ()
+\item 
+\hyperlink{classGFLAGS__NAMESPACE_1_1FlagSaver_a9af1aa996c4929d6ae4e8fe9462bdb9d}{$\sim$\+Flag\+Saver} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 278 of file gflags.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver}!Flag\+Saver@{Flag\+Saver}}
+\index{Flag\+Saver@{Flag\+Saver}!G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver}}
+\subsubsection[{\texorpdfstring{Flag\+Saver()}{FlagSaver()}}]{\setlength{\rightskip}{0pt plus 5cm}G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+::\+Flag\+Saver (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classGFLAGS__NAMESPACE_1_1FlagSaver_a7b459e22bdcf8adcf7a22fbeb321cc3d}{}\label{classGFLAGS__NAMESPACE_1_1FlagSaver_a7b459e22bdcf8adcf7a22fbeb321cc3d}
+
+
+Definition at line 1762 of file gflags.\+cc.
+
+
+\begin{DoxyCode}
+1763     : impl\_(\textcolor{keyword}{new} FlagSaverImpl(FlagRegistry::GlobalRegistry())) \{
+1764   impl\_->\hyperlink{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_a1837d4337e8093b087a862b2f7e55f1e}{SaveFromRegistry}();
+1765 \}
+\end{DoxyCode}
+\index{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver}!````~Flag\+Saver@{$\sim$\+Flag\+Saver}}
+\index{````~Flag\+Saver@{$\sim$\+Flag\+Saver}!G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver}}
+\subsubsection[{\texorpdfstring{$\sim$\+Flag\+Saver()}{~FlagSaver()}}]{\setlength{\rightskip}{0pt plus 5cm}G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+::$\sim$\+Flag\+Saver (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classGFLAGS__NAMESPACE_1_1FlagSaver_a9af1aa996c4929d6ae4e8fe9462bdb9d}{}\label{classGFLAGS__NAMESPACE_1_1FlagSaver_a9af1aa996c4929d6ae4e8fe9462bdb9d}
+
+
+Definition at line 1767 of file gflags.\+cc.
+
+
+\begin{DoxyCode}
+1767                       \{
+1768   impl\_->\hyperlink{classGFLAGS__NAMESPACE_1_1FlagSaverImpl_aff23b2a8c68020ee000c5083d4ed9c75}{RestoreToRegistry}();
+1769   \textcolor{keyword}{delete} impl\_;
+1770 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+cmake-\/build-\/debug/thirdparty/gflags/include/gflags/\hyperlink{gflags_8h}{gflags.\+h}\item 
+thirdparty/gflags/src/\hyperlink{gflags_8cc}{gflags.\+cc}\end{DoxyCompactItemize}

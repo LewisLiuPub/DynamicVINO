@@ -1,0 +1,229 @@
+\hypertarget{classRealSenseCamera}{}\section{Real\+Sense\+Camera Class Reference}
+\label{classRealSenseCamera}\index{Real\+Sense\+Camera@{Real\+Sense\+Camera}}
+
+
+{\ttfamily \#include $<$input.\+h$>$}
+
+
+
+Inheritance diagram for Real\+Sense\+Camera\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{classRealSenseCamera__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Real\+Sense\+Camera\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{classRealSenseCamera__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classRealSenseCamera_abef31b3c9da59cc9071d3ab5b91d5722}{initialize} () override
+\begin{DoxyCompactList}\small\item\em initialize the input device, for cameras, it will turn the camera on and get ready to read frames, for videos, it will open a video file \end{DoxyCompactList}\item 
+bool \hyperlink{classRealSenseCamera_a258741364cc8e535f16a9995bc067c0e}{initialize} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} t) override
+\item 
+bool \hyperlink{classRealSenseCamera_a347e9d320a3e42dccf60b3433c00ccd1}{initialize} (size\+\_\+t width, size\+\_\+t height) override
+\item 
+bool \hyperlink{classRealSenseCamera_ad64fc570435b61d47f349e6f0636085a}{read} (cv\+::\+Mat $\ast$frame) override
+\begin{DoxyCompactList}\small\item\em read next frame, and give the value to argument frame \end{DoxyCompactList}\item 
+void \hyperlink{classRealSenseCamera_aa701d355ffa10f58d664201523097486}{config} () override
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 47 of file input.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\index{Real\+Sense\+Camera@{Real\+Sense\+Camera}!config@{config}}
+\index{config@{config}!Real\+Sense\+Camera@{Real\+Sense\+Camera}}
+\subsubsection[{\texorpdfstring{config() override}{config() override}}]{\setlength{\rightskip}{0pt plus 5cm}void Real\+Sense\+Camera\+::config (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classRealSenseCamera_aa701d355ffa10f58d664201523097486}{}\label{classRealSenseCamera_aa701d355ffa10f58d664201523097486}
+
+
+Implements \hyperlink{classBaseInputDevice_a6f88b6eae38b58dd534f082690f840b3}{Base\+Input\+Device}.
+
+
+
+Definition at line 73 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+73                              \{
+74   \textcolor{comment}{//TODO}
+75 \}
+\end{DoxyCode}
+\index{Real\+Sense\+Camera@{Real\+Sense\+Camera}!initialize@{initialize}}
+\index{initialize@{initialize}!Real\+Sense\+Camera@{Real\+Sense\+Camera}}
+\subsubsection[{\texorpdfstring{initialize() override}{initialize() override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Real\+Sense\+Camera\+::initialize (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classRealSenseCamera_abef31b3c9da59cc9071d3ab5b91d5722}{}\label{classRealSenseCamera_abef31b3c9da59cc9071d3ab5b91d5722}
+
+
+initialize the input device, for cameras, it will turn the camera on and get ready to read frames, for videos, it will open a video file 
+
+\begin{DoxyReturn}{Returns}
+whether the input device is successfully turned on 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classBaseInputDevice_a487cef7725bab9c8cd7141b9b2f83eea}{Base\+Input\+Device}.
+
+
+
+Definition at line 8 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+8                                  \{
+9   cfg\_.enable\_stream(RS2\_STREAM\_COLOR, 640, 480, RS2\_FORMAT\_BGR8, 30);
+10   \hyperlink{classBaseInputDevice_a92e8c0f893c1eb9dcbdd7fb38daf5da1}{setIsInit}(pipe\_.start(cfg\_));
+11   \hyperlink{classBaseInputDevice_a980073308aee4edf67d43a85fdaa2f81}{setWidth}(640);
+12   \hyperlink{classBaseInputDevice_a3312adc6b71bc08da39b5df1be565cef}{setHeight}(480);
+13   \textcolor{keywordflow}{if} (!\hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}()) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}
+14   \textcolor{keywordflow}{if} (first\_read\_) \{
+15     rs2::frameset frames;
+16     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 30; i++) \{
+17       \textcolor{comment}{//Wait for all configured streams to produce a frame}
+18       \textcolor{keywordflow}{try} \{
+19         frames = pipe\_.wait\_for\_frames();
+20       \} \textcolor{keywordflow}{catch} (...) \{
+21         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+22       \}
+23     \}
+24     first\_read\_ = \textcolor{keyword}{false};
+25   \}
+26   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+27 \}
+\end{DoxyCode}
+\index{Real\+Sense\+Camera@{Real\+Sense\+Camera}!initialize@{initialize}}
+\index{initialize@{initialize}!Real\+Sense\+Camera@{Real\+Sense\+Camera}}
+\subsubsection[{\texorpdfstring{initialize(int t) override}{initialize(int t) override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Real\+Sense\+Camera\+::initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classRealSenseCamera_a258741364cc8e535f16a9995bc067c0e}{}\label{classRealSenseCamera_a258741364cc8e535f16a9995bc067c0e}
+
+
+Implements \hyperlink{classBaseInputDevice_a7fb82b301d42d63e1b98455eb88ccddd}{Base\+Input\+Device}.
+
+
+
+Definition at line 50 of file input.\+h.
+
+
+\begin{DoxyCode}
+50 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{true}; \};
+\end{DoxyCode}
+\index{Real\+Sense\+Camera@{Real\+Sense\+Camera}!initialize@{initialize}}
+\index{initialize@{initialize}!Real\+Sense\+Camera@{Real\+Sense\+Camera}}
+\subsubsection[{\texorpdfstring{initialize(size\+\_\+t width, size\+\_\+t height) override}{initialize(size_t width, size_t height) override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Real\+Sense\+Camera\+::initialize (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{width, }
+\item[{size\+\_\+t}]{height}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classRealSenseCamera_a347e9d320a3e42dccf60b3433c00ccd1}{}\label{classRealSenseCamera_a347e9d320a3e42dccf60b3433c00ccd1}
+
+
+Implements \hyperlink{classBaseInputDevice_a8ad1f513052fd4c43e030c3958808bfa}{Base\+Input\+Device}.
+
+
+
+Definition at line 28 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+28                                                             \{
+29   \textcolor{keywordflow}{if} (3 * width != 4 * height) \{
+30     slog::err << \textcolor{stringliteral}{"The aspect ratio must be 4:3 when using RealSense camera"}
+31               << slog::endl;
+32     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+33   \}
+34   cfg\_.enable\_stream(RS2\_STREAM\_COLOR,
+35                      (\textcolor{keywordtype}{int}) width,
+36                      (\textcolor{keywordtype}{int}) height,
+37                      RS2\_FORMAT\_BGR8,
+38                      30);
+39   \hyperlink{classBaseInputDevice_a92e8c0f893c1eb9dcbdd7fb38daf5da1}{setIsInit}(pipe\_.start(cfg\_));
+40   \hyperlink{classBaseInputDevice_a980073308aee4edf67d43a85fdaa2f81}{setWidth}(width);
+41   \hyperlink{classBaseInputDevice_a3312adc6b71bc08da39b5df1be565cef}{setHeight}(height);
+42   \textcolor{keywordflow}{if} (!\hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}()) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}
+43   \textcolor{keywordflow}{if} (first\_read\_) \{
+44     rs2::frameset frames;
+45     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 30; i++) \{
+46       \textcolor{comment}{//Wait for all configured streams to produce a frame}
+47       \textcolor{keywordflow}{try} \{
+48         frames = pipe\_.wait\_for\_frames();
+49       \} \textcolor{keywordflow}{catch} (...) \{
+50         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+51       \}
+52     \}
+53     first\_read\_ = \textcolor{keyword}{false};
+54   \}
+55   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+56 \}
+\end{DoxyCode}
+\index{Real\+Sense\+Camera@{Real\+Sense\+Camera}!read@{read}}
+\index{read@{read}!Real\+Sense\+Camera@{Real\+Sense\+Camera}}
+\subsubsection[{\texorpdfstring{read(cv\+::\+Mat $\ast$frame) override}{read(cv::Mat *frame) override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Real\+Sense\+Camera\+::read (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat $\ast$}]{frame}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classRealSenseCamera_ad64fc570435b61d47f349e6f0636085a}{}\label{classRealSenseCamera_ad64fc570435b61d47f349e6f0636085a}
+
+
+read next frame, and give the value to argument frame 
+
+\begin{DoxyReturn}{Returns}
+whether the next frame is successfully read 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classBaseInputDevice_a49b0a9ff7286d5fb3bccf61a0baaa32a}{Base\+Input\+Device}.
+
+
+
+Definition at line 57 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+57                                        \{
+58   \textcolor{keywordflow}{if} (!\hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}()) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}
+59   rs2::frameset data =
+60       pipe\_.wait\_for\_frames(); \textcolor{comment}{// Wait for next set of frames from the camera}
+61   rs2::frame color\_frame;
+62   \textcolor{keywordflow}{try} \{
+63     color\_frame = data.get\_color\_frame();
+64   \} \textcolor{keywordflow}{catch} (...) \{
+65     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+66   \}
+67   cv::Mat(cv::Size((\textcolor{keywordtype}{int}) \hyperlink{classBaseInputDevice_a27846cadcc13830798fa92be6800f764}{getWidth}(), (\textcolor{keywordtype}{int}) \hyperlink{classBaseInputDevice_ad38b119a840adacf04c16d75462fc4b7}{getHeight}()),
+68           CV\_8UC3,
+69           (\textcolor{keywordtype}{void} *) color\_frame.get\_data(),
+70           cv::Mat::AUTO\_STEP).copyTo(*frame);
+71   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+72 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/openvino\+\_\+service/inputs/\hyperlink{input_8h}{input.\+h}\item 
+lib/inputs/\hyperlink{input_8cpp}{input.\+cpp}\end{DoxyCompactItemize}

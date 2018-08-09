@@ -1,0 +1,121 @@
+\hypertarget{classDIR}{}\section{D\+IR Class Reference}
+\label{classDIR}\index{D\+IR@{D\+IR}}
+
+
+{\ttfamily \#include $<$w\+\_\+dirent.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classDIR_aaaf220338866159ad97dd91038540bbf}{D\+IR} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$dir\+Path)
+\item 
+\hyperlink{classDIR_af4e768b5794043041e674cdc1458ccc7}{$\sim$\+D\+IR} ()
+\item 
+bool \hyperlink{classDIR_a2dfa4e833f3b4143772a6c6cfbac9543}{is\+Valid} () const 
+\item 
+\hyperlink{structdirent}{dirent} $\ast$ \hyperlink{classDIR_a4d773fa1ff4d74396da57cfed3fe1aef}{next\+Ent} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 57 of file w\+\_\+dirent.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{D\+IR@{D\+IR}!D\+IR@{D\+IR}}
+\index{D\+IR@{D\+IR}!D\+IR@{D\+IR}}
+\subsubsection[{\texorpdfstring{D\+I\+R(const char $\ast$dir\+Path)}{DIR(const char *dirPath)}}]{\setlength{\rightskip}{0pt plus 5cm}D\+I\+R\+::\+D\+IR (
+\begin{DoxyParamCaption}
+\item[{const {\bf char} $\ast$}]{dir\+Path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classDIR_aaaf220338866159ad97dd91038540bbf}{}\label{classDIR_aaaf220338866159ad97dd91038540bbf}
+
+
+Definition at line 70 of file w\+\_\+dirent.\+h.
+
+
+\begin{DoxyCode}
+70                                       : next(\textcolor{keyword}{nullptr}) \{
+71         std::string ws = dirPath;
+72         \textcolor{keywordflow}{if} (endsWith(ws, \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)"}))
+73             ws += \textcolor{stringliteral}{"*"};
+74         \textcolor{keywordflow}{else}
+75             ws += \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)*"};
+76         hFind = FindFirstFile(ws.c\_str(), &FindFileData);
+77         FindFileData.dwReserved0 = hFind != INVALID\_HANDLE\_VALUE;
+78     \}
+\end{DoxyCode}
+\index{D\+IR@{D\+IR}!````~D\+IR@{$\sim$\+D\+IR}}
+\index{````~D\+IR@{$\sim$\+D\+IR}!D\+IR@{D\+IR}}
+\subsubsection[{\texorpdfstring{$\sim$\+D\+I\+R()}{~DIR()}}]{\setlength{\rightskip}{0pt plus 5cm}D\+I\+R\+::$\sim$\+D\+IR (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classDIR_af4e768b5794043041e674cdc1458ccc7}{}\label{classDIR_af4e768b5794043041e674cdc1458ccc7}
+
+
+Definition at line 80 of file w\+\_\+dirent.\+h.
+
+
+\begin{DoxyCode}
+80            \{
+81         \textcolor{keywordflow}{if} (!next) \textcolor{keyword}{delete} next;
+82         FindClose(hFind);
+83     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{D\+IR@{D\+IR}!is\+Valid@{is\+Valid}}
+\index{is\+Valid@{is\+Valid}!D\+IR@{D\+IR}}
+\subsubsection[{\texorpdfstring{is\+Valid() const }{isValid() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool D\+I\+R\+::is\+Valid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classDIR_a2dfa4e833f3b4143772a6c6cfbac9543}{}\label{classDIR_a2dfa4e833f3b4143772a6c6cfbac9543}
+
+
+Definition at line 85 of file w\+\_\+dirent.\+h.
+
+
+\begin{DoxyCode}
+85                          \{
+86         \textcolor{keywordflow}{return} (hFind != INVALID\_HANDLE\_VALUE && FindFileData.dwReserved0);
+87     \}
+\end{DoxyCode}
+\index{D\+IR@{D\+IR}!next\+Ent@{next\+Ent}}
+\index{next\+Ent@{next\+Ent}!D\+IR@{D\+IR}}
+\subsubsection[{\texorpdfstring{next\+Ent()}{nextEnt()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dirent}$\ast$ D\+I\+R\+::next\+Ent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classDIR_a4d773fa1ff4d74396da57cfed3fe1aef}{}\label{classDIR_a4d773fa1ff4d74396da57cfed3fe1aef}
+
+
+Definition at line 89 of file w\+\_\+dirent.\+h.
+
+
+\begin{DoxyCode}
+89                       \{
+90         \textcolor{keywordflow}{if} (next != \textcolor{keyword}{nullptr}) \textcolor{keyword}{delete} next;
+91         next = \textcolor{keyword}{nullptr};
+92 
+93         \textcolor{keywordflow}{if} (!FindFileData.dwReserved0) \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};
+94 
+95         \textcolor{keywordtype}{wchar\_t} wbuf[4096];
+96 
+97         \textcolor{keywordtype}{size\_t} outSize;
+98         mbstowcs\_s(&outSize, wbuf, 4094, FindFileData.cFileName, 4094);
+99         next = \textcolor{keyword}{new} \hyperlink{structdirent}{dirent}(wbuf);
+100         FindFileData.dwReserved0 = FindNextFile(hFind, &FindFileData);
+101         \textcolor{keywordflow}{return} next;
+102     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/common/os/windows/\hyperlink{w__dirent_8h}{w\+\_\+dirent.\+h}\end{DoxyCompactItemize}

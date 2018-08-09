@@ -1,0 +1,151 @@
+\hypertarget{gflags__completions_8cc}{}\section{thirdparty/gflags/src/gflags\+\_\+completions.cc File Reference}
+\label{gflags__completions_8cc}\index{thirdparty/gflags/src/gflags\+\_\+completions.\+cc@{thirdparty/gflags/src/gflags\+\_\+completions.\+cc}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$set$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gflags/gflags.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gflags/gflags\+\_\+completions.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\\*
+Include dependency graph for gflags\+\_\+completions.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gflags__completions_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceGFLAGS__NAMESPACE}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{gflags__completions_8cc_a21f16c3ffe1ca3d298c3ddd91d58fd62}{D\+E\+F\+I\+N\+E\+\_\+string} (tab\+\_\+completion\+\_\+word,\char`\"{}\char`\"{},\char`\"{}If non-\/empty, Handle\+Command\+Line\+Completions() will hijack the \char`\"{}\char`\"{}process and attempt to do bash-\/style command line flag \char`\"{}\char`\"{}completion on this value.\char`\"{})
+\item 
+\hyperlink{gflags__completions_8cc_aa437685137ec95d54cc9819f03a4cdd2}{D\+E\+F\+I\+N\+E\+\_\+int32} (tab\+\_\+completion\+\_\+columns, 80,\char`\"{}Number of columns to use in output for tab completion\char`\"{})
+\item 
+void \hyperlink{namespaceGFLAGS__NAMESPACE_ac4e8eceefee1469bfb60cda3a68fdcea}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Handle\+Command\+Line\+Completions} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!D\+E\+F\+I\+N\+E\+\_\+int32@{D\+E\+F\+I\+N\+E\+\_\+int32}}
+\index{D\+E\+F\+I\+N\+E\+\_\+int32@{D\+E\+F\+I\+N\+E\+\_\+int32}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+int32(tab\+\_\+completion\+\_\+columns, 80,""Number of columns to use in output for tab completion"")}{DEFINE_int32(tab_completion_columns, 80,"Number of columns to use in output for tab completion")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+int32 (
+\begin{DoxyParamCaption}
+\item[{tab\+\_\+completion\+\_\+columns}]{, }
+\item[{80}]{, }
+\item[{\char`\"{}Number of columns to use in output for tab completion\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__completions_8cc_aa437685137ec95d54cc9819f03a4cdd2}{}\label{gflags__completions_8cc_aa437685137ec95d54cc9819f03a4cdd2}
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(tab\+\_\+completion\+\_\+word,"""",""If non-\/empty, Handle\+Command\+Line\+Completions() will hijack the """"process and attempt to do bash-\/style command line flag """"completion on this value."")}{DEFINE_string(tab_completion_word,"","If non-empty, HandleCommandLineCompletions() will hijack the ""process and attempt to do bash-style command line flag ""completion on this value.")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{tab\+\_\+completion\+\_\+word}]{, }
+\item[{\char`\"{}\char`\"{}}]{, }
+\item[{\char`\"{}If non-\/}]{empty, }
+\item[{Handle\+Command\+Line\+Completions() will hijack the\char`\"{}\char`\"{}process and attempt to do bash-\/style command line flag\char`\"{}\char`\"{}completion on this value.\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__completions_8cc_a21f16c3ffe1ca3d298c3ddd91d58fd62}{}\label{gflags__completions_8cc_a21f16c3ffe1ca3d298c3ddd91d58fd62}
+
+
+\subsection{Variable Documentation}
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!flag\+\_\+description\+\_\+substring\+\_\+search@{flag\+\_\+description\+\_\+substring\+\_\+search}}
+\index{flag\+\_\+description\+\_\+substring\+\_\+search@{flag\+\_\+description\+\_\+substring\+\_\+search}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{flag\+\_\+description\+\_\+substring\+\_\+search}{flag_description_substring_search}}]{\setlength{\rightskip}{0pt plus 5cm}bool flag\+\_\+description\+\_\+substring\+\_\+search}\hypertarget{gflags__completions_8cc_aa45953c20e338469e2d66c054248322c}{}\label{gflags__completions_8cc_aa45953c20e338469e2d66c054248322c}
+
+
+Definition at line 179 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!flag\+\_\+location\+\_\+substring\+\_\+search@{flag\+\_\+location\+\_\+substring\+\_\+search}}
+\index{flag\+\_\+location\+\_\+substring\+\_\+search@{flag\+\_\+location\+\_\+substring\+\_\+search}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{flag\+\_\+location\+\_\+substring\+\_\+search}{flag_location_substring_search}}]{\setlength{\rightskip}{0pt plus 5cm}bool flag\+\_\+location\+\_\+substring\+\_\+search}\hypertarget{gflags__completions_8cc_a3a0537b84d285dc5a05a7d44a3613976}{}\label{gflags__completions_8cc_a3a0537b84d285dc5a05a7d44a3613976}
+
+
+Definition at line 178 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!flag\+\_\+name\+\_\+substring\+\_\+search@{flag\+\_\+name\+\_\+substring\+\_\+search}}
+\index{flag\+\_\+name\+\_\+substring\+\_\+search@{flag\+\_\+name\+\_\+substring\+\_\+search}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{flag\+\_\+name\+\_\+substring\+\_\+search}{flag_name_substring_search}}]{\setlength{\rightskip}{0pt plus 5cm}bool flag\+\_\+name\+\_\+substring\+\_\+search}\hypertarget{gflags__completions_8cc_a8cba0fb90d5135b8633478ae657d6d74}{}\label{gflags__completions_8cc_a8cba0fb90d5135b8633478ae657d6d74}
+
+
+Definition at line 177 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!footer@{footer}}
+\index{footer@{footer}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{footer}{footer}}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf char}$\ast$ footer}\hypertarget{gflags__completions_8cc_aef81668b98a62c1aef2bfa4481484e07}{}\label{gflags__completions_8cc_aef81668b98a62c1aef2bfa4481484e07}
+
+
+Definition at line 512 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!force\+\_\+no\+\_\+update@{force\+\_\+no\+\_\+update}}
+\index{force\+\_\+no\+\_\+update@{force\+\_\+no\+\_\+update}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{force\+\_\+no\+\_\+update}{force_no_update}}]{\setlength{\rightskip}{0pt plus 5cm}bool force\+\_\+no\+\_\+update}\hypertarget{gflags__completions_8cc_ad6e8619ec1871ae67034c20074d90cd2}{}\label{gflags__completions_8cc_ad6e8619ec1871ae67034c20074d90cd2}
+
+
+Definition at line 181 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!group@{group}}
+\index{group@{group}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{group}{group}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf set}$<$const Command\+Line\+Flag\+Info $\ast$$>$$\ast$ group}\hypertarget{gflags__completions_8cc_ae32f3768038d42b01a3df53b889c7dad}{}\label{gflags__completions_8cc_ae32f3768038d42b01a3df53b889c7dad}
+
+
+Definition at line 513 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!header@{header}}
+\index{header@{header}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{header}{header}}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf char}$\ast$ header}\hypertarget{gflags__completions_8cc_ae64f2c0aa53b2c8ed55b251ca159af46}{}\label{gflags__completions_8cc_ae64f2c0aa53b2c8ed55b251ca159af46}
+
+
+Definition at line 511 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!module\+\_\+flags@{module\+\_\+flags}}
+\index{module\+\_\+flags@{module\+\_\+flags}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{module\+\_\+flags}{module_flags}}]{\setlength{\rightskip}{0pt plus 5cm}Flag\+Set module\+\_\+flags}\hypertarget{gflags__completions_8cc_a7c0516ad6bd53f17bec0fe8f391b7683}{}\label{gflags__completions_8cc_a7c0516ad6bd53f17bec0fe8f391b7683}
+
+
+Definition at line 193 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!most\+\_\+common\+\_\+flags@{most\+\_\+common\+\_\+flags}}
+\index{most\+\_\+common\+\_\+flags@{most\+\_\+common\+\_\+flags}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{most\+\_\+common\+\_\+flags}{most_common_flags}}]{\setlength{\rightskip}{0pt plus 5cm}Flag\+Set most\+\_\+common\+\_\+flags}\hypertarget{gflags__completions_8cc_a8dff510d95793bd9bb40f77e415d197a}{}\label{gflags__completions_8cc_a8dff510d95793bd9bb40f77e415d197a}
+
+
+Definition at line 195 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!package\+\_\+flags@{package\+\_\+flags}}
+\index{package\+\_\+flags@{package\+\_\+flags}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{package\+\_\+flags}{package_flags}}]{\setlength{\rightskip}{0pt plus 5cm}Flag\+Set package\+\_\+flags}\hypertarget{gflags__completions_8cc_a34e03399e7fb152c5735e4dd34481bc8}{}\label{gflags__completions_8cc_a34e03399e7fb152c5735e4dd34481bc8}
+
+
+Definition at line 194 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!perfect\+\_\+match\+\_\+flag@{perfect\+\_\+match\+\_\+flag}}
+\index{perfect\+\_\+match\+\_\+flag@{perfect\+\_\+match\+\_\+flag}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{perfect\+\_\+match\+\_\+flag}{perfect_match_flag}}]{\setlength{\rightskip}{0pt plus 5cm}Flag\+Set perfect\+\_\+match\+\_\+flag}\hypertarget{gflags__completions_8cc_a47e4f56d376c2f2bb4e75488ea89169c}{}\label{gflags__completions_8cc_a47e4f56d376c2f2bb4e75488ea89169c}
+
+
+Definition at line 192 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!return\+\_\+all\+\_\+matching\+\_\+flags@{return\+\_\+all\+\_\+matching\+\_\+flags}}
+\index{return\+\_\+all\+\_\+matching\+\_\+flags@{return\+\_\+all\+\_\+matching\+\_\+flags}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{return\+\_\+all\+\_\+matching\+\_\+flags}{return_all_matching_flags}}]{\setlength{\rightskip}{0pt plus 5cm}bool return\+\_\+all\+\_\+matching\+\_\+flags}\hypertarget{gflags__completions_8cc_a9ae26442eb6188b6b5c9cb67aa3d609a}{}\label{gflags__completions_8cc_a9ae26442eb6188b6b5c9cb67aa3d609a}
+
+
+Definition at line 180 of file gflags\+\_\+completions.\+cc.
+
+\index{gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}!subpackage\+\_\+flags@{subpackage\+\_\+flags}}
+\index{subpackage\+\_\+flags@{subpackage\+\_\+flags}!gflags\+\_\+completions.\+cc@{gflags\+\_\+completions.\+cc}}
+\subsubsection[{\texorpdfstring{subpackage\+\_\+flags}{subpackage_flags}}]{\setlength{\rightskip}{0pt plus 5cm}Flag\+Set subpackage\+\_\+flags}\hypertarget{gflags__completions_8cc_aec50e9e6ef2b3fabd505b22d1ccf6d68}{}\label{gflags__completions_8cc_aec50e9e6ef2b3fabd505b22d1ccf6d68}
+
+
+Definition at line 196 of file gflags\+\_\+completions.\+cc.
+

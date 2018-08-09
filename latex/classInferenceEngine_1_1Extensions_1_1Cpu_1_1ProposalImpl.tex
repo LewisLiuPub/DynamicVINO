@@ -1,0 +1,208 @@
+\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalImpl}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Proposal\+Impl Class Reference}
+\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalImpl}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl}}
+
+
+Inheritance diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Proposal\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalImpl__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Proposal\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalImpl__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalImpl_a0a1871d6c94ee25951dc49c1f3a6295a}{Proposal\+Impl} (const C\+N\+N\+Layer $\ast$layer)
+\item 
+Status\+Code \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalImpl_abd3577df6c9a75a488aef81900ede5b6}{execute} (std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 342 of file ext\+\_\+proposal.\+cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl}!Proposal\+Impl@{Proposal\+Impl}}
+\index{Proposal\+Impl@{Proposal\+Impl}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl}}
+\subsubsection[{\texorpdfstring{Proposal\+Impl(const C\+N\+N\+Layer $\ast$layer)}{ProposalImpl(const CNNLayer *layer)}}]{\setlength{\rightskip}{0pt plus 5cm}Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl\+::\+Proposal\+Impl (
+\begin{DoxyParamCaption}
+\item[{const C\+N\+N\+Layer $\ast$}]{layer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalImpl_a0a1871d6c94ee25951dc49c1f3a6295a}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalImpl_a0a1871d6c94ee25951dc49c1f3a6295a}
+
+
+Definition at line 344 of file ext\+\_\+proposal.\+cpp.
+
+
+\begin{DoxyCode}
+344                                                 : \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_affff0e8263ca26852ccf71d299d7b06a}{ExtLayerBase}(layer) \{
+345         \textcolor{keywordflow}{try} \{
+346             \textcolor{keywordflow}{if} (\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData.size() != 3 || \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.outData.size() != 1)
+347                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Incorrect number of input/output edges!"};
+348             feat\_stride\_ = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"feat\_stride"}));
+349             base\_size\_ = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"base\_size"}));
+350             min\_size\_ = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"min\_size"}));
+351             pre\_nms\_topn\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"pre\_nms\_topn"});
+352             post\_nms\_topn\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"post\_nms\_topn"});
+353             nms\_thresh\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloat(\textcolor{stringliteral}{"nms\_thresh"});
+354             box\_coordinate\_scale\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloat(\textcolor{stringliteral}{"box\_coordinate\_scale"}, 1.0);
+355             box\_size\_scale\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloat(\textcolor{stringliteral}{"box\_size\_scale"}, 1.0);
+356             scales = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloats(\textcolor{stringliteral}{"scale"}, \{\});
+357             ratios = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloats(\textcolor{stringliteral}{"ratio"}, \{\});
+358 
+359             anchors\_shape\_0 = ratios.size() * scales.size();
+360             anchors\_.resize(anchors\_shape\_0 * 4);
+361 
+362             std::string framework\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsString(\textcolor{stringliteral}{"framework"}, \textcolor{stringliteral}{""});
+363             \textcolor{keywordflow}{if} (framework\_ == \textcolor{stringliteral}{"tensorflow"}) \{
+364                 coordinates\_offset = 0.0f;
+365                 initial\_clip = \textcolor{keyword}{true};
+366                 shift\_anchors = \textcolor{keyword}{true};
+367                 round\_ratios = \textcolor{keyword}{false};
+368                 swap\_xy = \textcolor{keyword}{true};
+369             \} \textcolor{keywordflow}{else} \{
+370                 coordinates\_offset = 1.0f;
+371                 initial\_clip = \textcolor{keyword}{false};
+372                 shift\_anchors = \textcolor{keyword}{false};
+373                 round\_ratios = \textcolor{keyword}{true};
+374                 swap\_xy = \textcolor{keyword}{false};
+375             \}
+376             generate\_anchors(base\_size\_, &ratios[0], &scales[0], ratios.size(), scales.size(), &anchors\_[0]
+      ,
+377                              coordinates\_offset, shift\_anchors, round\_ratios);
+378 
+379             roi\_indices\_.resize(post\_nms\_topn\_);
+380             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a0ac7a6632e95b9500d5246b05b4b0bfa}{addConfig}(\{DataConfigurator(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN}), DataConfigurator(
+      \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN}), DataConfigurator(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN})\},
+381                       \{DataConfigurator(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN})\});
+382         \} \textcolor{keywordflow}{catch} (InferenceEngine::details::InferenceEngineException &ex) \{
+383             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{errorMsg} = ex.what();
+384         \}
+385     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl}!execute@{execute}}
+\index{execute@{execute}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl}}
+\subsubsection[{\texorpdfstring{execute(std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride}{execute(std::vector< Blob::Ptr > &inputs, std::vector< Blob::Ptr > &outputs, ResponseDesc *resp) noexceptoverride}}]{\setlength{\rightskip}{0pt plus 5cm}Status\+Code Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Proposal\+Impl\+::execute (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{inputs, }
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{outputs, }
+\item[{Response\+Desc $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalImpl_abd3577df6c9a75a488aef81900ede5b6}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalImpl_abd3577df6c9a75a488aef81900ede5b6}
+
+
+Definition at line 387 of file ext\+\_\+proposal.\+cpp.
+
+
+\begin{DoxyCode}
+388                                                              \{
+389         \textcolor{keywordflow}{if} (inputs.size() != 3 || outputs.empty()) \{
+390             \textcolor{keywordflow}{if} (resp) \{
+391                 std::string \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{errorMsg} = \textcolor{stringliteral}{"Incorrect number of input or output edges!"};
+392                 errorMsg.copy(resp->msg, \textcolor{keyword}{sizeof}(resp->msg) - 1);
+393             \}
+394             \textcolor{keywordflow}{return} GENERAL\_ERROR;
+395         \}
+396 
+397         \textcolor{comment}{// Prepare memory}
+398         \textcolor{keyword}{const} \textcolor{keywordtype}{float}* p\_bottom\_item = inputs[0]->buffer();
+399         \textcolor{keyword}{const} \textcolor{keywordtype}{float}* p\_d\_anchor\_item = inputs[1]->buffer();
+400         \textcolor{keyword}{const} \textcolor{keywordtype}{float}* p\_img\_info\_cpu = inputs[2]->buffer();
+401         \textcolor{keywordtype}{float}* p\_roi\_item = outputs[0]->buffer();
+402 
+403         \textcolor{keywordtype}{size\_t} img\_info\_size = 1;
+404         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < inputs[2]->getTensorDesc().getDims().size(); i++) \{
+405             img\_info\_size *= inputs[2]->getTensorDesc().getDims()[i];
+406         \}
+407 
+408         \textcolor{comment}{// No second output so ignoring this}
+409         \textcolor{comment}{// Dtype* p\_score\_item = (top.size() > 1) ? top[1]->mutable\_cpu\_data() : NULL;}
+410 
+411         \textcolor{comment}{// bottom shape: (2 x num\_anchors) x H x W}
+412         \textcolor{keyword}{const} \textcolor{keywordtype}{int} bottom\_H = inputs[0]->getTensorDesc().getDims()[2];
+413         \textcolor{keyword}{const} \textcolor{keywordtype}{int} bottom\_W = inputs[0]->getTensorDesc().getDims()[3];
+414 
+415         \textcolor{comment}{// input image height & width}
+416         \textcolor{keyword}{const} \textcolor{keywordtype}{float} img\_H = p\_img\_info\_cpu[0];
+417         \textcolor{keyword}{const} \textcolor{keywordtype}{float} img\_W = p\_img\_info\_cpu[1];
+418 
+419         \textcolor{comment}{// scale factor for height & width}
+420         \textcolor{keyword}{const} \textcolor{keywordtype}{float} scale\_H = p\_img\_info\_cpu[2];
+421         \textcolor{keyword}{const} \textcolor{keywordtype}{float} scale\_W = img\_info\_size > 3 ? p\_img\_info\_cpu[3] : scale\_H;
+422 
+423         \textcolor{comment}{// minimum box width & height}
+424         \textcolor{keyword}{const} \textcolor{keywordtype}{float} min\_box\_H = min\_size\_ * scale\_H;
+425         \textcolor{keyword}{const} \textcolor{keywordtype}{float} min\_box\_W = min\_size\_ * scale\_W;
+426 
+427         \textcolor{comment}{// number of all proposals = num\_anchors * H * W}
+428         \textcolor{keyword}{const} \textcolor{keywordtype}{int} num\_proposals = anchors\_shape\_0 * bottom\_H * bottom\_W;
+429 
+430         \textcolor{comment}{// number of top-n proposals before NMS}
+431         \textcolor{keyword}{const} \textcolor{keywordtype}{int} pre\_nms\_topn = std::min<int>(num\_proposals, pre\_nms\_topn\_);
+432 
+433         \textcolor{comment}{// number of final RoIs}
+434         \textcolor{keywordtype}{int} num\_rois = 0;
+435 
+436         \textcolor{comment}{// enumerate all proposals}
+437         \textcolor{comment}{//   num\_proposals = num\_anchors * H * W}
+438         \textcolor{comment}{//   (x1, y1, x2, y2, score) for each proposal}
+439         \textcolor{comment}{// NOTE: for bottom, only foreground scores are passed}
+440         \textcolor{keyword}{struct }ProposalBox \{
+441             \textcolor{keywordtype}{float} x0;
+442             \textcolor{keywordtype}{float} y0;
+443             \textcolor{keywordtype}{float} x1;
+444             \textcolor{keywordtype}{float} y1;
+445             \textcolor{keywordtype}{float} score;
+446         \};
+447         std::vector<ProposalBox> proposals\_(num\_proposals);
+448         std::vector<float> unpacked\_boxes(4 * pre\_nms\_topn);
+449         std::vector<int> is\_dead(pre\_nms\_topn);
+450 
+451         \textcolor{comment}{// Execute}
+452         \textcolor{keywordtype}{int} nn = inputs[0]->getTensorDesc().getDims()[0];
+453         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} n = 0; n < nn; ++n) \{
+454             enumerate\_proposals\_cpu(p\_bottom\_item + num\_proposals, p\_d\_anchor\_item,
+455                                     &anchors\_[0], reinterpret\_cast<float *>(&proposals\_[0]),
+456                                     anchors\_shape\_0, bottom\_H, bottom\_W, img\_H, img\_W,
+457                                     min\_box\_H, min\_box\_W, feat\_stride\_,
+458                                     box\_coordinate\_scale\_, box\_size\_scale\_,
+459                                     coordinates\_offset, initial\_clip, swap\_xy);
+460             std::partial\_sort(proposals\_.begin(), proposals\_.begin() + pre\_nms\_topn, proposals\_.end(),
+461                               [](\textcolor{keyword}{const} ProposalBox& struct1, \textcolor{keyword}{const} ProposalBox& struct2) \{
+462                                   \textcolor{keywordflow}{return} (struct1.score > struct2.score);
+463                               \});
+464 
+465             unpack\_boxes(reinterpret\_cast<float *>(&proposals\_[0]), &unpacked\_boxes[0], pre\_nms\_topn);
+466             nms\_cpu(pre\_nms\_topn, &is\_dead[0], &unpacked\_boxes[0], &roi\_indices\_[0], &num\_rois, 0, 
+      nms\_thresh\_, post\_nms\_topn\_, coordinates\_offset);
+467             retrieve\_rois\_cpu(num\_rois, n, pre\_nms\_topn, &unpacked\_boxes[0], &roi\_indices\_[0], p\_roi\_item, 
+      post\_nms\_topn\_);
+468         \}
+469 
+470         \textcolor{keywordflow}{return} OK;
+471     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__proposal_8cpp}{ext\+\_\+proposal.\+cpp}\end{DoxyCompactItemize}

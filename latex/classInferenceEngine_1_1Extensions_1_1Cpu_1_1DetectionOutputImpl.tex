@@ -1,0 +1,344 @@
+\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1DetectionOutputImpl}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Detection\+Output\+Impl Class Reference}
+\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1DetectionOutputImpl}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl}}
+
+
+Inheritance diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Detection\+Output\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1DetectionOutputImpl__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Detection\+Output\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1DetectionOutputImpl__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1DetectionOutputImpl_a65ef73f5900ed006ac1978d7c86f43c8}{Detection\+Output\+Impl} (const C\+N\+N\+Layer $\ast$layer)
+\item 
+Status\+Code \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1DetectionOutputImpl_a4731f24a4a6aec76b0850e12efbd5af3}{execute} (std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 37 of file ext\+\_\+detectionoutput.\+cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl}!Detection\+Output\+Impl@{Detection\+Output\+Impl}}
+\index{Detection\+Output\+Impl@{Detection\+Output\+Impl}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl}}
+\subsubsection[{\texorpdfstring{Detection\+Output\+Impl(const C\+N\+N\+Layer $\ast$layer)}{DetectionOutputImpl(const CNNLayer *layer)}}]{\setlength{\rightskip}{0pt plus 5cm}Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl\+::\+Detection\+Output\+Impl (
+\begin{DoxyParamCaption}
+\item[{const C\+N\+N\+Layer $\ast$}]{layer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1DetectionOutputImpl_a65ef73f5900ed006ac1978d7c86f43c8}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1DetectionOutputImpl_a65ef73f5900ed006ac1978d7c86f43c8}
+
+
+Definition at line 39 of file ext\+\_\+detectionoutput.\+cpp.
+
+
+\begin{DoxyCode}
+39                                                         : \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_affff0e8263ca26852ccf71d299d7b06a}{ExtLayerBase}(layer) \{
+40         \textcolor{keywordflow}{try} \{
+41             \textcolor{keywordflow}{if} (\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData.size() != 3)
+42                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Incorrect number of input edges."};
+43             \textcolor{keywordflow}{if} (\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.outData.empty())
+44                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Incorrect number of output edges."};
+45 
+46             \_num\_classes = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"num\_classes"});
+47             \_background\_label\_id = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"background\_label\_id"}, 0);
+48             \_top\_k = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"top\_k"}, -1);
+49             \_variance\_encoded\_in\_target = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamsAsBool(\textcolor{stringliteral}{"variance\_encoded\_in\_target"}, \textcolor{keyword}{
+      false});
+50             \_keep\_top\_k = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"keep\_top\_k"}, -1);
+51             \_nms\_threshold = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloat(\textcolor{stringliteral}{"nms\_threshold"});
+52             \_confidence\_threshold = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloat(\textcolor{stringliteral}{"confidence\_threshold"}, -FLT\_MAX);
+53             \_share\_location = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamsAsBool(\textcolor{stringliteral}{"share\_location"}, \textcolor{keyword}{true});
+54             \_normalized = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamsAsBool(\textcolor{stringliteral}{"normalized"}, \textcolor{keyword}{true});
+55             \_image\_height = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"input\_height"}, 1);
+56             \_image\_width = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"input\_width"}, 1);
+57             \_prior\_size = \_normalized ? 4 : 5;
+58             \_offset = \_normalized ? 0 : 1;
+59             \_num\_loc\_classes = \_share\_location ? 1 : \_num\_classes;
+60 
+61             std::string code\_type\_str = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsString(\textcolor{stringliteral}{"code\_type"}, \textcolor{stringliteral}{"
+      caffe.PriorBoxParameter.CORNER"});
+62             \_code\_type = (code\_type\_str == \textcolor{stringliteral}{"caffe.PriorBoxParameter.CENTER\_SIZE"} ? CodeType::CENTER\_SIZE
+63                                                                                  : CodeType::CORNER);
+64 
+65             \_num\_priors = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData[idx\_priors].lock()->dims[0] / 
+      \_prior\_size);
+66 
+67             \textcolor{keywordflow}{if} (\_num\_priors * \_num\_loc\_classes * 4 != \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData[idx\_location].lock()->dims[0
+      ])
+68                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Number of priors must match number of location predictions."};
+69 
+70             \textcolor{keywordflow}{if} (\_num\_priors * \_num\_classes != \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData[idx\_confidence].lock()->dims[0])
+71                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Number of priors must match number of confidence predictions."};
+72 
+73             \textcolor{keywordflow}{if} (\_decrease\_label\_id && \_background\_label\_id != 0)
+74                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Cannot use decrease\_label\_id and background\_label\_id parameter
+       simultaneously."};
+75 
+76             \_num = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData[idx\_confidence].lock()->getTensorDesc().
+      getDims()[0]);
+77 
+78             InferenceEngine::SizeVector bboxes\_size\{\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\_num),
+79                                                     static\_cast<size\_t>(\_num\_classes),
+80                                                     \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\_num\_priors),
+81                                                     4\};
+82             \_decoded\_bboxes = InferenceEngine::make\_shared\_blob<float>(\{Precision::UNSPECIFIED, bboxes\_size
+      , NCHW\});
+83             \_decoded\_bboxes->allocate();
+84 
+85             InferenceEngine::SizeVector buf\_size\{\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\_num),
+86                                                  static\_cast<size\_t>(\_num\_classes),
+87                                                  \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\_num\_priors)\};
+88             \_buffer = InferenceEngine::make\_shared\_blob<int>(\{Precision::UNSPECIFIED, buf\_size, \{buf\_size, 
+      \{0, 1, 2\}\}\});
+89             \_buffer->allocate();
+90 
+91             InferenceEngine::SizeVector indices\_size\{\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\_num),
+92                                                      static\_cast<size\_t>(\_num\_classes),
+93                                                      \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\_num\_priors)\};
+94             \_indices = InferenceEngine::make\_shared\_blob<int>(
+95                     \{Precision::UNSPECIFIED, indices\_size, \{indices\_size, \{0, 1, 2\}\}\});
+96             \_indices->allocate();
+97 
+98             InferenceEngine::SizeVector detections\_size\{\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\_num * \_num\_classes)\};
+99             \_detections\_count = InferenceEngine::make\_shared\_blob<int>(\{Precision::UNSPECIFIED, 
+      detections\_size, C\});
+100             \_detections\_count->allocate();
+101 
+102             InferenceEngine::SizeVector conf\_size = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData[idx\_confidence].lock()->dims;
+103             \_reordered\_conf = InferenceEngine::make\_shared\_blob<float>(\{Precision::FP32, conf\_size, ANY\});
+104             \_reordered\_conf->allocate();
+105 
+106             InferenceEngine::SizeVector decoded\_bboxes\_size\{\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\_num),
+107                                                             static\_cast<size\_t>(\_num\_priors),
+108                                                             \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\_num\_classes)\};
+109             \_bbox\_sizes = InferenceEngine::make\_shared\_blob<float>(
+110                     \{Precision::FP32, decoded\_bboxes\_size, \{decoded\_bboxes\_size, \{0, 1, 2\}\}\});
+111             \_bbox\_sizes->allocate();
+112 
+113             InferenceEngine::SizeVector num\_priors\_actual\_size\{\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\_num)\};
+114             \_num\_priors\_actual = InferenceEngine::make\_shared\_blob<int>(\{Precision::UNSPECIFIED, 
+      num\_priors\_actual\_size, C\});
+115             \_num\_priors\_actual->allocate();
+116 
+117             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a0ac7a6632e95b9500d5246b05b4b0bfa}{addConfig}(\{DataConfigurator(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN}),
+118                        DataConfigurator(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN}),
+119                        DataConfigurator(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN})\}, \{DataConfigurator(
+      \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN})\});
+120         \} \textcolor{keywordflow}{catch} (InferenceEngine::details::InferenceEngineException &ex) \{
+121             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{errorMsg} = ex.what();
+122         \}
+123     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl}!execute@{execute}}
+\index{execute@{execute}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl}}
+\subsubsection[{\texorpdfstring{execute(std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride}{execute(std::vector< Blob::Ptr > &inputs, std::vector< Blob::Ptr > &outputs, ResponseDesc *resp) noexceptoverride}}]{\setlength{\rightskip}{0pt plus 5cm}Status\+Code Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Detection\+Output\+Impl\+::execute (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{inputs, }
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{outputs, }
+\item[{Response\+Desc $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1DetectionOutputImpl_a4731f24a4a6aec76b0850e12efbd5af3}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1DetectionOutputImpl_a4731f24a4a6aec76b0850e12efbd5af3}
+
+
+Definition at line 125 of file ext\+\_\+detectionoutput.\+cpp.
+
+
+\begin{DoxyCode}
+126                                                              \{
+127         \textcolor{keywordtype}{float} *dst\_data = outputs[0]->buffer();
+128 
+129         \textcolor{keyword}{const} \textcolor{keywordtype}{float} *loc\_data    = inputs[idx\_location]->buffer();
+130         \textcolor{keyword}{const} \textcolor{keywordtype}{float} *conf\_data   = inputs[idx\_confidence]->buffer();
+131         \textcolor{keyword}{const} \textcolor{keywordtype}{float} *prior\_data  = inputs[idx\_priors]->buffer();
+132 
+133         \textcolor{keyword}{const} \textcolor{keywordtype}{int} N = inputs[idx\_confidence]->getTensorDesc().getDims()[0];
+134 
+135         \textcolor{keywordtype}{float} *decoded\_bboxes\_data = \_decoded\_bboxes->buffer();
+136         \textcolor{keywordtype}{float} *reordered\_conf\_data = \_reordered\_conf->buffer();
+137         \textcolor{keywordtype}{float} *bbox\_sizes\_data     = \_bbox\_sizes->buffer();
+138         \textcolor{keywordtype}{int} *detections\_data       = \_detections\_count->buffer();
+139         \textcolor{keywordtype}{int} *buffer\_data           = \_buffer->buffer();
+140         \textcolor{keywordtype}{int} *indices\_data          = \_indices->buffer();
+141         \textcolor{keywordtype}{int} *num\_priors\_actual     = \_num\_priors\_actual->buffer();
+142 
+143         \textcolor{keyword}{const} \textcolor{keywordtype}{float} *prior\_variances = prior\_data + \_num\_priors*\_prior\_size;
+144         \textcolor{keyword}{const} \textcolor{keywordtype}{float} *ppriors = prior\_data;
+145 
+146         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} n = 0; n < N; ++n) \{
+147             \textcolor{keywordflow}{if} (\_share\_location) \{
+148                 \textcolor{keyword}{const} \textcolor{keywordtype}{float} *ploc = loc\_data + n*4*\_num\_priors;
+149                 \textcolor{keywordtype}{float} *pboxes = decoded\_bboxes\_data + n*4*\_num\_priors;
+150                 \textcolor{keywordtype}{float} *psizes = bbox\_sizes\_data + n*\_num\_priors;
+151                 decodeBBoxes(ppriors, ploc, prior\_variances, pboxes, psizes, num\_priors\_actual, n);
+152             \} \textcolor{keywordflow}{else} \{
+153                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} = 0; \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} < \_num\_loc\_classes; ++\hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}) \{
+154                     \textcolor{keywordflow}{if} (\hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} == \_background\_label\_id) \{
+155                         \textcolor{keywordflow}{continue};
+156                     \}
+157 
+158                     \textcolor{keyword}{const} \textcolor{keywordtype}{float} *ploc = loc\_data + n*4*\_num\_loc\_classes*\_num\_priors + 
+      \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}*4;
+159                     \textcolor{keywordtype}{float} *pboxes = decoded\_bboxes\_data + n*4*\_num\_loc\_classes*\_num\_priors + c*4*
+      \_num\_priors;
+160                     \textcolor{keywordtype}{float} *psizes = bbox\_sizes\_data + n*\_num\_loc\_classes*\_num\_priors + c*\_num\_priors;
+161                     decodeBBoxes(ppriors, ploc, prior\_variances, pboxes, psizes, num\_priors\_actual, n);
+162                 \}
+163             \}
+164         \}
+165 
+166         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} n = 0; n < N; ++n) \{
+167             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} = 0; \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} < \_num\_classes; ++\hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}) \{
+168                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} p = 0; p < \_num\_priors; ++p) \{
+169                     reordered\_conf\_data[n*\_num\_priors*\_num\_classes + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}*\_num\_priors + p] = conf\_data[n*
+      \_num\_priors*\_num\_classes + p*\_num\_classes + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}];
+170                 \}
+171             \}
+172         \}
+173 
+174         memset(detections\_data, 0, N*\_num\_classes*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+175 
+176         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} n = 0; n < N; ++n) \{
+177             \textcolor{keywordtype}{int} detections\_total = 0;
+178 
+179 \textcolor{preprocessor}{#pragma omp parallel for schedule(static)}
+180             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} = 0; \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} < \_num\_classes; ++\hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}) \{
+181                 \textcolor{keywordflow}{if} (\hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} == \_background\_label\_id) \{
+182                     \textcolor{comment}{// Ignore background class.}
+183                     \textcolor{keywordflow}{continue};
+184                 \}
+185 
+186                 \textcolor{keywordtype}{int} *pindices    = indices\_data + n*\_num\_classes*\_num\_priors + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}*\_num\_priors;
+187                 \textcolor{keywordtype}{int} *pbuffer     = buffer\_data + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}*\_num\_priors;
+188                 \textcolor{keywordtype}{int} *pdetections = detections\_data + n*\_num\_classes + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c};
+189 
+190                 \textcolor{keyword}{const} \textcolor{keywordtype}{float} *pconf = reordered\_conf\_data + n*\_num\_classes*\_num\_priors + c*\_num\_priors;
+191                 \textcolor{keyword}{const} \textcolor{keywordtype}{float} *pboxes;
+192                 \textcolor{keyword}{const} \textcolor{keywordtype}{float} *psizes;
+193                 \textcolor{keywordflow}{if} (\_share\_location) \{
+194                     pboxes = decoded\_bboxes\_data + n*4*\_num\_priors;
+195                     psizes = bbox\_sizes\_data + n*\_num\_priors;
+196                 \} \textcolor{keywordflow}{else} \{
+197                     pboxes = decoded\_bboxes\_data + n*4*\_num\_classes*\_num\_priors + c*4*\_num\_priors;
+198                     psizes = bbox\_sizes\_data + n*\_num\_classes*\_num\_priors + c*\_num\_priors;
+199                 \}
+200 
+201                 nms(pconf, pboxes, psizes, pbuffer, pindices, *pdetections, num\_priors\_actual[n]);
+202             \}
+203 
+204             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} c = 0; c < \_num\_classes; ++\hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}) \{
+205                 detections\_total += detections\_data[n*\_num\_classes + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}];
+206             \}
+207 
+208             \textcolor{keywordflow}{if} (\_keep\_top\_k > -1 && detections\_total > \_keep\_top\_k) \{
+209                 std::vector<std::pair<float, std::pair<int, int>>> conf\_index\_class\_map;
+210 
+211                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} c = 0; c < \_num\_classes; ++\hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}) \{
+212                     \textcolor{keywordtype}{int} detections = detections\_data[n*\_num\_classes + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}];
+213                     \textcolor{keywordtype}{int} *pindices = indices\_data + n*\_num\_classes*\_num\_priors + c*\_num\_priors;
+214                     \textcolor{keywordtype}{float} *pconf  = reordered\_conf\_data + n*\_num\_classes*\_num\_priors + c*\_num\_priors;
+215 
+216                     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < detections; ++i) \{
+217                         \textcolor{keywordtype}{int} idx = pindices[i];
+218                         conf\_index\_class\_map.push\_back(std::make\_pair(pconf[idx], std::make\_pair(c, idx)));
+219                     \}
+220                 \}
+221 
+222                 std::sort(conf\_index\_class\_map.begin(), conf\_index\_class\_map.end(),
+223                           SortScorePairDescend<std::pair<int, int>>);
+224                 conf\_index\_class\_map.resize(\_keep\_top\_k);
+225 
+226                 \textcolor{comment}{// Store the new indices.}
+227                 memset(detections\_data + n*\_num\_classes, 0, \_num\_classes * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+228 
+229                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < conf\_index\_class\_map.size(); ++j) \{
+230                     \textcolor{keywordtype}{int} label = conf\_index\_class\_map[j].second.first;
+231                     \textcolor{keywordtype}{int} idx = conf\_index\_class\_map[j].second.second;
+232                     \textcolor{keywordtype}{int} *pindices = indices\_data + n * \_num\_classes * \_num\_priors + label * \_num\_priors;
+233                     pindices[detections\_data[n*\_num\_classes + label]] = idx;
+234                     detections\_data[n*\_num\_classes + label]++;
+235                 \}
+236             \}
+237         \}
+238 
+239         \textcolor{keyword}{const} \textcolor{keywordtype}{int} DETECTION\_SIZE = outputs[0]->getTensorDesc().getDims()[3];
+240         \textcolor{keywordflow}{if} (DETECTION\_SIZE != 7) \{
+241             \textcolor{keywordflow}{return} NOT\_IMPLEMENTED;
+242         \}
+243 
+244         \textcolor{keyword}{auto} dst\_data\_size = N * \_keep\_top\_k * DETECTION\_SIZE * \textcolor{keyword}{sizeof}(float);
+245 
+246         \textcolor{keywordflow}{if} (dst\_data\_size > outputs[0]->byteSize()) \{
+247             \textcolor{keywordflow}{return} OUT\_OF\_BOUNDS;
+248         \}
+249 
+250         memset(dst\_data, 0, dst\_data\_size);
+251 
+252         \textcolor{keywordtype}{int} count = 0;
+253         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} n = 0; n < N; ++n) \{
+254             \textcolor{keyword}{const} \textcolor{keywordtype}{float} *pconf   = reordered\_conf\_data + n * \_num\_priors * \_num\_classes;
+255             \textcolor{keyword}{const} \textcolor{keywordtype}{float} *pboxes  = decoded\_bboxes\_data + n*\_num\_priors*4*\_num\_loc\_classes;
+256             \textcolor{keyword}{const} \textcolor{keywordtype}{int} *pindices  = indices\_data + n*\_num\_classes*\_num\_priors;
+257 
+258             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} c = 0; c < \_num\_classes; ++\hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}) \{
+259                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < detections\_data[n*\_num\_classes + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}]; ++i) \{
+260                     \textcolor{keywordtype}{int} idx = pindices[c*\_num\_priors + i];
+261 
+262                     dst\_data[count * DETECTION\_SIZE + 0] = n;
+263                     dst\_data[count * DETECTION\_SIZE + 1] = \_decrease\_label\_id ? c-1 : 
+      \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c};
+264                     dst\_data[count * DETECTION\_SIZE + 2] = pconf[c*\_num\_priors + idx];
+265 
+266                     \textcolor{keywordtype}{float} xmin = \_share\_location ? pboxes[idx*4 + 0] :
+267                                  pboxes[c*4*\_num\_priors + idx*4 + 0];
+268                     \textcolor{keywordtype}{float} ymin = \_share\_location ? pboxes[idx*4 + 1] :
+269                                  pboxes[c*4*\_num\_priors + idx*4 + 1];
+270                     \textcolor{keywordtype}{float} xmax = \_share\_location ? pboxes[idx*4 + 2] :
+271                                  pboxes[c*4*\_num\_priors + idx*4 + 2];
+272                     \textcolor{keywordtype}{float} ymax = \_share\_location ? pboxes[idx*4 + 3] :
+273                                  pboxes[c*4*\_num\_priors + idx*4 + 3];
+274 
+275                     dst\_data[count * DETECTION\_SIZE + 3] = xmin;
+276                     dst\_data[count * DETECTION\_SIZE + 4] = ymin;
+277                     dst\_data[count * DETECTION\_SIZE + 5] = xmax;
+278                     dst\_data[count * DETECTION\_SIZE + 6] = ymax;
+279 
+280                     ++count;
+281                 \}
+282             \}
+283         \}
+284 
+285         \textcolor{keywordflow}{if} (count < N*\_keep\_top\_k) \{
+286             \textcolor{comment}{// marker at end of boxes list}
+287             dst\_data[count * DETECTION\_SIZE + 0] = -1;
+288         \}
+289 
+290         \textcolor{keywordflow}{return} OK;
+291     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__detectionoutput_8cpp}{ext\+\_\+detectionoutput.\+cpp}\end{DoxyCompactItemize}

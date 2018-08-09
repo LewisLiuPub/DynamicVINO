@@ -1,0 +1,86 @@
+\hypertarget{uint32__t_8cpp}{}\section{cmake-\/build-\/debug/\+C\+Make\+Files/\+Check\+Type\+Size/uint32\+\_\+t.cpp File Reference}
+\label{uint32__t_8cpp}\index{cmake-\/build-\/debug/\+C\+Make\+Files/\+Check\+Type\+Size/uint32\+\_\+t.\+cpp@{cmake-\/build-\/debug/\+C\+Make\+Files/\+Check\+Type\+Size/uint32\+\_\+t.\+cpp}}
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$stddef.\+h$>$}\\*
+Include dependency graph for uint32\+\_\+t.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{uint32__t_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{uint32__t_8cpp_a70ed59adcb4159ac551058053e649640}{S\+I\+ZE}~(sizeof(uint32\+\_\+t))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} \hyperlink{uint32__t_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} argc, \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} \hyperlink{uint32__t_8cpp_a0355ddcca1b74f883f20cc208db8790b}{info\+\_\+size} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{uint32\+\_\+t.\+cpp@{uint32\+\_\+t.\+cpp}!S\+I\+ZE@{S\+I\+ZE}}
+\index{S\+I\+ZE@{S\+I\+ZE}!uint32\+\_\+t.\+cpp@{uint32\+\_\+t.\+cpp}}
+\subsubsection[{\texorpdfstring{S\+I\+ZE}{SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+I\+ZE~(sizeof(uint32\+\_\+t))}\hypertarget{uint32__t_8cpp_a70ed59adcb4159ac551058053e649640}{}\label{uint32__t_8cpp_a70ed59adcb4159ac551058053e649640}
+
+
+Definition at line 23 of file uint32\+\_\+t.\+cpp.
+
+
+
+\subsection{Function Documentation}
+\index{uint32\+\_\+t.\+cpp@{uint32\+\_\+t.\+cpp}!main@{main}}
+\index{main@{main}!uint32\+\_\+t.\+cpp@{uint32\+\_\+t.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} main (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{argc, }
+\item[{{\bf char} $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{uint32__t_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{}\label{uint32__t_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 39 of file uint32\+\_\+t.\+cpp.
+
+
+\begin{DoxyCode}
+41 \{
+42   \textcolor{keywordtype}{int} require = 0;
+43   require += \hyperlink{uint32__t_8cpp_a0355ddcca1b74f883f20cc208db8790b}{info\_size}[argc];
+44   (void)argv;
+45   \textcolor{keywordflow}{return} require;
+46 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{uint32\+\_\+t.\+cpp@{uint32\+\_\+t.\+cpp}!info\+\_\+size@{info\+\_\+size}}
+\index{info\+\_\+size@{info\+\_\+size}!uint32\+\_\+t.\+cpp@{uint32\+\_\+t.\+cpp}}
+\subsubsection[{\texorpdfstring{info\+\_\+size}{info_size}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf char} info\+\_\+size\mbox{[}$\,$\mbox{]}}\hypertarget{uint32__t_8cpp_a0355ddcca1b74f883f20cc208db8790b}{}\label{uint32__t_8cpp_a0355ddcca1b74f883f20cc208db8790b}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=  \{\textcolor{charliteral}{'I'}, \textcolor{charliteral}{'N'}, \textcolor{charliteral}{'F'}, \textcolor{charliteral}{'O'}, \textcolor{charliteral}{':'}, \textcolor{charliteral}{'s'},\textcolor{charliteral}{'i'},\textcolor{charliteral}{'z'},\textcolor{charliteral}{'e'},\textcolor{charliteral}{'['},
+  (\textcolor{charliteral}{'0'} + ((\hyperlink{uint32__t_8cpp_a70ed59adcb4159ac551058053e649640}{SIZE} / 10000)%10)),
+  (\textcolor{charliteral}{'0'} + ((\hyperlink{uint32__t_8cpp_a70ed59adcb4159ac551058053e649640}{SIZE} / 1000)%10)),
+  (\textcolor{charliteral}{'0'} + ((\hyperlink{uint32__t_8cpp_a70ed59adcb4159ac551058053e649640}{SIZE} / 100)%10)),
+  (\textcolor{charliteral}{'0'} + ((\hyperlink{uint32__t_8cpp_a70ed59adcb4159ac551058053e649640}{SIZE} / 10)%10)),
+  (\textcolor{charliteral}{'0'} +  (\hyperlink{uint32__t_8cpp_a70ed59adcb4159ac551058053e649640}{SIZE}    % 10)),
+  \textcolor{charliteral}{']'},
+
+
+
+  \textcolor{charliteral}{'\(\backslash\)0'}\}
+\end{DoxyCode}
+
+
+Definition at line 24 of file uint32\+\_\+t.\+cpp.
+

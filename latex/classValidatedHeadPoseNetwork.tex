@@ -1,0 +1,263 @@
+\hypertarget{classValidatedHeadPoseNetwork}{}\section{Validated\+Head\+Pose\+Network Class Reference}
+\label{classValidatedHeadPoseNetwork}\index{Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}}
+
+
+{\ttfamily \#include $<$validated\+\_\+network.\+h$>$}
+
+
+
+Inheritance diagram for Validated\+Head\+Pose\+Network\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classValidatedHeadPoseNetwork__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Validated\+Head\+Pose\+Network\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classValidatedHeadPoseNetwork__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classValidatedHeadPoseNetwork_ab1f5ab40916a5dadd4d0b9271b643228}{Validated\+Head\+Pose\+Network} (const std\+::string \&, const std\+::string \&, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int}, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int}, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int})
+\item 
+const std\+::string \hyperlink{classValidatedHeadPoseNetwork_a433f0b95102495fc64982eab14e7c983}{get\+Input\+Name} () const 
+\item 
+const std\+::string \hyperlink{classValidatedHeadPoseNetwork_a63597882861d4a89e7c71536f58146fc}{get\+Output\+Output\+AngleR} () const 
+\item 
+const std\+::string \hyperlink{classValidatedHeadPoseNetwork_a4597b163ef1723c5cf26e1146cd8788f}{get\+Output\+Output\+AngleP} () const 
+\item 
+const std\+::string \hyperlink{classValidatedHeadPoseNetwork_a673a9ddc93b31a5763d41a8751fbe4c5}{get\+Output\+Output\+AngleY} () const 
+\item 
+const std\+::string \hyperlink{classValidatedHeadPoseNetwork_ac711ff3689e858fc089919a185d6eab8}{get\+Network\+Name} () const override
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classValidatedHeadPoseNetwork_a29656482a9102a936766f6bedd8d2967}{check\+Layer\+Property} (const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&) override
+\item 
+void \hyperlink{classValidatedHeadPoseNetwork_a35f7c37270398f1ac06d342a73b29f62}{set\+Layer\+Property} (Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr) override
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 94 of file validated\+\_\+network.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}!Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}}
+\index{Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}!Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}}
+\subsubsection[{\texorpdfstring{Validated\+Head\+Pose\+Network(const std\+::string \&, const std\+::string \&, int, int, int)}{ValidatedHeadPoseNetwork(const std::string &, const std::string &, int, int, int)}}]{\setlength{\rightskip}{0pt plus 5cm}Validated\+Head\+Pose\+Network\+::\+Validated\+Head\+Pose\+Network (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{model\+\_\+loc, }
+\item[{const std\+::string \&}]{device, }
+\item[{{\bf int}}]{input\+\_\+num, }
+\item[{{\bf int}}]{output\+\_\+num, }
+\item[{{\bf int}}]{max\+\_\+batch\+\_\+size}
+\end{DoxyParamCaption}
+)}\hypertarget{classValidatedHeadPoseNetwork_ab1f5ab40916a5dadd4d0b9271b643228}{}\label{classValidatedHeadPoseNetwork_ab1f5ab40916a5dadd4d0b9271b643228}
+
+
+Definition at line 271 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+274     : \hyperlink{classValidatedBaseNetwork_acd5df9d5e7e12a7c5d1952a0514e020c}{ValidatedBaseNetwork}(model\_loc, device,
+275                            input\_num, output\_num, max\_batch\_size)\{\};
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}!check\+Layer\+Property@{check\+Layer\+Property}}
+\index{check\+Layer\+Property@{check\+Layer\+Property}!Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}}
+\subsubsection[{\texorpdfstring{check\+Layer\+Property(const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&) override}{checkLayerProperty(const InferenceEngine::CNNNetReader::Ptr &) override}}]{\setlength{\rightskip}{0pt plus 5cm}void Validated\+Head\+Pose\+Network\+::check\+Layer\+Property (
+\begin{DoxyParamCaption}
+\item[{const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&}]{net\+\_\+reader}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}\hypertarget{classValidatedHeadPoseNetwork_a29656482a9102a936766f6bedd8d2967}{}\label{classValidatedHeadPoseNetwork_a29656482a9102a936766f6bedd8d2967}
+
+
+Implements \hyperlink{classValidatedBaseNetwork_a99f4bc59446921b25014c3690269e8e9}{Validated\+Base\+Network}.
+
+
+
+Definition at line 277 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+278                                                       \{
+279   slog::info << \textcolor{stringliteral}{"Checking Head Pose network outputs"} << slog::endl;
+280   InferenceEngine::OutputsDataMap outputInfo(
+281       net\_reader->getNetwork().getOutputsInfo());
+282   std::map<std::string, bool> layerNames = \{
+283       \{output\_angle\_r\_, \textcolor{keyword}{false}\},
+284       \{output\_angle\_p\_, \textcolor{keyword}{false}\},
+285       \{output\_angle\_y\_, \textcolor{keyword}{false}\}
+286   \};
+287 
+288   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} &&output : outputInfo) \{
+289     InferenceEngine::CNNLayerPtr layer =
+290         output.second->getCreatorLayer().lock();
+291     \textcolor{keywordflow}{if} (layerNames.find(layer->name) == layerNames.end()) \{
+292       \textcolor{keywordflow}{throw} std::logic\_error(
+293           \textcolor{stringliteral}{"Head Pose network output layer unknown: "} + layer->name
+294               + \textcolor{stringliteral}{", should be "} +
+295               output\_angle\_r\_ + \textcolor{stringliteral}{" or "} + output\_angle\_p\_ + \textcolor{stringliteral}{" or "}
+296               + output\_angle\_y\_);
+297     \}
+298     \textcolor{keywordflow}{if} (layer->type != \textcolor{stringliteral}{"FullyConnected"}) \{
+299       \textcolor{keywordflow}{throw} std::logic\_error(\textcolor{stringliteral}{"Head Pose network output layer ("} + layer->name
+300                                  + \textcolor{stringliteral}{") has invalid type: "} +
+301           layer->type + \textcolor{stringliteral}{", should be FullyConnected"});
+302     \}
+303     \textcolor{keyword}{auto} fc = \textcolor{keyword}{dynamic\_cast<}InferenceEngine::FullyConnectedLayer *\textcolor{keyword}{>}(layer.get());
+304     \textcolor{keywordflow}{if} (fc->\_out\_num != 1) \{
+305       \textcolor{keywordflow}{throw} std::logic\_error(\textcolor{stringliteral}{"Head Pose network output layer ("} + layer->name
+306                                  + \textcolor{stringliteral}{") has invalid out-size="} +
+307           std::to\_string(fc->\_out\_num) + \textcolor{stringliteral}{", should be 1"});
+308     \}
+309     layerNames[layer->name] = \textcolor{keyword}{true};
+310   \}
+311 \}
+\end{DoxyCode}
+\index{Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}!get\+Input\+Name@{get\+Input\+Name}}
+\index{get\+Input\+Name@{get\+Input\+Name}!Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}}
+\subsubsection[{\texorpdfstring{get\+Input\+Name() const }{getInputName() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Head\+Pose\+Network\+::get\+Input\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedHeadPoseNetwork_a433f0b95102495fc64982eab14e7c983}{}\label{classValidatedHeadPoseNetwork_a433f0b95102495fc64982eab14e7c983}
+
+
+Definition at line 98 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+98 \{\textcolor{keywordflow}{return} input\_;\}
+\end{DoxyCode}
+\index{Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}!get\+Network\+Name@{get\+Network\+Name}}
+\index{get\+Network\+Name@{get\+Network\+Name}!Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}}
+\subsubsection[{\texorpdfstring{get\+Network\+Name() const override}{getNetworkName() const override}}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Head\+Pose\+Network\+::get\+Network\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classValidatedHeadPoseNetwork_ac711ff3689e858fc089919a185d6eab8}{}\label{classValidatedHeadPoseNetwork_ac711ff3689e858fc089919a185d6eab8}
+
+
+Implements \hyperlink{classValidatedBaseNetwork_ad2fdf0b3d87e530e699a6569236a2c8c}{Validated\+Base\+Network}.
+
+
+
+Definition at line 335 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+335                                                                \{
+336   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Head Pose Network"};
+337 \}\end{DoxyCode}
+\index{Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}!get\+Output\+Output\+AngleP@{get\+Output\+Output\+AngleP}}
+\index{get\+Output\+Output\+AngleP@{get\+Output\+Output\+AngleP}!Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}}
+\subsubsection[{\texorpdfstring{get\+Output\+Output\+Angle\+P() const }{getOutputOutputAngleP() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Head\+Pose\+Network\+::get\+Output\+Output\+AngleP (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedHeadPoseNetwork_a4597b163ef1723c5cf26e1146cd8788f}{}\label{classValidatedHeadPoseNetwork_a4597b163ef1723c5cf26e1146cd8788f}
+
+
+Definition at line 102 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+102                                                        \{
+103     \textcolor{keywordflow}{return} output\_angle\_p\_;
+104   \}
+\end{DoxyCode}
+\index{Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}!get\+Output\+Output\+AngleR@{get\+Output\+Output\+AngleR}}
+\index{get\+Output\+Output\+AngleR@{get\+Output\+Output\+AngleR}!Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}}
+\subsubsection[{\texorpdfstring{get\+Output\+Output\+Angle\+R() const }{getOutputOutputAngleR() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Head\+Pose\+Network\+::get\+Output\+Output\+AngleR (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedHeadPoseNetwork_a63597882861d4a89e7c71536f58146fc}{}\label{classValidatedHeadPoseNetwork_a63597882861d4a89e7c71536f58146fc}
+
+
+Definition at line 99 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+99                                                        \{
+100     \textcolor{keywordflow}{return} output\_angle\_r\_;
+101   \}
+\end{DoxyCode}
+\index{Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}!get\+Output\+Output\+AngleY@{get\+Output\+Output\+AngleY}}
+\index{get\+Output\+Output\+AngleY@{get\+Output\+Output\+AngleY}!Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}}
+\subsubsection[{\texorpdfstring{get\+Output\+Output\+Angle\+Y() const }{getOutputOutputAngleY() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Head\+Pose\+Network\+::get\+Output\+Output\+AngleY (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedHeadPoseNetwork_a673a9ddc93b31a5763d41a8751fbe4c5}{}\label{classValidatedHeadPoseNetwork_a673a9ddc93b31a5763d41a8751fbe4c5}
+
+
+Definition at line 105 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+105                                                        \{
+106     \textcolor{keywordflow}{return} output\_angle\_y\_;
+107   \}
+\end{DoxyCode}
+\index{Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}!set\+Layer\+Property@{set\+Layer\+Property}}
+\index{set\+Layer\+Property@{set\+Layer\+Property}!Validated\+Head\+Pose\+Network@{Validated\+Head\+Pose\+Network}}
+\subsubsection[{\texorpdfstring{set\+Layer\+Property(\+Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr) override}{setLayerProperty(InferenceEngine::CNNNetReader::Ptr) override}}]{\setlength{\rightskip}{0pt plus 5cm}void Validated\+Head\+Pose\+Network\+::set\+Layer\+Property (
+\begin{DoxyParamCaption}
+\item[{Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr}]{net\+\_\+reader}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}\hypertarget{classValidatedHeadPoseNetwork_a35f7c37270398f1ac06d342a73b29f62}{}\label{classValidatedHeadPoseNetwork_a35f7c37270398f1ac06d342a73b29f62}
+
+
+Implements \hyperlink{classValidatedBaseNetwork_a3b43f5e3b004d75873a644d2132fbb58}{Validated\+Base\+Network}.
+
+
+
+Definition at line 313 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+314                                                \{
+315   \textcolor{comment}{//set input property}
+316   InferenceEngine::InputsDataMap
+317       input\_info\_map(net\_reader->getNetwork().getInputsInfo());
+318   InferenceEngine::InputInfo::Ptr input\_info = input\_info\_map.begin()->second;
+319   input\_info->setPrecision(InferenceEngine::Precision::FP32);
+320   input\_info->setLayout(InferenceEngine::Layout::NCHW);
+321   \textcolor{comment}{//set output property}
+322   InferenceEngine::OutputsDataMap
+323       output\_info\_map(net\_reader->getNetwork().getOutputsInfo());
+324   \textcolor{keyword}{auto} it = output\_info\_map.begin();
+325   InferenceEngine::DataPtr age\_output\_ptr = (it++)->second;
+326   InferenceEngine::DataPtr gender\_output\_ptr = (it++)->second;
+327   age\_output\_ptr->setPrecision(InferenceEngine::Precision::FP32);
+328   age\_output\_ptr->setLayout(InferenceEngine::Layout::NCHW);
+329   gender\_output\_ptr->setPrecision(InferenceEngine::Precision::FP32);
+330   gender\_output\_ptr->setLayout(InferenceEngine::Layout::NCHW);
+331   \textcolor{comment}{//set input and output layer name}
+332   input\_ = input\_info\_map.begin()->first;
+333 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/openvino\+\_\+service/models/\hyperlink{validated__network_8h}{validated\+\_\+network.\+h}\item 
+lib/network\+\_\+models/\hyperlink{validated__network_8cpp}{validated\+\_\+network.\+cpp}\end{DoxyCompactItemize}

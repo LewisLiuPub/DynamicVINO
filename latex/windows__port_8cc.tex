@@ -1,0 +1,73 @@
+\hypertarget{windows__port_8cc}{}\section{thirdparty/gflags/src/windows\+\_\+port.cc File Reference}
+\label{windows__port_8cc}\index{thirdparty/gflags/src/windows\+\_\+port.\+cc@{thirdparty/gflags/src/windows\+\_\+port.\+cc}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include $<$stdarg.\+h$>$}\\*
+{\ttfamily \#include $<$windows.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}windows\+\_\+port.\+h\char`\"{}}\\*
+Include dependency graph for windows\+\_\+port.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{windows__port_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} \hyperlink{windows__port_8cc_a092404e8d9f48f3d98d5a4a294b254ba}{safe\+\_\+vsnprintf} (\hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$str, size\+\_\+t size, const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$format, va\+\_\+list ap)
+\item 
+\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} \hyperlink{windows__port_8cc_ad76145a6edfc98981ded8815a760e0cd}{snprintf} (\hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$str, size\+\_\+t size, const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$format,...)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{windows\+\_\+port.\+cc@{windows\+\_\+port.\+cc}!safe\+\_\+vsnprintf@{safe\+\_\+vsnprintf}}
+\index{safe\+\_\+vsnprintf@{safe\+\_\+vsnprintf}!windows\+\_\+port.\+cc@{windows\+\_\+port.\+cc}}
+\subsubsection[{\texorpdfstring{safe\+\_\+vsnprintf(char $\ast$str, size\+\_\+t size, const char $\ast$format, va\+\_\+list ap)}{safe_vsnprintf(char *str, size_t size, const char *format, va_list ap)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} safe\+\_\+vsnprintf (
+\begin{DoxyParamCaption}
+\item[{{\bf char} $\ast$}]{str, }
+\item[{size\+\_\+t}]{size, }
+\item[{const {\bf char} $\ast$}]{format, }
+\item[{va\+\_\+list}]{ap}
+\end{DoxyParamCaption}
+)}\hypertarget{windows__port_8cc_a092404e8d9f48f3d98d5a4a294b254ba}{}\label{windows__port_8cc_a092404e8d9f48f3d98d5a4a294b254ba}
+
+
+Definition at line 53 of file windows\+\_\+port.\+cc.
+
+
+\begin{DoxyCode}
+53                                                                            \{
+54   \textcolor{keywordflow}{if} (size == 0)        \textcolor{comment}{// not even room for a \(\backslash\)0?}
+55     \textcolor{keywordflow}{return} -1;          \textcolor{comment}{// not what C99 says to do, but what windows does}
+56   str[size-1] = \textcolor{charliteral}{'\(\backslash\)0'}; 
+57   \textcolor{keywordflow}{return} \_vsnprintf(str, size-1, format, ap);
+58 \}
+\end{DoxyCode}
+\index{windows\+\_\+port.\+cc@{windows\+\_\+port.\+cc}!snprintf@{snprintf}}
+\index{snprintf@{snprintf}!windows\+\_\+port.\+cc@{windows\+\_\+port.\+cc}}
+\subsubsection[{\texorpdfstring{snprintf(char $\ast$str, size\+\_\+t size, const char $\ast$format,...)}{snprintf(char *str, size_t size, const char *format,...)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} snprintf (
+\begin{DoxyParamCaption}
+\item[{{\bf char} $\ast$}]{str, }
+\item[{size\+\_\+t}]{size, }
+\item[{const {\bf char} $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{windows__port_8cc_ad76145a6edfc98981ded8815a760e0cd}{}\label{windows__port_8cc_ad76145a6edfc98981ded8815a760e0cd}
+
+
+Definition at line 63 of file windows\+\_\+port.\+cc.
+
+
+\begin{DoxyCode}
+63                                                               \{
+64   \textcolor{keywordtype}{int} r;
+65   va\_list ap;
+66   va\_start(ap, format);
+67   r = \hyperlink{windows__port_8h_a8b84c05ed8508ce17920a30acae325ab}{vsnprintf}(str, size, format, ap);
+68   va\_end(ap);
+69   \textcolor{keywordflow}{return} r;
+70 \}
+\end{DoxyCode}

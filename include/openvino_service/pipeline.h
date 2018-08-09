@@ -8,11 +8,9 @@
 #ifndef SAMPLES_PIPELINE_H
 #define SAMPLES_PIPELINE_H
 
-#include "detection.h"
-#include "samples/slog.hpp"
-#include "io_devices/input.h"
-#include "io_devices/output.h"
-#include "samples/slog.hpp"
+#include "openvino_service/inferences/base_inference.h"
+#include "openvino_service/inputs/standard_camera.h"
+#include "openvino_service/outputs/output.h"
 
 #include "opencv2/opencv.hpp"
 
@@ -37,7 +35,7 @@ class Pipeline {
    * @return whether the add operation is successful
    */
   bool add(const std::string &parent, const std::string &name,
-           std::shared_ptr<BaseInputDevice> input_device);
+           std::shared_ptr<Input::BaseInputDevice> input_device);
   /**
    * @brief Add inference network to the pipeline.
    * @param[in] parent name of the parent device or inference.
@@ -78,7 +76,7 @@ class Pipeline {
   void setcallback();
 
  private:
-  std::shared_ptr<BaseInputDevice> input_device_;
+  std::shared_ptr<Input::BaseInputDevice> input_device_;
   std::string input_device_name_;
   std::multimap<std::string, std::string> next_;
   std::map<std::string, std::shared_ptr<openvino_service::BaseInference>>

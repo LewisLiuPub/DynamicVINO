@@ -1,0 +1,241 @@
+\hypertarget{classValidatedAgeGenderNetwork}{}\section{Validated\+Age\+Gender\+Network Class Reference}
+\label{classValidatedAgeGenderNetwork}\index{Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}}
+
+
+{\ttfamily \#include $<$validated\+\_\+network.\+h$>$}
+
+
+
+Inheritance diagram for Validated\+Age\+Gender\+Network\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{classValidatedAgeGenderNetwork__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Validated\+Age\+Gender\+Network\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{classValidatedAgeGenderNetwork__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classValidatedAgeGenderNetwork_af6c027d586117ea2bafcfde993ad0790}{Validated\+Age\+Gender\+Network} (const std\+::string \&, const std\+::string \&, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int}, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int}, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int})
+\item 
+const std\+::string \hyperlink{classValidatedAgeGenderNetwork_a1033508252d400f8d36f3dde3988a155}{get\+Input\+Name} () const 
+\item 
+const std\+::string \hyperlink{classValidatedAgeGenderNetwork_a2ae9f6eb3fe23d1f3b17048beea0c55e}{get\+Output\+Age\+Name} () const 
+\item 
+const std\+::string \hyperlink{classValidatedAgeGenderNetwork_a713c57be92177d5bbe3a64e2e15ead0e}{get\+Output\+Gender\+Name} () const 
+\item 
+const std\+::string \hyperlink{classValidatedAgeGenderNetwork_ab53dec40a82af2d061a4976f686a42f5}{get\+Network\+Name} () const override
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classValidatedAgeGenderNetwork_ab44a374f2d35331b3ff4d396570e3120}{check\+Layer\+Property} (const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&) override
+\item 
+void \hyperlink{classValidatedAgeGenderNetwork_a5c39aa39e7cc3abf984a29bdf9e61d47}{set\+Layer\+Property} (Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr) override
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 75 of file validated\+\_\+network.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}!Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}}
+\index{Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}!Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}}
+\subsubsection[{\texorpdfstring{Validated\+Age\+Gender\+Network(const std\+::string \&, const std\+::string \&, int, int, int)}{ValidatedAgeGenderNetwork(const std::string &, const std::string &, int, int, int)}}]{\setlength{\rightskip}{0pt plus 5cm}Validated\+Age\+Gender\+Network\+::\+Validated\+Age\+Gender\+Network (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{model\+\_\+loc, }
+\item[{const std\+::string \&}]{device, }
+\item[{{\bf int}}]{input\+\_\+num, }
+\item[{{\bf int}}]{output\+\_\+num, }
+\item[{{\bf int}}]{max\+\_\+batch\+\_\+size}
+\end{DoxyParamCaption}
+)}\hypertarget{classValidatedAgeGenderNetwork_af6c027d586117ea2bafcfde993ad0790}{}\label{classValidatedAgeGenderNetwork_af6c027d586117ea2bafcfde993ad0790}
+
+
+Definition at line 202 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+205     : \hyperlink{classValidatedBaseNetwork_acd5df9d5e7e12a7c5d1952a0514e020c}{ValidatedBaseNetwork}(model\_loc, device,
+206                            input\_num, output\_num, max\_batch\_size)\{\};
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}!check\+Layer\+Property@{check\+Layer\+Property}}
+\index{check\+Layer\+Property@{check\+Layer\+Property}!Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}}
+\subsubsection[{\texorpdfstring{check\+Layer\+Property(const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&) override}{checkLayerProperty(const InferenceEngine::CNNNetReader::Ptr &) override}}]{\setlength{\rightskip}{0pt plus 5cm}void Validated\+Age\+Gender\+Network\+::check\+Layer\+Property (
+\begin{DoxyParamCaption}
+\item[{const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&}]{net\+\_\+reader}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}\hypertarget{classValidatedAgeGenderNetwork_ab44a374f2d35331b3ff4d396570e3120}{}\label{classValidatedAgeGenderNetwork_ab44a374f2d35331b3ff4d396570e3120}
+
+
+Implements \hyperlink{classValidatedBaseNetwork_a99f4bc59446921b25014c3690269e8e9}{Validated\+Base\+Network}.
+
+
+
+Definition at line 232 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+233                                                       \{
+234   slog::info << \textcolor{stringliteral}{"Checking Age Gender Detection outputs"} << slog::endl;
+235   InferenceEngine::OutputsDataMap output\_info(
+236       net\_reader->getNetwork().getOutputsInfo());
+237   \textcolor{keyword}{auto} it = output\_info.begin();
+238   InferenceEngine::DataPtr age\_output\_ptr = (it++)->second;
+239   InferenceEngine::DataPtr gender\_output\_ptr = (it++)->second;
+240   \textcolor{comment}{//output layer of age should be Convolution type}
+241   \textcolor{keywordflow}{if} (gender\_output\_ptr->getCreatorLayer().lock()->type == \textcolor{stringliteral}{"Convolution"}) \{
+242     std::swap(age\_output\_ptr, gender\_output\_ptr);
+243   \}
+244   \textcolor{keywordflow}{if} (age\_output\_ptr->getCreatorLayer().lock()->type != \textcolor{stringliteral}{"Convolution"}) \{
+245     \textcolor{keywordflow}{throw} std::logic\_error(
+246         \textcolor{stringliteral}{"In Age Gender network, age layer ("} +
+247             age\_output\_ptr->getCreatorLayer().lock()->name +
+248             \textcolor{stringliteral}{") should be a Convolution, but was: "} +
+249             age\_output\_ptr->getCreatorLayer().lock()->type);
+250   \}
+251   \textcolor{keywordflow}{if} (gender\_output\_ptr->getCreatorLayer().lock()->type != \textcolor{stringliteral}{"SoftMax"}) \{
+252     \textcolor{keywordflow}{throw} std::logic\_error(
+253         \textcolor{stringliteral}{"In Age Gender network, gender layer ("} +
+254             gender\_output\_ptr->getCreatorLayer().lock()->name +
+255             \textcolor{stringliteral}{") should be a SoftMax, but was: "} +
+256             gender\_output\_ptr->getCreatorLayer().lock()->type);
+257   \}
+258   slog::info << \textcolor{stringliteral}{"Age layer: "} <<
+259              age\_output\_ptr->getCreatorLayer().lock()->name <<
+260              slog::endl;
+261   slog::info << \textcolor{stringliteral}{"Gender layer: "} <<
+262              gender\_output\_ptr->getCreatorLayer().lock()->name <<
+263              slog::endl;
+264 \};
+\end{DoxyCode}
+\index{Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}!get\+Input\+Name@{get\+Input\+Name}}
+\index{get\+Input\+Name@{get\+Input\+Name}!Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}}
+\subsubsection[{\texorpdfstring{get\+Input\+Name() const }{getInputName() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Age\+Gender\+Network\+::get\+Input\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedAgeGenderNetwork_a1033508252d400f8d36f3dde3988a155}{}\label{classValidatedAgeGenderNetwork_a1033508252d400f8d36f3dde3988a155}
+
+
+Definition at line 79 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+79 \{\textcolor{keywordflow}{return} input\_;\}
+\end{DoxyCode}
+\index{Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}!get\+Network\+Name@{get\+Network\+Name}}
+\index{get\+Network\+Name@{get\+Network\+Name}!Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}}
+\subsubsection[{\texorpdfstring{get\+Network\+Name() const override}{getNetworkName() const override}}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Age\+Gender\+Network\+::get\+Network\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classValidatedAgeGenderNetwork_ab53dec40a82af2d061a4976f686a42f5}{}\label{classValidatedAgeGenderNetwork_ab53dec40a82af2d061a4976f686a42f5}
+
+
+Implements \hyperlink{classValidatedBaseNetwork_ad2fdf0b3d87e530e699a6569236a2c8c}{Validated\+Base\+Network}.
+
+
+
+Definition at line 266 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+266                                                                 \{
+267   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Age Gender Detection"};
+268 \};
+\end{DoxyCode}
+\index{Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}!get\+Output\+Age\+Name@{get\+Output\+Age\+Name}}
+\index{get\+Output\+Age\+Name@{get\+Output\+Age\+Name}!Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}}
+\subsubsection[{\texorpdfstring{get\+Output\+Age\+Name() const }{getOutputAgeName() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Age\+Gender\+Network\+::get\+Output\+Age\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedAgeGenderNetwork_a2ae9f6eb3fe23d1f3b17048beea0c55e}{}\label{classValidatedAgeGenderNetwork_a2ae9f6eb3fe23d1f3b17048beea0c55e}
+
+
+Definition at line 80 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+80 \{\textcolor{keywordflow}{return} output\_age\_;\}
+\end{DoxyCode}
+\index{Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}!get\+Output\+Gender\+Name@{get\+Output\+Gender\+Name}}
+\index{get\+Output\+Gender\+Name@{get\+Output\+Gender\+Name}!Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}}
+\subsubsection[{\texorpdfstring{get\+Output\+Gender\+Name() const }{getOutputGenderName() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Age\+Gender\+Network\+::get\+Output\+Gender\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedAgeGenderNetwork_a713c57be92177d5bbe3a64e2e15ead0e}{}\label{classValidatedAgeGenderNetwork_a713c57be92177d5bbe3a64e2e15ead0e}
+
+
+Definition at line 81 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+81 \{\textcolor{keywordflow}{return} output\_gender\_;\}
+\end{DoxyCode}
+\index{Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}!set\+Layer\+Property@{set\+Layer\+Property}}
+\index{set\+Layer\+Property@{set\+Layer\+Property}!Validated\+Age\+Gender\+Network@{Validated\+Age\+Gender\+Network}}
+\subsubsection[{\texorpdfstring{set\+Layer\+Property(\+Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr) override}{setLayerProperty(InferenceEngine::CNNNetReader::Ptr) override}}]{\setlength{\rightskip}{0pt plus 5cm}void Validated\+Age\+Gender\+Network\+::set\+Layer\+Property (
+\begin{DoxyParamCaption}
+\item[{Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr}]{net\+\_\+reader}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}\hypertarget{classValidatedAgeGenderNetwork_a5c39aa39e7cc3abf984a29bdf9e61d47}{}\label{classValidatedAgeGenderNetwork_a5c39aa39e7cc3abf984a29bdf9e61d47}
+
+
+Implements \hyperlink{classValidatedBaseNetwork_a3b43f5e3b004d75873a644d2132fbb58}{Validated\+Base\+Network}.
+
+
+
+Definition at line 208 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+209                                                \{
+210   \textcolor{comment}{//set input property}
+211   InferenceEngine::InputsDataMap
+212       input\_info\_map(net\_reader->getNetwork().getInputsInfo());
+213   InferenceEngine::InputInfo::Ptr input\_info = input\_info\_map.begin()->second;
+214   input\_info->setPrecision(InferenceEngine::Precision::FP32);
+215   input\_info->setLayout(InferenceEngine::Layout::NCHW);
+216   \textcolor{comment}{//set output property}
+217   InferenceEngine::OutputsDataMap
+218       output\_info\_map(net\_reader->getNetwork().getOutputsInfo());
+219   \textcolor{keyword}{auto} it = output\_info\_map.begin();
+220   InferenceEngine::DataPtr age\_output\_ptr = (it++)->second;
+221   InferenceEngine::DataPtr gender\_output\_ptr = (it++)->second;
+222   age\_output\_ptr->setPrecision(InferenceEngine::Precision::FP32);
+223   age\_output\_ptr->setLayout(InferenceEngine::Layout::NCHW);
+224   gender\_output\_ptr->setPrecision(InferenceEngine::Precision::FP32);
+225   gender\_output\_ptr->setLayout(InferenceEngine::Layout::NCHW);
+226   \textcolor{comment}{//set input and output layer name}
+227   input\_ = input\_info\_map.begin()->first;
+228   output\_age\_ = age\_output\_ptr->name;
+229   output\_gender\_ = gender\_output\_ptr->name;
+230 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/openvino\+\_\+service/models/\hyperlink{validated__network_8h}{validated\+\_\+network.\+h}\item 
+lib/network\+\_\+models/\hyperlink{validated__network_8cpp}{validated\+\_\+network.\+cpp}\end{DoxyCompactItemize}

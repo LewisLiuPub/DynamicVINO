@@ -1,0 +1,83 @@
+\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1NormalizeFactory}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Normalize\+Factory Class Reference}
+\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1NormalizeFactory}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory}}
+
+
+Inheritance diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Normalize\+Factory\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1NormalizeFactory__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Normalize\+Factory\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1NormalizeFactory__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1NormalizeFactory_a0c60630da765a5314dec1c7251fd52b8}{Normalize\+Factory} (const C\+N\+N\+Layer $\ast$layer)
+\item 
+Status\+Code \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1NormalizeFactory_a2fefa3e07b9ddf93a9a7c3e418e3fc0e}{get\+Shapes} (const std\+::vector$<$ Tensor\+Desc $>$ \&in\+Shapes, std\+::vector$<$ Tensor\+Desc $>$ \&out\+Shapes, Response\+Desc $\ast$resp) noexceptoverride
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 232 of file ext\+\_\+normalize.\+cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory}!Normalize\+Factory@{Normalize\+Factory}}
+\index{Normalize\+Factory@{Normalize\+Factory}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory}}
+\subsubsection[{\texorpdfstring{Normalize\+Factory(const C\+N\+N\+Layer $\ast$layer)}{NormalizeFactory(const CNNLayer *layer)}}]{\setlength{\rightskip}{0pt plus 5cm}Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory\+::\+Normalize\+Factory (
+\begin{DoxyParamCaption}
+\item[{const C\+N\+N\+Layer $\ast$}]{layer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1NormalizeFactory_a0c60630da765a5314dec1c7251fd52b8}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1NormalizeFactory_a0c60630da765a5314dec1c7251fd52b8}
+
+
+Definition at line 234 of file ext\+\_\+normalize.\+cpp.
+
+
+\begin{DoxyCode}
+234 : \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ImplFactory_a86837f88ce5c196382c1f7c38e3ba3a8}{ImplFactory}(layer) \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory}!get\+Shapes@{get\+Shapes}}
+\index{get\+Shapes@{get\+Shapes}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory}}
+\subsubsection[{\texorpdfstring{get\+Shapes(const std\+::vector$<$ Tensor\+Desc $>$ \&in\+Shapes, std\+::vector$<$ Tensor\+Desc $>$ \&out\+Shapes, Response\+Desc $\ast$resp) noexceptoverride}{getShapes(const std::vector< TensorDesc > &inShapes, std::vector< TensorDesc > &outShapes, ResponseDesc *resp) noexceptoverride}}]{\setlength{\rightskip}{0pt plus 5cm}Status\+Code Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Normalize\+Factory\+::get\+Shapes (
+\begin{DoxyParamCaption}
+\item[{const std\+::vector$<$ Tensor\+Desc $>$ \&}]{in\+Shapes, }
+\item[{std\+::vector$<$ Tensor\+Desc $>$ \&}]{out\+Shapes, }
+\item[{Response\+Desc $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1NormalizeFactory_a2fefa3e07b9ddf93a9a7c3e418e3fc0e}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1NormalizeFactory_a2fefa3e07b9ddf93a9a7c3e418e3fc0e}
+
+
+Definition at line 236 of file ext\+\_\+normalize.\+cpp.
+
+
+\begin{DoxyCode}
+237                                                                \{
+238         outShapes.push\_back(inShapes[0]);
+239         \textcolor{keywordflow}{return} InferenceEngine::OK;
+240     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__normalize_8cpp}{ext\+\_\+normalize.\+cpp}\end{DoxyCompactItemize}

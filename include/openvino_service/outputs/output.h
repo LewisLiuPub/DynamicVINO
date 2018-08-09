@@ -9,7 +9,7 @@
 #define SAMPLES_OUTPUT_H
 
 #include "opencv2/opencv.hpp"
-#include "result.h"
+#include "openvino_service/data_struct.h"
 /**
  * @class BaseOutput
  * @brief This class is a base class for various output devices. It employs

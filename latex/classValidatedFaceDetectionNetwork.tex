@@ -1,0 +1,270 @@
+\hypertarget{classValidatedFaceDetectionNetwork}{}\section{Validated\+Face\+Detection\+Network Class Reference}
+\label{classValidatedFaceDetectionNetwork}\index{Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}}
+
+
+{\ttfamily \#include $<$validated\+\_\+network.\+h$>$}
+
+
+
+Inheritance diagram for Validated\+Face\+Detection\+Network\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classValidatedFaceDetectionNetwork__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Validated\+Face\+Detection\+Network\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classValidatedFaceDetectionNetwork__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classValidatedFaceDetectionNetwork_ace6a0ade3b55b8ad9da95b1176816de0}{Validated\+Face\+Detection\+Network} (const std\+::string \&, const std\+::string \&, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int}, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int}, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int})
+\item 
+const \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} \hyperlink{classValidatedFaceDetectionNetwork_a994965fa17987321fe0be18f36edf64f}{get\+Max\+Proposal\+Count} ()
+\item 
+const \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} \hyperlink{classValidatedFaceDetectionNetwork_aedb5789b8c86e77a58ba154907b049bb}{get\+Object\+Size} ()
+\item 
+const std\+::string \hyperlink{classValidatedFaceDetectionNetwork_a9cae6cfaf2582394ed57ea0b68af55fd}{get\+Input\+Name} ()
+\item 
+const std\+::string \hyperlink{classValidatedFaceDetectionNetwork_a076d4b58f4eeac4ffde6b8dc675457a3}{get\+Output\+Name} ()
+\item 
+const std\+::string \hyperlink{classValidatedFaceDetectionNetwork_aecbdd3b338b04f78b6c7bab6db8a9b84}{get\+Network\+Name} () const override
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classValidatedFaceDetectionNetwork_a11fa93d64058521c37940196ed29fddc}{check\+Layer\+Property} (const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&) override
+\item 
+void \hyperlink{classValidatedFaceDetectionNetwork_ac24b2e9e36a06c4f9a8db5bf1aa7a8c7}{set\+Layer\+Property} (Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr) override
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 37 of file validated\+\_\+network.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}!Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}}
+\index{Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}!Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}}
+\subsubsection[{\texorpdfstring{Validated\+Face\+Detection\+Network(const std\+::string \&, const std\+::string \&, int, int, int)}{ValidatedFaceDetectionNetwork(const std::string &, const std::string &, int, int, int)}}]{\setlength{\rightskip}{0pt plus 5cm}Validated\+Face\+Detection\+Network\+::\+Validated\+Face\+Detection\+Network (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{model\+\_\+loc, }
+\item[{const std\+::string \&}]{device, }
+\item[{{\bf int}}]{input\+\_\+num, }
+\item[{{\bf int}}]{output\+\_\+num, }
+\item[{{\bf int}}]{max\+\_\+batch\+\_\+size}
+\end{DoxyParamCaption}
+)}\hypertarget{classValidatedFaceDetectionNetwork_ace6a0ade3b55b8ad9da95b1176816de0}{}\label{classValidatedFaceDetectionNetwork_ace6a0ade3b55b8ad9da95b1176816de0}
+
+
+Definition at line 71 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+74     : \hyperlink{classValidatedBaseNetwork_acd5df9d5e7e12a7c5d1952a0514e020c}{ValidatedBaseNetwork}(model\_loc, device,
+75                            input\_num, output\_num, max\_batch\_size)\{\};
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}!check\+Layer\+Property@{check\+Layer\+Property}}
+\index{check\+Layer\+Property@{check\+Layer\+Property}!Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}}
+\subsubsection[{\texorpdfstring{check\+Layer\+Property(const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&) override}{checkLayerProperty(const InferenceEngine::CNNNetReader::Ptr &) override}}]{\setlength{\rightskip}{0pt plus 5cm}void Validated\+Face\+Detection\+Network\+::check\+Layer\+Property (
+\begin{DoxyParamCaption}
+\item[{const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&}]{net\+\_\+reader}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}\hypertarget{classValidatedFaceDetectionNetwork_a11fa93d64058521c37940196ed29fddc}{}\label{classValidatedFaceDetectionNetwork_a11fa93d64058521c37940196ed29fddc}
+
+
+Implements \hyperlink{classValidatedBaseNetwork_a99f4bc59446921b25014c3690269e8e9}{Validated\+Base\+Network}.
+
+
+
+Definition at line 96 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+97                                                       \{
+98   slog::info << \textcolor{stringliteral}{"Checking Face Detection outputs"} << slog::endl;
+99   InferenceEngine::OutputsDataMap
+100       output\_info\_map(net\_reader->getNetwork().getOutputsInfo());
+101   InferenceEngine::DataPtr &output\_data\_ptr = output\_info\_map.begin()->second;
+102   output\_ = output\_info\_map.begin()->first;
+103   \textcolor{keyword}{const} InferenceEngine::CNNLayerPtr
+104       output\_layer = net\_reader->getNetwork().getLayerByName(
+105       output\_.c\_str());
+106   \textcolor{comment}{//output layer should be DetectionOutput type}
+107   \textcolor{keywordflow}{if} (output\_layer->type != \textcolor{stringliteral}{"DetectionOutput"}) \{
+108     \textcolor{keywordflow}{throw} std::logic\_error(
+109         \textcolor{stringliteral}{"Face Detection network output layer("} + output\_layer->name +
+110             \textcolor{stringliteral}{") should be DetectionOutput, but was "} + output\_layer->type);
+111   \}
+112   \textcolor{comment}{//output layer should have attribute called num\_classes}
+113   \textcolor{keywordflow}{if} (output\_layer->params.find(\textcolor{stringliteral}{"num\_classes"}) ==
+114       output\_layer->params.end()) \{
+115     \textcolor{keywordflow}{throw} std::logic\_error(\textcolor{stringliteral}{"Face Detection network output layer ("} +
+116         output\_+
+117         \textcolor{stringliteral}{") should have num\_classes integer attribute"});
+118   \}
+119   \textcolor{comment}{//class number should be equal to size of label vector}
+120   \textcolor{comment}{//if network has default "background" class, fake is used}
+121   \textcolor{keyword}{const} \textcolor{keywordtype}{int} num\_classes = output\_layer->GetParamAsInt(\textcolor{stringliteral}{"num\_classes"});
+122   \textcolor{keywordflow}{if} (\hyperlink{classValidatedBaseNetwork_a910ff44b8e6d9433e713131c59468900}{getLabels}().size() != num\_classes) \{
+123     \textcolor{keywordflow}{if} (\hyperlink{classValidatedBaseNetwork_a910ff44b8e6d9433e713131c59468900}{getLabels}().size() == (num\_classes - 1)) \{
+124       \hyperlink{classValidatedBaseNetwork_a910ff44b8e6d9433e713131c59468900}{getLabels}().insert(\hyperlink{classValidatedBaseNetwork_a910ff44b8e6d9433e713131c59468900}{getLabels}().begin(), \textcolor{stringliteral}{"fake"});
+125     \} \textcolor{keywordflow}{else} \{
+126       \hyperlink{classValidatedBaseNetwork_a910ff44b8e6d9433e713131c59468900}{getLabels}().clear();
+127     \}
+128   \}
+129   \textcolor{comment}{//last dimension of output layer should be 7}
+130   \textcolor{keyword}{const} InferenceEngine::SizeVector output\_dims
+131       = output\_data\_ptr->getTensorDesc().getDims();
+132   max\_proposal\_count\_ = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(output\_dims[2]);
+133   slog::info << \textcolor{stringliteral}{"max proposal count is: "} << max\_proposal\_count\_ <<slog::endl;
+134   object\_size\_= \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(output\_dims[3]);
+135   \textcolor{keywordflow}{if} (object\_size\_ != 7) \{
+136     \textcolor{keywordflow}{throw} std::logic\_error(
+137         \textcolor{stringliteral}{"Face Detection network output layer should have 7 as a last dimension"}
+138         );
+139   \}
+140   \textcolor{keywordflow}{if} (output\_dims.size() != 4) \{
+141     \textcolor{keywordflow}{throw} std::logic\_error(
+142         \textcolor{stringliteral}{"Face Detection network output dimensions not compatible shoulld be 4, "}
+143         \textcolor{stringliteral}{"but was "} + std::to\_string(output\_dims.size()));
+144   \}
+145 \}
+\end{DoxyCode}
+\index{Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}!get\+Input\+Name@{get\+Input\+Name}}
+\index{get\+Input\+Name@{get\+Input\+Name}!Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}}
+\subsubsection[{\texorpdfstring{get\+Input\+Name()}{getInputName()}}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Face\+Detection\+Network\+::get\+Input\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedFaceDetectionNetwork_a9cae6cfaf2582394ed57ea0b68af55fd}{}\label{classValidatedFaceDetectionNetwork_a9cae6cfaf2582394ed57ea0b68af55fd}
+
+
+Definition at line 43 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+43 \{\textcolor{keywordflow}{return} input\_;\}
+\end{DoxyCode}
+\index{Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}!get\+Max\+Proposal\+Count@{get\+Max\+Proposal\+Count}}
+\index{get\+Max\+Proposal\+Count@{get\+Max\+Proposal\+Count}!Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}}
+\subsubsection[{\texorpdfstring{get\+Max\+Proposal\+Count()}{getMaxProposalCount()}}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf int} Validated\+Face\+Detection\+Network\+::get\+Max\+Proposal\+Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedFaceDetectionNetwork_a994965fa17987321fe0be18f36edf64f}{}\label{classValidatedFaceDetectionNetwork_a994965fa17987321fe0be18f36edf64f}
+
+
+Definition at line 41 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+41 \{ \textcolor{keywordflow}{return} max\_proposal\_count\_; \}
+\end{DoxyCode}
+\index{Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}!get\+Network\+Name@{get\+Network\+Name}}
+\index{get\+Network\+Name@{get\+Network\+Name}!Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}}
+\subsubsection[{\texorpdfstring{get\+Network\+Name() const override}{getNetworkName() const override}}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Face\+Detection\+Network\+::get\+Network\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classValidatedFaceDetectionNetwork_aecbdd3b338b04f78b6c7bab6db8a9b84}{}\label{classValidatedFaceDetectionNetwork_aecbdd3b338b04f78b6c7bab6db8a9b84}
+
+
+Implements \hyperlink{classValidatedBaseNetwork_ad2fdf0b3d87e530e699a6569236a2c8c}{Validated\+Base\+Network}.
+
+
+
+Definition at line 147 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+147                                                                     \{
+148   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Face Detection"};
+149 \}
+\end{DoxyCode}
+\index{Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}!get\+Object\+Size@{get\+Object\+Size}}
+\index{get\+Object\+Size@{get\+Object\+Size}!Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}}
+\subsubsection[{\texorpdfstring{get\+Object\+Size()}{getObjectSize()}}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf int} Validated\+Face\+Detection\+Network\+::get\+Object\+Size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedFaceDetectionNetwork_aedb5789b8c86e77a58ba154907b049bb}{}\label{classValidatedFaceDetectionNetwork_aedb5789b8c86e77a58ba154907b049bb}
+
+
+Definition at line 42 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+42 \{ \textcolor{keywordflow}{return} object\_size\_; \}
+\end{DoxyCode}
+\index{Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}!get\+Output\+Name@{get\+Output\+Name}}
+\index{get\+Output\+Name@{get\+Output\+Name}!Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}}
+\subsubsection[{\texorpdfstring{get\+Output\+Name()}{getOutputName()}}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string Validated\+Face\+Detection\+Network\+::get\+Output\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedFaceDetectionNetwork_a076d4b58f4eeac4ffde6b8dc675457a3}{}\label{classValidatedFaceDetectionNetwork_a076d4b58f4eeac4ffde6b8dc675457a3}
+
+
+Definition at line 44 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+44 \{\textcolor{keywordflow}{return} output\_;\}
+\end{DoxyCode}
+\index{Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}!set\+Layer\+Property@{set\+Layer\+Property}}
+\index{set\+Layer\+Property@{set\+Layer\+Property}!Validated\+Face\+Detection\+Network@{Validated\+Face\+Detection\+Network}}
+\subsubsection[{\texorpdfstring{set\+Layer\+Property(\+Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr) override}{setLayerProperty(InferenceEngine::CNNNetReader::Ptr) override}}]{\setlength{\rightskip}{0pt plus 5cm}void Validated\+Face\+Detection\+Network\+::set\+Layer\+Property (
+\begin{DoxyParamCaption}
+\item[{Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr}]{net\+\_\+reader}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}\hypertarget{classValidatedFaceDetectionNetwork_ac24b2e9e36a06c4f9a8db5bf1aa7a8c7}{}\label{classValidatedFaceDetectionNetwork_ac24b2e9e36a06c4f9a8db5bf1aa7a8c7}
+
+
+Implements \hyperlink{classValidatedBaseNetwork_a3b43f5e3b004d75873a644d2132fbb58}{Validated\+Base\+Network}.
+
+
+
+Definition at line 77 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+78                                                \{
+79   \textcolor{comment}{//set input property}
+80   InferenceEngine::InputsDataMap
+81       input\_info\_map(net\_reader->getNetwork().getInputsInfo());
+82   InferenceEngine::InputInfo::Ptr input\_info = input\_info\_map.begin()->second;
+83   input\_info->setPrecision(InferenceEngine::Precision::U8);
+84   input\_info->setLayout(InferenceEngine::Layout::NCHW);
+85   \textcolor{comment}{//set output property}
+86   InferenceEngine::OutputsDataMap
+87       output\_info\_map(net\_reader->getNetwork().getOutputsInfo());
+88   InferenceEngine::DataPtr &output\_data\_ptr = output\_info\_map.begin()->second;
+89   output\_data\_ptr->setPrecision(InferenceEngine::Precision::FP32);
+90   output\_data\_ptr->setLayout(InferenceEngine::Layout::NCHW);
+91   \textcolor{comment}{//set input and output layer name}
+92   input\_ = input\_info\_map.begin()->first;
+93   output\_ = output\_info\_map.begin()->first;
+94 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/openvino\+\_\+service/models/\hyperlink{validated__network_8h}{validated\+\_\+network.\+h}\item 
+lib/network\+\_\+models/\hyperlink{validated__network_8cpp}{validated\+\_\+network.\+cpp}\end{DoxyCompactItemize}

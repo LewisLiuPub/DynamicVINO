@@ -1,0 +1,190 @@
+\hypertarget{classStandardCamera}{}\section{Standard\+Camera Class Reference}
+\label{classStandardCamera}\index{Standard\+Camera@{Standard\+Camera}}
+
+
+{\ttfamily \#include $<$input.\+h$>$}
+
+
+
+Inheritance diagram for Standard\+Camera\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classStandardCamera__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Standard\+Camera\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classStandardCamera__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classStandardCamera_ae748ec2c2cc35897391b0dacc78140f3}{initialize} () override
+\begin{DoxyCompactList}\small\item\em initialize the input device, for cameras, it will turn the camera on and get ready to read frames, for videos, it will open a video file \end{DoxyCompactList}\item 
+bool \hyperlink{classStandardCamera_ac6060f251351e98c0d1f9066f197cf3a}{initialize} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} t) override
+\item 
+bool \hyperlink{classStandardCamera_a1d7f1c06cff1a76ed2c951cf6d3e2efa}{initialize} (size\+\_\+t width, size\+\_\+t height) override
+\item 
+bool \hyperlink{classStandardCamera_ac0e08505998e2f0f21ab8120b6f8cf5b}{read} (cv\+::\+Mat $\ast$frame) override
+\begin{DoxyCompactList}\small\item\em read next frame, and give the value to argument frame \end{DoxyCompactList}\item 
+void \hyperlink{classStandardCamera_a728cfa57a28a8683d9f05a983aae6caa}{config} () override
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 60 of file input.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\index{Standard\+Camera@{Standard\+Camera}!config@{config}}
+\index{config@{config}!Standard\+Camera@{Standard\+Camera}}
+\subsubsection[{\texorpdfstring{config() override}{config() override}}]{\setlength{\rightskip}{0pt plus 5cm}void Standard\+Camera\+::config (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classStandardCamera_a728cfa57a28a8683d9f05a983aae6caa}{}\label{classStandardCamera_a728cfa57a28a8683d9f05a983aae6caa}
+
+
+Implements \hyperlink{classBaseInputDevice_a6f88b6eae38b58dd534f082690f840b3}{Base\+Input\+Device}.
+
+
+
+Definition at line 105 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+105                             \{
+106   \textcolor{comment}{//TODO}
+107 \}
+\end{DoxyCode}
+\index{Standard\+Camera@{Standard\+Camera}!initialize@{initialize}}
+\index{initialize@{initialize}!Standard\+Camera@{Standard\+Camera}}
+\subsubsection[{\texorpdfstring{initialize() override}{initialize() override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Standard\+Camera\+::initialize (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classStandardCamera_ae748ec2c2cc35897391b0dacc78140f3}{}\label{classStandardCamera_ae748ec2c2cc35897391b0dacc78140f3}
+
+
+initialize the input device, for cameras, it will turn the camera on and get ready to read frames, for videos, it will open a video file 
+
+\begin{DoxyReturn}{Returns}
+whether the input device is successfully turned on 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classBaseInputDevice_a487cef7725bab9c8cd7141b9b2f83eea}{Base\+Input\+Device}.
+
+
+
+Definition at line 78 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+78                                 \{
+79   \hyperlink{classBaseInputDevice_a92e8c0f893c1eb9dcbdd7fb38daf5da1}{setIsInit}(cap.open(0));
+80   \hyperlink{classBaseInputDevice_a980073308aee4edf67d43a85fdaa2f81}{setWidth}((\textcolor{keywordtype}{size\_t}) cap.get(CV\_CAP\_PROP\_FRAME\_WIDTH));
+81   \hyperlink{classBaseInputDevice_a3312adc6b71bc08da39b5df1be565cef}{setHeight}((\textcolor{keywordtype}{size\_t}) cap.get(CV\_CAP\_PROP\_FRAME\_HEIGHT));
+82   \textcolor{keywordflow}{return} \hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}();
+83 \}
+\end{DoxyCode}
+\index{Standard\+Camera@{Standard\+Camera}!initialize@{initialize}}
+\index{initialize@{initialize}!Standard\+Camera@{Standard\+Camera}}
+\subsubsection[{\texorpdfstring{initialize(int t) override}{initialize(int t) override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Standard\+Camera\+::initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classStandardCamera_ac6060f251351e98c0d1f9066f197cf3a}{}\label{classStandardCamera_ac6060f251351e98c0d1f9066f197cf3a}
+
+
+Implements \hyperlink{classBaseInputDevice_a7fb82b301d42d63e1b98455eb88ccddd}{Base\+Input\+Device}.
+
+
+
+Definition at line 84 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+84                                               \{
+85   \hyperlink{classBaseInputDevice_a92e8c0f893c1eb9dcbdd7fb38daf5da1}{setIsInit}(cap.open(camera\_num));
+86   \hyperlink{classBaseInputDevice_a980073308aee4edf67d43a85fdaa2f81}{setWidth}((\textcolor{keywordtype}{size\_t}) cap.get(CV\_CAP\_PROP\_FRAME\_WIDTH));
+87   \hyperlink{classBaseInputDevice_a3312adc6b71bc08da39b5df1be565cef}{setHeight}((\textcolor{keywordtype}{size\_t}) cap.get(CV\_CAP\_PROP\_FRAME\_HEIGHT));
+88   \textcolor{keywordflow}{return} \hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}();
+89 \}
+\end{DoxyCode}
+\index{Standard\+Camera@{Standard\+Camera}!initialize@{initialize}}
+\index{initialize@{initialize}!Standard\+Camera@{Standard\+Camera}}
+\subsubsection[{\texorpdfstring{initialize(size\+\_\+t width, size\+\_\+t height) override}{initialize(size_t width, size_t height) override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Standard\+Camera\+::initialize (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{width, }
+\item[{size\+\_\+t}]{height}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classStandardCamera_a1d7f1c06cff1a76ed2c951cf6d3e2efa}{}\label{classStandardCamera_a1d7f1c06cff1a76ed2c951cf6d3e2efa}
+
+
+Implements \hyperlink{classBaseInputDevice_a8ad1f513052fd4c43e030c3958808bfa}{Base\+Input\+Device}.
+
+
+
+Definition at line 90 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+90                                                            \{
+91   \hyperlink{classBaseInputDevice_a980073308aee4edf67d43a85fdaa2f81}{setWidth}(width);
+92   \hyperlink{classBaseInputDevice_a3312adc6b71bc08da39b5df1be565cef}{setHeight}(height);
+93   \hyperlink{classBaseInputDevice_a92e8c0f893c1eb9dcbdd7fb38daf5da1}{setIsInit}(cap.open(0));
+94   \textcolor{keywordflow}{if} (\hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}()) \{
+95     cap.set(CV\_CAP\_PROP\_FRAME\_WIDTH, width);
+96     cap.set(CV\_CAP\_PROP\_FRAME\_HEIGHT, height);
+97   \}
+98   \textcolor{keywordflow}{return} \hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}();
+99 \}
+\end{DoxyCode}
+\index{Standard\+Camera@{Standard\+Camera}!read@{read}}
+\index{read@{read}!Standard\+Camera@{Standard\+Camera}}
+\subsubsection[{\texorpdfstring{read(cv\+::\+Mat $\ast$frame) override}{read(cv::Mat *frame) override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Standard\+Camera\+::read (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat $\ast$}]{frame}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classStandardCamera_ac0e08505998e2f0f21ab8120b6f8cf5b}{}\label{classStandardCamera_ac0e08505998e2f0f21ab8120b6f8cf5b}
+
+
+read next frame, and give the value to argument frame 
+
+\begin{DoxyReturn}{Returns}
+whether the next frame is successfully read 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classBaseInputDevice_a49b0a9ff7286d5fb3bccf61a0baaa32a}{Base\+Input\+Device}.
+
+
+
+Definition at line 100 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+100                                       \{
+101   \textcolor{keywordflow}{if} (!\hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}()) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}
+102   cap.grab();
+103   \textcolor{keywordflow}{return} cap.retrieve(*frame);
+104 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/openvino\+\_\+service/inputs/\hyperlink{input_8h}{input.\+h}\item 
+lib/inputs/\hyperlink{input_8cpp}{input.\+cpp}\end{DoxyCompactItemize}

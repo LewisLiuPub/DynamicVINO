@@ -1,0 +1,139 @@
+\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ResampleImpl}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Resample\+Impl Class Reference}
+\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ResampleImpl}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl}}
+
+
+Inheritance diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Resample\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ResampleImpl__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Resample\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ResampleImpl__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ResampleImpl_ae9bbec4883a67152544311a0765a78fa}{Resample\+Impl} (const C\+N\+N\+Layer $\ast$layer)
+\item 
+Status\+Code \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ResampleImpl_a3f05c376833b8127590dfae69ef49183}{execute} (std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 29 of file ext\+\_\+resample.\+cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl}!Resample\+Impl@{Resample\+Impl}}
+\index{Resample\+Impl@{Resample\+Impl}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl}}
+\subsubsection[{\texorpdfstring{Resample\+Impl(const C\+N\+N\+Layer $\ast$layer)}{ResampleImpl(const CNNLayer *layer)}}]{\setlength{\rightskip}{0pt plus 5cm}Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl\+::\+Resample\+Impl (
+\begin{DoxyParamCaption}
+\item[{const C\+N\+N\+Layer $\ast$}]{layer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ResampleImpl_ae9bbec4883a67152544311a0765a78fa}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ResampleImpl_ae9bbec4883a67152544311a0765a78fa}
+
+
+Definition at line 31 of file ext\+\_\+resample.\+cpp.
+
+
+\begin{DoxyCode}
+31                                                 : \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_affff0e8263ca26852ccf71d299d7b06a}{ExtLayerBase}(layer) \{
+32         \textcolor{keywordflow}{try} \{
+33             \textcolor{keywordflow}{if} (\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData.size() != 1 || \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.outData.empty())
+34                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Incorrect number of input/output edges!"};
+35 
+36             type = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsString(\textcolor{stringliteral}{"type"});
+37             antialias = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{bool}\textcolor{keyword}{>}(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"antialias"}));
+38 
+39             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a0ac7a6632e95b9500d5246b05b4b0bfa}{addConfig}(\{DataConfigurator(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN})\}, \{DataConfigurator(
+      \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN})\});
+40         \} \textcolor{keywordflow}{catch} (InferenceEngine::details::InferenceEngineException &ex) \{
+41             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{errorMsg} = ex.what();
+42         \}
+43     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl}!execute@{execute}}
+\index{execute@{execute}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl}}
+\subsubsection[{\texorpdfstring{execute(std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride}{execute(std::vector< Blob::Ptr > &inputs, std::vector< Blob::Ptr > &outputs, ResponseDesc *resp) noexceptoverride}}]{\setlength{\rightskip}{0pt plus 5cm}Status\+Code Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Resample\+Impl\+::execute (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{inputs, }
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{outputs, }
+\item[{Response\+Desc $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ResampleImpl_a3f05c376833b8127590dfae69ef49183}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ResampleImpl_a3f05c376833b8127590dfae69ef49183}
+
+
+Definition at line 45 of file ext\+\_\+resample.\+cpp.
+
+
+\begin{DoxyCode}
+46                                                              \{
+47         \textcolor{keyword}{const} \textcolor{keyword}{auto} *src\_data = inputs[0]->cbuffer().as<\textcolor{keyword}{const} \textcolor{keywordtype}{float} *>();
+48         \textcolor{keyword}{auto} *dst\_data = outputs[0]->buffer().as<\textcolor{keywordtype}{float} *>();
+49 \textcolor{preprocessor}{#ifdef WIN32}
+50 \textcolor{preprocessor}{#undef IN}
+51 \textcolor{preprocessor}{#endif}
+52         \textcolor{keywordtype}{size\_t} IN = inputs[0]->getTensorDesc().getDims()[0];
+53         \textcolor{keywordtype}{size\_t} IC = inputs[0]->getTensorDesc().getDims()[1];
+54         \textcolor{keywordtype}{size\_t} IH = inputs[0]->getTensorDesc().getDims()[2];
+55         \textcolor{keywordtype}{size\_t} IW = inputs[0]->getTensorDesc().getDims()[3];
+56 
+57         \textcolor{keywordtype}{size\_t} OH = outputs[0]->getTensorDesc().getDims()[2];
+58         \textcolor{keywordtype}{size\_t} OW = outputs[0]->getTensorDesc().getDims()[3];
+59 
+60         \textcolor{keywordflow}{if} (IW == OW && IH == OH && type == \textcolor{stringliteral}{"caffe.ResampleParameter.LINEAR"}) \{
+61             memcpy(dst\_data, src\_data, IN * IC * IH * IW * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float}));
+62             \textcolor{keywordflow}{return} OK;
+63         \}
+64 
+65         \textcolor{keywordtype}{float} fx = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(IW) / static\_cast<float>(OW);
+66         \textcolor{keywordtype}{float} fy = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(IH) / static\_cast<float>(OH);
+67 
+68         \textcolor{keywordtype}{bool} isDownsample = (fx > 1) || (fy > 1);
+69 
+70         \textcolor{keywordflow}{if} (type == \textcolor{stringliteral}{"caffe.ResampleParameter.NEAREST"}) \{
+71 \textcolor{preprocessor}{#if defined(HAVE\_SSE) || defined(HAVE\_AVX2)}
+72             \textcolor{keywordflow}{if} (!isDownsample && fx == 0.25f && fy == 0.25f)
+73                 Upsample4x\_Nearest(src\_data, IW, IH, fx, fy, dst\_data, OW, OH, IC, IN);
+74             \textcolor{keywordflow}{else}
+75 \textcolor{preprocessor}{#endif}
+76             \textcolor{keywordflow}{if} (!isDownsample && fx == 0.5f && fy == 0.5f)
+77                 Upsample2x\_Nearest(src\_data, IW, IH, dst\_data, OW, OH, IC, IN);
+78             \textcolor{keywordflow}{else}
+79                 NearestNeighborKernel(src\_data, IW, IH, fx, fy, dst\_data, OW, OH, IC, IN);
+80         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (type == \textcolor{stringliteral}{"caffe.ResampleParameter.LINEAR"}) \{
+81             \textcolor{keywordtype}{size\_t} kernel\_width = 2;
+82 
+83 \textcolor{preprocessor}{#if defined(HAVE\_SSE) || defined(HAVE\_AVX2)}
+84             \textcolor{keywordflow}{if} (!isDownsample && fx == 0.25f && fy == 0.25f)
+85                 Upsample4x\_TriangleInterpolation(src\_data, IW, IH, fx, fy, dst\_data, OW, OH, IC, IN);
+86             \textcolor{keywordflow}{else}
+87 \textcolor{preprocessor}{#endif}
+88                 InterpolationKernel(src\_data, IW, IH, fx, fy, dst\_data, OW, OH, IC, IN, kernel\_width, 
+      isDownsample && antialias);
+89         \}
+90         \textcolor{keywordflow}{return} OK;
+91     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__resample_8cpp}{ext\+\_\+resample.\+cpp}\end{DoxyCompactItemize}

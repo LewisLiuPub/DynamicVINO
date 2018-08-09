@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classBaseInputDevice.html" title="This class is an interface for three kinds of input devices: realsense camera, standard camera and vi..." alt="" coords="5,56,128,83"/>
+<area shape="rect" id="node2" href="$classRealSenseCamera.html" title="RealSenseCamera" alt="" coords="176,5,308,32"/>
+<area shape="rect" id="node3" href="$classStandardCamera.html" title="StandardCamera" alt="" coords="182,56,302,83"/>
+<area shape="rect" id="node4" href="$classVideo.html" title="Video" alt="" coords="215,107,269,133"/>
+</map>

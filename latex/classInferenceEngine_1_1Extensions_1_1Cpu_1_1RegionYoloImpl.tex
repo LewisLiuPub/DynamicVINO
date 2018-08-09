@@ -1,0 +1,150 @@
+\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1RegionYoloImpl}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Region\+Yolo\+Impl Class Reference}
+\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1RegionYoloImpl}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl}}
+
+
+Inheritance diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Region\+Yolo\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1RegionYoloImpl__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Region\+Yolo\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1RegionYoloImpl__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1RegionYoloImpl_aa149b4c59cdacb35ebe0627ff6bd8f61}{Region\+Yolo\+Impl} (const C\+N\+N\+Layer $\ast$layer)
+\item 
+Status\+Code \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1RegionYoloImpl_ab8b5b3b917b41b543eab68e034f5701e}{execute} (std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 27 of file ext\+\_\+region\+\_\+yolo.\+cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl}!Region\+Yolo\+Impl@{Region\+Yolo\+Impl}}
+\index{Region\+Yolo\+Impl@{Region\+Yolo\+Impl}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl}}
+\subsubsection[{\texorpdfstring{Region\+Yolo\+Impl(const C\+N\+N\+Layer $\ast$layer)}{RegionYoloImpl(const CNNLayer *layer)}}]{\setlength{\rightskip}{0pt plus 5cm}Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl\+::\+Region\+Yolo\+Impl (
+\begin{DoxyParamCaption}
+\item[{const C\+N\+N\+Layer $\ast$}]{layer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1RegionYoloImpl_aa149b4c59cdacb35ebe0627ff6bd8f61}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1RegionYoloImpl_aa149b4c59cdacb35ebe0627ff6bd8f61}
+
+
+Definition at line 29 of file ext\+\_\+region\+\_\+yolo.\+cpp.
+
+
+\begin{DoxyCode}
+29                                                   : \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_affff0e8263ca26852ccf71d299d7b06a}{ExtLayerBase}(layer) \{
+30         \textcolor{keywordflow}{try} \{
+31             \textcolor{keywordflow}{if} (\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData.size() != 1 || \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.outData.empty())
+32                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Incorrect number of input/output edges!"};
+33 
+34             classes = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"classes"});
+35             coords = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"coords"});
+36             num = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"num"});
+37             do\_softmax = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{bool}\textcolor{keyword}{>}(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"do\_softmax"}, 1));
+38             mask = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInts(\textcolor{stringliteral}{"mask"}, \{\});
+39 
+40             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a0ac7a6632e95b9500d5246b05b4b0bfa}{addConfig}(\{DataConfigurator(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN})\}, \{DataConfigurator(
+      \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN})\});
+41         \} \textcolor{keywordflow}{catch} (InferenceEngine::details::InferenceEngineException &ex) \{
+42             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{errorMsg} = ex.what();
+43         \}
+44     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl}!execute@{execute}}
+\index{execute@{execute}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl}}
+\subsubsection[{\texorpdfstring{execute(std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride}{execute(std::vector< Blob::Ptr > &inputs, std::vector< Blob::Ptr > &outputs, ResponseDesc *resp) noexceptoverride}}]{\setlength{\rightskip}{0pt plus 5cm}Status\+Code Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Region\+Yolo\+Impl\+::execute (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{inputs, }
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{outputs, }
+\item[{Response\+Desc $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1RegionYoloImpl_ab8b5b3b917b41b543eab68e034f5701e}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1RegionYoloImpl_ab8b5b3b917b41b543eab68e034f5701e}
+
+
+Definition at line 46 of file ext\+\_\+region\+\_\+yolo.\+cpp.
+
+
+\begin{DoxyCode}
+47                                                              \{
+48         \textcolor{keyword}{const} \textcolor{keyword}{auto} *src\_data = inputs[0]->cbuffer().as<\textcolor{keyword}{const} \textcolor{keywordtype}{float} *>();
+49         \textcolor{keyword}{auto} *dst\_data = outputs[0]->buffer().as<\textcolor{keywordtype}{float} *>();
+50 
+51         \textcolor{keywordtype}{int} mask\_size = mask.size();
+52 
+53         \textcolor{keywordtype}{int} IW = (inputs[0]->getTensorDesc().getDims().size() > 3) ? inputs[0]->getTensorDesc().getDims()[3
+      ] : 1;
+54         \textcolor{keywordtype}{int} IH = (inputs[0]->getTensorDesc().getDims().size() > 2) ? inputs[0]->getTensorDesc().getDims()[2
+      ] : 1;
+55         \textcolor{keywordtype}{int} IC = (inputs[0]->getTensorDesc().getDims().size() > 1) ? inputs[0]->getTensorDesc().getDims()[1
+      ] : 1;
+56         \textcolor{keywordtype}{int} B = (inputs[0]->getTensorDesc().getDims().size() > 0) ? inputs[0]->getTensorDesc().getDims()[0]
+       : 1;
+57 
+58         memcpy(dst\_data, src\_data, B * IC * IH * IW * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float}));
+59 
+60         \textcolor{keywordtype}{int} end\_index = 0;
+61         \textcolor{keywordtype}{int} num\_ = 0;
+62         \textcolor{keywordflow}{if} (do\_softmax) \{
+63             \textcolor{comment}{// Region layer (Yolo v2)}
+64             end\_index = IW * IH;
+65             num\_ = num;
+66         \} \textcolor{keywordflow}{else} \{
+67             \textcolor{comment}{// Yolo layer (Yolo v3)}
+68             end\_index = IW * IH * (classes + 1);
+69             num\_ = mask\_size;
+70         \}
+71         \textcolor{keywordtype}{int} inputs\_size = IH * IW * num\_ * (classes + coords + 1);
+72 
+73         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} b = 0; b < B; b++) \{
+74             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} n = 0; n < num\_; n++) \{
+75                 \textcolor{keywordtype}{int} index = entry\_index(IW, IH, coords, classes, inputs\_size, b, n * IW * IH, 0);
+76                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = index; i < index + 2 * IW * IH; i++) \{
+77                     dst\_data[i] = logistic\_activate(dst\_data[i]);
+78                 \}
+79 
+80                 index = entry\_index(IW, IH, coords, classes, inputs\_size, b, n * IW * IH, coords);
+81                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = index; i < index + end\_index; i++) \{
+82                     dst\_data[i] = logistic\_activate(dst\_data[i]);
+83                 \}
+84             \}
+85         \}
+86 
+87         \textcolor{keywordflow}{if} (do\_softmax) \{
+88             \textcolor{keywordtype}{int} index = entry\_index(IW, IH, coords, classes, inputs\_size, 0, 0, coords + 1);
+89             \textcolor{keywordtype}{int} batch\_offset = inputs\_size / num;
+90             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} b = 0; b < B * num; b++)
+91                 softmax\_generic(src\_data + index + b * batch\_offset, dst\_data + index + b * batch\_offset, 1
+      , classes,
+92                                 IH, IW);
+93         \}
+94 
+95         \textcolor{keywordflow}{return} OK;
+96     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__region__yolo_8cpp}{ext\+\_\+region\+\_\+yolo.\+cpp}\end{DoxyCompactItemize}

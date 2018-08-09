@@ -1,0 +1,117 @@
+\hypertarget{classColor}{}\section{Color Class Reference}
+\label{classColor}\index{Color@{Color}}
+
+
+A \hyperlink{classColor}{Color} class stores channels of a given color.  
+
+
+
+
+{\ttfamily \#include $<$common.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classColor_a01fc8b90de599a12365e87b9a0719264}{Color} (unsigned \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} r, unsigned \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} g, unsigned \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} b)
+\item 
+unsigned \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} \hyperlink{classColor_a2f9d30801b6b81186cad649bb625b98f}{red} ()
+\item 
+unsigned \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} \hyperlink{classColor_ad03144614edc7c54fd0fe0132af47213}{blue} ()
+\item 
+unsigned \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} \hyperlink{classColor_aca8e95502aec09dfc92a09087bf62990}{green} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A \hyperlink{classColor}{Color} class stores channels of a given color. 
+
+Definition at line 235 of file common.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Color@{Color}!Color@{Color}}
+\index{Color@{Color}!Color@{Color}}
+\subsubsection[{\texorpdfstring{Color(unsigned char r, unsigned char g, unsigned char b)}{Color(unsigned char r, unsigned char g, unsigned char b)}}]{\setlength{\rightskip}{0pt plus 5cm}Color\+::\+Color (
+\begin{DoxyParamCaption}
+\item[{unsigned {\bf char}}]{r, }
+\item[{unsigned {\bf char}}]{g, }
+\item[{unsigned {\bf char}}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classColor_a01fc8b90de599a12365e87b9a0719264}{}\label{classColor_a01fc8b90de599a12365e87b9a0719264}
+A default constructor. 
+\begin{DoxyParams}{Parameters}
+{\em r} & -\/ value for red channel \\
+\hline
+{\em g} & -\/ value for green channel \\
+\hline
+{\em b} & -\/ value for blue channel \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 248 of file common.\+hpp.
+
+
+\begin{DoxyCode}
+250                            : \_r(r), \_g(g), \_b(b) \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Color@{Color}!blue@{blue}}
+\index{blue@{blue}!Color@{Color}}
+\subsubsection[{\texorpdfstring{blue()}{blue()}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned {\bf char} Color\+::blue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classColor_ad03144614edc7c54fd0fe0132af47213}{}\label{classColor_ad03144614edc7c54fd0fe0132af47213}
+
+
+Definition at line 256 of file common.\+hpp.
+
+
+\begin{DoxyCode}
+256                                 \{
+257         \textcolor{keywordflow}{return} \_b;
+258     \}
+\end{DoxyCode}
+\index{Color@{Color}!green@{green}}
+\index{green@{green}!Color@{Color}}
+\subsubsection[{\texorpdfstring{green()}{green()}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned {\bf char} Color\+::green (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classColor_aca8e95502aec09dfc92a09087bf62990}{}\label{classColor_aca8e95502aec09dfc92a09087bf62990}
+
+
+Definition at line 260 of file common.\+hpp.
+
+
+\begin{DoxyCode}
+260                                  \{
+261         \textcolor{keywordflow}{return} \_g;
+262     \}
+\end{DoxyCode}
+\index{Color@{Color}!red@{red}}
+\index{red@{red}!Color@{Color}}
+\subsubsection[{\texorpdfstring{red()}{red()}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned {\bf char} Color\+::red (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classColor_a2f9d30801b6b81186cad649bb625b98f}{}\label{classColor_a2f9d30801b6b81186cad649bb625b98f}
+
+
+Definition at line 252 of file common.\+hpp.
+
+
+\begin{DoxyCode}
+252                                \{
+253         \textcolor{keywordflow}{return} \_r;
+254     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/openvino\+\_\+service/\hyperlink{common_8hpp}{common.\+hpp}\end{DoxyCompactItemize}

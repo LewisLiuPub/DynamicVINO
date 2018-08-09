@@ -1,0 +1,14 @@
+<map id="include/openvino_service/inferences/base_inference.h" name="include/openvino_service/inferences/base_inference.h">
+<area shape="rect" id="node2" href="$age__gender__recognition_8h.html" title="include/openvino_service\l/inferences/age_gender\l_recognition.h" alt="" coords="5,95,173,151"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="sample/main.cpp" alt="" coords="405,206,526,233"/>
+<area shape="rect" id="node5" href="$emotions__recognition_8h.html" title="include/openvino_service\l/inferences/emotions_recognition.h" alt="" coords="197,102,421,143"/>
+<area shape="rect" id="node7" href="$face__detection_8h.html" title="include/openvino_service\l/inferences/face_detection.h" alt="" coords="496,102,683,143"/>
+<area shape="rect" id="node9" href="$head__pose__recognition_8h.html" title="include/openvino_service\l/inferences/head_pose_recognition.h" alt="" coords="707,102,941,143"/>
+<area shape="rect" id="node11" href="$pipeline_8h.html" title="a header file with definition of Pipeline class " alt="" coords="965,102,1133,143"/>
+<area shape="rect" id="node13" href="$base__inference_8cpp.html" title="lib/inferences/base\l_inference.cpp" alt="" coords="1157,102,1288,143"/>
+<area shape="rect" id="node3" href="$age__gender__recognition_8cpp.html" title="lib/inferences/age\l_gender_recognition.cpp" alt="" coords="8,199,171,240"/>
+<area shape="rect" id="node6" href="$emotions__recognition_8cpp.html" title="lib/inferences/emotions\l_recognition.cpp" alt="" coords="225,199,381,240"/>
+<area shape="rect" id="node8" href="$face__detection_8cpp.html" title="lib/inferences/face\l_detection.cpp" alt="" coords="551,199,679,240"/>
+<area shape="rect" id="node10" href="$head__pose__recognition_8cpp.html" title="lib/inferences/head\l_pose_recognition.cpp" alt="" coords="748,199,900,240"/>
+<area shape="rect" id="node12" href="$pipeline_8cpp.html" title="lib/pipeline.cpp" alt="" coords="995,206,1103,233"/>
+</map>

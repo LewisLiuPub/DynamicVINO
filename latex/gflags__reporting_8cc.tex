@@ -1,0 +1,127 @@
+\hypertarget{gflags__reporting_8cc}{}\section{thirdparty/gflags/src/gflags\+\_\+reporting.cc File Reference}
+\label{gflags__reporting_8cc}\index{thirdparty/gflags/src/gflags\+\_\+reporting.\+cc@{thirdparty/gflags/src/gflags\+\_\+reporting.\+cc}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gflags/gflags.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gflags/gflags\+\_\+completions.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\\*
+Include dependency graph for gflags\+\_\+reporting.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gflags__reporting_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceGFLAGS__NAMESPACE}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{gflags__reporting_8cc_a58971d7597e703cf3e82ed483e191db8}{D\+E\+F\+I\+N\+E\+\_\+bool} (help, false,\char`\"{}show help on all flags \mbox{[}tip\+: all flags can have two dashes\mbox{]}\char`\"{})
+\item 
+\hyperlink{gflags__reporting_8cc_abad7c9d9c1ca864d9da3122ed7e0c365}{D\+E\+F\+I\+N\+E\+\_\+bool} (helpfull, false,\char`\"{}show help on all flags -\/-\/ same as -\/help\char`\"{})
+\item 
+\hyperlink{gflags__reporting_8cc_a3377a8e854fb0d17b4a6405f12ce579f}{D\+E\+F\+I\+N\+E\+\_\+bool} (helpshort, false,\char`\"{}show help on only the \hyperlink{gflags__nc_8cc_a2c3f6775325c30275d11c6abee2db6a0}{main} module for this program\char`\"{})
+\item 
+\hyperlink{gflags__reporting_8cc_a2afd206bf059402367327854be5c06f5}{D\+E\+F\+I\+N\+E\+\_\+string} (helpon,\char`\"{}\char`\"{},\char`\"{}show help on the modules named by this flag value\char`\"{})
+\item 
+\hyperlink{gflags__reporting_8cc_a5311a41db81cf9d9118974c4d5076ea8}{D\+E\+F\+I\+N\+E\+\_\+string} (helpmatch,\char`\"{}\char`\"{},\char`\"{}show help on modules whose name contains the specified substr\char`\"{})
+\item 
+\hyperlink{gflags__reporting_8cc_a9a59d11a017abed420747ef26fecb4a5}{D\+E\+F\+I\+N\+E\+\_\+bool} (helppackage, false,\char`\"{}show help on all modules in the \hyperlink{gflags__nc_8cc_a2c3f6775325c30275d11c6abee2db6a0}{main} package\char`\"{})
+\item 
+\hyperlink{gflags__reporting_8cc_a5fef883f3ede41fdbb8914d9ec9a7ff1}{D\+E\+F\+I\+N\+E\+\_\+bool} (helpxml, false,\char`\"{}produce an xml version of help\char`\"{})
+\item 
+\hyperlink{gflags__reporting_8cc_a1493fe46509bd192a2cb7c51af5241e9}{D\+E\+F\+I\+N\+E\+\_\+bool} (version, false,\char`\"{}show version and build info and exit\char`\"{})
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} std\+::string \hyperlink{namespaceGFLAGS__NAMESPACE_af825766ad0b38e2b0d81e3dc01f1b6ba}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Describe\+One\+Flag} (const Command\+Line\+Flag\+Info \&flag)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} void \hyperlink{namespaceGFLAGS__NAMESPACE_aad17234ebace18731c53ea6cf8100148}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Show\+Usage\+With\+Flags\+Restrict} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$argv0, const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$restrict)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} void \hyperlink{namespaceGFLAGS__NAMESPACE_a310cea23d848e811a732f473aa0ed6b0}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Show\+Usage\+With\+Flags} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$argv0)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} void \hyperlink{namespaceGFLAGS__NAMESPACE_aca6fd113a342dca0cdccdf082cd48406}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Handle\+Command\+Line\+Help\+Flags} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(help, false,""show help on all flags [tip\+: all flags can have two dashes]"")}{DEFINE_bool(help, false,"show help on all flags [tip: all flags can have two dashes]")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{help}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}show help on all flags \char`\"{}}]{\mbox{[}tip\+:all flags can have two dashes\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__reporting_8cc_a58971d7597e703cf3e82ed483e191db8}{}\label{gflags__reporting_8cc_a58971d7597e703cf3e82ed483e191db8}
+\index{gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(helpfull, false,""show help on all flags -\/-\/ same as -\/help"")}{DEFINE_bool(helpfull, false,"show help on all flags -- same as -help")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{helpfull}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}show help on all flags -\/-\/ same as -\/help\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__reporting_8cc_abad7c9d9c1ca864d9da3122ed7e0c365}{}\label{gflags__reporting_8cc_abad7c9d9c1ca864d9da3122ed7e0c365}
+\index{gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(helpshort, false,""show help on only the main module for this program"")}{DEFINE_bool(helpshort, false,"show help on only the main module for this program")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{helpshort}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}show help on only the {\bf main} module for this program\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__reporting_8cc_a3377a8e854fb0d17b4a6405f12ce579f}{}\label{gflags__reporting_8cc_a3377a8e854fb0d17b4a6405f12ce579f}
+\index{gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(helppackage, false,""show help on all modules in the main package"")}{DEFINE_bool(helppackage, false,"show help on all modules in the main package")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{helppackage}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}show help on all modules in the {\bf main} package\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__reporting_8cc_a9a59d11a017abed420747ef26fecb4a5}{}\label{gflags__reporting_8cc_a9a59d11a017abed420747ef26fecb4a5}
+\index{gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(helpxml, false,""produce an xml version of help"")}{DEFINE_bool(helpxml, false,"produce an xml version of help")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{helpxml}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}produce an xml version of help\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__reporting_8cc_a5fef883f3ede41fdbb8914d9ec9a7ff1}{}\label{gflags__reporting_8cc_a5fef883f3ede41fdbb8914d9ec9a7ff1}
+\index{gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(version, false,""show version and build info and exit"")}{DEFINE_bool(version, false,"show version and build info and exit")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{version}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}show version and build info and exit\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__reporting_8cc_a1493fe46509bd192a2cb7c51af5241e9}{}\label{gflags__reporting_8cc_a1493fe46509bd192a2cb7c51af5241e9}
+\index{gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(helpon,"""",""show help on the modules named by this flag value"")}{DEFINE_string(helpon,"","show help on the modules named by this flag value")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{helpon}]{, }
+\item[{\char`\"{}\char`\"{}}]{, }
+\item[{\char`\"{}show help on the modules named by this flag value\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__reporting_8cc_a2afd206bf059402367327854be5c06f5}{}\label{gflags__reporting_8cc_a2afd206bf059402367327854be5c06f5}
+\index{gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+reporting.\+cc@{gflags\+\_\+reporting.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(helpmatch,"""",""show help on modules whose name contains the specified substr"")}{DEFINE_string(helpmatch,"","show help on modules whose name contains the specified substr")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{helpmatch}]{, }
+\item[{\char`\"{}\char`\"{}}]{, }
+\item[{\char`\"{}show help on modules whose name contains the specified substr\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__reporting_8cc_a5311a41db81cf9d9118974c4d5076ea8}{}\label{gflags__reporting_8cc_a5311a41db81cf9d9118974c4d5076ea8}

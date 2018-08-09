@@ -5,15 +5,15 @@
 #ifndef SAMPLES_FACTORY_H
 #define SAMPLES_FACTORY_H
 
-#include "input.h"
+#include "openvino_service/inputs/base_input.h"
 
 #include <memory>
 
 #include <inference_engine.hpp>
-#include <ext_list.hpp>
+#include <extension/ext_list.hpp>
 
 #include "mkldnn/mkldnn_extension_ptr.hpp"
-#include "samples/common.hpp"
+#include "openvino_service/common.hpp"
 
 /**
 * @class Factory
@@ -26,7 +26,7 @@ class Factory {
   * @param[in] input device name, can be RealSenseCamera, StandardCamera or video directory
   * @return the instance of derived input device referenced by a smart pointer
   */
-  static std::shared_ptr<BaseInputDevice> makeInputDeviceByName(const std::string &);
+  static std::shared_ptr<Input::BaseInputDevice> makeInputDeviceByName(const std::string &);
   /**
   * @brief This function produces the derived inference plugin corresponding to the input string
   * @return the instance of derived inference plugin referenced by a smart pointer

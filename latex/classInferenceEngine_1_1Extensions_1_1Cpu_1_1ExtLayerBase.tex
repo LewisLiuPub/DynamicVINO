@@ -1,0 +1,289 @@
+\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Ext\+Layer\+Base Class Reference}
+\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}
+
+
+{\ttfamily \#include $<$ext\+\_\+base.\+hpp$>$}
+
+
+
+Inheritance diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Ext\+Layer\+Base\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Ext\+Layer\+Base\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_1_1DataConfigurator}{Data\+Configurator}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_affff0e8263ca26852ccf71d299d7b06a}{Ext\+Layer\+Base} (const C\+N\+N\+Layer $\ast$layer)
+\item 
+Status\+Code \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1dae3d7d80ed72136ff298b90a5af266}{get\+Supported\+Configurations} (std\+::vector$<$ Layer\+Config $>$ \&conf, Response\+Desc $\ast$resp) noexceptoverride
+\item 
+Status\+Code \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a6323eec85cc894aa9ee19ae2b7443efb}{init} (Layer\+Config \&config, Response\+Desc $\ast$resp) noexceptoverride
+\end{DoxyCompactItemize}
+\subsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfb}{Conf\+Layout} \{ \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba8e1bde3c3d303163521522cf1d62f21f}{Conf\+Layout\+::\+A\+NY}, 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{Conf\+Layout\+::\+P\+LN}, 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba6023b7e0a175b8cf9cbcec3ac3cbf93d}{Conf\+Layout\+::\+B\+L\+K8}, 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba733623e98c6602d47f51e9f7be2f7d6c}{Conf\+Layout\+::\+B\+L\+K16}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a0ac7a6632e95b9500d5246b05b4b0bfa}{add\+Config} (std\+::vector$<$ \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_1_1DataConfigurator}{Data\+Configurator} $>$ in\+\_\+l, std\+::vector$<$ \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_1_1DataConfigurator}{Data\+Configurator} $>$ out\+\_\+l, bool dyn\+Batch\+Support=false)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{error\+Msg}
+\item 
+C\+N\+N\+Layer \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnn\+Layer}
+\item 
+std\+::vector$<$ Layer\+Config $>$ \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a2a9f897007f2eb00e295cd25fd23fd5d}{confs}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 28 of file ext\+\_\+base.\+hpp.
+
+
+
+\subsection{Member Enumeration Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!Conf\+Layout@{Conf\+Layout}}
+\index{Conf\+Layout@{Conf\+Layout}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}
+\subsubsection[{\texorpdfstring{Conf\+Layout}{ConfLayout}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base\+::\+Conf\+Layout}\hspace{0.3cm}{\ttfamily [strong]}, {\ttfamily [protected]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfb}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfb}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{A\+NY@{A\+NY}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!A\+NY@{A\+NY}}\item[{\em 
+A\+NY\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba8e1bde3c3d303163521522cf1d62f21f}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba8e1bde3c3d303163521522cf1d62f21f}
+}]\index{P\+LN@{P\+LN}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!P\+LN@{P\+LN}}\item[{\em 
+P\+LN\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}
+}]\index{B\+L\+K8@{B\+L\+K8}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!B\+L\+K8@{B\+L\+K8}}\item[{\em 
+B\+L\+K8\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba6023b7e0a175b8cf9cbcec3ac3cbf93d}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba6023b7e0a175b8cf9cbcec3ac3cbf93d}
+}]\index{B\+L\+K16@{B\+L\+K16}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!B\+L\+K16@{B\+L\+K16}}\item[{\em 
+B\+L\+K16\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba733623e98c6602d47f51e9f7be2f7d6c}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba733623e98c6602d47f51e9f7be2f7d6c}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 36 of file ext\+\_\+base.\+hpp.
+
+
+\begin{DoxyCode}
+36 \{ ANY, PLN, BLK8, BLK16 \};
+\end{DoxyCode}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!Ext\+Layer\+Base@{Ext\+Layer\+Base}}
+\index{Ext\+Layer\+Base@{Ext\+Layer\+Base}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}
+\subsubsection[{\texorpdfstring{Ext\+Layer\+Base(const C\+N\+N\+Layer $\ast$layer)}{ExtLayerBase(const CNNLayer *layer)}}]{\setlength{\rightskip}{0pt plus 5cm}Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base\+::\+Ext\+Layer\+Base (
+\begin{DoxyParamCaption}
+\item[{const C\+N\+N\+Layer $\ast$}]{layer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_affff0e8263ca26852ccf71d299d7b06a}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_affff0e8263ca26852ccf71d299d7b06a}
+
+
+Definition at line 30 of file ext\+\_\+base.\+hpp.
+
+
+\begin{DoxyCode}
+30 : \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}(*layer) \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!add\+Config@{add\+Config}}
+\index{add\+Config@{add\+Config}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}
+\subsubsection[{\texorpdfstring{add\+Config(std\+::vector$<$ Data\+Configurator $>$ in\+\_\+l, std\+::vector$<$ Data\+Configurator $>$ out\+\_\+l, bool dyn\+Batch\+Support=false)}{addConfig(std::vector< DataConfigurator > in_l, std::vector< DataConfigurator > out_l, bool dynBatchSupport=false)}}]{\setlength{\rightskip}{0pt plus 5cm}void Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base\+::add\+Config (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ {\bf Data\+Configurator} $>$}]{in\+\_\+l, }
+\item[{std\+::vector$<$ {\bf Data\+Configurator} $>$}]{out\+\_\+l, }
+\item[{bool}]{dyn\+Batch\+Support = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a0ac7a6632e95b9500d5246b05b4b0bfa}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a0ac7a6632e95b9500d5246b05b4b0bfa}
+
+
+Definition at line 70 of file ext\+\_\+base.\+cpp.
+
+
+\begin{DoxyCode}
+70                                                                                                            
+                 \{
+71     LayerConfig config;
+72 
+73     \textcolor{keywordflow}{if} (in\_l.size() != \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData.size())
+74         THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Incorrect number of input edges. Expected "} << 
+      \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData.size()
+75                            << \textcolor{stringliteral}{" but layout specification provided for "} << in\_l.size();
+76     \textcolor{keywordflow}{if} (out\_l.size() != \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.outData.size())
+77         THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Incorrect number of input edges. Expected "} << 
+      \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.outData.size()
+78                            << \textcolor{stringliteral}{" but layout specification provided for "} << out\_l.size();
+79 
+80     \textcolor{comment}{// Fill tensor parameters into config}
+81     \textcolor{keyword}{auto} fill\_port = [] (std::vector<DataConfig>& port, DataConfigurator conf, \textcolor{keyword}{const} DataPtr& data) \{
+82         \textcolor{keywordflow}{if} (!data) THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Cannot get input data!"};
+83 
+84         DataConfig dataConfig;
+85         dataConfig.inPlace = conf.inplace;
+86         dataConfig.constant = conf.constant;
+87 
+88         \textcolor{keyword}{const} TensorDesc& data\_desc = data->getTensorDesc();
+89         \textcolor{keyword}{const} SizeVector& data\_dims = data\_desc.getDims();
+90 
+91         std::vector<size\_t> blocks = data\_dims;
+92         std::vector<size\_t> order(blocks.size());
+93         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < order.size(); i++) order[i] = i;
+94 
+95         \textcolor{keywordflow}{if} (conf.layout == \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba6023b7e0a175b8cf9cbcec3ac3cbf93d}{ConfLayout::BLK8} || conf.layout == 
+      \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba733623e98c6602d47f51e9f7be2f7d6c}{ConfLayout::BLK16}) \{
+96             \textcolor{keywordflow}{if} (data\_dims.size() != 4)
+97                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Inapplicable blocking layout."}
+98                                    << \textcolor{stringliteral}{"Tensor should be 4D."};
+99 
+100             \textcolor{keywordtype}{int} blk\_size = conf.layout == \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba6023b7e0a175b8cf9cbcec3ac3cbf93d}{ConfLayout::BLK8} ? 8 : 16;
+101 
+102             \textcolor{comment}{// Blocking through Channel dimension. Like [nChwXc]}
+103             order.push\_back(1);
+104             blocks[1] = \hyperlink{namespaceInferenceEngine_1_1Extensions_1_1Cpu_a979bf0275746a13e636116a432953b15}{div\_up}(blocks[1], blk\_size);
+105             blocks.push\_back(blk\_size);
+106         \}
+107 
+108         \textcolor{comment}{// All extension layers support only FP32 precision!}
+109         InferenceEngine::Precision precision = conf.constant ? data\_desc.getPrecision() : 
+      InferenceEngine::Precision(InferenceEngine::Precision::FP32);
+110         \textcolor{keywordflow}{if} (conf.layout == \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba8e1bde3c3d303163521522cf1d62f21f}{ConfLayout::ANY}) \{
+111             dataConfig.desc = TensorDesc(precision, data\_dims, InferenceEngine::Layout::ANY);
+112         \} \textcolor{keywordflow}{else} \{
+113             dataConfig.desc = TensorDesc(precision, data\_dims, \{blocks, order\});
+114         \}
+115         port.push\_back(dataConfig);
+116     \};
+117 
+118     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < in\_l.size(); i++)
+119         fill\_port(config.inConfs, in\_l[i], \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData[i].lock());
+120 
+121     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < out\_l.size(); i++)
+122         fill\_port(config.outConfs, out\_l[i], \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.outData[i]);
+123 
+124     config.dynBatchSupport = dynBatchSupport;
+125     \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a2a9f897007f2eb00e295cd25fd23fd5d}{confs}.push\_back(config);
+126 \}
+\end{DoxyCode}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!get\+Supported\+Configurations@{get\+Supported\+Configurations}}
+\index{get\+Supported\+Configurations@{get\+Supported\+Configurations}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}
+\subsubsection[{\texorpdfstring{get\+Supported\+Configurations(std\+::vector$<$ Layer\+Config $>$ \&conf, Response\+Desc $\ast$resp) noexceptoverride}{getSupportedConfigurations(std::vector< LayerConfig > &conf, ResponseDesc *resp) noexceptoverride}}]{\setlength{\rightskip}{0pt plus 5cm}Status\+Code Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base\+::get\+Supported\+Configurations (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ Layer\+Config $>$ \&}]{conf, }
+\item[{Response\+Desc $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [noexcept]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1dae3d7d80ed72136ff298b90a5af266}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1dae3d7d80ed72136ff298b90a5af266}
+
+
+Definition at line 34 of file ext\+\_\+base.\+cpp.
+
+
+\begin{DoxyCode}
+34                                                                                                   \{
+35     \textcolor{keywordflow}{if} (!\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{errorMsg}.empty()) \{
+36         \textcolor{keywordflow}{if} (resp) \{
+37             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{errorMsg}.copy(resp->msg, \textcolor{keyword}{sizeof}(resp->msg) - 1);
+38         \}
+39         \textcolor{keywordflow}{return} GENERAL\_ERROR;
+40     \}
+41     conf = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a2a9f897007f2eb00e295cd25fd23fd5d}{confs};
+42     \textcolor{keywordflow}{return} OK;
+43 \}
+\end{DoxyCode}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!init@{init}}
+\index{init@{init}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}
+\subsubsection[{\texorpdfstring{init(\+Layer\+Config \&config, Response\+Desc $\ast$resp) noexceptoverride}{init(LayerConfig &config, ResponseDesc *resp) noexceptoverride}}]{\setlength{\rightskip}{0pt plus 5cm}Status\+Code Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base\+::init (
+\begin{DoxyParamCaption}
+\item[{Layer\+Config \&}]{config, }
+\item[{Response\+Desc $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [noexcept]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a6323eec85cc894aa9ee19ae2b7443efb}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a6323eec85cc894aa9ee19ae2b7443efb}
+
+
+Definition at line 46 of file ext\+\_\+base.\+cpp.
+
+
+\begin{DoxyCode}
+46                                                                    \{
+47     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}& input : config.inConfs) \{
+48         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}& offset : input.desc.getBlockingDesc().getOffsetPaddingToData()) \{
+49             \textcolor{keywordflow}{if} (offset) \{
+50                 \textcolor{keywordflow}{return} GENERAL\_ERROR;
+51             \}
+52         \}
+53         \textcolor{keywordflow}{if} (input.desc.getBlockingDesc().getOffsetPadding()) \{
+54             \textcolor{keywordflow}{return} GENERAL\_ERROR;
+55         \}
+56     \}
+57     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}& output : config.outConfs) \{
+58         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}& offset : output.desc.getBlockingDesc().getOffsetPaddingToData()) \{
+59             \textcolor{keywordflow}{if} (offset) \{
+60                 \textcolor{keywordflow}{return} GENERAL\_ERROR;
+61             \}
+62         \}
+63         \textcolor{keywordflow}{if} (output.desc.getBlockingDesc().getOffsetPadding()) \{
+64             \textcolor{keywordflow}{return} GENERAL\_ERROR;
+65         \}
+66     \}
+67     \textcolor{keywordflow}{return} OK;
+68 \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!cnn\+Layer@{cnn\+Layer}}
+\index{cnn\+Layer@{cnn\+Layer}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}
+\subsubsection[{\texorpdfstring{cnn\+Layer}{cnnLayer}}]{\setlength{\rightskip}{0pt plus 5cm}C\+N\+N\+Layer Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base\+::cnn\+Layer\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}
+
+
+Definition at line 53 of file ext\+\_\+base.\+hpp.
+
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!confs@{confs}}
+\index{confs@{confs}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}
+\subsubsection[{\texorpdfstring{confs}{confs}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$Layer\+Config$>$ Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base\+::confs\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a2a9f897007f2eb00e295cd25fd23fd5d}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a2a9f897007f2eb00e295cd25fd23fd5d}
+
+
+Definition at line 54 of file ext\+\_\+base.\+hpp.
+
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}!error\+Msg@{error\+Msg}}
+\index{error\+Msg@{error\+Msg}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base}}
+\subsubsection[{\texorpdfstring{error\+Msg}{errorMsg}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Layer\+Base\+::error\+Msg\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}
+
+
+Definition at line 52 of file ext\+\_\+base.\+hpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__base_8hpp}{ext\+\_\+base.\+hpp}\item 
+thirdparty/extension/\hyperlink{ext__base_8cpp}{ext\+\_\+base.\+cpp}\end{DoxyCompactItemize}

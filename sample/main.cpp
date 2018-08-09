@@ -19,15 +19,19 @@
 * \file interactive_face_detection_sample/main.cpp
 * \example interactive_face_detection_sample/main.cpp
 */
-#include "detection.h"
-#include "pipeline.h"
-#include "engine.h"
-#include "interactive_face_detection.hpp"
+#include "openvino_service/inferences/base_inference.h"
+#include "openvino_service/inferences/age_gender_recognition.h"
+#include "openvino_service/inferences/emotions_recognition.h"
+#include "openvino_service/inferences/head_pose_recognition.h"
+#include "openvino_service/inferences/face_detection.h"
+#include "openvino_service/pipeline.h"
+#include "openvino_service/engines/engine.h"
+#include "utility.hpp"
 #include "mkldnn/mkldnn_extension_ptr.hpp"
 #include "inference_engine.hpp"
-#include "samples/common.hpp"
-#include "samples/slog.hpp"
-#include "io_devices/factory.h"
+#include "openvino_service/common.hpp"
+#include "openvino_service/slog.hpp"
+#include "openvino_service/factory.h"
 #include "ext_list.hpp"
 #include "opencv2/opencv.hpp"
 #include "librealsense2/rs.hpp"
@@ -89,7 +93,7 @@ int main(int argc, char *argv[]) {
 
     slog::info << "Reading input" << slog::endl;
 
-    std::shared_ptr<BaseInputDevice>
+    std::shared_ptr<Input::BaseInputDevice>
         input_device = Factory::makeInputDeviceByName(FLAGS_i);
     if (!input_device->initialize(0)) {
       throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);

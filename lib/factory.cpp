@@ -1,17 +1,20 @@
 //
 // Created by chris on 18-7-11.
 //
-#include "factory.h"
+#include "openvino_service/factory.h"
+#include "openvino_service/inputs/realsense_camera.h"
+#include "openvino_service/inputs/standard_camera.h"
+#include "openvino_service/inputs/video_input.h"
 
 using namespace InferenceEngine;
 
-std::shared_ptr<BaseInputDevice> Factory::makeInputDeviceByName(const std::string &input_device_name) {
+std::shared_ptr<Input::BaseInputDevice> Factory::makeInputDeviceByName(const std::string &input_device_name) {
   if (input_device_name == "RealSenseCamera") {
-    return std::make_shared<RealSenseCamera>();
+    return std::make_shared<Input::RealSenseCamera>();
   } else if (input_device_name == "StandardCamera") {
-    return std::make_shared<StandardCamera>();
+    return std::make_shared<Input::StandardCamera>();
   } else {
-    return std::make_shared<Video>(input_device_name);
+    return std::make_shared<Input::Video>(input_device_name);
   }
 }
 

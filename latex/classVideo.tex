@@ -1,0 +1,207 @@
+\hypertarget{classVideo}{}\section{Video Class Reference}
+\label{classVideo}\index{Video@{Video}}
+
+
+{\ttfamily \#include $<$input.\+h$>$}
+
+
+
+Inheritance diagram for Video\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classVideo__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Video\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classVideo__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classVideo_aac84f1e10e409e4ff6557c5f116ec66f}{Video} (const std\+::string \&)
+\item 
+bool \hyperlink{classVideo_a276f977e85c9f6815d4d0419d59285bd}{initialize} () override
+\begin{DoxyCompactList}\small\item\em initialize the input device, for cameras, it will turn the camera on and get ready to read frames, for videos, it will open a video file \end{DoxyCompactList}\item 
+bool \hyperlink{classVideo_a70f040b7eb1e967f9fb52d5fb866814a}{initialize} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} t) override
+\item 
+bool \hyperlink{classVideo_a5c1a49fb9e4151123b9e4721f31f55ec}{initialize} (size\+\_\+t width, size\+\_\+t height) override
+\item 
+bool \hyperlink{classVideo_a4653f5a44dc2697e6d2093353f8e2be8}{read} (cv\+::\+Mat $\ast$frame) override
+\begin{DoxyCompactList}\small\item\em read next frame, and give the value to argument frame \end{DoxyCompactList}\item 
+void \hyperlink{classVideo_a027d05e5a0391601cb0fea11a063a957}{config} () override
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 73 of file input.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Video@{Video}!Video@{Video}}
+\index{Video@{Video}!Video@{Video}}
+\subsubsection[{\texorpdfstring{Video(const std\+::string \&)}{Video(const std::string &)}}]{\setlength{\rightskip}{0pt plus 5cm}Video\+::\+Video (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{video}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classVideo_aac84f1e10e409e4ff6557c5f116ec66f}{}\label{classVideo_aac84f1e10e409e4ff6557c5f116ec66f}
+
+
+Definition at line 110 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+110                                    \{
+111   video\_.assign(video);
+112 \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Video@{Video}!config@{config}}
+\index{config@{config}!Video@{Video}}
+\subsubsection[{\texorpdfstring{config() override}{config() override}}]{\setlength{\rightskip}{0pt plus 5cm}void Video\+::config (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classVideo_a027d05e5a0391601cb0fea11a063a957}{}\label{classVideo_a027d05e5a0391601cb0fea11a063a957}
+
+
+Implements \hyperlink{classBaseInputDevice_a6f88b6eae38b58dd534f082690f840b3}{Base\+Input\+Device}.
+
+
+
+Definition at line 134 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+134                    \{
+135   \textcolor{comment}{//TODO}
+136 \}
+\end{DoxyCode}
+\index{Video@{Video}!initialize@{initialize}}
+\index{initialize@{initialize}!Video@{Video}}
+\subsubsection[{\texorpdfstring{initialize() override}{initialize() override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Video\+::initialize (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classVideo_a276f977e85c9f6815d4d0419d59285bd}{}\label{classVideo_a276f977e85c9f6815d4d0419d59285bd}
+
+
+initialize the input device, for cameras, it will turn the camera on and get ready to read frames, for videos, it will open a video file 
+
+\begin{DoxyReturn}{Returns}
+whether the input device is successfully turned on 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classBaseInputDevice_a487cef7725bab9c8cd7141b9b2f83eea}{Base\+Input\+Device}.
+
+
+
+Definition at line 113 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+113                        \{
+114   \hyperlink{classBaseInputDevice_a92e8c0f893c1eb9dcbdd7fb38daf5da1}{setIsInit}(cap.open(video\_));
+115   \hyperlink{classBaseInputDevice_a980073308aee4edf67d43a85fdaa2f81}{setWidth}((\textcolor{keywordtype}{size\_t}) cap.get(CV\_CAP\_PROP\_FRAME\_WIDTH));
+116   \hyperlink{classBaseInputDevice_a3312adc6b71bc08da39b5df1be565cef}{setHeight}((\textcolor{keywordtype}{size\_t}) cap.get(CV\_CAP\_PROP\_FRAME\_HEIGHT));
+117   \textcolor{keywordflow}{return} \hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}();
+118 \}
+\end{DoxyCode}
+\index{Video@{Video}!initialize@{initialize}}
+\index{initialize@{initialize}!Video@{Video}}
+\subsubsection[{\texorpdfstring{initialize(int t) override}{initialize(int t) override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Video\+::initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classVideo_a70f040b7eb1e967f9fb52d5fb866814a}{}\label{classVideo_a70f040b7eb1e967f9fb52d5fb866814a}
+
+
+Implements \hyperlink{classBaseInputDevice_a7fb82b301d42d63e1b98455eb88ccddd}{Base\+Input\+Device}.
+
+
+
+Definition at line 77 of file input.\+h.
+
+
+\begin{DoxyCode}
+77 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{true}; \};
+\end{DoxyCode}
+\index{Video@{Video}!initialize@{initialize}}
+\index{initialize@{initialize}!Video@{Video}}
+\subsubsection[{\texorpdfstring{initialize(size\+\_\+t width, size\+\_\+t height) override}{initialize(size_t width, size_t height) override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Video\+::initialize (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{width, }
+\item[{size\+\_\+t}]{height}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classVideo_a5c1a49fb9e4151123b9e4721f31f55ec}{}\label{classVideo_a5c1a49fb9e4151123b9e4721f31f55ec}
+
+
+Implements \hyperlink{classBaseInputDevice_a8ad1f513052fd4c43e030c3958808bfa}{Base\+Input\+Device}.
+
+
+
+Definition at line 119 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+119                                                   \{
+120   \hyperlink{classBaseInputDevice_a980073308aee4edf67d43a85fdaa2f81}{setWidth}(width);
+121   \hyperlink{classBaseInputDevice_a3312adc6b71bc08da39b5df1be565cef}{setHeight}(height);
+122   \hyperlink{classBaseInputDevice_a92e8c0f893c1eb9dcbdd7fb38daf5da1}{setIsInit}(cap.open(video\_));
+123   \textcolor{keywordflow}{if} (\hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}()) \{
+124     cap.set(CV\_CAP\_PROP\_FRAME\_WIDTH, width);
+125     cap.set(CV\_CAP\_PROP\_FRAME\_HEIGHT, height);
+126   \}
+127   \textcolor{keywordflow}{return} \hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}();
+128 \}
+\end{DoxyCode}
+\index{Video@{Video}!read@{read}}
+\index{read@{read}!Video@{Video}}
+\subsubsection[{\texorpdfstring{read(cv\+::\+Mat $\ast$frame) override}{read(cv::Mat *frame) override}}]{\setlength{\rightskip}{0pt plus 5cm}bool Video\+::read (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat $\ast$}]{frame}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classVideo_a4653f5a44dc2697e6d2093353f8e2be8}{}\label{classVideo_a4653f5a44dc2697e6d2093353f8e2be8}
+
+
+read next frame, and give the value to argument frame 
+
+\begin{DoxyReturn}{Returns}
+whether the next frame is successfully read 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classBaseInputDevice_a49b0a9ff7286d5fb3bccf61a0baaa32a}{Base\+Input\+Device}.
+
+
+
+Definition at line 129 of file input.\+cpp.
+
+
+\begin{DoxyCode}
+129                              \{
+130   \textcolor{keywordflow}{if} (!\hyperlink{classBaseInputDevice_a560fe86d007739992af04198237909a5}{getIsInit}()) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}
+131   cap.grab();
+132   \textcolor{keywordflow}{return} cap.retrieve(*frame);
+133 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/openvino\+\_\+service/inputs/\hyperlink{input_8h}{input.\+h}\item 
+lib/inputs/\hyperlink{input_8cpp}{input.\+cpp}\end{DoxyCompactItemize}

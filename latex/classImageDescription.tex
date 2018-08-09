@@ -1,0 +1,163 @@
+\hypertarget{classImageDescription}{}\section{Image\+Description Class Reference}
+\label{classImageDescription}\index{Image\+Description@{Image\+Description}}
+
+
+{\ttfamily \#include $<$common.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classImageDescription_a5306d6db34b16ff3ca9742e9036b025f}{Image\+Description} (const \hyperlink{CMakeLists_8txt_a548e427ae9357a6f3536cff3ca23efda}{std\+::list}$<$ \hyperlink{classDetectedObject}{Detected\+Object} $>$ \&\hyperlink{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}{alist}, bool \hyperlink{classImageDescription_a4df135809acd954ad6882c2b805b2a5b}{check\+\_\+probs}=false)
+\item 
+\hyperlink{classImageDescription}{Image\+Description} \hyperlink{classImageDescription_a1b6675d07182ddf75a704b091daaa8ff}{scale} (float scale\+\_\+x, float scale\+\_\+y) const 
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static float \hyperlink{classImageDescription_a2068c70b38a7c66811c7ca3acf1a6f80}{io\+U\+Multiple} (const \hyperlink{classImageDescription}{Image\+Description} \&detected\+Objects, const \hyperlink{classImageDescription}{Image\+Description} \&desired\+Objects)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{CMakeLists_8txt_a548e427ae9357a6f3536cff3ca23efda}{std\+::list}$<$ \hyperlink{classDetectedObject}{Detected\+Object} $>$ \hyperlink{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}{alist}
+\item 
+const bool \hyperlink{classImageDescription_a4df135809acd954ad6882c2b805b2a5b}{check\+\_\+probs}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 761 of file common.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Image\+Description@{Image\+Description}!Image\+Description@{Image\+Description}}
+\index{Image\+Description@{Image\+Description}!Image\+Description@{Image\+Description}}
+\subsubsection[{\texorpdfstring{Image\+Description(const std\+::list$<$ Detected\+Object $>$ \&alist, bool check\+\_\+probs=false)}{ImageDescription(const std::list< DetectedObject > &alist, bool check_probs=false)}}]{\setlength{\rightskip}{0pt plus 5cm}Image\+Description\+::\+Image\+Description (
+\begin{DoxyParamCaption}
+\item[{const {\bf std\+::list}$<$ {\bf Detected\+Object} $>$ \&}]{alist, }
+\item[{bool}]{check\+\_\+probs = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classImageDescription_a5306d6db34b16ff3ca9742e9036b025f}{}\label{classImageDescription_a5306d6db34b16ff3ca9742e9036b025f}
+
+
+Definition at line 766 of file common.\+hpp.
+
+
+\begin{DoxyCode}
+767             : \hyperlink{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}{alist}(\hyperlink{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}{alist}), \hyperlink{classImageDescription_a4df135809acd954ad6882c2b805b2a5b}{check\_probs}(\hyperlink{classImageDescription_a4df135809acd954ad6882c2b805b2a5b}{check\_probs}) \{
+768     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Image\+Description@{Image\+Description}!io\+U\+Multiple@{io\+U\+Multiple}}
+\index{io\+U\+Multiple@{io\+U\+Multiple}!Image\+Description@{Image\+Description}}
+\subsubsection[{\texorpdfstring{io\+U\+Multiple(const Image\+Description \&detected\+Objects, const Image\+Description \&desired\+Objects)}{ioUMultiple(const ImageDescription &detectedObjects, const ImageDescription &desiredObjects)}}]{\setlength{\rightskip}{0pt plus 5cm}static float Image\+Description\+::io\+U\+Multiple (
+\begin{DoxyParamCaption}
+\item[{const {\bf Image\+Description} \&}]{detected\+Objects, }
+\item[{const {\bf Image\+Description} \&}]{desired\+Objects}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{classImageDescription_a2068c70b38a7c66811c7ca3acf1a6f80}{}\label{classImageDescription_a2068c70b38a7c66811c7ca3acf1a6f80}
+
+
+Definition at line 770 of file common.\+hpp.
+
+
+\begin{DoxyCode}
+770                                                                                                            
+         \{
+771         \textcolor{keyword}{const} \hyperlink{classImageDescription}{ImageDescription} *detectedObjectsSmall, *detectedObjectsBig;
+772         \textcolor{keywordtype}{bool} \hyperlink{classImageDescription_a4df135809acd954ad6882c2b805b2a5b}{check\_probs} = desiredObjects.\hyperlink{classImageDescription_a4df135809acd954ad6882c2b805b2a5b}{check\_probs};
+773 
+774         \textcolor{keywordflow}{if} (detectedObjects.\hyperlink{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}{alist}.size() < desiredObjects.\hyperlink{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}{alist}.size()) \{
+775             detectedObjectsSmall = &detectedObjects;
+776             detectedObjectsBig = &desiredObjects;
+777         \} \textcolor{keywordflow}{else} \{
+778             detectedObjectsSmall = &desiredObjects;
+779             detectedObjectsBig = &detectedObjects;
+780         \}
+781 
+782         std::list<DetectedObject> doS = detectedObjectsSmall->\hyperlink{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}{alist};
+783         std::list<DetectedObject> doB = detectedObjectsBig->\hyperlink{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}{alist};
+784 
+785         \textcolor{keywordtype}{float} fullScore = 0.0f;
+786         \textcolor{keywordflow}{while} (doS.size() > 0) \{
+787             \textcolor{keywordtype}{float} score = 0.0f;
+788             std::list<DetectedObject>::iterator bestJ = doB.end();
+789             \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} j = doB.begin(); j != doB.end(); j++) \{
+790                 \textcolor{keywordtype}{float} curscore = \hyperlink{classDetectedObject_abc68e001862990d52703deff97fe0db6}{DetectedObject::ioU}(*doS.begin(), *j);
+791                 \textcolor{keywordflow}{if} (score < curscore) \{
+792                     score = curscore;
+793                     bestJ = j;
+794                 \}
+795             \}
+796 
+797             \textcolor{keywordtype}{float} coeff = 1.0;
+798             \textcolor{keywordflow}{if} (check\_probs) \{
+799                 \textcolor{keywordflow}{if} (bestJ != doB.end()) \{
+800                     \hyperlink{classDetectedObject}{DetectedObject} test = *bestJ;
+801                     \hyperlink{classDetectedObject}{DetectedObject} test1 = *doS.begin();
+802                     \textcolor{keywordtype}{float} mn = std::min((*bestJ).prob, (*doS.begin()).prob);
+803                     \textcolor{keywordtype}{float} mx = std::max((*bestJ).prob, (*doS.begin()).prob);
+804 
+805                     coeff = mn/mx;
+806                 \}
+807             \}
+808 
+809             doS.pop\_front();
+810             \textcolor{keywordflow}{if} (bestJ != doB.end()) doB.erase(bestJ);
+811             fullScore += coeff * score;
+812         \}
+813         fullScore /= detectedObjectsBig->\hyperlink{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}{alist}.size();
+814 
+815 
+816         \textcolor{keywordflow}{return} fullScore;
+817     \}
+\end{DoxyCode}
+\index{Image\+Description@{Image\+Description}!scale@{scale}}
+\index{scale@{scale}!Image\+Description@{Image\+Description}}
+\subsubsection[{\texorpdfstring{scale(float scale\+\_\+x, float scale\+\_\+y) const }{scale(float scale_x, float scale_y) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Image\+Description} Image\+Description\+::scale (
+\begin{DoxyParamCaption}
+\item[{float}]{scale\+\_\+x, }
+\item[{float}]{scale\+\_\+y}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classImageDescription_a1b6675d07182ddf75a704b091daaa8ff}{}\label{classImageDescription_a1b6675d07182ddf75a704b091daaa8ff}
+
+
+Definition at line 819 of file common.\+hpp.
+
+
+\begin{DoxyCode}
+819                                                                \{
+820         std::list<DetectedObject> slist;
+821         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}& dob : \hyperlink{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}{alist}) \{
+822             slist.push\_back(dob.scale(scale\_x, scale\_y));
+823         \}
+824         \textcolor{keywordflow}{return} \hyperlink{classImageDescription_a5306d6db34b16ff3ca9742e9036b025f}{ImageDescription}(slist, \hyperlink{classImageDescription_a4df135809acd954ad6882c2b805b2a5b}{check\_probs});
+825     \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\index{Image\+Description@{Image\+Description}!alist@{alist}}
+\index{alist@{alist}!Image\+Description@{Image\+Description}}
+\subsubsection[{\texorpdfstring{alist}{alist}}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf std\+::list}$<${\bf Detected\+Object}$>$ Image\+Description\+::alist}\hypertarget{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}{}\label{classImageDescription_aa814580e2dd58fc3442ddd3549e6d81d}
+
+
+Definition at line 763 of file common.\+hpp.
+
+\index{Image\+Description@{Image\+Description}!check\+\_\+probs@{check\+\_\+probs}}
+\index{check\+\_\+probs@{check\+\_\+probs}!Image\+Description@{Image\+Description}}
+\subsubsection[{\texorpdfstring{check\+\_\+probs}{check_probs}}]{\setlength{\rightskip}{0pt plus 5cm}const bool Image\+Description\+::check\+\_\+probs}\hypertarget{classImageDescription_a4df135809acd954ad6882c2b805b2a5b}{}\label{classImageDescription_a4df135809acd954ad6882c2b805b2a5b}
+
+
+Definition at line 764 of file common.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/openvino\+\_\+service/\hyperlink{common_8hpp}{common.\+hpp}\end{DoxyCompactItemize}

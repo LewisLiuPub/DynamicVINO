@@ -1,0 +1,187 @@
+\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PSROIPoolingImpl}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:P\+S\+R\+O\+I\+Pooling\+Impl Class Reference}
+\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PSROIPoolingImpl}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl}}
+
+
+Inheritance diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:P\+S\+R\+O\+I\+Pooling\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PSROIPoolingImpl__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:P\+S\+R\+O\+I\+Pooling\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PSROIPoolingImpl__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PSROIPoolingImpl_a792472d01c11d8dfe4c46db42f3bd3bd}{P\+S\+R\+O\+I\+Pooling\+Impl} (const C\+N\+N\+Layer $\ast$layer)
+\item 
+Status\+Code \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PSROIPoolingImpl_a73ebb7234a41fd89393ecbb9d12394a0}{execute} (std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 28 of file ext\+\_\+psroi.\+cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl}!P\+S\+R\+O\+I\+Pooling\+Impl@{P\+S\+R\+O\+I\+Pooling\+Impl}}
+\index{P\+S\+R\+O\+I\+Pooling\+Impl@{P\+S\+R\+O\+I\+Pooling\+Impl}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl}}
+\subsubsection[{\texorpdfstring{P\+S\+R\+O\+I\+Pooling\+Impl(const C\+N\+N\+Layer $\ast$layer)}{PSROIPoolingImpl(const CNNLayer *layer)}}]{\setlength{\rightskip}{0pt plus 5cm}Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl\+::\+P\+S\+R\+O\+I\+Pooling\+Impl (
+\begin{DoxyParamCaption}
+\item[{const C\+N\+N\+Layer $\ast$}]{layer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PSROIPoolingImpl_a792472d01c11d8dfe4c46db42f3bd3bd}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PSROIPoolingImpl_a792472d01c11d8dfe4c46db42f3bd3bd}
+
+
+Definition at line 30 of file ext\+\_\+psroi.\+cpp.
+
+
+\begin{DoxyCode}
+30                                                     : \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_affff0e8263ca26852ccf71d299d7b06a}{ExtLayerBase}(layer) \{
+31         \textcolor{keywordflow}{try} \{
+32             \textcolor{keywordflow}{if} (\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData.size() != 2 || \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.outData.size() != 1)
+33                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Incorrect number of input/output edges!"};
+34             \textcolor{comment}{// LayerSetUp}
+35             output\_dim\_ = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"output\_dim"}));
+36             group\_size\_ = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"group\_size"}));
+37             spatial\_scale\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloat(\textcolor{stringliteral}{"spatial\_scale"});
+38             pooled\_height\_ = group\_size\_;
+39             pooled\_width\_ = group\_size\_;
+40 
+41             SizeVector inDims = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData[0].lock()->getTensorDesc().getDims();
+42             channels = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(inDims[1]);
+43             height = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(inDims[2]);
+44             width = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(inDims[3]);
+45 
+46             SizeVector outDims = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.outData[0]->getTensorDesc().getDims();
+47             nn = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(outDims[0]);
+48             nc = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(outDims[1]);
+49             nh = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(outDims[2]);
+50             nw = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(outDims[3]);
+51 
+52             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a0ac7a6632e95b9500d5246b05b4b0bfa}{addConfig}(\{DataConfigurator(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN}), DataConfigurator(
+      \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN})\}, \{DataConfigurator(\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN})\});
+53         \} \textcolor{keywordflow}{catch} (InferenceEngine::details::InferenceEngineException &ex) \{
+54             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{errorMsg} = ex.what();
+55         \}
+56     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl}!execute@{execute}}
+\index{execute@{execute}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl}}
+\subsubsection[{\texorpdfstring{execute(std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride}{execute(std::vector< Blob::Ptr > &inputs, std::vector< Blob::Ptr > &outputs, ResponseDesc *resp) noexceptoverride}}]{\setlength{\rightskip}{0pt plus 5cm}Status\+Code Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+P\+S\+R\+O\+I\+Pooling\+Impl\+::execute (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{inputs, }
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{outputs, }
+\item[{Response\+Desc $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PSROIPoolingImpl_a73ebb7234a41fd89393ecbb9d12394a0}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PSROIPoolingImpl_a73ebb7234a41fd89393ecbb9d12394a0}
+
+
+Definition at line 58 of file ext\+\_\+psroi.\+cpp.
+
+
+\begin{DoxyCode}
+59                                                              \{
+60         \textcolor{keywordtype}{float}* dst\_data = outputs[0]->buffer();
+61         \textcolor{keyword}{const} \textcolor{keywordtype}{float} *bottom\_data\_beginning = inputs[0]->buffer();
+62         \textcolor{keyword}{const} \textcolor{keywordtype}{float} *bottom\_rois\_beginning = inputs[1]->buffer();
+63 
+64         \textcolor{keywordtype}{int} real\_rois = 0;
+65         \textcolor{keywordflow}{for} (; real\_rois < nn; real\_rois++) \{
+66             \textcolor{keyword}{const} \textcolor{keywordtype}{float} *bottom\_rois = bottom\_rois\_beginning + real\_rois * 5;
+67             \textcolor{keywordtype}{int} roi\_batch\_ind = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(bottom\_rois[0]);
+68             \textcolor{keywordflow}{if} (roi\_batch\_ind == -1) \{
+69                 \textcolor{keywordflow}{break};
+70             \}
+71         \}
+72 
+73 \textcolor{preprocessor}{        #pragma omp parallel for schedule(static)}
+74         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} n = 0; n < real\_rois; n++) \{
+75             \textcolor{keyword}{const} \textcolor{keywordtype}{float}* bottom\_rois = bottom\_rois\_beginning + n * 5;
+76             \textcolor{keywordtype}{int} roi\_batch\_ind = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(bottom\_rois[0]);
+77             \textcolor{keywordtype}{float} roi\_start\_w = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(round(bottom\_rois[1])) * spatial\_scale\_;
+78             \textcolor{keywordtype}{float} roi\_start\_h = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(round(bottom\_rois[2])) * spatial\_scale\_;
+79             \textcolor{keywordtype}{float} roi\_end\_w   = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(round(bottom\_rois[3]) + 1.0f) * spatial\_scale\_;
+80             \textcolor{keywordtype}{float} roi\_end\_h   = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(round(bottom\_rois[4]) + 1.0f) * spatial\_scale\_;
+81 
+82             \textcolor{comment}{// Force too small ROIs to be 1x1}
+83             \textcolor{keywordtype}{float} roi\_width  = std::max<float>(roi\_end\_w - roi\_start\_w, 0.1f);  \textcolor{comment}{// avoid 0}
+84             \textcolor{keywordtype}{float} roi\_height = std::max<float>(roi\_end\_h - roi\_start\_h, 0.1f);
+85 
+86             \textcolor{keywordtype}{float} bin\_size\_h = roi\_height / \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(pooled\_height\_);
+87             \textcolor{keywordtype}{float} bin\_size\_w = roi\_width  / \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(pooled\_width\_);
+88 
+89             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} = 0; \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} < nc; \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}++) \{
+90                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} h = 0; h < nh; h++) \{
+91                     \textcolor{keywordtype}{int} hstart = floor(static\_cast<float>(h + 0) * bin\_size\_h + roi\_start\_h);
+92                     \textcolor{keywordtype}{int} hend = ceil(static\_cast<float>(h + 1) * bin\_size\_h + roi\_start\_h);
+93 
+94                     hstart = std::min<int>(std::max<int>(hstart, 0), height);
+95                     hend = std::min<int>(std::max<int>(hend, 0), height);
+96 
+97                     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} w = 0; w < nw; w++) \{
+98                         \textcolor{keywordtype}{int} index = n * nc * nh * nw + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} * nh * nw + h * nw + w;
+99                         dst\_data[index] = 0.0f;
+100 
+101                         \textcolor{keywordtype}{int} wstart = floor(static\_cast<float>(w + 0) * bin\_size\_w + roi\_start\_w);
+102                         \textcolor{keywordtype}{int} wend = ceil(static\_cast<float>(w + 1) * bin\_size\_w + roi\_start\_w);
+103 
+104                         wstart = std::min<int>(std::max<int>(wstart, 0), width);
+105                         wend = std::min<int>(std::max<int>(wend, 0), width);
+106 
+107                         \textcolor{keywordtype}{float} bin\_area = (hend - hstart) * (wend - wstart);
+108                         \textcolor{keywordflow}{if} (bin\_area) \{
+109                             \textcolor{keywordtype}{int} gc = (\hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} * group\_size\_ + h) * group\_size\_ + w;
+110                             \textcolor{keyword}{const} \textcolor{keywordtype}{float} *bottom\_data =
+111                                     bottom\_data\_beginning + ((roi\_batch\_ind * channels + gc) * height * 
+      width);
+112 
+113                             \textcolor{keywordtype}{float} out\_sum = 0.0f;
+114                             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} hh = hstart; hh < hend; ++hh)
+115                                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} ww = wstart; ww < wend; ++ww)
+116                                     out\_sum += bottom\_data[hh * width + ww];
+117 
+118                             dst\_data[index] = out\_sum / bin\_area;
+119                         \}
+120                     \}
+121                 \}
+122             \}
+123         \}
+124 
+125 \textcolor{preprocessor}{        #pragma omp parallel for schedule(static)}
+126         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} n = real\_rois; n < nn; n++) \{
+127             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} = 0; \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} < nc; \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}++) \{
+128                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} h = 0; h < nh; h++) \{
+129                     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} w = 0; w < nw; w++) \{
+130                         \textcolor{keywordtype}{int} index = n * nc * nh * nw + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} * nh * nw + h * nw + w;
+131                         dst\_data[index] = 0.0f;
+132                     \}
+133                 \}
+134             \}
+135         \}
+136 
+137         \textcolor{keywordflow}{return} OK;
+138     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__psroi_8cpp}{ext\+\_\+psroi.\+cpp}\end{DoxyCompactItemize}

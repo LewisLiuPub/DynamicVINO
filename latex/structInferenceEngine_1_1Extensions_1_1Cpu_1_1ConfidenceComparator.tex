@@ -1,0 +1,77 @@
+\hypertarget{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Confidence\+Comparator Struct Reference}
+\label{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a6a64fe84a0a07453cfdfbcbd935e0c05}{Confidence\+Comparator} (const float $\ast$conf\+\_\+data)
+\item 
+bool \hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a667aec658d4b9b1a1b52672efc46ada8}{operator()} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} idx1, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} idx2)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const float $\ast$ \hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a4799b1ce7bed1246a75811fdf76205c6}{\+\_\+conf\+\_\+data}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 343 of file ext\+\_\+detectionoutput.\+cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator}!Confidence\+Comparator@{Confidence\+Comparator}}
+\index{Confidence\+Comparator@{Confidence\+Comparator}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator}}
+\subsubsection[{\texorpdfstring{Confidence\+Comparator(const float $\ast$conf\+\_\+data)}{ConfidenceComparator(const float *conf_data)}}]{\setlength{\rightskip}{0pt plus 5cm}Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator\+::\+Confidence\+Comparator (
+\begin{DoxyParamCaption}
+\item[{const float $\ast$}]{conf\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a6a64fe84a0a07453cfdfbcbd935e0c05}{}\label{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a6a64fe84a0a07453cfdfbcbd935e0c05}
+
+
+Definition at line 344 of file ext\+\_\+detectionoutput.\+cpp.
+
+
+\begin{DoxyCode}
+344 : \hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a4799b1ce7bed1246a75811fdf76205c6}{\_conf\_data}(conf\_data) \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator}!operator()@{operator()}}
+\index{operator()@{operator()}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator}}
+\subsubsection[{\texorpdfstring{operator()(int idx1, int idx2)}{operator()(int idx1, int idx2)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator\+::operator() (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{idx1, }
+\item[{{\bf int}}]{idx2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a667aec658d4b9b1a1b52672efc46ada8}{}\label{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a667aec658d4b9b1a1b52672efc46ada8}
+
+
+Definition at line 346 of file ext\+\_\+detectionoutput.\+cpp.
+
+
+\begin{DoxyCode}
+346                                         \{
+347         \textcolor{keywordflow}{if} (\hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a4799b1ce7bed1246a75811fdf76205c6}{\_conf\_data}[idx1] > \hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a4799b1ce7bed1246a75811fdf76205c6}{\_conf\_data}[idx2]) \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+348         \textcolor{keywordflow}{if} (\hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a4799b1ce7bed1246a75811fdf76205c6}{\_conf\_data}[idx1] < \hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a4799b1ce7bed1246a75811fdf76205c6}{\_conf\_data}[idx2]) \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+349         \textcolor{keywordflow}{return} idx1 < idx2;
+350     \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator}!\+\_\+conf\+\_\+data@{\+\_\+conf\+\_\+data}}
+\index{\+\_\+conf\+\_\+data@{\+\_\+conf\+\_\+data}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator}}
+\subsubsection[{\texorpdfstring{\+\_\+conf\+\_\+data}{_conf_data}}]{\setlength{\rightskip}{0pt plus 5cm}const float$\ast$ Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Confidence\+Comparator\+::\+\_\+conf\+\_\+data}\hypertarget{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a4799b1ce7bed1246a75811fdf76205c6}{}\label{structInferenceEngine_1_1Extensions_1_1Cpu_1_1ConfidenceComparator_a4799b1ce7bed1246a75811fdf76205c6}
+
+
+Definition at line 352 of file ext\+\_\+detectionoutput.\+cpp.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__detectionoutput_8cpp}{ext\+\_\+detectionoutput.\+cpp}\end{DoxyCompactItemize}

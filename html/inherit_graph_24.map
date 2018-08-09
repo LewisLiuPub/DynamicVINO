@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classInferenceEngine_1_1Extensions_1_1Cpu_1_1ImplFactory.html" title="InferenceEngine::Extensions\l::Cpu::ImplFactory\&lt; NormalizeImpl \&gt;" alt="" coords="180,5,419,47"/>
+<area shape="rect" id="node4" href="$classInferenceEngine_1_1Extensions_1_1Cpu_1_1ImplFactory.html" title="InferenceEngine::Extensions\l::Cpu::ImplFactory\&lt; ProposalImpl \&gt;" alt="" coords="184,71,415,112"/>
+<area shape="rect" id="node6" href="$classInferenceEngine_1_1Extensions_1_1Cpu_1_1ImplFactory.html" title="InferenceEngine::Extensions\l::Cpu::ImplFactory\&lt; IMPL \&gt;" alt="" coords="205,136,394,177"/>
+<area shape="rect" id="node3" href="$classInferenceEngine_1_1Extensions_1_1Cpu_1_1NormalizeFactory.html" title="InferenceEngine::Extensions\l::Cpu::NormalizeFactory" alt="" coords="467,5,656,47"/>
+<area shape="rect" id="node5" href="$classInferenceEngine_1_1Extensions_1_1Cpu_1_1ProposalFactory.html" title="InferenceEngine::Extensions\l::Cpu::ProposalFactory" alt="" coords="467,71,656,112"/>
+</map>

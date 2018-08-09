@@ -8,7 +8,7 @@
 #ifndef SAMPLES_ENGINE_H
 #define SAMPLES_ENGINE_H
 
-#include "validated_network.h"
+#include "openvino_service/models/validated_network.h"
 #include "inference_engine.hpp"
 /**
  * @class NetworkEngine

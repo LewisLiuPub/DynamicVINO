@@ -1,0 +1,238 @@
+\hypertarget{main_8cpp}{}\section{sample/main.cpp File Reference}
+\label{main_8cpp}\index{sample/main.\+cpp@{sample/main.\+cpp}}
+{\ttfamily \#include \char`\"{}openvino\+\_\+service/inferences/base\+\_\+inference.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openvino\+\_\+service/inferences/age\+\_\+gender\+\_\+recognition.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openvino\+\_\+service/inferences/emotions\+\_\+recognition.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openvino\+\_\+service/inferences/head\+\_\+pose\+\_\+recognition.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openvino\+\_\+service/inferences/face\+\_\+detection.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openvino\+\_\+service/pipeline.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openvino\+\_\+service/engines/engine.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}utility.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mkldnn/mkldnn\+\_\+extension\+\_\+ptr.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}inference\+\_\+engine.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openvino\+\_\+service/common.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openvino\+\_\+service/slog.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openvino\+\_\+service/factory.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ext\+\_\+list.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}opencv2/opencv.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}librealsense2/rs.\+hpp\char`\"{}}\\*
+{\ttfamily \#include $<$gflags/gflags.\+h$>$}\\*
+{\ttfamily \#include $<$functional$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$random$>$}\\*
+{\ttfamily \#include $<$memory$>$}\\*
+{\ttfamily \#include $<$chrono$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include $<$iterator$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+Include dependency graph for main.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{main_8cpp_a7599fc7c5fa5ccec88fdc9149dbac609}{Parse\+And\+Check\+Command\+Line} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} argc, \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} \hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} argc, \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{main.\+cpp@{main.\+cpp}!main@{main}}
+\index{main@{main}!main.\+cpp@{main.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} main (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{argc, }
+\item[{{\bf char} $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{}\label{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 84 of file main.\+cpp.
+
+
+\begin{DoxyCode}
+84                                  \{
+85   \textcolor{keywordflow}{try} \{
+86     std::cout << \textcolor{stringliteral}{"InferenceEngine: "} << GetInferenceEngineVersion()
+87               << std::endl;
+88 
+89     \textcolor{comment}{// ------------------------------ Parsing and validation of input args
+       ---------------------------------}
+90     \textcolor{keywordflow}{if} (!\hyperlink{main_8cpp_a7599fc7c5fa5ccec88fdc9149dbac609}{ParseAndCheckCommandLine}(argc, argv)) \{
+91       \textcolor{keywordflow}{return} 0;
+92     \}
+93 
+94     slog::info << \textcolor{stringliteral}{"Reading input"} << slog::endl;
+95 
+96     std::shared\_ptr<BaseInputDevice>
+97         input\_device = \hyperlink{classFactory_a36585401f9a09c2d1c381546a501ea94}{Factory::makeInputDeviceByName}(FLAGS\_i);
+98     \textcolor{keywordflow}{if} (!input\_device->initialize(0)) \{
+99       \textcolor{keywordflow}{throw} std::logic\_error(\textcolor{stringliteral}{"Cannot open input file or camera: "} + FLAGS\_i);
+100     \}
+101     \hyperlink{classPipeline}{Pipeline} pipe;
+102     pipe.\hyperlink{classPipeline_ad4e6ed704a4dc3df23488a9cf5cf2ae0}{add}(\textcolor{stringliteral}{""}, \textcolor{stringliteral}{"video\_input"}, input\_device);
+103     cv::Mat frame;
+104     \textcolor{comment}{// --------------------------- 1. Load Plugin for inference engine
+       -------------------------------------}
+105     std::map<std::string, InferencePlugin> pluginsForDevices;
+106     std::vector<std::pair<std::string, std::string>> cmdOptions = \{
+107         \{FLAGS\_d, FLAGS\_m\},
+108         \{FLAGS\_d\_ag, FLAGS\_m\_ag\},
+109         \{FLAGS\_d\_hp, FLAGS\_m\_hp\},
+110         \{FLAGS\_d\_em, FLAGS\_m\_em\}
+111     \};
+112     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} &&option : cmdOptions) \{
+113       \textcolor{keyword}{auto} deviceName = option.first;
+114       \textcolor{keyword}{auto} networkName = option.second;
+115 
+116       \textcolor{keywordflow}{if} (deviceName.empty() || networkName.empty()) \{
+117         \textcolor{keywordflow}{continue};
+118       \}
+119 
+120       \textcolor{keywordflow}{if} (pluginsForDevices.find(deviceName) != pluginsForDevices.end()) \{
+121         \textcolor{keywordflow}{continue};
+122       \}
+123       pluginsForDevices[deviceName] = *\hyperlink{classFactory_a4c3731eeb49aa60626dad92f4b2cbc0d}{Factory::makePluginByName}(
+124           deviceName, FLAGS\_l, FLAGS\_c, FLAGS\_pc);
+125     \}
+126     \textcolor{comment}{//
+       -----------------------------------------------------------------------------------------------------}
+127 
+128     \textcolor{comment}{// --------------------------- 2. Read IR models and load them to plugins
+       ------------------------------}
+129     \textcolor{comment}{//generate face detection object}
+130     \textcolor{keyword}{auto} face\_detection\_network =
+131         std::make\_shared<ValidatedFaceDetectionNetwork>(
+132             FLAGS\_m, FLAGS\_d, 1, 1, 1);
+133     face\_detection\_network->networkInit();
+134     \textcolor{keyword}{auto} face\_detection\_engine =
+135         std::make\_shared<NetworkEngine>(
+136             &pluginsForDevices[FLAGS\_d],*face\_detection\_network);
+137     \textcolor{keyword}{auto} face\_detection\_ptr =
+138         std::make\_shared<openvino\_service::FaceDetection >(
+139             face\_detection\_network->getMaxProposalCount(),
+140             face\_detection\_network->getObjectSize(), FLAGS\_t);
+141     face\_detection\_ptr->loadNetwork(face\_detection\_network);
+142     face\_detection\_ptr->loadEngine(face\_detection\_engine);
+143 
+144     \textcolor{comment}{//generate emotions classification object}
+145     \textcolor{keyword}{auto} emotions\_detection\_network =
+146         std::make\_shared<ValidatedEmotionsClassificationNetwork>(
+147             FLAGS\_m\_em, FLAGS\_d\_em, 1, 1, 16);
+148     emotions\_detection\_network->networkInit();
+149     \textcolor{keyword}{auto} emotions\_detection\_engine =
+150         std::make\_shared<NetworkEngine>(
+151             &pluginsForDevices[FLAGS\_d\_em],*emotions\_detection\_network);
+152     \textcolor{keyword}{auto} emotions\_detection\_ptr =
+153         std::make\_shared<openvino\_service::EmotionsDetection>();
+154     emotions\_detection\_ptr->loadNetwork(emotions\_detection\_network);
+155     emotions\_detection\_ptr->loadEngine(emotions\_detection\_engine);
+156 
+157     \textcolor{comment}{//generate agegender estimation object}
+158     \textcolor{keyword}{auto} agegender\_detection\_network =
+159         std::make\_shared<ValidatedAgeGenderNetwork>(
+160             FLAGS\_m\_ag, FLAGS\_d\_ag, 1, 2, 16);
+161     agegender\_detection\_network->networkInit();
+162     \textcolor{keyword}{auto} agegender\_detection\_engine =
+163         std::make\_shared<NetworkEngine>(
+164             &pluginsForDevices[FLAGS\_d\_ag],*agegender\_detection\_network);
+165     \textcolor{keyword}{auto} agegender\_detection\_ptr = std::make\_shared<openvino\_service::AgeGenderDetection>();
+166     agegender\_detection\_ptr->loadNetwork(agegender\_detection\_network);
+167     agegender\_detection\_ptr->loadEngine(agegender\_detection\_engine);
+168 
+169     \textcolor{comment}{//generate head pose estimation object}
+170     \textcolor{keyword}{auto} headpose\_detection\_network =
+171         std::make\_shared<ValidatedHeadPoseNetwork>(
+172             FLAGS\_m\_hp, FLAGS\_d\_hp, 1, 3, 16);
+173     headpose\_detection\_network->networkInit();
+174     \textcolor{keyword}{auto} headpose\_detection\_engine =
+175         std::make\_shared<NetworkEngine>(
+176             &pluginsForDevices[FLAGS\_d\_hp],*headpose\_detection\_network);
+177     \textcolor{keyword}{auto} headpose\_detection\_ptr = std::make\_shared<openvino\_service::HeadPoseDetection>();
+178     headpose\_detection\_ptr->loadNetwork(headpose\_detection\_network);
+179     headpose\_detection\_ptr->loadEngine(headpose\_detection\_engine);
+180     \textcolor{comment}{//
+       -----------------------------------------------------------------------------------------------------}
+181 
+182     \textcolor{comment}{// --------------------------- 3. Test Pipeline
+       ---------------------------------------------------------}
+183     pipe.\hyperlink{classPipeline_ad4e6ed704a4dc3df23488a9cf5cf2ae0}{add}(\textcolor{stringliteral}{"video\_input"}, \textcolor{stringliteral}{"face\_detection"}, face\_detection\_ptr);
+184     pipe.\hyperlink{classPipeline_ad4e6ed704a4dc3df23488a9cf5cf2ae0}{add}(\textcolor{stringliteral}{"face\_detection"}, \textcolor{stringliteral}{"headpose\_detection"}, headpose\_detection\_ptr);
+185 
+186     std::string window\_name = \textcolor{stringliteral}{"Detection results"};
+187     \textcolor{keyword}{auto} output\_ptr = std::make\_shared<ImageWindow>(window\_name,950.0);
+188     pipe.\hyperlink{classPipeline_ad4e6ed704a4dc3df23488a9cf5cf2ae0}{add}(\textcolor{stringliteral}{"headpose\_detection"}, \textcolor{stringliteral}{"video\_output"}, output\_ptr);
+189 
+190     \textcolor{keyword}{using namespace }cv;
+191     pipe.\hyperlink{classPipeline_a027bfee79c81ba2d11829e9116a06159}{setcallback}();
+192     \textcolor{keywordflow}{while} (waitKey(1) < 0 && cvGetWindowHandle(window\_name.c\_str())) \{
+193       pipe.\hyperlink{classPipeline_a5a2faba72449251db99090c4eaad3e1c}{runOnce}();
+194     \}
+195     slog::info << \textcolor{stringliteral}{"Execution successful"} << slog::endl;
+196     \textcolor{keywordflow}{return} 0;
+197   \}
+198   \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::exception &error) \{
+199     slog::err << error.what() << slog::endl;
+200     \textcolor{keywordflow}{return} 1;
+201   \}
+202   \textcolor{keywordflow}{catch} (...) \{
+203     slog::err << \textcolor{stringliteral}{"Unknown/internal exception happened."} << slog::endl;
+204     \textcolor{keywordflow}{return} 1;
+205   \}
+206 
+207   slog::info << \textcolor{stringliteral}{"Execution successful"} << slog::endl;
+208   \textcolor{keywordflow}{return} 0;
+209 \}
+\end{DoxyCode}
+\index{main.\+cpp@{main.\+cpp}!Parse\+And\+Check\+Command\+Line@{Parse\+And\+Check\+Command\+Line}}
+\index{Parse\+And\+Check\+Command\+Line@{Parse\+And\+Check\+Command\+Line}!main.\+cpp@{main.\+cpp}}
+\subsubsection[{\texorpdfstring{Parse\+And\+Check\+Command\+Line(int argc, char $\ast$argv[])}{ParseAndCheckCommandLine(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}bool Parse\+And\+Check\+Command\+Line (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{argc, }
+\item[{{\bf char} $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8cpp_a7599fc7c5fa5ccec88fdc9149dbac609}{}\label{main_8cpp_a7599fc7c5fa5ccec88fdc9149dbac609}
+
+
+Definition at line 56 of file main.\+cpp.
+
+
+\begin{DoxyCode}
+56                                                       \{
+57   \textcolor{comment}{// ---------------------------Parsing and validation of input args--------------------------------------}
+58   \hyperlink{namespaceGFLAGS__NAMESPACE_ac977e7dbc495e5977bc400e988fcddd1}{gflags::ParseCommandLineNonHelpFlags}(&argc, &argv, \textcolor{keyword}{true});
+59   \textcolor{keywordflow}{if} (FLAGS\_h) \{
+60     showUsage();
+61     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+62   \}
+63   slog::info << \textcolor{stringliteral}{"Parsing input parameters"} << slog::endl;
+64 
+65   \textcolor{keywordflow}{if} (FLAGS\_i.empty()) \{
+66     \textcolor{keywordflow}{throw} std::logic\_error(\textcolor{stringliteral}{"Parameter -i is not set"});
+67   \}
+68 
+69   \textcolor{keywordflow}{if} (FLAGS\_m.empty()) \{
+70     \textcolor{keywordflow}{throw} std::logic\_error(\textcolor{stringliteral}{"Parameter -m is not set"});
+71   \}
+72 
+73   \textcolor{keywordflow}{if} (FLAGS\_n\_ag < 1) \{
+74     \textcolor{keywordflow}{throw} std::logic\_error(\textcolor{stringliteral}{"Parameter -n\_ag cannot be 0"});
+75   \}
+76 
+77   \textcolor{keywordflow}{if} (FLAGS\_n\_hp < 1) \{
+78     \textcolor{keywordflow}{throw} std::logic\_error(\textcolor{stringliteral}{"Parameter -n\_hp cannot be 0"});
+79   \}
+80 
+81   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+82 \}
+\end{DoxyCode}

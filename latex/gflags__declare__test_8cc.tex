@@ -1,0 +1,70 @@
+\hypertarget{gflags__declare__test_8cc}{}\section{thirdparty/gflags/test/gflags\+\_\+declare\+\_\+test.cc File Reference}
+\label{gflags__declare__test_8cc}\index{thirdparty/gflags/test/gflags\+\_\+declare\+\_\+test.\+cc@{thirdparty/gflags/test/gflags\+\_\+declare\+\_\+test.\+cc}}
+{\ttfamily \#include $<$gflags/gflags.\+h$>$}\\*
+Include dependency graph for gflags\+\_\+declare\+\_\+test.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{gflags__declare__test_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{gflags__declare__test_8cc_a92cce79d113968221549a012715182d8}{D\+E\+F\+I\+N\+E\+\_\+string} (\hyperlink{CMakeLists_8txt_a5a0e1bdb38f357e7237b7fd6faec9bbc}{message},\char`\"{}\char`\"{},\char`\"{}The \hyperlink{CMakeLists_8txt_a5a0e1bdb38f357e7237b7fd6faec9bbc}{message} to print\char`\"{})
+\item 
+void \hyperlink{gflags__declare__test_8cc_ab7eb315d601f3fa3fd53ac0ba3238df3}{print\+\_\+message} ()
+\item 
+\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} \hyperlink{gflags__declare__test_8cc_a3c04138a5bfe5d72780bb7e82a18e627}{main} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} argc, \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{gflags\+\_\+declare\+\_\+test.\+cc@{gflags\+\_\+declare\+\_\+test.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+declare\+\_\+test.\+cc@{gflags\+\_\+declare\+\_\+test.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(message,"""",""The message to print"")}{DEFINE_string(message,"","The message to print")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{{\bf message}}]{, }
+\item[{\char`\"{}\char`\"{}}]{, }
+\item[{\char`\"{}The {\bf message} to print\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__declare__test_8cc_a92cce79d113968221549a012715182d8}{}\label{gflags__declare__test_8cc_a92cce79d113968221549a012715182d8}
+\index{gflags\+\_\+declare\+\_\+test.\+cc@{gflags\+\_\+declare\+\_\+test.\+cc}!main@{main}}
+\index{main@{main}!gflags\+\_\+declare\+\_\+test.\+cc@{gflags\+\_\+declare\+\_\+test.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} main (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{argc, }
+\item[{{\bf char} $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__declare__test_8cc_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{gflags__declare__test_8cc_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 6 of file gflags\+\_\+declare\+\_\+test.\+cc.
+
+
+\begin{DoxyCode}
+7 \{
+8   \hyperlink{namespaceGFLAGS__NAMESPACE_a6cae600f9a8925b6cd61162d99c8a39f}{gflags::SetUsageMessage}(\textcolor{stringliteral}{"Test compilation and use of gflags\_declare.h"});
+9   \hyperlink{namespaceGFLAGS__NAMESPACE_a270f505c35af2b16d625c1e6e2ba4f98}{gflags::ParseCommandLineFlags}(&argc, &argv, \textcolor{keyword}{true});
+10   \hyperlink{gflags__declare__test_8cc_ab7eb315d601f3fa3fd53ac0ba3238df3}{print\_message}();
+11   \textcolor{keywordflow}{return} 0;
+12 \}
+\end{DoxyCode}
+\index{gflags\+\_\+declare\+\_\+test.\+cc@{gflags\+\_\+declare\+\_\+test.\+cc}!print\+\_\+message@{print\+\_\+message}}
+\index{print\+\_\+message@{print\+\_\+message}!gflags\+\_\+declare\+\_\+test.\+cc@{gflags\+\_\+declare\+\_\+test.\+cc}}
+\subsubsection[{\texorpdfstring{print\+\_\+message()}{print_message()}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+message (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__declare__test_8cc_ab7eb315d601f3fa3fd53ac0ba3238df3}{}\label{gflags__declare__test_8cc_ab7eb315d601f3fa3fd53ac0ba3238df3}
+
+
+Definition at line 9 of file gflags\+\_\+declare\+\_\+flags.\+cc.
+
+
+\begin{DoxyCode}
+10 \{
+11   std::cout << FLAGS\_message << std::endl;
+12 \}
+\end{DoxyCode}

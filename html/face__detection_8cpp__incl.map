@@ -1,0 +1,9 @@
+<map id="lib/inferences/face_detection.cpp" name="lib/inferences/face_detection.cpp">
+<area shape="rect" id="node2" href="$face__detection_8h.html" title="openvino_service/inferences\l/face_detection.h" alt="" coords="318,95,505,136"/>
+<area shape="rect" id="node11" href="$slog_8hpp.html" title="openvino_service/slog.hpp" alt="" coords="754,281,930,307"/>
+<area shape="rect" id="node6" href="$base__inference_8h.html" title="openvino_service/inferences\l/base_inference.h" alt="" coords="253,184,439,225"/>
+<area shape="rect" id="node7" href="$engine_8h.html" title="a header file with definition for NetworkEngine class " alt="" coords="507,273,679,315"/>
+<area shape="rect" id="node9" href="$data__struct_8h.html" title="a header file with denifition of the return result type of each network " alt="" coords="46,363,198,404"/>
+<area shape="rect" id="node10" href="$output_8h.html" title="a header file with definition of Output class " alt="" coords="66,273,237,315"/>
+<area shape="rect" id="node8" href="$validated__network_8h.html" title="openvino_service/models\l/validated_network.h" alt="" coords="436,363,605,404"/>
+</map>

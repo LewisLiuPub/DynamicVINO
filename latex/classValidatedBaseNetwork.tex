@@ -1,0 +1,213 @@
+\hypertarget{classValidatedBaseNetwork}{}\section{Validated\+Base\+Network Class Reference}
+\label{classValidatedBaseNetwork}\index{Validated\+Base\+Network@{Validated\+Base\+Network}}
+
+
+{\ttfamily \#include $<$validated\+\_\+network.\+h$>$}
+
+
+
+Inheritance diagram for Validated\+Base\+Network\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classValidatedBaseNetwork__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classValidatedBaseNetwork_acd5df9d5e7e12a7c5d1952a0514e020c}{Validated\+Base\+Network} (const std\+::string \&, const std\+::string \&, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int}, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int}, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int})
+\item 
+std\+::vector$<$ std\+::string $>$ \& \hyperlink{classValidatedBaseNetwork_a910ff44b8e6d9433e713131c59468900}{get\+Labels} ()
+\item 
+const std\+::vector$<$ std\+::string $>$ \hyperlink{classValidatedBaseNetwork_a2738e5ea649a8ff282cb411cebe0ea76}{get\+Labels} () const 
+\item 
+const \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} \hyperlink{classValidatedBaseNetwork_a2cbce029c3eded2d7ed25a04a17f15d7}{get\+Max\+Batch\+Size} () const 
+\item 
+void \hyperlink{classValidatedBaseNetwork_aab380dc846bece3d102f2886eaf0c8ab}{network\+Init} ()
+\item 
+virtual const std\+::string \hyperlink{classValidatedBaseNetwork_ad2fdf0b3d87e530e699a6569236a2c8c}{get\+Network\+Name} () const =0
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classValidatedBaseNetwork_a99f4bc59446921b25014c3690269e8e9}{check\+Layer\+Property} (const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&)=0
+\item 
+virtual void \hyperlink{classValidatedBaseNetwork_a3b43f5e3b004d75873a644d2132fbb58}{set\+Layer\+Property} (Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr)=0
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classValidatedBaseNetwork_ab76946120683c05c183e6deb983ac468}{Network\+Engine}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 10 of file validated\+\_\+network.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Validated\+Base\+Network@{Validated\+Base\+Network}!Validated\+Base\+Network@{Validated\+Base\+Network}}
+\index{Validated\+Base\+Network@{Validated\+Base\+Network}!Validated\+Base\+Network@{Validated\+Base\+Network}}
+\subsubsection[{\texorpdfstring{Validated\+Base\+Network(const std\+::string \&, const std\+::string \&, int, int, int)}{ValidatedBaseNetwork(const std::string &, const std::string &, int, int, int)}}]{\setlength{\rightskip}{0pt plus 5cm}Validated\+Base\+Network\+::\+Validated\+Base\+Network (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{model\+\_\+loc, }
+\item[{const std\+::string \&}]{device, }
+\item[{{\bf int}}]{input\+\_\+num, }
+\item[{{\bf int}}]{output\+\_\+num, }
+\item[{{\bf int}}]{max\+\_\+batch\+\_\+size}
+\end{DoxyParamCaption}
+)}\hypertarget{classValidatedBaseNetwork_acd5df9d5e7e12a7c5d1952a0514e020c}{}\label{classValidatedBaseNetwork_acd5df9d5e7e12a7c5d1952a0514e020c}
+
+
+Definition at line 12 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+14                                                        :
+15     input\_num\_(input\_num), output\_num\_(output\_num),
+16     model\_loc\_(model\_loc), device\_(device), max\_batch\_size\_(max\_batch\_size) \{
+17   \textcolor{keywordflow}{if} (model\_loc.empty() || device.empty()) \{
+18     \textcolor{keywordflow}{throw} std::logic\_error(\textcolor{stringliteral}{"model file or device name is empty!"});
+19   \}
+20   net\_reader\_ = std::make\_shared<InferenceEngine::CNNNetReader>();
+21 \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Validated\+Base\+Network@{Validated\+Base\+Network}!check\+Layer\+Property@{check\+Layer\+Property}}
+\index{check\+Layer\+Property@{check\+Layer\+Property}!Validated\+Base\+Network@{Validated\+Base\+Network}}
+\subsubsection[{\texorpdfstring{check\+Layer\+Property(const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&)=0}{checkLayerProperty(const InferenceEngine::CNNNetReader::Ptr &)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Validated\+Base\+Network\+::check\+Layer\+Property (
+\begin{DoxyParamCaption}
+\item[{const Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}\hypertarget{classValidatedBaseNetwork_a99f4bc59446921b25014c3690269e8e9}{}\label{classValidatedBaseNetwork_a99f4bc59446921b25014c3690269e8e9}
+
+
+Implemented in \hyperlink{classValidatedHeadPoseNetwork_a29656482a9102a936766f6bedd8d2967}{Validated\+Head\+Pose\+Network}, \hyperlink{classValidatedAgeGenderNetwork_ab44a374f2d35331b3ff4d396570e3120}{Validated\+Age\+Gender\+Network}, \hyperlink{classValidatedEmotionsClassificationNetwork_a825e707c901677e44ac46a9df6458a56}{Validated\+Emotions\+Classification\+Network}, and \hyperlink{classValidatedFaceDetectionNetwork_a11fa93d64058521c37940196ed29fddc}{Validated\+Face\+Detection\+Network}.
+
+\index{Validated\+Base\+Network@{Validated\+Base\+Network}!get\+Labels@{get\+Labels}}
+\index{get\+Labels@{get\+Labels}!Validated\+Base\+Network@{Validated\+Base\+Network}}
+\subsubsection[{\texorpdfstring{get\+Labels()}{getLabels()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$std\+::string$>$\& Validated\+Base\+Network\+::get\+Labels (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedBaseNetwork_a910ff44b8e6d9433e713131c59468900}{}\label{classValidatedBaseNetwork_a910ff44b8e6d9433e713131c59468900}
+
+
+Definition at line 14 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+14 \{ \textcolor{keywordflow}{return} labels\_; \}
+\end{DoxyCode}
+\index{Validated\+Base\+Network@{Validated\+Base\+Network}!get\+Labels@{get\+Labels}}
+\index{get\+Labels@{get\+Labels}!Validated\+Base\+Network@{Validated\+Base\+Network}}
+\subsubsection[{\texorpdfstring{get\+Labels() const }{getLabels() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::vector$<$std\+::string$>$ Validated\+Base\+Network\+::get\+Labels (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedBaseNetwork_a2738e5ea649a8ff282cb411cebe0ea76}{}\label{classValidatedBaseNetwork_a2738e5ea649a8ff282cb411cebe0ea76}
+
+
+Definition at line 15 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+15 \{ \textcolor{keywordflow}{return} labels\_; \}
+\end{DoxyCode}
+\index{Validated\+Base\+Network@{Validated\+Base\+Network}!get\+Max\+Batch\+Size@{get\+Max\+Batch\+Size}}
+\index{get\+Max\+Batch\+Size@{get\+Max\+Batch\+Size}!Validated\+Base\+Network@{Validated\+Base\+Network}}
+\subsubsection[{\texorpdfstring{get\+Max\+Batch\+Size() const }{getMaxBatchSize() const }}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf int} Validated\+Base\+Network\+::get\+Max\+Batch\+Size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classValidatedBaseNetwork_a2cbce029c3eded2d7ed25a04a17f15d7}{}\label{classValidatedBaseNetwork_a2cbce029c3eded2d7ed25a04a17f15d7}
+
+
+Definition at line 16 of file validated\+\_\+network.\+h.
+
+
+\begin{DoxyCode}
+16 \{ \textcolor{keywordflow}{return} max\_batch\_size\_;\}
+\end{DoxyCode}
+\index{Validated\+Base\+Network@{Validated\+Base\+Network}!get\+Network\+Name@{get\+Network\+Name}}
+\index{get\+Network\+Name@{get\+Network\+Name}!Validated\+Base\+Network@{Validated\+Base\+Network}}
+\subsubsection[{\texorpdfstring{get\+Network\+Name() const =0}{getNetworkName() const =0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual const std\+::string Validated\+Base\+Network\+::get\+Network\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classValidatedBaseNetwork_ad2fdf0b3d87e530e699a6569236a2c8c}{}\label{classValidatedBaseNetwork_ad2fdf0b3d87e530e699a6569236a2c8c}
+
+
+Implemented in \hyperlink{classValidatedHeadPoseNetwork_ac711ff3689e858fc089919a185d6eab8}{Validated\+Head\+Pose\+Network}, \hyperlink{classValidatedAgeGenderNetwork_ab53dec40a82af2d061a4976f686a42f5}{Validated\+Age\+Gender\+Network}, \hyperlink{classValidatedEmotionsClassificationNetwork_a37181363cf9367379cdcb11cb2d5e7b7}{Validated\+Emotions\+Classification\+Network}, and \hyperlink{classValidatedFaceDetectionNetwork_aecbdd3b338b04f78b6c7bab6db8a9b84}{Validated\+Face\+Detection\+Network}.
+
+\index{Validated\+Base\+Network@{Validated\+Base\+Network}!network\+Init@{network\+Init}}
+\index{network\+Init@{network\+Init}!Validated\+Base\+Network@{Validated\+Base\+Network}}
+\subsubsection[{\texorpdfstring{network\+Init()}{networkInit()}}]{\setlength{\rightskip}{0pt plus 5cm}void Validated\+Base\+Network\+::network\+Init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classValidatedBaseNetwork_aab380dc846bece3d102f2886eaf0c8ab}{}\label{classValidatedBaseNetwork_aab380dc846bece3d102f2886eaf0c8ab}
+
+
+Definition at line 23 of file validated\+\_\+network.\+cpp.
+
+
+\begin{DoxyCode}
+23                                        \{
+24   slog::info << \textcolor{stringliteral}{"Loading network files"} << slog::endl;
+25   \textcolor{comment}{//Read network model}
+26   net\_reader\_->ReadNetwork(model\_loc\_);
+27   \textcolor{comment}{//Set batch size to given max\_batch\_size\_}
+28   slog::info << \textcolor{stringliteral}{"Batch size is set to  "} << max\_batch\_size\_ << slog::endl;
+29   net\_reader\_->getNetwork().setBatchSize(max\_batch\_size\_);
+30   \textcolor{comment}{//Extract model name and load it's weights}
+31   \textcolor{comment}{//remove extension}
+32   \textcolor{keywordtype}{size\_t} last\_index = model\_loc\_.find\_last\_of(\textcolor{stringliteral}{"."});
+33   std::string raw\_name = model\_loc\_.substr(0, last\_index);
+34   std::string bin\_file\_name = raw\_name + \textcolor{stringliteral}{".bin"};
+35   net\_reader\_->ReadWeights(bin\_file\_name);
+36   \textcolor{comment}{//Read labels (if any)}
+37   std::string label\_file\_name = raw\_name + \textcolor{stringliteral}{".labels"};
+38   std::ifstream input\_file(label\_file\_name);
+39   std::copy(std::istream\_iterator<std::string>(input\_file),
+40             std::istream\_iterator<std::string>(),
+41             std::back\_inserter(labels\_));
+42   checkNetworkSize(input\_num\_, output\_num\_, net\_reader\_);
+43   \hyperlink{classValidatedBaseNetwork_a99f4bc59446921b25014c3690269e8e9}{checkLayerProperty}(net\_reader\_);
+44   \hyperlink{classValidatedBaseNetwork_a3b43f5e3b004d75873a644d2132fbb58}{setLayerProperty}(net\_reader\_);
+45 \}
+\end{DoxyCode}
+\index{Validated\+Base\+Network@{Validated\+Base\+Network}!set\+Layer\+Property@{set\+Layer\+Property}}
+\index{set\+Layer\+Property@{set\+Layer\+Property}!Validated\+Base\+Network@{Validated\+Base\+Network}}
+\subsubsection[{\texorpdfstring{set\+Layer\+Property(\+Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr)=0}{setLayerProperty(InferenceEngine::CNNNetReader::Ptr)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Validated\+Base\+Network\+::set\+Layer\+Property (
+\begin{DoxyParamCaption}
+\item[{Inference\+Engine\+::\+C\+N\+N\+Net\+Reader\+::\+Ptr}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}\hypertarget{classValidatedBaseNetwork_a3b43f5e3b004d75873a644d2132fbb58}{}\label{classValidatedBaseNetwork_a3b43f5e3b004d75873a644d2132fbb58}
+
+
+Implemented in \hyperlink{classValidatedHeadPoseNetwork_a35f7c37270398f1ac06d342a73b29f62}{Validated\+Head\+Pose\+Network}, \hyperlink{classValidatedAgeGenderNetwork_a5c39aa39e7cc3abf984a29bdf9e61d47}{Validated\+Age\+Gender\+Network}, \hyperlink{classValidatedEmotionsClassificationNetwork_a1ee0df076b78a08a00bf9447e9130d09}{Validated\+Emotions\+Classification\+Network}, and \hyperlink{classValidatedFaceDetectionNetwork_ac24b2e9e36a06c4f9a8db5bf1aa7a8c7}{Validated\+Face\+Detection\+Network}.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\index{Validated\+Base\+Network@{Validated\+Base\+Network}!Network\+Engine@{Network\+Engine}}
+\index{Network\+Engine@{Network\+Engine}!Validated\+Base\+Network@{Validated\+Base\+Network}}
+\subsubsection[{\texorpdfstring{Network\+Engine}{NetworkEngine}}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Network\+Engine}\hspace{0.3cm}{\ttfamily [friend]}}\hypertarget{classValidatedBaseNetwork_ab76946120683c05c183e6deb983ac468}{}\label{classValidatedBaseNetwork_ab76946120683c05c183e6deb983ac468}
+
+
+Definition at line 25 of file validated\+\_\+network.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/openvino\+\_\+service/models/\hyperlink{validated__network_8h}{validated\+\_\+network.\+h}\item 
+lib/network\+\_\+models/\hyperlink{validated__network_8cpp}{validated\+\_\+network.\+cpp}\end{DoxyCompactItemize}

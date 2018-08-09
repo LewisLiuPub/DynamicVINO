@@ -1,0 +1,304 @@
+\hypertarget{gflags_8cc}{}\section{thirdparty/gflags/src/gflags.cc File Reference}
+\label{gflags_8cc}\index{thirdparty/gflags/src/gflags.\+cc@{thirdparty/gflags/src/gflags.\+cc}}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gflags/gflags.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$stdarg.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}mutex.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\\*
+Include dependency graph for gflags.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gflags_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structGFLAGS__NAMESPACE_1_1FilenameFlagnameCmp}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Filename\+Flagname\+Cmp}
+\item 
+class \hyperlink{classGFLAGS__NAMESPACE_1_1FlagSaverImpl}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Flag\+Saver\+Impl}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceGFLAGS__NAMESPACE}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gflags_8cc_ae3a97efa7951c9f62847bf529eba28f9}{D\+E\+F\+I\+N\+E\+\_\+\+F\+L\+A\+G\+\_\+\+T\+R\+A\+I\+TS}(type,  value)
+\item 
+\#define \hyperlink{gflags_8cc_a2bc60afe56c42da96e5af6dbe79af723}{V\+A\+L\+U\+E\+\_\+\+AS}(type)~$\ast$reinterpret\+\_\+cast$<$type$\ast$$>$(value\+\_\+buffer\+\_\+)
+\item 
+\#define \hyperlink{gflags_8cc_a21407ee825b7418d5af550a1e28ae614}{O\+T\+H\+E\+R\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS}(fv,  type)~$\ast$reinterpret\+\_\+cast$<$type$\ast$$>$(fv.\+value\+\_\+buffer\+\_\+)
+\item 
+\#define \hyperlink{gflags_8cc_a7b54f2ba76945d411e7bf68b00ca8e6f}{S\+E\+T\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS}(type,  value)~\hyperlink{gflags_8cc_a2bc60afe56c42da96e5af6dbe79af723}{V\+A\+L\+U\+E\+\_\+\+AS}(type) = (value)
+\item 
+\#define \hyperlink{gflags_8cc_a321a8089a647e0fef4546a4a03b61ce0}{P\+F\+A\+T\+AL}(s)~do \{ perror(s); gflags\+\_\+exitfunc(1); \} while (0)
+\item 
+\#define \hyperlink{gflags_8cc_a45b657d7e51e5db203746cdd23470952}{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR}(type)
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{gflags_8cc_abeb37cc8230b0e710c46c5beeae09f97}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::@108\+::\+Die\+When\+Reporting} 
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{gflags_8cc_a8b1a6e5ceae4fd5bcf1a839a28e77403}{D\+E\+F\+I\+N\+E\+\_\+string} (flagfile,\char`\"{}\char`\"{},\char`\"{}load flags from file\char`\"{})
+\item 
+\hyperlink{gflags_8cc_ae7caad6b672f98d6791283be7e0735c6}{D\+E\+F\+I\+N\+E\+\_\+string} (fromenv,\char`\"{}\char`\"{},\char`\"{}set flags from the environment\char`\"{}\char`\"{} \mbox{[}use \textquotesingle{}export F\+L\+A\+G\+S\+\_\+flag1=value\textquotesingle{}\mbox{]}\char`\"{})
+\item 
+\hyperlink{gflags_8cc_a019b996afa1bd4dae97eddfed47248df}{D\+E\+F\+I\+N\+E\+\_\+string} (tryfromenv,\char`\"{}\char`\"{},\char`\"{}set flags from the environment \hyperlink{thirdparty_2gflags_2test_2CMakeLists_8txt_a102cdd39d1229ea99555942b43b6a137}{if} present\char`\"{})
+\item 
+\hyperlink{gflags_8cc_aac2a433e8e7cc7638d12838468d36a16}{D\+E\+F\+I\+N\+E\+\_\+string} (undefok,\char`\"{}\char`\"{},\char`\"{}comma-\/separated \hyperlink{CMakeLists_8txt_a548e427ae9357a6f3536cff3ca23efda}{list} of flag names that it is okay to specify \char`\"{}\char`\"{}on the command line even \hyperlink{thirdparty_2gflags_2test_2CMakeLists_8txt_a102cdd39d1229ea99555942b43b6a137}{if} the program does not define a flag \char`\"{}\char`\"{}with that name.  I\+M\+P\+O\+R\+T\+A\+N\+T\+: flags in this \hyperlink{CMakeLists_8txt_a548e427ae9357a6f3536cff3ca23efda}{list} that have \char`\"{}\char`\"{}arguments M\+U\+ST use the flag=value format\char`\"{})
+\item 
+\hyperlink{namespaceGFLAGS__NAMESPACE_a2d465debff2dd4d295ffafbeaefabe5f}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR} (bool)
+\item 
+\hyperlink{namespaceGFLAGS__NAMESPACE_afbac0197de5af62e9b4acf518ce33ff0}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR} (int32)
+\item 
+\hyperlink{namespaceGFLAGS__NAMESPACE_a937975f47c5045ec178c9cee46e62748}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR} (uint32)
+\item 
+\hyperlink{namespaceGFLAGS__NAMESPACE_a791b7fce03155a840603bb810e5ded29}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR} (int64)
+\item 
+\hyperlink{namespaceGFLAGS__NAMESPACE_a94d0382d45b594012a336345af402024}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR} (uint64)
+\item 
+\hyperlink{namespaceGFLAGS__NAMESPACE_a4b147bc103886bb8884137e82158a4a7}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR} (double)
+\item 
+\hyperlink{namespaceGFLAGS__NAMESPACE_a92082a36e3f087b1e5e13a3f52c4491c}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR} (std\+::string)
+\item 
+void \hyperlink{namespaceGFLAGS__NAMESPACE_a3d4317d41526fd8cebb5a0556bbcc69e}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Get\+All\+Flags} (vector$<$ Command\+Line\+Flag\+Info $>$ $\ast$O\+U\+T\+P\+UT)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} void \hyperlink{namespaceGFLAGS__NAMESPACE_a56efe1ece8853bb7feca32a34a5530e3}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Set\+Argv} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} argc, const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$$\ast$argv)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} const std\+::vector$<$ std\+::string $>$ \& \hyperlink{namespaceGFLAGS__NAMESPACE_a9823fd75e2bb26bf048d03e06a1ae643}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Get\+Argvs} ()
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$ \hyperlink{namespaceGFLAGS__NAMESPACE_a0164b8c4afdad11c9d0d0c1e8c4d1546}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Get\+Argv} ()
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$ \hyperlink{namespaceGFLAGS__NAMESPACE_acac262c920bba6e2eee9a0eb4347994a}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Get\+Argv0} ()
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} uint32 \hyperlink{namespaceGFLAGS__NAMESPACE_ae4b5f48e9b343ff1e7c1a7f2e306b57f}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Get\+Argv\+Sum} ()
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$ \hyperlink{namespaceGFLAGS__NAMESPACE_a75733a353dab72de5ebf20bd587edeb7}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Program\+Invocation\+Name} ()
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$ \hyperlink{namespaceGFLAGS__NAMESPACE_aa23bf54a6aa01d34252f16614ea96f71}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Program\+Invocation\+Short\+Name} ()
+\item 
+void \hyperlink{namespaceGFLAGS__NAMESPACE_a2339f1c302c2db3d0b7c9de4213892e5}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Set\+Usage\+Message} (const string \&usage)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$ \hyperlink{namespaceGFLAGS__NAMESPACE_a0141c5fc3a3b9f74dc8c2a662673b272}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Program\+Usage} ()
+\item 
+void \hyperlink{namespaceGFLAGS__NAMESPACE_ae9d3c771e1d71e0af6d9ce7942bb8cbf}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Set\+Version\+String} (const string \&version)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$ \hyperlink{namespaceGFLAGS__NAMESPACE_a82cde10864775779243e020791d81488}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Version\+String} ()
+\item 
+bool \hyperlink{namespaceGFLAGS__NAMESPACE_ae42fb56172861a9de178216ce2f28a72}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Get\+Command\+Line\+Option} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$name, string $\ast$value)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} bool \hyperlink{namespaceGFLAGS__NAMESPACE_ac952e1a7ef602e39d4baaef1a95fd07e}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Get\+Command\+Line\+Flag\+Info} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$name, Command\+Line\+Flag\+Info $\ast$O\+U\+T\+P\+UT)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} Command\+Line\+Flag\+Info \hyperlink{namespaceGFLAGS__NAMESPACE_a03ac9ffcca80eebe92713178d01219b9}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Get\+Command\+Line\+Flag\+Info\+Or\+Die} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$name)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} std\+::string \hyperlink{namespaceGFLAGS__NAMESPACE_afd0d942622b561be1fdf94fe52682f4a}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Set\+Command\+Line\+Option\+With\+Mode} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$name, const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$value, Flag\+Setting\+Mode set\+\_\+mode)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} std\+::string \hyperlink{namespaceGFLAGS__NAMESPACE_a71658298aa09abb3411109569d1571d1}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Set\+Command\+Line\+Option} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$name, const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$value)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} std\+::string \hyperlink{namespaceGFLAGS__NAMESPACE_a58b86edf96859282a665e264143d2ffe}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Commandline\+Flags\+Into\+String} ()
+\item 
+bool \hyperlink{namespaceGFLAGS__NAMESPACE_adf8b5e5a4c15cfc3ee6e06666cbe0932}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Read\+Flags\+From\+String} (const string \&flagfilecontents, const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$, bool errors\+\_\+are\+\_\+fatal)
+\item 
+bool \hyperlink{namespaceGFLAGS__NAMESPACE_a2ff16752a6f5318c43fc09d28dddb5a7}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Append\+Flags\+Into\+File} (const string \&filename, const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$prog\+\_\+name)
+\item 
+bool \hyperlink{namespaceGFLAGS__NAMESPACE_aad4db2cf17575d15496b57abb04c3720}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Read\+From\+Flags\+File} (const string \&filename, const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$prog\+\_\+name, bool errors\+\_\+are\+\_\+fatal)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} bool \hyperlink{namespaceGFLAGS__NAMESPACE_a28fbcf7d138a427db77c7d1e2afebbcb}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Bool\+From\+Env} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$varname, bool defval)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} int32 \hyperlink{namespaceGFLAGS__NAMESPACE_ab3ca249ca2901f636fe8212e600cee12}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Int32\+From\+Env} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$varname, int32 defval)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} uint32 \hyperlink{namespaceGFLAGS__NAMESPACE_a5247b8a5f336e436ff6efd338ef952b3}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Uint32\+From\+Env} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$varname, uint32 defval)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} int64 \hyperlink{namespaceGFLAGS__NAMESPACE_a24fbeacb9c533246ba64176f7278b92f}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Int64\+From\+Env} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$varname, int64 defval)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} uint64 \hyperlink{namespaceGFLAGS__NAMESPACE_a344ca3b1d99470fc0f16272ed4c0a90d}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Uint64\+From\+Env} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$varname, uint64 defval)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} double \hyperlink{namespaceGFLAGS__NAMESPACE_ab9037f9a8b4d3d73f235928cef8c02cd}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Double\+From\+Env} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$varname, double defval)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$ \hyperlink{namespaceGFLAGS__NAMESPACE_ae2bca5f081e3fdccf27aec4320ca728c}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+String\+From\+Env} (const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$varname, const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$defval)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} bool \hyperlink{namespaceGFLAGS__NAMESPACE_a9c82301dac83029d50b8deb4133afed4}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Register\+Flag\+Validator} (const bool $\ast$flag, bool($\ast$validate\+\_\+fn)(const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$, bool))
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} bool \hyperlink{namespaceGFLAGS__NAMESPACE_abce30e0f7e6056aef2a9405115b63d54}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Register\+Flag\+Validator} (const int32 $\ast$flag, bool($\ast$validate\+\_\+fn)(const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$, int32))
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} bool \hyperlink{namespaceGFLAGS__NAMESPACE_a2ed34dcca8ee28d087e6aa414905e23c}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Register\+Flag\+Validator} (const uint32 $\ast$flag, bool($\ast$validate\+\_\+fn)(const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$, uint32))
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} bool \hyperlink{namespaceGFLAGS__NAMESPACE_a279dca76b92be2bcb9b821f195d0d94d}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Register\+Flag\+Validator} (const int64 $\ast$flag, bool($\ast$validate\+\_\+fn)(const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$, int64))
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} bool \hyperlink{namespaceGFLAGS__NAMESPACE_adc7c8e1b2db6f4ac4f79e41e9c3209ec}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Register\+Flag\+Validator} (const uint64 $\ast$flag, bool($\ast$validate\+\_\+fn)(const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$, uint64))
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} bool \hyperlink{namespaceGFLAGS__NAMESPACE_abde621581f5723f4d194845d7c5f4a10}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Register\+Flag\+Validator} (const double $\ast$flag, bool($\ast$validate\+\_\+fn)(const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$, double))
+\item 
+bool \hyperlink{namespaceGFLAGS__NAMESPACE_a4b31b1a19ef9e10f0d6808ee88e8238a}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Register\+Flag\+Validator} (const string $\ast$flag, bool($\ast$validate\+\_\+fn)(const \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$, const string \&))
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} uint32 \hyperlink{namespaceGFLAGS__NAMESPACE_a270f505c35af2b16d625c1e6e2ba4f98}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Parse\+Command\+Line\+Flags} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} $\ast$argc, \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$$\ast$$\ast$argv, bool remove\+\_\+flags)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} uint32 \hyperlink{namespaceGFLAGS__NAMESPACE_ac977e7dbc495e5977bc400e988fcddd1}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Parse\+Command\+Line\+Non\+Help\+Flags} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} $\ast$argc, \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$$\ast$$\ast$argv, bool remove\+\_\+flags)
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} void \hyperlink{namespaceGFLAGS__NAMESPACE_a07d79848671f783c79474d07c04218fc}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Allow\+Command\+Line\+Reparsing} ()
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} void \hyperlink{namespaceGFLAGS__NAMESPACE_ae8dbac3e47a53fecac2328e08c3055ab}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Reparse\+Command\+Line\+Non\+Help\+Flags} ()
+\item 
+\hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL} void \hyperlink{namespaceGFLAGS__NAMESPACE_a6097c19150d6fce1f7ccf7d161f8814e}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Shut\+Down\+Command\+Line\+Flags} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{gflags__declare_8h_ab630d48e0b993f39ca96b0c4401f01cf}{G\+F\+L\+A\+G\+S\+\_\+\+D\+L\+L\+\_\+\+D\+E\+CL}($\ast$ \hyperlink{namespaceGFLAGS__NAMESPACE_a92540f20c8cabd198b987ac84a539078}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::gflags\+\_\+exitfunc} )(\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int}) = \&exit
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{gflags.\+cc@{gflags.\+cc}!D\+E\+F\+I\+N\+E\+\_\+\+F\+L\+A\+G\+\_\+\+T\+R\+A\+I\+TS@{D\+E\+F\+I\+N\+E\+\_\+\+F\+L\+A\+G\+\_\+\+T\+R\+A\+I\+TS}}
+\index{D\+E\+F\+I\+N\+E\+\_\+\+F\+L\+A\+G\+\_\+\+T\+R\+A\+I\+TS@{D\+E\+F\+I\+N\+E\+\_\+\+F\+L\+A\+G\+\_\+\+T\+R\+A\+I\+TS}!gflags.\+cc@{gflags.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+\+F\+L\+A\+G\+\_\+\+T\+R\+A\+I\+TS}{DEFINE_FLAG_TRAITS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+F\+I\+N\+E\+\_\+\+F\+L\+A\+G\+\_\+\+T\+R\+A\+I\+TS(
+\begin{DoxyParamCaption}
+\item[{}]{type, }
+\item[{}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags_8cc_ae3a97efa7951c9f62847bf529eba28f9}{}\label{gflags_8cc_ae3a97efa7951c9f62847bf529eba28f9}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keyword}{template} <>                                  \(\backslash\)
+  struct FlagValue::FlagValueTraits<type> \{    \(\backslash\)
+    static \textcolor{keyword}{const} ValueType kValueType = value; \(\backslash\)
+  \}
+\end{DoxyCode}
+
+
+Definition at line 245 of file gflags.\+cc.
+
+\index{gflags.\+cc@{gflags.\+cc}!I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR@{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR}}
+\index{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR@{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR}!gflags.\+cc@{gflags.\+cc}}
+\subsubsection[{\texorpdfstring{I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR}{INSTANTIATE_FLAG_REGISTERER_CTOR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+E\+R\+\_\+\+C\+T\+OR(
+\begin{DoxyParamCaption}
+\item[{}]{type}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags_8cc_a45b657d7e51e5db203746cdd23470952}{}\label{gflags_8cc_a45b657d7e51e5db203746cdd23470952}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keyword}{template} \hyperlink{config_8h_ab630d48e0b993f39ca96b0c4401f01cf}{GFLAGS\_DLL\_DECL} FlagRegisterer::FlagRegisterer(      \(\backslash\)
+      \textcolor{keyword}{const} \textcolor{keywordtype}{char}* name, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* help, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* filename, \(\backslash\)
+      type* current\_storage, type* defvalue\_storage)
+\end{DoxyCode}
+
+
+Definition at line 1484 of file gflags.\+cc.
+
+\index{gflags.\+cc@{gflags.\+cc}!O\+T\+H\+E\+R\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS@{O\+T\+H\+E\+R\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS}}
+\index{O\+T\+H\+E\+R\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS@{O\+T\+H\+E\+R\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS}!gflags.\+cc@{gflags.\+cc}}
+\subsubsection[{\texorpdfstring{O\+T\+H\+E\+R\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS}{OTHER_VALUE_AS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+T\+H\+E\+R\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS(
+\begin{DoxyParamCaption}
+\item[{}]{fv, }
+\item[{}]{type}
+\end{DoxyParamCaption}
+)~$\ast$reinterpret\+\_\+cast$<$type$\ast$$>$(fv.\+value\+\_\+buffer\+\_\+)}\hypertarget{gflags_8cc_a21407ee825b7418d5af550a1e28ae614}{}\label{gflags_8cc_a21407ee825b7418d5af550a1e28ae614}
+
+
+Definition at line 267 of file gflags.\+cc.
+
+\index{gflags.\+cc@{gflags.\+cc}!P\+F\+A\+T\+AL@{P\+F\+A\+T\+AL}}
+\index{P\+F\+A\+T\+AL@{P\+F\+A\+T\+AL}!gflags.\+cc@{gflags.\+cc}}
+\subsubsection[{\texorpdfstring{P\+F\+A\+T\+AL}{PFATAL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+F\+A\+T\+AL(
+\begin{DoxyParamCaption}
+\item[{}]{s}
+\end{DoxyParamCaption}
+)~do \{ perror(s); gflags\+\_\+exitfunc(1); \} while (0)}\hypertarget{gflags_8cc_a321a8089a647e0fef4546a4a03b61ce0}{}\label{gflags_8cc_a321a8089a647e0fef4546a4a03b61ce0}
+
+
+Definition at line 1044 of file gflags.\+cc.
+
+\index{gflags.\+cc@{gflags.\+cc}!S\+E\+T\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS@{S\+E\+T\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS}}
+\index{S\+E\+T\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS@{S\+E\+T\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS}!gflags.\+cc@{gflags.\+cc}}
+\subsubsection[{\texorpdfstring{S\+E\+T\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS}{SET_VALUE_AS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+T\+\_\+\+V\+A\+L\+U\+E\+\_\+\+AS(
+\begin{DoxyParamCaption}
+\item[{}]{type, }
+\item[{}]{value}
+\end{DoxyParamCaption}
+)~{\bf V\+A\+L\+U\+E\+\_\+\+AS}(type) = (value)}\hypertarget{gflags_8cc_a7b54f2ba76945d411e7bf68b00ca8e6f}{}\label{gflags_8cc_a7b54f2ba76945d411e7bf68b00ca8e6f}
+
+
+Definition at line 268 of file gflags.\+cc.
+
+\index{gflags.\+cc@{gflags.\+cc}!V\+A\+L\+U\+E\+\_\+\+AS@{V\+A\+L\+U\+E\+\_\+\+AS}}
+\index{V\+A\+L\+U\+E\+\_\+\+AS@{V\+A\+L\+U\+E\+\_\+\+AS}!gflags.\+cc@{gflags.\+cc}}
+\subsubsection[{\texorpdfstring{V\+A\+L\+U\+E\+\_\+\+AS}{VALUE_AS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+A\+L\+U\+E\+\_\+\+AS(
+\begin{DoxyParamCaption}
+\item[{}]{type}
+\end{DoxyParamCaption}
+)~$\ast$reinterpret\+\_\+cast$<$type$\ast$$>$(value\+\_\+buffer\+\_\+)}\hypertarget{gflags_8cc_a2bc60afe56c42da96e5af6dbe79af723}{}\label{gflags_8cc_a2bc60afe56c42da96e5af6dbe79af723}
+
+
+Definition at line 266 of file gflags.\+cc.
+
+
+
+\subsection{Enumeration Type Documentation}
+\index{gflags.\+cc@{gflags.\+cc}!Die\+When\+Reporting@{Die\+When\+Reporting}}
+\index{Die\+When\+Reporting@{Die\+When\+Reporting}!gflags.\+cc@{gflags.\+cc}}
+\subsubsection[{\texorpdfstring{Die\+When\+Reporting}{DieWhenReporting}}]{\setlength{\rightskip}{0pt plus 5cm}enum G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::@108\+::Die\+When\+Reporting}\hypertarget{gflags_8cc_file_abeb37cc8230b0e710c46c5beeae09f97}{}\label{gflags_8cc_file_abeb37cc8230b0e710c46c5beeae09f97}
+
+
+Definition at line 170 of file gflags.\+cc.
+
+
+\begin{DoxyCode}
+170 \{ DIE, DO\_NOT\_DIE \};
+\end{DoxyCode}
+
+
+\subsection{Function Documentation}
+\index{gflags.\+cc@{gflags.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags.\+cc@{gflags.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(flagfile,"""",""load flags from file"")}{DEFINE_string(flagfile,"","load flags from file")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{flagfile}]{, }
+\item[{\char`\"{}\char`\"{}}]{, }
+\item[{\char`\"{}load flags from file\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags_8cc_a8b1a6e5ceae4fd5bcf1a839a28e77403}{}\label{gflags_8cc_a8b1a6e5ceae4fd5bcf1a839a28e77403}
+\index{gflags.\+cc@{gflags.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags.\+cc@{gflags.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(fromenv,"""",""set flags from the environment"""" [use \textquotesingle{}export F\+L\+A\+G\+S\+\_\+flag1=value\textquotesingle{}]"")}{DEFINE_string(fromenv,"","set flags from the environment"" [use 'export FLAGS_flag1=value']")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{fromenv}]{, }
+\item[{\char`\"{}\char`\"{}}]{, }
+\item[{\char`\"{}set flags from the environment\char`\"{}\char`\"{} \char`\"{}}]{\mbox{[}use \textquotesingle{}export F\+L\+A\+G\+S\+\_\+flag1=value\textquotesingle{}\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags_8cc_ae7caad6b672f98d6791283be7e0735c6}{}\label{gflags_8cc_ae7caad6b672f98d6791283be7e0735c6}
+\index{gflags.\+cc@{gflags.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags.\+cc@{gflags.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(tryfromenv,"""",""set flags from the environment if present"")}{DEFINE_string(tryfromenv,"","set flags from the environment if present")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{tryfromenv}]{, }
+\item[{\char`\"{}\char`\"{}}]{, }
+\item[{\char`\"{}set flags from the environment {\bf if} present\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags_8cc_a019b996afa1bd4dae97eddfed47248df}{}\label{gflags_8cc_a019b996afa1bd4dae97eddfed47248df}
+\index{gflags.\+cc@{gflags.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags.\+cc@{gflags.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(undefok,"""",""comma-\/separated list of flag names that it is okay to specify """"on the command line even if the program does not define a flag """"with that name.  I\+M\+P\+O\+R\+T\+A\+N\+T\+: flags in this list that have """"arguments M\+U\+S\+T use the flag=value format"")}{DEFINE_string(undefok,"","comma-separated list of flag names that it is okay to specify ""on the command line even if the program does not define a flag ""with that name.  IMPORTANT: flags in this list that have ""arguments MUST use the flag=value format")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{undefok}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags_8cc_aac2a433e8e7cc7638d12838468d36a16}{}\label{gflags_8cc_aac2a433e8e7cc7638d12838468d36a16}

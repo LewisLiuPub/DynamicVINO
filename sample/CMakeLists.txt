@@ -13,7 +13,7 @@
 # limitations under the License.
 cmake_minimum_required(VERSION 2.8)
 
-set(TARGET_NAME "interactive_face_detection_sample")
+set(TARGET_NAME "openvino_pipeline_sample")
 
 find_package(OpenCV)
 if(OpenCV_FOUND)
@@ -44,7 +44,7 @@ source_group("src" FILES ${MAIN_SRC})
 source_group("include" FILES ${MAIN_HEADERS})
 
 include_directories (${OpenCV_INCLUDE_DIRS})
-link_directories(${LIB_FOLDER})
+include_directories (${PROJECT_SOURCE_DIR}/include)
 
 # Create library file from sources.
 add_executable(${TARGET_NAME} ${MAIN_SRC} ${MAIN_HEADERS})
@@ -52,10 +52,10 @@ add_executable(${TARGET_NAME} ${MAIN_SRC} ${MAIN_HEADERS})
 add_dependencies(${TARGET_NAME} gflags)
 
 set_target_properties(${TARGET_NAME} PROPERTIES "CMAKE_CXX_FLAGS" "${CMAKE_CXX_FLAGS} -fPIE"
-COMPILE_PDB_NAME ${TARGET_NAME})
+        COMPILE_PDB_NAME ${TARGET_NAME})
 
 
-target_link_libraries(${TARGET_NAME} format_reader input_device detection_class cpu_extension pipeline ${InferenceEngine_LIBRARIES} gflags ${DEPENDENCIES})
+target_link_libraries(${TARGET_NAME} cpu_extension ${InferenceEngine_LIBRARIES} gflags openvino_pipeline_lib)
 
 if(UNIX)
     target_link_libraries( ${TARGET_NAME} ${LIB_DL} pthread ${OpenCV_LIBRARIES})

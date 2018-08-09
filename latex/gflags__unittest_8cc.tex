@@ -1,0 +1,631 @@
+\hypertarget{gflags__unittest_8cc}{}\section{thirdparty/gflags/test/gflags\+\_\+unittest.cc File Reference}
+\label{gflags__unittest_8cc}\index{thirdparty/gflags/test/gflags\+\_\+unittest.\+cc@{thirdparty/gflags/test/gflags\+\_\+unittest.\+cc}}
+{\ttfamily \#include $<$gflags/gflags.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$gflags/gflags\+\_\+completions.\+h$>$}\\*
+Include dependency graph for gflags\+\_\+unittest.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gflags__unittest_8cc__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacefLI}{f\+LI}
+\item 
+ \hyperlink{namespaceGFLAGS__NAMESPACE}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{M\+A\+K\+E\+F\+L\+AG}(x)~\hyperlink{gflags__unittest_8cc_a546f6dc4d81220027920163a85cddad1}{D\+E\+F\+I\+N\+E\+\_\+int32}(test\+\_\+flag\+\_\+num\#\#x, x, \char`\"{}Test flag\char`\"{})
+\item 
+\#define \hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{M\+A\+K\+E\+F\+L\+A\+G10}(x)
+\item 
+\#define \hyperlink{gflags__unittest_8cc_a2ff5546babf5148a755dfa4515f01fa0}{M\+A\+K\+E\+F\+L\+A\+G100}(x)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{gflags__unittest_8cc_a63ed306d2f0cc87b9628a09d6fd522f0}{D\+E\+F\+I\+N\+E\+\_\+string} (test\+\_\+tmpdir,\char`\"{}\char`\"{},\char`\"{}Dir we use for temp files\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a4623ff0f99324eee5335cab82e13eb89}{D\+E\+F\+I\+N\+E\+\_\+string} (srcdir, String\+From\+Env(\char`\"{}S\+R\+C\+D\+IR\char`\"{},\char`\"{}.\char`\"{}),\char`\"{}Source-\/dir root, needed to find gflags\+\_\+unittest\+\_\+flagfile\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a158702197d5d2b2da8add962c982cea4}{D\+E\+C\+L\+A\+R\+E\+\_\+string} (tryfromenv)
+\item 
+\hyperlink{gflags__unittest_8cc_a872bb3a0b078fd796c5748d0743323c9}{D\+E\+F\+I\+N\+E\+\_\+bool} (test\+\_\+bool, false,\char`\"{}tests bool-\/ness\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a687431edde58c5d4ce178188c4ab52ac}{D\+E\+F\+I\+N\+E\+\_\+int32} (test\+\_\+int32,-\/1,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_ae9eefdaaf11429455180805bb1fff10c}{D\+E\+F\+I\+N\+E\+\_\+int64} (test\+\_\+int64,-\/2,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_aa48a7a3e53c2150ac92dd04477b77277}{D\+E\+F\+I\+N\+E\+\_\+uint32} (test\+\_\+uint32, 1,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_afe9f2c759d5a7c0f9f663f384ce058bf}{D\+E\+F\+I\+N\+E\+\_\+uint64} (test\+\_\+uint64, 2,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_aecbfdf0e677d7eb965a0e71b97e2df1e}{D\+E\+F\+I\+N\+E\+\_\+double} (test\+\_\+double,-\/1.\+0,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_ae74b8c25c9125ae4067777d178c3f803}{D\+E\+F\+I\+N\+E\+\_\+string} (test\+\_\+string,\char`\"{}initial\char`\"{},\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_aa9f53b773dd73a5cba88f8ce6feb09be}{D\+E\+F\+I\+N\+E\+\_\+bool} (test\+\_\+bool\+\_\+with\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+long\+\_\+name, false,\char`\"{}extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+long\+\_\+meaning\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_adfdf4696f3c2030e8bc377dd66d7091f}{D\+E\+F\+I\+N\+E\+\_\+string} (test\+\_\+str1,\char`\"{}initial\char`\"{},\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a9abb54982120efb7eeccd7a5cea19180}{D\+E\+F\+I\+N\+E\+\_\+string} (test\+\_\+str2,\char`\"{}initial\char`\"{},\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a802a203cee5108ad77edbcb1c1b419eb}{D\+E\+F\+I\+N\+E\+\_\+string} (test\+\_\+str3,\char`\"{}initial\char`\"{},\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_ad26a24718ae42508a3724b023774b3fc}{D\+E\+F\+I\+N\+E\+\_\+string} (test\+\_\+tryfromenv,\char`\"{}initial\char`\"{},\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a27ec729377adff40651c0b4028c560e8}{D\+E\+F\+I\+N\+E\+\_\+int32} (changeable\+\_\+var,++changeable\+\_\+var,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_ad4843b9b2fde9501aeaf553bd867571c}{D\+E\+F\+I\+N\+E\+\_\+bool} (changeable\+\_\+bool\+\_\+var,++changeable\+\_\+bool\+\_\+var==8009,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a5950b9711e88074f2a1a2fe7a7b8741c}{D\+E\+F\+I\+N\+E\+\_\+string} (changeable\+\_\+string\+\_\+var, Changeable\+String(),\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_ac7cda5e8691ad0bd4718ce4bc30da94d}{D\+E\+F\+I\+N\+E\+\_\+bool} (unused\+\_\+bool, true,\char`\"{}unused bool-\/ness\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a546f6dc4d81220027920163a85cddad1}{D\+E\+F\+I\+N\+E\+\_\+int32} (unused\+\_\+int32,-\/1001,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a2147b5df572274868ea6fdf68592f390}{D\+E\+F\+I\+N\+E\+\_\+int64} (unused\+\_\+int64,-\/2001,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a8cbb50635a7d65f0c93af9174c8e7de6}{D\+E\+F\+I\+N\+E\+\_\+uint32} (unused\+\_\+uint32, 1000,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a06b58fc6592b46ed6e75141fa46a8281}{D\+E\+F\+I\+N\+E\+\_\+uint64} (unused\+\_\+uint64, 2000,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_abefc38d14d8515a7670cf49a143fbb1f}{D\+E\+F\+I\+N\+E\+\_\+double} (unused\+\_\+double,-\/1000.\+0,\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a374b5d673fa897499c096602a138515a}{D\+E\+F\+I\+N\+E\+\_\+string} (unused\+\_\+string,\char`\"{}unused\char`\"{},\char`\"{}\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a74c7733071bd8df112a700637e4eca67}{D\+E\+F\+I\+N\+E\+\_\+bool} (changed\+\_\+bool1, false,\char`\"{}changed\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a89ceb966964475031b8491d1bc3cbc32}{D\+E\+F\+I\+N\+E\+\_\+bool} (changed\+\_\+bool2, false,\char`\"{}changed\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a96092d2a6f14e5a3bc75a6018df7bf8c}{D\+E\+F\+I\+N\+E\+\_\+bool} (long\+\_\+helpstring, false,\char`\"{}This helpstring goes on forever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever.  This is the end of a long helpstring\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_a5648defda080530e4841a34e40bafa18}{D\+E\+F\+I\+N\+E\+\_\+bool} (always\+\_\+fail, false,\char`\"{}will fail to validate when you \hyperlink{thirdparty_2gflags_2test_2CMakeLists_8txt_aed8cdd0ccd70519e5f2523d3a9f63075}{set} it\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_abdad90e47be5b244e254f004e74dad97}{D\+E\+F\+I\+N\+E\+\_\+validator} (always\+\_\+fail, Always\+Fail)
+\item 
+\hyperlink{gflags__unittest_8cc_a3b5f8d9f4633b6dba6180057f6809ae0}{D\+E\+F\+I\+N\+E\+\_\+bool} (deadlock\+\_\+if\+\_\+cant\+\_\+lock, false,\char`\"{}will deadlock \hyperlink{thirdparty_2gflags_2test_2CMakeLists_8txt_a102cdd39d1229ea99555942b43b6a137}{if} \hyperlink{thirdparty_2gflags_2test_2CMakeLists_8txt_aed8cdd0ccd70519e5f2523d3a9f63075}{set} to true and \char`\"{}\char`\"{}\hyperlink{thirdparty_2gflags_2test_2CMakeLists_8txt_a102cdd39d1229ea99555942b43b6a137}{if} locking of registry in \hyperlink{ChangeLog_8txt_a463f52dbd9b85614adaa6471eb5fc93d}{validators} fails.\char`\"{})
+\item 
+\hyperlink{gflags__unittest_8cc_acdb31269a4caa538324a4d443f85a9f9}{D\+E\+F\+I\+N\+E\+\_\+validator} (deadlock\+\_\+if\+\_\+cant\+\_\+lock, Deadlock\+If\+Cant\+Lock\+In\+Validators)
+\item 
+\hyperlink{gflags__unittest_8cc_abbafc935ab1ef194a41b474e8218950d}{M\+A\+K\+E\+F\+L\+A\+G100} (1)
+\item 
+\hyperlink{gflags__unittest_8cc_aba120896980e116e85ebca9d5a7da63e}{M\+A\+K\+E\+F\+L\+A\+G100} (2)
+\item 
+\hyperlink{gflags__unittest_8cc_a986bc6f546a70e7bdc65c5ba21181a4b}{M\+A\+K\+E\+F\+L\+A\+G100} (3)
+\item 
+\hyperlink{gflags__unittest_8cc_a2de16e196310f0e2fd9675ac262f57d1}{M\+A\+K\+E\+F\+L\+A\+G100} (4)
+\item 
+\hyperlink{gflags__unittest_8cc_a055a3611d3a2c0fafb9c80d37800446e}{M\+A\+K\+E\+F\+L\+A\+G100} (5)
+\item 
+\hyperlink{gflags__unittest_8cc_ae9e774504262f245a9e45463133c4a83}{M\+A\+K\+E\+F\+L\+A\+G100} (6)
+\item 
+\hyperlink{gflags__unittest_8cc_a452f89ebba4baacf7329261ea5da13c8}{M\+A\+K\+E\+F\+L\+A\+G100} (7)
+\item 
+\hyperlink{gflags__unittest_8cc_a7225716aadd0818cd565652982de8ceb}{M\+A\+K\+E\+F\+L\+A\+G100} (8)
+\item 
+\hyperlink{gflags__unittest_8cc_a6dd4f97f5549a25cf26bb1744323ef47}{M\+A\+K\+E\+F\+L\+A\+G100} (9)
+\item 
+\hyperlink{gflags__unittest_8cc_a1b7be22e4aac3c5d37ce37aa62938b67}{M\+A\+K\+E\+F\+L\+A\+G100} (10)
+\item 
+\hyperlink{gflags__unittest_8cc_a499acd004e4768cb4873ff264d7d4893}{M\+A\+K\+E\+F\+L\+A\+G100} (11)
+\item 
+\hyperlink{gflags__unittest_8cc_ad5848c7dd70643c3ef1b9f96984d2651}{M\+A\+K\+E\+F\+L\+A\+G100} (12)
+\item 
+\hyperlink{gflags__unittest_8cc_a7637c063123932ba180c1b0e51236cf5}{M\+A\+K\+E\+F\+L\+A\+G100} (13)
+\item 
+\hyperlink{gflags__unittest_8cc_a12e3147aadef16fbe4ee7e46d98b764a}{M\+A\+K\+E\+F\+L\+A\+G100} (14)
+\item 
+\hyperlink{gflags__unittest_8cc_aba6c043c342f612a5482f46d50558010}{M\+A\+K\+E\+F\+L\+A\+G100} (15)
+\item 
+\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} \hyperlink{gflags__unittest_8cc_a3c04138a5bfe5d72780bb7e82a18e627}{main} (\hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} argc, \hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{util_8h_a9b43f07d6f61ca4c17cdd14adfa2bd32}{T\+E\+S\+T\+\_\+\+I\+N\+IT} \hyperlink{util_8h_a048b1391b7df254d64f7fb00240706f0}{E\+X\+P\+E\+C\+T\+\_\+\+D\+E\+A\+T\+H\+\_\+\+I\+N\+IT} void($\ast$ \hyperlink{gflags__unittest_8cc_afc740ad4516276bb7a099401c40ad703}{unused\+\_\+fn} )() = \&\hyperlink{namespaceGFLAGS__NAMESPACE_ac4e8eceefee1469bfb60cda3a68fdcea}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Handle\+Command\+Line\+Completions}
+\item 
+int32 \hyperlink{namespacefLI_a83bb5fc57fd1c06610c7b745df590fa4}{f\+L\+I\+::\+F\+L\+A\+G\+S\+\_\+tldflag1} = F\+L\+A\+G\+S\+\_\+nonotldflag1
+\item 
+int32 \hyperlink{namespacefLI_ab9b7b0bd66e0e83425bf1f91e6b4fc73}{f\+L\+I\+::\+F\+L\+A\+G\+S\+\_\+notldflag1} = F\+L\+A\+G\+S\+\_\+nonotldflag1
+\item 
+int32 \hyperlink{namespacefLI_a909cee72f7bff5b476509f7ebc7fc0d7}{f\+L\+I\+::\+F\+L\+A\+G\+S\+\_\+tldflag2} = F\+L\+A\+G\+S\+\_\+nonotldflag2
+\item 
+int32 \hyperlink{namespacefLI_af76f39bc115de21755ce29ad4cbb659b}{f\+L\+I\+::\+F\+L\+A\+G\+S\+\_\+notldflag2} = F\+L\+A\+G\+S\+\_\+nonotldflag2
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+AG@{M\+A\+K\+E\+F\+L\+AG}}
+\index{M\+A\+K\+E\+F\+L\+AG@{M\+A\+K\+E\+F\+L\+AG}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+AG}{MAKEFLAG}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+K\+E\+F\+L\+AG(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~{\bf D\+E\+F\+I\+N\+E\+\_\+int32}(test\+\_\+flag\+\_\+num\#\#x, x, \char`\"{}Test flag\char`\"{})}\hypertarget{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{}\label{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}
+
+
+Definition at line 160 of file gflags\+\_\+unittest.\+cc.
+
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G10@{M\+A\+K\+E\+F\+L\+A\+G10}}
+\index{M\+A\+K\+E\+F\+L\+A\+G10@{M\+A\+K\+E\+F\+L\+A\+G10}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G10}{MAKEFLAG10}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+K\+E\+F\+L\+A\+G10(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{}\label{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{MAKEFLAG}(x##0);                               \hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{  MAKEFLAG}(x##1);                               \hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{  MAKEFLAG}(x##2);                               \hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{  MAKEFLAG}(x##3);                               \hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{  MAKEFLAG}(x##4);                               \hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{  MAKEFLAG}(x##5);                               \hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{  MAKEFLAG}(x##6);                               \hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{  MAKEFLAG}(x##7);                               \hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{  MAKEFLAG}(x##8);                               \hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a17a73a62b5c5baf47305de6ed0afa7e1}{  MAKEFLAG}(x##9)
+\end{DoxyCode}
+
+
+Definition at line 163 of file gflags\+\_\+unittest.\+cc.
+
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100}{MAKEFLAG100}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+K\+E\+F\+L\+A\+G100(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a2ff5546babf5148a755dfa4515f01fa0}{}\label{gflags__unittest_8cc_a2ff5546babf5148a755dfa4515f01fa0}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{MAKEFLAG10}(x##0);                             \hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{  MAKEFLAG10}(x##1);                             \hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{  MAKEFLAG10}(x##2);                             \hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{  MAKEFLAG10}(x##3);                             \hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{  MAKEFLAG10}(x##4);                             \hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{  MAKEFLAG10}(x##5);                             \hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{  MAKEFLAG10}(x##6);                             \hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{  MAKEFLAG10}(x##7);                             \hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{  MAKEFLAG10}(x##8);                             \hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{\(\backslash\)}
+\hyperlink{gflags__unittest_8cc_a4ce3f8d5d2951f08dfb196c7242609b5}{  MAKEFLAG10}(x##9)
+\end{DoxyCode}
+
+
+Definition at line 176 of file gflags\+\_\+unittest.\+cc.
+
+
+
+\subsection{Function Documentation}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+C\+L\+A\+R\+E\+\_\+string@{D\+E\+C\+L\+A\+R\+E\+\_\+string}}
+\index{D\+E\+C\+L\+A\+R\+E\+\_\+string@{D\+E\+C\+L\+A\+R\+E\+\_\+string}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+C\+L\+A\+R\+E\+\_\+string(tryfromenv)}{DECLARE_string(tryfromenv)}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+C\+L\+A\+R\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{tryfromenv}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a158702197d5d2b2da8add962c982cea4}{}\label{gflags__unittest_8cc_a158702197d5d2b2da8add962c982cea4}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(test\+\_\+bool, false,""tests bool-\/ness"")}{DEFINE_bool(test_bool, false,"tests bool-ness")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+bool}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}tests bool-\/ness\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a872bb3a0b078fd796c5748d0743323c9}{}\label{gflags__unittest_8cc_a872bb3a0b078fd796c5748d0743323c9}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(test\+\_\+bool\+\_\+with\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+long\+\_\+name, false,""extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+long\+\_\+meaning"")}{DEFINE_bool(test_bool_with_quite_quite_quite_quite_quite_quite_quite_quite_quite_quite_quite_quite_quite_quite_long_name, false,"extremely_extremely_extremely_extremely_extremely_extremely_extremely_extremely_long_meaning")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+bool\+\_\+with\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+quite\+\_\+long\+\_\+name}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+extremely\+\_\+long\+\_\+meaning\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_aa9f53b773dd73a5cba88f8ce6feb09be}{}\label{gflags__unittest_8cc_aa9f53b773dd73a5cba88f8ce6feb09be}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(changeable\+\_\+bool\+\_\+var,++changeable\+\_\+bool\+\_\+var==8009,"""")}{DEFINE_bool(changeable_bool_var,++changeable_bool_var==8009,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{changeable\+\_\+bool\+\_\+var}]{, }
+\item[{++}]{changeable\+\_\+bool\+\_\+var = {\ttfamily =8009}, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_ad4843b9b2fde9501aeaf553bd867571c}{}\label{gflags__unittest_8cc_ad4843b9b2fde9501aeaf553bd867571c}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(unused\+\_\+bool, true,""unused bool-\/ness"")}{DEFINE_bool(unused_bool, true,"unused bool-ness")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{unused\+\_\+bool}]{, }
+\item[{true}]{, }
+\item[{\char`\"{}unused bool-\/ness\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_ac7cda5e8691ad0bd4718ce4bc30da94d}{}\label{gflags__unittest_8cc_ac7cda5e8691ad0bd4718ce4bc30da94d}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(changed\+\_\+bool1, false,""changed"")}{DEFINE_bool(changed_bool1, false,"changed")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{changed\+\_\+bool1}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}changed\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a74c7733071bd8df112a700637e4eca67}{}\label{gflags__unittest_8cc_a74c7733071bd8df112a700637e4eca67}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(changed\+\_\+bool2, false,""changed"")}{DEFINE_bool(changed_bool2, false,"changed")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{changed\+\_\+bool2}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}changed\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a89ceb966964475031b8491d1bc3cbc32}{}\label{gflags__unittest_8cc_a89ceb966964475031b8491d1bc3cbc32}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(long\+\_\+helpstring, false,""This helpstring goes on forever and ever and ever and ever and """"ever and ever and ever and ever and ever and ever and ever and """"ever and ever and ever and ever and ever and ever and ever and """"ever and ever and ever and ever and ever and ever and ever and """"ever and ever and ever and ever and ever and ever and ever and """"ever and ever and ever and ever and ever and ever and ever and """"ever and ever and ever and ever and ever and ever and ever and """"ever and ever and ever and ever and ever and ever and ever and """"ever and ever and ever and ever and ever and ever and ever and """"ever and ever and ever and ever and ever and ever and ever and """"ever.  This is the end of a long helpstring"")}{DEFINE_bool(long_helpstring, false,"This helpstring goes on forever and ever and ever and ever and ""ever and ever and ever and ever and ever and ever and ever and ""ever and ever and ever and ever and ever and ever and ever and ""ever and ever and ever and ever and ever and ever and ever and ""ever and ever and ever and ever and ever and ever and ever and ""ever and ever and ever and ever and ever and ever and ever and ""ever and ever and ever and ever and ever and ever and ever and ""ever and ever and ever and ever and ever and ever and ever and ""ever and ever and ever and ever and ever and ever and ever and ""ever and ever and ever and ever and ever and ever and ever and ""ever.  This is the end of a long helpstring")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{long\+\_\+helpstring}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}This helpstring goes on forever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever and ever and ever and ever and ever and ever and ever and \char`\"{}\char`\"{}ever. This is the end of a long helpstring\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a96092d2a6f14e5a3bc75a6018df7bf8c}{}\label{gflags__unittest_8cc_a96092d2a6f14e5a3bc75a6018df7bf8c}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(always\+\_\+fail, false,""will fail to validate when you set it"")}{DEFINE_bool(always_fail, false,"will fail to validate when you set it")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{always\+\_\+fail}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}will fail to validate when you {\bf set} it\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a5648defda080530e4841a34e40bafa18}{}\label{gflags__unittest_8cc_a5648defda080530e4841a34e40bafa18}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}}
+\index{D\+E\+F\+I\+N\+E\+\_\+bool@{D\+E\+F\+I\+N\+E\+\_\+bool}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+bool(deadlock\+\_\+if\+\_\+cant\+\_\+lock, false,""will deadlock if set to true and """"if locking of registry in validators fails."")}{DEFINE_bool(deadlock_if_cant_lock, false,"will deadlock if set to true and ""if locking of registry in validators fails.")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+bool (
+\begin{DoxyParamCaption}
+\item[{deadlock\+\_\+if\+\_\+cant\+\_\+lock}]{, }
+\item[{false}]{, }
+\item[{\char`\"{}will deadlock {\bf if} {\bf set} to true and \char`\"{}\char`\"{}{\bf if} locking of registry in {\bf validators} fails.\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a3b5f8d9f4633b6dba6180057f6809ae0}{}\label{gflags__unittest_8cc_a3b5f8d9f4633b6dba6180057f6809ae0}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+double@{D\+E\+F\+I\+N\+E\+\_\+double}}
+\index{D\+E\+F\+I\+N\+E\+\_\+double@{D\+E\+F\+I\+N\+E\+\_\+double}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+double(test\+\_\+double,-\/1.\+0,"""")}{DEFINE_double(test_double,-1.0,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+double (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+double}]{, }
+\item[{-\/1.}]{0, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_aecbfdf0e677d7eb965a0e71b97e2df1e}{}\label{gflags__unittest_8cc_aecbfdf0e677d7eb965a0e71b97e2df1e}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+double@{D\+E\+F\+I\+N\+E\+\_\+double}}
+\index{D\+E\+F\+I\+N\+E\+\_\+double@{D\+E\+F\+I\+N\+E\+\_\+double}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+double(unused\+\_\+double,-\/1000.\+0,"""")}{DEFINE_double(unused_double,-1000.0,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+double (
+\begin{DoxyParamCaption}
+\item[{unused\+\_\+double}]{, }
+\item[{-\/1000.}]{0, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_abefc38d14d8515a7670cf49a143fbb1f}{}\label{gflags__unittest_8cc_abefc38d14d8515a7670cf49a143fbb1f}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+int32@{D\+E\+F\+I\+N\+E\+\_\+int32}}
+\index{D\+E\+F\+I\+N\+E\+\_\+int32@{D\+E\+F\+I\+N\+E\+\_\+int32}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+int32(test\+\_\+int32,-\/1,"""")}{DEFINE_int32(test_int32,-1,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+int32 (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+int32}]{, }
+\item[{-\/}]{1, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a687431edde58c5d4ce178188c4ab52ac}{}\label{gflags__unittest_8cc_a687431edde58c5d4ce178188c4ab52ac}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+int32@{D\+E\+F\+I\+N\+E\+\_\+int32}}
+\index{D\+E\+F\+I\+N\+E\+\_\+int32@{D\+E\+F\+I\+N\+E\+\_\+int32}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+int32(changeable\+\_\+var,++changeable\+\_\+var,"""")}{DEFINE_int32(changeable_var,++changeable_var,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+int32 (
+\begin{DoxyParamCaption}
+\item[{changeable\+\_\+var}]{, }
+\item[{++}]{changeable\+\_\+var, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a27ec729377adff40651c0b4028c560e8}{}\label{gflags__unittest_8cc_a27ec729377adff40651c0b4028c560e8}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+int32@{D\+E\+F\+I\+N\+E\+\_\+int32}}
+\index{D\+E\+F\+I\+N\+E\+\_\+int32@{D\+E\+F\+I\+N\+E\+\_\+int32}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+int32(unused\+\_\+int32,-\/1001,"""")}{DEFINE_int32(unused_int32,-1001,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+int32 (
+\begin{DoxyParamCaption}
+\item[{unused\+\_\+int32}]{, }
+\item[{-\/}]{1001, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a546f6dc4d81220027920163a85cddad1}{}\label{gflags__unittest_8cc_a546f6dc4d81220027920163a85cddad1}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+int64@{D\+E\+F\+I\+N\+E\+\_\+int64}}
+\index{D\+E\+F\+I\+N\+E\+\_\+int64@{D\+E\+F\+I\+N\+E\+\_\+int64}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+int64(test\+\_\+int64,-\/2,"""")}{DEFINE_int64(test_int64,-2,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+int64 (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+int64}]{, }
+\item[{-\/}]{2, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_ae9eefdaaf11429455180805bb1fff10c}{}\label{gflags__unittest_8cc_ae9eefdaaf11429455180805bb1fff10c}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+int64@{D\+E\+F\+I\+N\+E\+\_\+int64}}
+\index{D\+E\+F\+I\+N\+E\+\_\+int64@{D\+E\+F\+I\+N\+E\+\_\+int64}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+int64(unused\+\_\+int64,-\/2001,"""")}{DEFINE_int64(unused_int64,-2001,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+int64 (
+\begin{DoxyParamCaption}
+\item[{unused\+\_\+int64}]{, }
+\item[{-\/}]{2001, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a2147b5df572274868ea6fdf68592f390}{}\label{gflags__unittest_8cc_a2147b5df572274868ea6fdf68592f390}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(test\+\_\+tmpdir,"""",""Dir we use for temp files"")}{DEFINE_string(test_tmpdir,"","Dir we use for temp files")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+tmpdir}]{, }
+\item[{\char`\"{}\char`\"{}}]{, }
+\item[{\char`\"{}Dir we use for temp files\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a63ed306d2f0cc87b9628a09d6fd522f0}{}\label{gflags__unittest_8cc_a63ed306d2f0cc87b9628a09d6fd522f0}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(srcdir, String\+From\+Env(""S\+R\+C\+D\+IR"","".""),""Source-\/dir root, needed to find gflags\+\_\+unittest\+\_\+flagfile"")}{DEFINE_string(srcdir, StringFromEnv("SRCDIR","."),"Source-dir root, needed to find gflags_unittest_flagfile")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{srcdir}]{, }
+\item[{String\+From\+Env(\char`\"{}S\+R\+C\+D\+IR\char`\"{},\char`\"{}.\char`\"{})}]{, }
+\item[{\char`\"{}Source-\/dir}]{root, }
+\item[{needed to find gflags\+\_\+unittest\+\_\+flagfile\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a4623ff0f99324eee5335cab82e13eb89}{}\label{gflags__unittest_8cc_a4623ff0f99324eee5335cab82e13eb89}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(test\+\_\+string,""initial"","""")}{DEFINE_string(test_string,"initial","")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+string}]{, }
+\item[{\char`\"{}initial\char`\"{}}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_ae74b8c25c9125ae4067777d178c3f803}{}\label{gflags__unittest_8cc_ae74b8c25c9125ae4067777d178c3f803}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(test\+\_\+str1,""initial"","""")}{DEFINE_string(test_str1,"initial","")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+str1}]{, }
+\item[{\char`\"{}initial\char`\"{}}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_adfdf4696f3c2030e8bc377dd66d7091f}{}\label{gflags__unittest_8cc_adfdf4696f3c2030e8bc377dd66d7091f}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(test\+\_\+str2,""initial"","""")}{DEFINE_string(test_str2,"initial","")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+str2}]{, }
+\item[{\char`\"{}initial\char`\"{}}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a9abb54982120efb7eeccd7a5cea19180}{}\label{gflags__unittest_8cc_a9abb54982120efb7eeccd7a5cea19180}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(test\+\_\+str3,""initial"","""")}{DEFINE_string(test_str3,"initial","")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+str3}]{, }
+\item[{\char`\"{}initial\char`\"{}}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a802a203cee5108ad77edbcb1c1b419eb}{}\label{gflags__unittest_8cc_a802a203cee5108ad77edbcb1c1b419eb}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(test\+\_\+tryfromenv,""initial"","""")}{DEFINE_string(test_tryfromenv,"initial","")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+tryfromenv}]{, }
+\item[{\char`\"{}initial\char`\"{}}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_ad26a24718ae42508a3724b023774b3fc}{}\label{gflags__unittest_8cc_ad26a24718ae42508a3724b023774b3fc}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(changeable\+\_\+string\+\_\+var, Changeable\+String(),"""")}{DEFINE_string(changeable_string_var, ChangeableString(),"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{changeable\+\_\+string\+\_\+var}]{, }
+\item[{Changeable\+String()}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a5950b9711e88074f2a1a2fe7a7b8741c}{}\label{gflags__unittest_8cc_a5950b9711e88074f2a1a2fe7a7b8741c}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}}
+\index{D\+E\+F\+I\+N\+E\+\_\+string@{D\+E\+F\+I\+N\+E\+\_\+string}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+string(unused\+\_\+string,""unused"","""")}{DEFINE_string(unused_string,"unused","")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{unused\+\_\+string}]{, }
+\item[{\char`\"{}unused\char`\"{}}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a374b5d673fa897499c096602a138515a}{}\label{gflags__unittest_8cc_a374b5d673fa897499c096602a138515a}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+uint32@{D\+E\+F\+I\+N\+E\+\_\+uint32}}
+\index{D\+E\+F\+I\+N\+E\+\_\+uint32@{D\+E\+F\+I\+N\+E\+\_\+uint32}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+uint32(test\+\_\+uint32, 1,"""")}{DEFINE_uint32(test_uint32, 1,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+uint32 (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+uint32}]{, }
+\item[{1}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_aa48a7a3e53c2150ac92dd04477b77277}{}\label{gflags__unittest_8cc_aa48a7a3e53c2150ac92dd04477b77277}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+uint32@{D\+E\+F\+I\+N\+E\+\_\+uint32}}
+\index{D\+E\+F\+I\+N\+E\+\_\+uint32@{D\+E\+F\+I\+N\+E\+\_\+uint32}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+uint32(unused\+\_\+uint32, 1000,"""")}{DEFINE_uint32(unused_uint32, 1000,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+uint32 (
+\begin{DoxyParamCaption}
+\item[{unused\+\_\+uint32}]{, }
+\item[{1000}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a8cbb50635a7d65f0c93af9174c8e7de6}{}\label{gflags__unittest_8cc_a8cbb50635a7d65f0c93af9174c8e7de6}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+uint64@{D\+E\+F\+I\+N\+E\+\_\+uint64}}
+\index{D\+E\+F\+I\+N\+E\+\_\+uint64@{D\+E\+F\+I\+N\+E\+\_\+uint64}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+uint64(test\+\_\+uint64, 2,"""")}{DEFINE_uint64(test_uint64, 2,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+uint64 (
+\begin{DoxyParamCaption}
+\item[{test\+\_\+uint64}]{, }
+\item[{2}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_afe9f2c759d5a7c0f9f663f384ce058bf}{}\label{gflags__unittest_8cc_afe9f2c759d5a7c0f9f663f384ce058bf}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+uint64@{D\+E\+F\+I\+N\+E\+\_\+uint64}}
+\index{D\+E\+F\+I\+N\+E\+\_\+uint64@{D\+E\+F\+I\+N\+E\+\_\+uint64}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+uint64(unused\+\_\+uint64, 2000,"""")}{DEFINE_uint64(unused_uint64, 2000,"")}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+uint64 (
+\begin{DoxyParamCaption}
+\item[{unused\+\_\+uint64}]{, }
+\item[{2000}]{, }
+\item[{\char`\"{}\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a06b58fc6592b46ed6e75141fa46a8281}{}\label{gflags__unittest_8cc_a06b58fc6592b46ed6e75141fa46a8281}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+validator@{D\+E\+F\+I\+N\+E\+\_\+validator}}
+\index{D\+E\+F\+I\+N\+E\+\_\+validator@{D\+E\+F\+I\+N\+E\+\_\+validator}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+validator(always\+\_\+fail, Always\+Fail)}{DEFINE_validator(always_fail, AlwaysFail)}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+validator (
+\begin{DoxyParamCaption}
+\item[{always\+\_\+fail}]{, }
+\item[{Always\+Fail}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_abdad90e47be5b244e254f004e74dad97}{}\label{gflags__unittest_8cc_abdad90e47be5b244e254f004e74dad97}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!D\+E\+F\+I\+N\+E\+\_\+validator@{D\+E\+F\+I\+N\+E\+\_\+validator}}
+\index{D\+E\+F\+I\+N\+E\+\_\+validator@{D\+E\+F\+I\+N\+E\+\_\+validator}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+I\+N\+E\+\_\+validator(deadlock\+\_\+if\+\_\+cant\+\_\+lock, Deadlock\+If\+Cant\+Lock\+In\+Validators)}{DEFINE_validator(deadlock_if_cant_lock, DeadlockIfCantLockInValidators)}}]{\setlength{\rightskip}{0pt plus 5cm}D\+E\+F\+I\+N\+E\+\_\+validator (
+\begin{DoxyParamCaption}
+\item[{deadlock\+\_\+if\+\_\+cant\+\_\+lock}]{, }
+\item[{Deadlock\+If\+Cant\+Lock\+In\+Validators}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_acdb31269a4caa538324a4d443f85a9f9}{}\label{gflags__unittest_8cc_acdb31269a4caa538324a4d443f85a9f9}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!main@{main}}
+\index{main@{main}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} main (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{argc, }
+\item[{{\bf char} $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{gflags__unittest_8cc_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 1569 of file gflags\+\_\+unittest.\+cc.
+
+
+\begin{DoxyCode}
+1569                                 \{
+1570   \textcolor{keywordflow}{return} GFLAGS\_NAMESPACE::main(argc, argv);
+1571 \}
+\end{DoxyCode}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(1)}{MAKEFLAG100(1)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{1}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_abbafc935ab1ef194a41b474e8218950d}{}\label{gflags__unittest_8cc_abbafc935ab1ef194a41b474e8218950d}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(2)}{MAKEFLAG100(2)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{2}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_aba120896980e116e85ebca9d5a7da63e}{}\label{gflags__unittest_8cc_aba120896980e116e85ebca9d5a7da63e}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(3)}{MAKEFLAG100(3)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{3}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a986bc6f546a70e7bdc65c5ba21181a4b}{}\label{gflags__unittest_8cc_a986bc6f546a70e7bdc65c5ba21181a4b}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(4)}{MAKEFLAG100(4)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{4}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a2de16e196310f0e2fd9675ac262f57d1}{}\label{gflags__unittest_8cc_a2de16e196310f0e2fd9675ac262f57d1}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(5)}{MAKEFLAG100(5)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{5}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a055a3611d3a2c0fafb9c80d37800446e}{}\label{gflags__unittest_8cc_a055a3611d3a2c0fafb9c80d37800446e}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(6)}{MAKEFLAG100(6)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{6}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_ae9e774504262f245a9e45463133c4a83}{}\label{gflags__unittest_8cc_ae9e774504262f245a9e45463133c4a83}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(7)}{MAKEFLAG100(7)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{7}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a452f89ebba4baacf7329261ea5da13c8}{}\label{gflags__unittest_8cc_a452f89ebba4baacf7329261ea5da13c8}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(8)}{MAKEFLAG100(8)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{8}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a7225716aadd0818cd565652982de8ceb}{}\label{gflags__unittest_8cc_a7225716aadd0818cd565652982de8ceb}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(9)}{MAKEFLAG100(9)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{9}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a6dd4f97f5549a25cf26bb1744323ef47}{}\label{gflags__unittest_8cc_a6dd4f97f5549a25cf26bb1744323ef47}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(10)}{MAKEFLAG100(10)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{10}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a1b7be22e4aac3c5d37ce37aa62938b67}{}\label{gflags__unittest_8cc_a1b7be22e4aac3c5d37ce37aa62938b67}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(11)}{MAKEFLAG100(11)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{11}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a499acd004e4768cb4873ff264d7d4893}{}\label{gflags__unittest_8cc_a499acd004e4768cb4873ff264d7d4893}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(12)}{MAKEFLAG100(12)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{12}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_ad5848c7dd70643c3ef1b9f96984d2651}{}\label{gflags__unittest_8cc_ad5848c7dd70643c3ef1b9f96984d2651}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(13)}{MAKEFLAG100(13)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{13}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a7637c063123932ba180c1b0e51236cf5}{}\label{gflags__unittest_8cc_a7637c063123932ba180c1b0e51236cf5}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(14)}{MAKEFLAG100(14)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{14}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_a12e3147aadef16fbe4ee7e46d98b764a}{}\label{gflags__unittest_8cc_a12e3147aadef16fbe4ee7e46d98b764a}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}}
+\index{M\+A\+K\+E\+F\+L\+A\+G100@{M\+A\+K\+E\+F\+L\+A\+G100}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{M\+A\+K\+E\+F\+L\+A\+G100(15)}{MAKEFLAG100(15)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+A\+K\+E\+F\+L\+A\+G100 (
+\begin{DoxyParamCaption}
+\item[{15}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gflags__unittest_8cc_aba6c043c342f612a5482f46d50558010}{}\label{gflags__unittest_8cc_aba6c043c342f612a5482f46d50558010}
+
+
+\subsection{Variable Documentation}
+\index{gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}!unused\+\_\+fn@{unused\+\_\+fn}}
+\index{unused\+\_\+fn@{unused\+\_\+fn}!gflags\+\_\+unittest.\+cc@{gflags\+\_\+unittest.\+cc}}
+\subsubsection[{\texorpdfstring{unused\+\_\+fn}{unused_fn}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf T\+E\+S\+T\+\_\+\+I\+N\+IT} {\bf E\+X\+P\+E\+C\+T\+\_\+\+D\+E\+A\+T\+H\+\_\+\+I\+N\+IT} void($\ast$ unused\+\_\+fn) () = \&{\bf G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Handle\+Command\+Line\+Completions}}\hypertarget{gflags__unittest_8cc_afc740ad4516276bb7a099401c40ad703}{}\label{gflags__unittest_8cc_afc740ad4516276bb7a099401c40ad703}
+
+
+Definition at line 58 of file gflags\+\_\+unittest.\+cc.
+

@@ -1,0 +1,79 @@
+No official binary distribution packages are provided by the gflags developers. There may, however, be binary packages available for your OS. Please consult also the package repositories of your Linux distribution.
+
+For example on Debian/\+Ubuntu Linux, gflags can be installed using the following command\+: \begin{DoxyVerb}sudo apt-get install libgflags-dev
+\end{DoxyVerb}
+
+
+\section*{Compiling the source code with C\+Make }
+
+The build system of gflags is since version 2.\+1 based on \href{http://cmake.org}{\tt C\+Make}. The common steps to build, test, and install software are therefore\+:
+
+
+\begin{DoxyEnumerate}
+\item Extract source files.
+\item Create build directory and change to it.
+\item Run C\+Make to configure the build tree.
+\item Build the software using selected build tool.
+\item Test the built software.
+\item Install the built files.
+\end{DoxyEnumerate}
+
+On Unix-\/like systems with G\+NU Make as build tool, these build steps can be summarized by the following sequence of commands executed in a shell, where {\ttfamily \$package} and {\ttfamily \$version} are shell variables which represent the name of this package and the obtained version of the software. \begin{DoxyVerb}$ tar xzf gflags-$version-source.tar.gz
+$ cd gflags-$version
+$ mkdir build && cd build
+$ ccmake ..
+
+  - Press 'c' to configure the build system and 'e' to ignore warnings.
+  - Set CMAKE_INSTALL_PREFIX and other CMake variables and options.
+  - Continue pressing 'c' until the option 'g' is available.
+  - Then press 'g' to generate the configuration files for GNU Make.
+
+$ make
+$ make test    (optional)
+$ make install (optional)
+\end{DoxyVerb}
+
+
+In the following, only gflags-\/specific C\+Make settings available to configure the build and installation are documented. Note that most of these variables are for advanced users and binary package maintainers only. They usually do not have to be modified.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf C\+Make Option }&{\bf Description  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf C\+Make Option }&{\bf Description  }\\\cline{1-2}
+\endhead
+C\+M\+A\+K\+E\+\_\+\+I\+N\+S\+T\+A\+L\+L\+\_\+\+P\+R\+E\+F\+IX &Installation directory, e.\+g., \char`\"{}/usr/local\char`\"{} on Unix and \char`\"{}\+C\+:\textbackslash{}\+Program Files\textbackslash{}gflags\char`\"{} on Windows. \\\cline{1-2}
+B\+U\+I\+L\+D\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+L\+I\+BS &Request build of dynamic link libraries. \\\cline{1-2}
+B\+U\+I\+L\+D\+\_\+\+S\+T\+A\+T\+I\+C\+\_\+\+L\+I\+BS &Request build of static link libraries. Implied if B\+U\+I\+L\+D\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+L\+I\+BS is O\+FF. \\\cline{1-2}
+B\+U\+I\+L\+D\+\_\+\+P\+A\+C\+K\+A\+G\+I\+NG &Enable binary package generation using C\+Pack. \\\cline{1-2}
+B\+U\+I\+L\+D\+\_\+\+T\+E\+S\+T\+I\+NG &Build tests for execution by C\+Test. \\\cline{1-2}
+B\+U\+I\+L\+D\+\_\+\+N\+C\+\_\+\+T\+E\+S\+TS &Request inclusion of negative compilation tests (requires Python). \\\cline{1-2}
+B\+U\+I\+L\+D\+\_\+\+C\+O\+N\+F\+I\+G\+\_\+\+T\+E\+S\+TS &Request inclusion of package configuration tests (requires Python). \\\cline{1-2}
+B\+U\+I\+L\+D\+\_\+gflags\+\_\+\+L\+I\+BS &Request build of multi-\/threaded gflags libraries (if threading library found). \\\cline{1-2}
+B\+U\+I\+L\+D\+\_\+gflags\+\_\+nothreads\+\_\+\+L\+I\+BS &Request build of single-\/threaded gflags libraries. \\\cline{1-2}
+\hyperlink{namespaceGFLAGS__NAMESPACE}{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE} &Name of the C++ namespace to be used by the gflags library. Note that the public source header files are installed in a subdirectory named after this namespace. To maintain backwards compatibility with the Google Commandline Flags, set this variable to \char`\"{}google\char`\"{}. The default is \char`\"{}gflags\char`\"{}. \\\cline{1-2}
+G\+F\+L\+A\+G\+S\+\_\+\+I\+N\+T\+T\+Y\+P\+E\+S\+\_\+\+F\+O\+R\+M\+AT &String identifying format of built-\/in integer types. \\\cline{1-2}
+G\+F\+L\+A\+G\+S\+\_\+\+I\+N\+C\+L\+U\+D\+E\+\_\+\+D\+IR &Name of headers installation directory relative to C\+M\+A\+K\+E\+\_\+\+I\+N\+S\+T\+A\+L\+L\+\_\+\+P\+R\+E\+F\+IX. \\\cline{1-2}
+L\+I\+B\+R\+A\+R\+Y\+\_\+\+I\+N\+S\+T\+A\+L\+L\+\_\+\+D\+IR &Name of library installation directory relative to C\+M\+A\+K\+E\+\_\+\+I\+N\+S\+T\+A\+L\+L\+\_\+\+P\+R\+E\+F\+IX. \\\cline{1-2}
+I\+N\+S\+T\+A\+L\+L\+\_\+\+H\+E\+A\+D\+E\+RS &Request installation of public header files. \\\cline{1-2}
+\end{longtabu}
+\section*{Using gflags with \href{http://bazel.io}{\tt Bazel} }
+
+To use gflags in a Bazel project, map it in as an external dependency by editing your W\+O\+R\+K\+S\+P\+A\+CE file\+: \begin{DoxyVerb}git_repository(
+    name = "com_github_gflags_gflags",
+    commit = "<INSERT COMMIT SHA HERE>",
+    remote = "https://github.com/gflags/gflags.git",
+)
+
+bind(
+    name = "gflags",
+    actual = "@com_github_gflags_gflags//:gflags",
+)
+\end{DoxyVerb}
+
+
+You can then add {\ttfamily //external\+:gflags} to the {\ttfamily deps} section of a {\ttfamily cc\+\_\+binary} or {\ttfamily cc\+\_\+library} rule, and {\ttfamily \hyperlink{CMakeCache_8txt_a986ccfc90e04633694fe6cff5472be19}{include} $<$\hyperlink{gflags_8h}{gflags/gflags.\+h}$>$} to include it in your source code. 

@@ -1,0 +1,43 @@
+\hypertarget{structGFLAGS__NAMESPACE_1_1FilenameFlagnameCmp}{}\section{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE\+:\+:Filename\+Flagname\+Cmp Struct Reference}
+\label{structGFLAGS__NAMESPACE_1_1FilenameFlagnameCmp}\index{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Filename\+Flagname\+Cmp@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Filename\+Flagname\+Cmp}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{structGFLAGS__NAMESPACE_1_1FilenameFlagnameCmp_a8526f716b77f20a43f463f939aaf9c4b}{operator()} (const \hyperlink{structGFLAGS__NAMESPACE_1_1CommandLineFlagInfo}{Command\+Line\+Flag\+Info} \&a, const \hyperlink{structGFLAGS__NAMESPACE_1_1CommandLineFlagInfo}{Command\+Line\+Flag\+Info} \&b) const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 1508 of file gflags.\+cc.
+
+
+
+\subsection{Member Function Documentation}
+\index{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Filename\+Flagname\+Cmp@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Filename\+Flagname\+Cmp}!operator()@{operator()}}
+\index{operator()@{operator()}!G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Filename\+Flagname\+Cmp@{G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Filename\+Flagname\+Cmp}}
+\subsubsection[{\texorpdfstring{operator()(const Command\+Line\+Flag\+Info \&a, const Command\+Line\+Flag\+Info \&b) const }{operator()(const CommandLineFlagInfo &a, const CommandLineFlagInfo &b) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool G\+F\+L\+A\+G\+S\+\_\+\+N\+A\+M\+E\+S\+P\+A\+C\+E\+::\+Filename\+Flagname\+Cmp\+::operator() (
+\begin{DoxyParamCaption}
+\item[{const {\bf Command\+Line\+Flag\+Info} \&}]{a, }
+\item[{const {\bf Command\+Line\+Flag\+Info} \&}]{b}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structGFLAGS__NAMESPACE_1_1FilenameFlagnameCmp_a8526f716b77f20a43f463f939aaf9c4b}{}\label{structGFLAGS__NAMESPACE_1_1FilenameFlagnameCmp_a8526f716b77f20a43f463f939aaf9c4b}
+
+
+Definition at line 1509 of file gflags.\+cc.
+
+
+\begin{DoxyCode}
+1510                                                       \{
+1511     \textcolor{keywordtype}{int} cmp = strcmp(a.filename.c\_str(), b.filename.c\_str());
+1512     \textcolor{keywordflow}{if} (cmp == 0)
+1513       cmp = strcmp(a.name.c\_str(), b.name.c\_str());  \textcolor{comment}{// secondary sort key}
+1514     \textcolor{keywordflow}{return} cmp < 0;
+1515   \}
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/gflags/src/\hyperlink{gflags_8cc}{gflags.\+cc}\end{DoxyCompactItemize}

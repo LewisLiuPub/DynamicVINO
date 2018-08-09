@@ -5,8 +5,6 @@
 #ifndef SAMPLES_VALIDATEDCNNNETWORK_H
 #define SAMPLES_VALIDATEDCNNNETWORK_H
 
-#include "samples/slog.hpp"
-#include "samples/common.hpp"
 #include "inference_engine.hpp"
 
 class ValidatedBaseNetwork {

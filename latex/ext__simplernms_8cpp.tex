@@ -1,0 +1,51 @@
+\hypertarget{ext__simplernms_8cpp}{}\section{thirdparty/extension/ext\+\_\+simplernms.cpp File Reference}
+\label{ext__simplernms_8cpp}\index{thirdparty/extension/ext\+\_\+simplernms.\+cpp@{thirdparty/extension/ext\+\_\+simplernms.\+cpp}}
+{\ttfamily \#include \char`\"{}ext\+\_\+list.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ext\+\_\+base.\+hpp\char`\"{}}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+Include dependency graph for ext\+\_\+simplernms.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ext__simplernms_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1simpler__nms__roi__t}{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::simpler\+\_\+nms\+\_\+roi\+\_\+t}
+\item 
+struct \hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1simpler__nms__delta__t}{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::simpler\+\_\+nms\+\_\+delta\+\_\+t}
+\item 
+struct \hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1simpler__nms__proposal__t}{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::simpler\+\_\+nms\+\_\+proposal\+\_\+t}
+\item 
+struct \hyperlink{structInferenceEngine_1_1Extensions_1_1Cpu_1_1simpler__nms__anchor}{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::simpler\+\_\+nms\+\_\+anchor}
+\item 
+class \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1SimplerNMSImpl}{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Simpler\+N\+M\+S\+Impl}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceInferenceEngine}{Inference\+Engine}
+\item 
+ \hyperlink{namespaceInferenceEngine_1_1Extensions}{Inference\+Engine\+::\+Extensions}
+\item 
+ \hyperlink{namespaceInferenceEngine_1_1Extensions_1_1Cpu}{Inference\+Engine\+::\+Extensions\+::\+Cpu}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespaceInferenceEngine_1_1Extensions_1_1Cpu_a372135d51e4474280774a7ca10933c84}{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Generate\+Anchors} (unsigned \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} base\+\_\+size, const std\+::vector$<$ float $>$ \&ratios, const std\+::vector$<$ float $>$ scales, simpler\+\_\+nms\+\_\+anchor $\ast$anchors)
+\item 
+std\+::vector$<$ simpler\+\_\+nms\+\_\+roi\+\_\+t $>$ \hyperlink{namespaceInferenceEngine_1_1Extensions_1_1Cpu_a6cef0ac4faf74f33e53449ba39304914}{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::simpler\+\_\+nms\+\_\+perform\+\_\+nms} (const std\+::vector$<$ simpler\+\_\+nms\+\_\+proposal\+\_\+t $>$ \&proposals, float iou\+\_\+threshold, size\+\_\+t top\+\_\+n)
+\item 
+void \hyperlink{namespaceInferenceEngine_1_1Extensions_1_1Cpu_a9ab5785b0943b51af3a2668ae9df0e11}{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::sort\+\_\+and\+\_\+keep\+\_\+at\+\_\+most\+\_\+top\+\_\+n} (std\+::vector$<$ simpler\+\_\+nms\+\_\+proposal\+\_\+t $>$ \&proposals, size\+\_\+t top\+\_\+n)
+\item 
+simpler\+\_\+nms\+\_\+roi\+\_\+t \hyperlink{namespaceInferenceEngine_1_1Extensions_1_1Cpu_aa02aa9d3ca8d6c473e44d1cd7d4f11dd}{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::simpler\+\_\+nms\+\_\+gen\+\_\+bbox} (const simpler\+\_\+nms\+\_\+anchor \&box, const simpler\+\_\+nms\+\_\+delta\+\_\+t \&delta, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} anchor\+\_\+shift\+\_\+x, \hyperlink{CMakeCache_8txt_a79a3d8790b2588b09777910863574e09}{int} anchor\+\_\+shift\+\_\+y)
+\item 
+\hyperlink{namespaceInferenceEngine_1_1Extensions_1_1Cpu_a9f457ee5ce0d556f36f472a85c6cd127}{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+R\+E\+G\+\_\+\+F\+A\+C\+T\+O\+R\+Y\+\_\+\+F\+OR} (Impl\+Factory$<$ Simpler\+N\+M\+S\+Impl $>$, Simpler\+N\+MS)
+\end{DoxyCompactItemize}

@@ -1,0 +1,124 @@
+\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1GRNImpl}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:G\+R\+N\+Impl Class Reference}
+\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1GRNImpl}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl}}
+
+
+Inheritance diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:G\+R\+N\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1GRNImpl__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:G\+R\+N\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1GRNImpl__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1GRNImpl_ad07b1fb8ba936455acee2baa4725a11a}{G\+R\+N\+Impl} (const C\+N\+N\+Layer $\ast$layer)
+\item 
+Status\+Code \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1GRNImpl_a1f1d69a96755619c12e02d93666f4ae6}{execute} (std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 28 of file ext\+\_\+grn.\+cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl}!G\+R\+N\+Impl@{G\+R\+N\+Impl}}
+\index{G\+R\+N\+Impl@{G\+R\+N\+Impl}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl}}
+\subsubsection[{\texorpdfstring{G\+R\+N\+Impl(const C\+N\+N\+Layer $\ast$layer)}{GRNImpl(const CNNLayer *layer)}}]{\setlength{\rightskip}{0pt plus 5cm}Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl\+::\+G\+R\+N\+Impl (
+\begin{DoxyParamCaption}
+\item[{const C\+N\+N\+Layer $\ast$}]{layer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1GRNImpl_ad07b1fb8ba936455acee2baa4725a11a}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1GRNImpl_ad07b1fb8ba936455acee2baa4725a11a}
+
+
+Definition at line 30 of file ext\+\_\+grn.\+cpp.
+
+
+\begin{DoxyCode}
+30                                            : \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_affff0e8263ca26852ccf71d299d7b06a}{ExtLayerBase}(layer) \{
+31         \textcolor{keywordflow}{try} \{
+32             \textcolor{keywordflow}{if} (\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData.size() != 1 || \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.outData.empty())
+33                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Incorrect number of input/output edges!"};
+34 
+35             bias = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloat(\textcolor{stringliteral}{"bias"});
+36 
+37             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a0ac7a6632e95b9500d5246b05b4b0bfa}{addConfig}(\{\{\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN}, \textcolor{keyword}{false}, 0\}\}, \{\{
+      \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN}, \textcolor{keyword}{false}, 0\}\});
+38         \} \textcolor{keywordflow}{catch} (InferenceEngine::details::InferenceEngineException &ex) \{
+39             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{errorMsg} = ex.what();
+40         \}
+41     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl}!execute@{execute}}
+\index{execute@{execute}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl}}
+\subsubsection[{\texorpdfstring{execute(std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride}{execute(std::vector< Blob::Ptr > &inputs, std::vector< Blob::Ptr > &outputs, ResponseDesc *resp) noexceptoverride}}]{\setlength{\rightskip}{0pt plus 5cm}Status\+Code Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+G\+R\+N\+Impl\+::execute (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{inputs, }
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{outputs, }
+\item[{Response\+Desc $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1GRNImpl_a1f1d69a96755619c12e02d93666f4ae6}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1GRNImpl_a1f1d69a96755619c12e02d93666f4ae6}
+
+
+Definition at line 43 of file ext\+\_\+grn.\+cpp.
+
+
+\begin{DoxyCode}
+44                                                              \{
+45         \textcolor{keywordtype}{float}* src\_data = inputs[0]->buffer();
+46         \textcolor{keywordtype}{float}* dst\_data = outputs[0]->buffer();
+47 
+48         SizeVector dims = inputs[0]->getTensorDesc().getDims();
+49 
+50         \textcolor{keywordtype}{int} N = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}((dims.size() > 0) ? dims[0] : 1);
+51         \textcolor{keywordtype}{int} C = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}((dims.size() > 1) ? dims[1] : 1);
+52         \textcolor{keywordtype}{int} H = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}((dims.size() > 2) ? dims[2] : 1);
+53         \textcolor{keywordtype}{int} W = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}((dims.size() > 3) ? dims[3] : 1);
+54 
+55 \textcolor{preprocessor}{#if \_MSC\_VER && !\_\_INTEL\_COMPILER}
+56 \textcolor{preprocessor}{        #pragma omp parallel for schedule(static)}
+57 \textcolor{preprocessor}{#else}
+58 \textcolor{preprocessor}{        #pragma omp parallel for collapse(3) schedule(static)}
+59 \textcolor{preprocessor}{#endif}
+60         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} b = 0; b < N; b++) \{
+61             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} h = 0; h < H; h++) \{
+62                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} w = 0; w < W; w++) \{
+63                     \textcolor{keywordtype}{double} variance = 0;
+64                     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} = 0; \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} < C; \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}++) \{
+65                         variance += std::pow(src\_data[b*C*H*W + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}*H*W + h*W + w], 2);
+66                     \}
+67                     variance = std::pow(variance + bias, 0.5f);
+68                     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} = 0; \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c} < C; \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}++) \{
+69                         dst\_data[b*C*H*W + \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}*H*W + h*W + w] = src\_data[b*C*H*W + 
+      \hyperlink{CMakeCache_8txt_aac1d6a1710812201527c735f7c6afbaa}{c}*H*W + h*W + w] / variance;
+70                     \}
+71                 \}
+72             \}
+73         \}
+74         \textcolor{keywordflow}{return} OK;
+75     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__grn_8cpp}{ext\+\_\+grn.\+cpp}\end{DoxyCompactItemize}

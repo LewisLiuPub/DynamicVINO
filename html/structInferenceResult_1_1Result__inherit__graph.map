@@ -1,0 +1,6 @@
+<map id="InferenceResult::Result" name="InferenceResult::Result">
+<area shape="rect" id="node2" href="$structInferenceResult_1_1AgeGenderResult.html" title="InferenceResult::AgeGender\lResult" alt="" coords="223,5,410,47"/>
+<area shape="rect" id="node3" href="$structInferenceResult_1_1EmotionsResult.html" title="InferenceResult::Emotions\lResult" alt="" coords="228,71,405,112"/>
+<area shape="rect" id="node4" href="$structInferenceResult_1_1FaceDetectionResult.html" title="InferenceResult::FaceDetection\lResult" alt="" coords="213,136,420,177"/>
+<area shape="rect" id="node5" href="$structInferenceResult_1_1HeadPoseResult.html" title="InferenceResult::HeadPose\lResult" alt="" coords="225,201,408,243"/>
+</map>

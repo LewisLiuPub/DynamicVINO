@@ -1,0 +1,80 @@
+\hypertarget{structdirent}{}\section{dirent Struct Reference}
+\label{structdirent}\index{dirent@{dirent}}
+
+
+{\ttfamily \#include $<$w\+\_\+dirent.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structdirent_a8e402a3698700524bcf424dbc220c81d}{dirent} (const wchar\+\_\+t $\ast$ws\+File\+Path)
+\item 
+\hyperlink{structdirent_a14961bb2c1b5fbf6328ed9738afea575}{$\sim$dirent} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{CMakeCache_8txt_afe71f11dacb15682cdc012f7208e6e09}{char} $\ast$ \hyperlink{structdirent_ab703007dd91aa1f311cf0fc85268b2e1}{d\+\_\+name}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 42 of file w\+\_\+dirent.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{dirent@{dirent}!dirent@{dirent}}
+\index{dirent@{dirent}!dirent@{dirent}}
+\subsubsection[{\texorpdfstring{dirent(const wchar\+\_\+t $\ast$ws\+File\+Path)}{dirent(const wchar_t *wsFilePath)}}]{\setlength{\rightskip}{0pt plus 5cm}dirent\+::dirent (
+\begin{DoxyParamCaption}
+\item[{const wchar\+\_\+t $\ast$}]{ws\+File\+Path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{structdirent_a8e402a3698700524bcf424dbc220c81d}{}\label{structdirent_a8e402a3698700524bcf424dbc220c81d}
+
+
+Definition at line 45 of file w\+\_\+dirent.\+h.
+
+
+\begin{DoxyCode}
+45                                                \{
+46         \textcolor{keywordtype}{size\_t} i;
+47         \textcolor{keyword}{auto} slen = wcslen(wsFilePath);
+48         \hyperlink{structdirent_ab703007dd91aa1f311cf0fc85268b2e1}{d\_name} = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(malloc(slen + 1));
+49         wcstombs\_s(&i, \hyperlink{structdirent_ab703007dd91aa1f311cf0fc85268b2e1}{d\_name}, slen + 1, wsFilePath, slen);
+50     \}
+\end{DoxyCode}
+\index{dirent@{dirent}!````~dirent@{$\sim$dirent}}
+\index{````~dirent@{$\sim$dirent}!dirent@{dirent}}
+\subsubsection[{\texorpdfstring{$\sim$dirent()}{~dirent()}}]{\setlength{\rightskip}{0pt plus 5cm}dirent\+::$\sim$dirent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structdirent_a14961bb2c1b5fbf6328ed9738afea575}{}\label{structdirent_a14961bb2c1b5fbf6328ed9738afea575}
+
+
+Definition at line 52 of file w\+\_\+dirent.\+h.
+
+
+\begin{DoxyCode}
+52               \{
+53         free(\hyperlink{structdirent_ab703007dd91aa1f311cf0fc85268b2e1}{d\_name});
+54     \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\index{dirent@{dirent}!d\+\_\+name@{d\+\_\+name}}
+\index{d\+\_\+name@{d\+\_\+name}!dirent@{dirent}}
+\subsubsection[{\texorpdfstring{d\+\_\+name}{d_name}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf char}$\ast$ dirent\+::d\+\_\+name}\hypertarget{structdirent_ab703007dd91aa1f311cf0fc85268b2e1}{}\label{structdirent_ab703007dd91aa1f311cf0fc85268b2e1}
+
+
+Definition at line 43 of file w\+\_\+dirent.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/common/os/windows/\hyperlink{w__dirent_8h}{w\+\_\+dirent.\+h}\end{DoxyCompactItemize}

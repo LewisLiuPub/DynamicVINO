@@ -1,0 +1,62 @@
+\hypertarget{classfLS_1_1StringFlagDestructor}{}\section{f\+LS\+:\+:String\+Flag\+Destructor Class Reference}
+\label{classfLS_1_1StringFlagDestructor}\index{f\+L\+S\+::\+String\+Flag\+Destructor@{f\+L\+S\+::\+String\+Flag\+Destructor}}
+
+
+{\ttfamily \#include $<$gflags.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classfLS_1_1StringFlagDestructor_ad62cc257c672e2e16e134f92fdfa45f7}{String\+Flag\+Destructor} (void $\ast$current, void $\ast$defvalue)
+\item 
+\hyperlink{classfLS_1_1StringFlagDestructor_a13f872382842b7278bbe5a88da17b6dc}{$\sim$\+String\+Flag\+Destructor} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 557 of file gflags.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{f\+L\+S\+::\+String\+Flag\+Destructor@{f\+L\+S\+::\+String\+Flag\+Destructor}!String\+Flag\+Destructor@{String\+Flag\+Destructor}}
+\index{String\+Flag\+Destructor@{String\+Flag\+Destructor}!f\+L\+S\+::\+String\+Flag\+Destructor@{f\+L\+S\+::\+String\+Flag\+Destructor}}
+\subsubsection[{\texorpdfstring{String\+Flag\+Destructor(void $\ast$current, void $\ast$defvalue)}{StringFlagDestructor(void *current, void *defvalue)}}]{\setlength{\rightskip}{0pt plus 5cm}f\+L\+S\+::\+String\+Flag\+Destructor\+::\+String\+Flag\+Destructor (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{current, }
+\item[{void $\ast$}]{defvalue}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classfLS_1_1StringFlagDestructor_ad62cc257c672e2e16e134f92fdfa45f7}{}\label{classfLS_1_1StringFlagDestructor_ad62cc257c672e2e16e134f92fdfa45f7}
+
+
+Definition at line 563 of file gflags.\+h.
+
+
+\begin{DoxyCode}
+564   : current\_storage\_(current), defvalue\_storage\_(defvalue) \{\}
+\end{DoxyCode}
+\index{f\+L\+S\+::\+String\+Flag\+Destructor@{f\+L\+S\+::\+String\+Flag\+Destructor}!````~String\+Flag\+Destructor@{$\sim$\+String\+Flag\+Destructor}}
+\index{````~String\+Flag\+Destructor@{$\sim$\+String\+Flag\+Destructor}!f\+L\+S\+::\+String\+Flag\+Destructor@{f\+L\+S\+::\+String\+Flag\+Destructor}}
+\subsubsection[{\texorpdfstring{$\sim$\+String\+Flag\+Destructor()}{~StringFlagDestructor()}}]{\setlength{\rightskip}{0pt plus 5cm}f\+L\+S\+::\+String\+Flag\+Destructor\+::$\sim$\+String\+Flag\+Destructor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classfLS_1_1StringFlagDestructor_a13f872382842b7278bbe5a88da17b6dc}{}\label{classfLS_1_1StringFlagDestructor_a13f872382842b7278bbe5a88da17b6dc}
+
+
+Definition at line 566 of file gflags.\+h.
+
+
+\begin{DoxyCode}
+566                           \{
+567     \textcolor{keyword}{reinterpret\_cast<}\hyperlink{namespacefLS_a1b41ccd11a207a35ef8eae177682761c}{clstring}*\textcolor{keyword}{>}(current\_storage\_ )->~\hyperlink{namespacefLS_a1b41ccd11a207a35ef8eae177682761c}{clstring}();
+568     \textcolor{keyword}{reinterpret\_cast<}\hyperlink{namespacefLS_a1b41ccd11a207a35ef8eae177682761c}{clstring}*\textcolor{keyword}{>}(defvalue\_storage\_)->~\hyperlink{namespacefLS_a1b41ccd11a207a35ef8eae177682761c}{clstring}();
+569   \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+cmake-\/build-\/debug/thirdparty/gflags/include/gflags/\hyperlink{gflags_8h}{gflags.\+h}\end{DoxyCompactItemize}

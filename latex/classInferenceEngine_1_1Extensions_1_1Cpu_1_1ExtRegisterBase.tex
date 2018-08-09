@@ -1,0 +1,49 @@
+\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtRegisterBase}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Ext\+Register\+Base$<$ Ext $>$ Class Template Reference}
+\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtRegisterBase}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Register\+Base$<$ Ext $>$@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Register\+Base$<$ Ext $>$}}
+
+
+{\ttfamily \#include $<$ext\+\_\+list.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtRegisterBase_a1d56b4f9730d0e019c31539654c666ee}{Ext\+Register\+Base} (const std\+::string \&type)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Ext$>$\\*
+class Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Register\+Base$<$ Ext $>$}
+
+
+
+Definition at line 69 of file ext\+\_\+list.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Register\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Register\+Base}!Ext\+Register\+Base@{Ext\+Register\+Base}}
+\index{Ext\+Register\+Base@{Ext\+Register\+Base}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Register\+Base@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Register\+Base}}
+\subsubsection[{\texorpdfstring{Ext\+Register\+Base(const std\+::string \&type)}{ExtRegisterBase(const std::string &type)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Ext $>$ {\bf Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Ext\+Register\+Base}$<$ Ext $>$\+::{\bf Ext\+Register\+Base} (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtRegisterBase_a1d56b4f9730d0e019c31539654c666ee}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtRegisterBase_a1d56b4f9730d0e019c31539654c666ee}
+
+
+Definition at line 71 of file ext\+\_\+list.\+hpp.
+
+
+\begin{DoxyCode}
+71                                                     \{
+72         CpuExtensions::AddExt(type,
+73             [](\textcolor{keyword}{const} CNNLayer *layer) -> InferenceEngine::ILayerImplFactory* \{
+74                 \textcolor{keywordflow}{return} \textcolor{keyword}{new} Ext(layer);
+75             \});
+76     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__list_8hpp}{ext\+\_\+list.\+hpp}\end{DoxyCompactItemize}

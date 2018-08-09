@@ -1,0 +1,155 @@
+\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PriorBoxClusteredImpl}{}\section{Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Prior\+Box\+Clustered\+Impl Class Reference}
+\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PriorBoxClusteredImpl}\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl}}
+
+
+Inheritance diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Prior\+Box\+Clustered\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PriorBoxClusteredImpl__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Inference\+Engine\+:\+:Extensions\+:\+:Cpu\+:\+:Prior\+Box\+Clustered\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PriorBoxClusteredImpl__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PriorBoxClusteredImpl_aa226e0233fc9287bded34c700f0e5073}{Prior\+Box\+Clustered\+Impl} (const C\+N\+N\+Layer $\ast$layer)
+\item 
+Status\+Code \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PriorBoxClusteredImpl_ab0731b9592c833201a2df75282b9aea1}{execute} (std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 26 of file ext\+\_\+priorbox\+\_\+clustered.\+cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl}!Prior\+Box\+Clustered\+Impl@{Prior\+Box\+Clustered\+Impl}}
+\index{Prior\+Box\+Clustered\+Impl@{Prior\+Box\+Clustered\+Impl}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl}}
+\subsubsection[{\texorpdfstring{Prior\+Box\+Clustered\+Impl(const C\+N\+N\+Layer $\ast$layer)}{PriorBoxClusteredImpl(const CNNLayer *layer)}}]{\setlength{\rightskip}{0pt plus 5cm}Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl\+::\+Prior\+Box\+Clustered\+Impl (
+\begin{DoxyParamCaption}
+\item[{const C\+N\+N\+Layer $\ast$}]{layer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PriorBoxClusteredImpl_aa226e0233fc9287bded34c700f0e5073}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PriorBoxClusteredImpl_aa226e0233fc9287bded34c700f0e5073}
+
+
+Definition at line 28 of file ext\+\_\+priorbox\+\_\+clustered.\+cpp.
+
+
+\begin{DoxyCode}
+28                                                          : \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_affff0e8263ca26852ccf71d299d7b06a}{ExtLayerBase}(layer) \{
+29         \textcolor{keywordflow}{try} \{
+30             \textcolor{keywordflow}{if} (\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.insData.size() != 2 || \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.outData.empty())
+31                 THROW\_IE\_EXCEPTION << \textcolor{stringliteral}{"Incorrect number of input/output edges!"};
+32 
+33             widths\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloats(\textcolor{stringliteral}{"width"}, \{\});
+34             heights\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloats(\textcolor{stringliteral}{"height"}, \{\});
+35             clip\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"clip"});
+36             variance\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloats(\textcolor{stringliteral}{"variance"}, \{\});
+37             img\_h\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"img\_h"}, 0);
+38             img\_w\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsInt(\textcolor{stringliteral}{"img\_w"}, 0);
+39             step\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloat(\textcolor{stringliteral}{"step"}, 0);
+40             step\_h\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloat(\textcolor{stringliteral}{"step\_h"}, 0);
+41             step\_w\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloat(\textcolor{stringliteral}{"step\_w"}, 0);
+42             offset\_ = \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1074cdccacb9e9ca6eec01bbc2f7ca4a}{cnnLayer}.GetParamAsFloat(\textcolor{stringliteral}{"offset"});
+43 
+44             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a0ac7a6632e95b9500d5246b05b4b0bfa}{addConfig}(\{\{\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN}, \textcolor{keyword}{true}\}, \{
+      \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN}, \textcolor{keyword}{true}\}\}, \{\{\hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_a1258a8d209e0249e0b1717618352ddfba446687ea2db1ada75be5ed053be77f59}{ConfLayout::PLN}, \textcolor{keyword}{true}\}\});
+45         \} \textcolor{keywordflow}{catch} (InferenceEngine::details::InferenceEngineException &ex) \{
+46             \hyperlink{classInferenceEngine_1_1Extensions_1_1Cpu_1_1ExtLayerBase_abc78e9b5a79fa339ffd831a5318f71f7}{errorMsg} = ex.what();
+47         \}
+48     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\index{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl}!execute@{execute}}
+\index{execute@{execute}!Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl@{Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl}}
+\subsubsection[{\texorpdfstring{execute(std\+::vector$<$ Blob\+::\+Ptr $>$ \&inputs, std\+::vector$<$ Blob\+::\+Ptr $>$ \&outputs, Response\+Desc $\ast$resp) noexceptoverride}{execute(std::vector< Blob::Ptr > &inputs, std::vector< Blob::Ptr > &outputs, ResponseDesc *resp) noexceptoverride}}]{\setlength{\rightskip}{0pt plus 5cm}Status\+Code Inference\+Engine\+::\+Extensions\+::\+Cpu\+::\+Prior\+Box\+Clustered\+Impl\+::execute (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{inputs, }
+\item[{std\+::vector$<$ Blob\+::\+Ptr $>$ \&}]{outputs, }
+\item[{Response\+Desc $\ast$}]{resp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}\hypertarget{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PriorBoxClusteredImpl_ab0731b9592c833201a2df75282b9aea1}{}\label{classInferenceEngine_1_1Extensions_1_1Cpu_1_1PriorBoxClusteredImpl_ab0731b9592c833201a2df75282b9aea1}
+
+
+Definition at line 50 of file ext\+\_\+priorbox\+\_\+clustered.\+cpp.
+
+
+\begin{DoxyCode}
+51                                                              \{
+52         \textcolor{keywordtype}{int} num\_priors\_ = widths\_.size();
+53 
+54         \textcolor{keywordflow}{if} (variance\_.empty())
+55             variance\_.push\_back(0.1);
+56 
+57         \textcolor{comment}{// Execute}
+58         \textcolor{keyword}{const} \textcolor{keywordtype}{int} layer\_width = inputs[0]->getTensorDesc().getDims()[3];
+59         \textcolor{keyword}{const} \textcolor{keywordtype}{int} layer\_height = inputs[0]->getTensorDesc().getDims()[2];
+60 
+61         \textcolor{keywordtype}{int} img\_width = img\_w\_ == 0 ? inputs[1]->getTensorDesc().getDims()[3] : img\_w\_;
+62         \textcolor{keywordtype}{int} img\_height = img\_h\_ == 0 ? inputs[1]->getTensorDesc().getDims()[2] : img\_h\_;
+63 
+64         \textcolor{keywordtype}{float} step\_w = step\_w\_ == 0 ? step\_ : step\_w\_;
+65         \textcolor{keywordtype}{float} step\_h = step\_h\_ == 0 ? step\_ : step\_h\_;
+66 
+67         \textcolor{keyword}{auto} *top\_data\_0 = outputs[0]->buffer().as<\textcolor{keywordtype}{float} *>();
+68         \textcolor{keywordtype}{float} *top\_data\_1 = top\_data\_0 + outputs[0]->getTensorDesc().getDims()[2];
+69         \textcolor{keywordtype}{int} var\_size = variance\_.size();
+70 
+71         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} h = 0; h < layer\_height; ++h) \{
+72             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} w = 0; w < layer\_width; ++w) \{
+73                 \textcolor{keywordtype}{float} center\_x = (w + offset\_) * step\_w;
+74                 \textcolor{keywordtype}{float} center\_y = (h + offset\_) * step\_h;
+75 
+76                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} s = 0; s < num\_priors\_; ++s) \{
+77                     \textcolor{keywordtype}{float} box\_width = widths\_[s];
+78                     \textcolor{keywordtype}{float} box\_height = heights\_[s];
+79 
+80                     \textcolor{keywordtype}{float} xmin = (center\_x - box\_width / 2.) / img\_width;
+81                     \textcolor{keywordtype}{float} ymin = (center\_y - box\_height / 2.) / img\_height;
+82                     \textcolor{keywordtype}{float} xmax = (center\_x + box\_width / 2.) / img\_width;
+83                     \textcolor{keywordtype}{float} ymax = (center\_y + box\_height / 2.) / img\_height;
+84 
+85                     \textcolor{keywordflow}{if} (clip\_) \{
+86                         xmin = std::min(std::max(xmin, 0.0f), 1.0f);
+87                         ymin = std::min(std::max(ymin, 0.0f), 1.0f);
+88                         xmax = std::min(std::max(xmax, 0.0f), 1.0f);
+89                         ymax = std::min(std::max(ymax, 0.0f), 1.0f);
+90                     \}
+91 
+92                     top\_data\_0[h * layer\_width * num\_priors\_ * 4 + w * num\_priors\_ * 4 + s * 4 + 0] = xmin;
+93                     top\_data\_0[h * layer\_width * num\_priors\_ * 4 + w * num\_priors\_ * 4 + s * 4 + 1] = ymin;
+94                     top\_data\_0[h * layer\_width * num\_priors\_ * 4 + w * num\_priors\_ * 4 + s * 4 + 2] = xmax;
+95                     top\_data\_0[h * layer\_width * num\_priors\_ * 4 + w * num\_priors\_ * 4 + s * 4 + 3] = ymax;
+96 
+97                     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < var\_size; j++)
+98                         top\_data\_1[h * layer\_width * num\_priors\_ * var\_size + w * num\_priors\_ * var\_size +
+99                                    s * var\_size +
+100                                    j] = variance\_[j];
+101                 \}
+102             \}
+103         \}
+104         \textcolor{keywordflow}{return} OK;
+105     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/extension/\hyperlink{ext__priorbox__clustered_8cpp}{ext\+\_\+priorbox\+\_\+clustered.\+cpp}\end{DoxyCompactItemize}

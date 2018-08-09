@@ -1,12 +1,12 @@
 //
 // Created by chris on 18-7-19.
 //
-#include "pipeline.h"
+#include "openvino_service/pipeline.h"
 
 using namespace InferenceEngine;
 
 bool Pipeline::add(const std::string &parent, const std::string &name,
-                   std::shared_ptr<BaseInputDevice> input_device) {
+                   std::shared_ptr<Input::BaseInputDevice> input_device) {
   if (!parent.empty()) {
     slog::err << "input device should have no parent!" << slog::endl;
     return false;

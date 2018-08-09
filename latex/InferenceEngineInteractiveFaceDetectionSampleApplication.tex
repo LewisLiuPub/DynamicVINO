@@ -1,0 +1,104 @@
+This sample showcases Object Detection task applied for face recognition using sequence of neural networks. Async A\+PI usage can improve overall frame-\/rate of the application, because rather than wait for inference to complete, the app can continue doing things on the host, while accelerator is busy. Specifically, this demo keeps three parallel infer requests for Age Gender Head Pose and Emotions detection that run simultaneously.
+
+Other demo objectives are\+:
+\begin{DoxyItemize}
+\item \hyperlink{classVideo}{Video} as input support via Open\+CV
+\item Visualization of the resulting face bounding boxes from Face Detection network
+\item Visualization of age gender, head pose and emotion recognition information for each detected face
+\item Open\+CV is used to draw resulting bounding boxes, labels, etc, so you can copy paste this code without need to pull Inference Engine samples helpers to your app
+\end{DoxyItemize}
+
+\subsubsection*{How it works}
+
+On the start-\/up the application reads command line parameters and loads one, two, three or four networks depending on -\/d... options family to the Inference Engine. Upon getting a frame from the Open\+CV\textquotesingle{}s Video\+Capture it performs inference of frame detection network, then performs three simultaneous inferences using Age Gender, Head Pose and Emotions detection networks (if those specified in command line) and displays the results.
+
+New \char`\"{}\+Async A\+P\+I\char`\"{} operates with new notion of the \char`\"{}\+Infer Request\char`\"{} that encapsulates the inputs/outputs and separates {\itshape scheduling and waiting for result}, next section. And here what makes the performance look different\+:
+\begin{DoxyEnumerate}
+\item In the default (\char`\"{}\+Sync\char`\"{}) mode the frame is captured and then immediately processed, below in pseudo-\/code\+: 
+\begin{DoxyCode}
+\textcolor{keywordflow}{while}(\textcolor{keyword}{true}) \{
+    capture frame
+    populate FaceDetection InferRequest
+    wait \textcolor{keywordflow}{for} the FaceDetection InferRequest
+    populate AgeGender InferRequest \textcolor{keyword}{using} dyn batch technique
+    populate HeadPose InferRequest \textcolor{keyword}{using} dyn batch technique
+    populate EmotionDetection InferRequest \textcolor{keyword}{using} dyn batch technique
+    wait AgeGender
+    wait HeadPose
+    wait EmotionDetection
+    display detection results
+\}
+\end{DoxyCode}
+ So, this is rather reference implementation, where the new Async A\+PI is used in the serialized/synch fashion.
+\end{DoxyEnumerate}
+
+\subsection*{Running}
+
+Running the application with the {\ttfamily -\/h} option yields the following usage message\+: 
+\begin{DoxyCode}
+1 ./interactive\_face\_detection -h
+2 InferenceEngine: 
+3     API version ............ <version>
+4     Build .................. <number>
+5 
+6 interactive\_face\_detection [OPTION]
+7 Options:
+8 
+9     -h                         Print a usage message.
+10     -i "<path>"                Optional. Path to an video file. Default value is "cam" to work with camera.
+11     -m "<path>"                Required. Path to an .xml file with a trained face detection model.
+12     -m\_ag "<path>"             Optional. Path to an .xml file with a trained age gender model.
+13     -m\_hp "<path>"             Optional. Path to an .xml file with a trained head pose model.
+14     -m\_em "<path>"             Optional. Path to an .xml file with a trained emotions model.
+15       -l "<absolute\_path>"     Required for MKLDNN (CPU)-targeted custom layers.Absolute path to a shared
+       library with the kernels impl.
+16           Or
+17       -c "<absolute\_path>"     Required for clDNN (GPU)-targeted custom kernels.Absolute path to the xml
+       file with the kernels desc.
+18     -d "<device>"              Specify the target device for Face Detection (CPU, GPU, FPGA, or MYRIAD).
+       Sample will look for a suitable plugin for device specified.
+19     -d\_ag "<device>"           Specify the target device for Age Gender Detection (CPU, GPU, FPGA, or
+       MYRIAD). Sample will look for a suitable plugin for device specified.
+20     -d\_hp "<device>"           Specify the target device for Head Pose Detection (CPU, GPU, FPGA, or
+       MYRIAD). Sample will look for a suitable plugin for device specified.
+21     -d\_em "<device>"           Specify the target device for Emotions Detection (CPU, GPU, FPGA, or
+       MYRIAD). Sample will look for a suitable plugin for device specified.
+22     -n\_ag "<num>"              Specify number of maximum simultaneously processed faces for Age Gender
+       Detection (default is 16).
+23     -n\_hp "<num>"              Specify number of maximum simultaneously processed faces for Head Pose
+       Detection (default is 16).
+24     -n\_em "<num>"              Specify number of maximum simultaneously processed faces for Emotions
+       Detection (default is 16).
+25     -no\_wait                   No wait for key press in the end.
+26     -no\_show                   No show processed video.
+27     -pc                        Enables per-layer performance report.
+28     -r                         Inference results as raw values.
+29     -t                         Probability threshold for detections.
+\end{DoxyCode}
+
+
+Running the application with the empty list of options yields the usage message given above and an error message. You can use the following command to do inference on a G\+PU with an example pre-\/trained Google\+Net based S\+S\+D$\ast$ available at \href{https://software.intel.com/file/609199/download:}{\tt https\+://software.\+intel.\+com/file/609199/download\+:} 
+\begin{DoxyCode}
+1 ./interactive\_face\_detection -i <path\_to\_video>/inputVideo.mp4 -m <path\_to\_model>/ssd.xml -d GPU
+\end{DoxyCode}
+ Notice that the network should be converted from the Caffe$\ast$ ($\ast$.prototxt + $\ast$.model) to the Inference Engine format ($\ast$.xml + $\ast$bin) first, by use of the Model\+Optimizer tool (\href{https://software.intel.com/en-us/articles/OpenVINO-ModelOptimizer}{\tt https\+://software.\+intel.\+com/en-\/us/articles/\+Open\+V\+I\+N\+O-\/\+Model\+Optimizer}).
+
+\subsubsection*{Sample Output}
+
+The sample uses Open\+CV to display the resulting frame with detections (rendered as bounding boxes and labels, if provided). In the default mode the sample reports
+\begin{DoxyItemize}
+\item {\bfseries Open\+CV time}\+: frame decoding + time to render the bounding boxes, labels, and displaying the results.
+\item {\bfseries Face Detection time}\+: inference time for the face Detection network.
+\end{DoxyItemize}
+
+If Age Gender Head Pose or Emotion detections are enabled the additional info below is reported also\+:
+\begin{DoxyItemize}
+\item {\bfseries Age Gender + Head Pose + Emotions Detection time}\+: combined inference time of simultaneously executed age gender, head pose and emotion recognition networks.
+\end{DoxyItemize}
+
+\subsection*{See Also}
+
+
+\begin{DoxyItemize}
+\item Using Inference Engine Samples 
+\end{DoxyItemize}
