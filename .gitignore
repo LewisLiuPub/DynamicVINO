@@ -32,7 +32,8 @@
 *.app
 
 # Folders
-/samples/build/
-/.idea
-/samples/cmake-build-debug/
-/samples/Release/
+build/
+.idea/
+cmake-build-debug/
+Release/
+.vscode/
