@@ -1,8 +1,0 @@
-<map id="include/openvino_service/inputs/input.h" name="include/openvino_service/inputs/input.h">
-<area shape="rect" id="node2" href="$factory_8h.html" title="include/openvino_service\l/factory.h" alt="" coords="15,95,183,136"/>
-<area shape="rect" id="node5" href="$pipeline_8h.html" title="a header file with definition of Pipeline class " alt="" coords="207,95,375,136"/>
-<area shape="rect" id="node7" href="$input_8cpp.html" title="lib/inputs/input.cpp" alt="" coords="399,102,529,129"/>
-<area shape="rect" id="node3" href="$factory_8cpp.html" title="lib/factory.cpp" alt="" coords="5,184,109,211"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="sample/main.cpp" alt="" coords="134,184,255,211"/>
-<area shape="rect" id="node6" href="$pipeline_8cpp.html" title="lib/pipeline.cpp" alt="" coords="279,184,387,211"/>
-</map>

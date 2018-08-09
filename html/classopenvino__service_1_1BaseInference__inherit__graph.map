@@ -1,6 +1,0 @@
-<map id="openvino_service::BaseInference" name="openvino_service::BaseInference">
-<area shape="rect" id="node2" href="$classopenvino__service_1_1AgeGenderDetection.html" title="openvino_service::AgeGender\lDetection" alt="" coords="278,5,474,47"/>
-<area shape="rect" id="node3" href="$classopenvino__service_1_1EmotionsDetection.html" title="openvino_service::Emotions\lDetection" alt="" coords="283,71,469,112"/>
-<area shape="rect" id="node4" href="$classopenvino__service_1_1FaceDetection.html" title="openvino_service::FaceDetection" alt="" coords="268,137,484,163"/>
-<area shape="rect" id="node5" href="$classopenvino__service_1_1HeadPoseDetection.html" title="openvino_service::HeadPose\lDetection" alt="" coords="280,188,472,229"/>
-</map>
