@@ -157,7 +157,7 @@ int main(int argc, char *argv[]) {
     headpose_inference_ptr->loadNetwork(headpose_detection_network);
     headpose_inference_ptr->loadEngine(headpose_detection_engine);
 
-    // --------------------------- 3. Build Pipeline -------------------------------------------------------
+    // --------------------------- 4. Build Pipeline -------------------------------------------------------
     Pipeline pipe;
     pipe.add("video_input", std::move(input_ptr));
     pipe.add("video_input", "face_detection", face_inference_ptr);
@@ -169,7 +169,7 @@ int main(int argc, char *argv[]) {
     pipe.add("headpose_detection", "video_output", output_ptr);
     pipe.setcallback();
     pipe.printPipeline();
-    // --------------------------- 4. Run Pipeline ---------------------------------------------------------
+    // --------------------------- 5. Run Pipeline ---------------------------------------------------------
     while (cv::waitKey(1) < 0 && cvGetWindowHandle(window_name.c_str())) {
       pipe.runOnce();
     }
