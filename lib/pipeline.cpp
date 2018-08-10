@@ -107,7 +107,7 @@ void Pipeline::printPipeline() {
   }
 }
 
-void Pipeline::setcallback() {
+void Pipeline::setCallback() {
   if (!input_device_->read(&frame_)) {
     throw std::logic_error("Failed to get frame from cv::VideoCapture");
   }

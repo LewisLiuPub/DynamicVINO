@@ -165,7 +165,7 @@ int main(int argc, char *argv[]) {
     pipe.add("emotions_detection", "video_output", output_ptr);
     pipe.add("age_gender_detection", "video_output", output_ptr);
     pipe.add("headpose_detection", "video_output", output_ptr);
-    pipe.setcallback();
+    pipe.setCallback();
     pipe.printPipeline();
     // --------------------------- 5. Run Pipeline ---------------------------------------------------------
     while (cv::waitKey(1) < 0 && cvGetWindowHandle(window_name.c_str())) {

@@ -69,7 +69,7 @@ class Pipeline {
   /**
    * @brief Set the inference network to call the callback function as soon as each inference is finished.
    */
-  void setcallback();
+  void setCallback();
   void printPipeline();
  private:
   std::shared_ptr<Input::BaseInputDevice> input_device_;
