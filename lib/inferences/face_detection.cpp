@@ -27,11 +27,9 @@ void openvino_service::FaceDetectionResult::decorateFrame(
 }
 
 // FaceDetection
-openvino_service::FaceDetection::FaceDetection(
-    int max_proposal_count, int object_size, double show_output_thresh)
-    : max_proposal_count_(max_proposal_count),
-      object_size_(object_size),
-      show_output_thresh_(show_output_thresh), openvino_service::BaseInference() {
+openvino_service::FaceDetection::FaceDetection(double show_output_thresh)
+    : show_output_thresh_(show_output_thresh),
+      openvino_service::BaseInference() {
 };
 
 openvino_service::FaceDetection::~FaceDetection() = default;
@@ -39,6 +37,8 @@ openvino_service::FaceDetection::~FaceDetection() = default;
 void openvino_service::FaceDetection::loadNetwork(
     const std::shared_ptr<Models::FaceDetectionModel> network) {
   valid_model_ = network;
+  max_proposal_count_ = network->getMaxProposalCount();
+  object_size_ = network->getObjectSize();
   setMaxBatchSize(network->getMaxBatchSize());
 }
 

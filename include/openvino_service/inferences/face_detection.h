@@ -30,7 +30,7 @@ class FaceDetectionResult : public Result {
 class FaceDetection : public BaseInference {
  public:
   using Result = openvino_service::FaceDetectionResult;
-  explicit FaceDetection(int, int, double);
+  explicit FaceDetection(double);
   ~FaceDetection() override;
   void loadNetwork(std::shared_ptr<Models::FaceDetectionModel>);
   bool enqueue(const cv::Mat &, const cv::Rect &) override;

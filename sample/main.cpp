@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
     }
     std::string window_name = "Results";
     auto output_ptr =
-        std::make_shared<Outputs::ImageWindowOutput>(window_name,950.0);
+        std::make_shared<Outputs::ImageWindowOutput>(window_name);
 
     // --------------------------- 3. Generate Inference Instance-------------------------------------------
     //generate face detection inference
@@ -110,11 +110,9 @@ int main(int argc, char *argv[]) {
     face_detection_model->modelInit();
     auto face_detection_engine =
         std::make_shared<Engines::Engine>(
-            &plugins_for_devices[FLAGS_d],*face_detection_model);
+            plugins_for_devices[FLAGS_d],face_detection_model);
     auto face_inference_ptr =
-        std::make_shared<openvino_service::FaceDetection >(
-            face_detection_model->getMaxProposalCount(),
-            face_detection_model->getObjectSize(), FLAGS_t);
+        std::make_shared<openvino_service::FaceDetection >(FLAGS_t);
     face_inference_ptr->loadNetwork(face_detection_model);
     face_inference_ptr->loadEngine(face_detection_engine);
 
@@ -125,7 +123,7 @@ int main(int argc, char *argv[]) {
     emotions_detection_model->modelInit();
     auto emotions_detection_engine =
         std::make_shared<Engines::Engine>(
-            &plugins_for_devices[FLAGS_d_em],*emotions_detection_model);
+            plugins_for_devices[FLAGS_d_em],emotions_detection_model);
     auto emotions_inference_ptr =
         std::make_shared<openvino_service::EmotionsDetection>();
     emotions_inference_ptr->loadNetwork(emotions_detection_model);
@@ -138,7 +136,7 @@ int main(int argc, char *argv[]) {
     agegender_detection_model->modelInit();
     auto agegender_detection_engine =
         std::make_shared<Engines::Engine>(
-            &plugins_for_devices[FLAGS_d_ag],*agegender_detection_model);
+            plugins_for_devices[FLAGS_d_ag],agegender_detection_model);
     auto agegender_inference_ptr =
         std::make_shared<openvino_service::AgeGenderDetection>();
     agegender_inference_ptr->loadNetwork(agegender_detection_model);
@@ -151,7 +149,7 @@ int main(int argc, char *argv[]) {
     headpose_detection_network->modelInit();
     auto headpose_detection_engine =
         std::make_shared<Engines::Engine>(
-            &plugins_for_devices[FLAGS_d_hp],*headpose_detection_network);
+            plugins_for_devices[FLAGS_d_hp],headpose_detection_network);
     auto headpose_inference_ptr =
         std::make_shared<openvino_service::HeadPoseDetection>();
     headpose_inference_ptr->loadNetwork(headpose_detection_network);

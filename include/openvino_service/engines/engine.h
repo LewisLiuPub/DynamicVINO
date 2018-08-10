@@ -19,8 +19,7 @@ class Engine {
    * @brief Create an NetworkEngine instance 
    * from a inference plugin and an inference network.
    */
-  Engine(InferenceEngine::InferencePlugin *,
-                const Models::BaseModel &);
+  Engine(InferenceEngine::InferencePlugin, Models::BaseModel::Ptr );
   /**
    * @brief Get the inference request this instance holds.
    * @return The inference request this instance holds.

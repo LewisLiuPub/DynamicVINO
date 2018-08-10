@@ -20,6 +20,7 @@ namespace Models {
  * @brief This class represents the network given by .xml and .bin file
  */
 class BaseModel {
+  using Ptr = std::shared_ptr<BaseModel>;
  public:
   /**
    * @brief Initialize the class with given .xml, .bin and .labels file. It will
