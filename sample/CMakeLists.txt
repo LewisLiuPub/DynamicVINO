@@ -13,7 +13,7 @@
 # limitations under the License.
 cmake_minimum_required(VERSION 2.8)
 
-set(TARGET_NAME "openvino_pipeline_sample")
+set(TARGET_NAME "dynamic_vino_sample")
 
 find_package(OpenCV)
 if(OpenCV_FOUND)
@@ -55,7 +55,7 @@ set_target_properties(${TARGET_NAME} PROPERTIES "CMAKE_CXX_FLAGS" "${CMAKE_CXX_F
         COMPILE_PDB_NAME ${TARGET_NAME})
 
 
-target_link_libraries(${TARGET_NAME} cpu_extension ${InferenceEngine_LIBRARIES} gflags openvino_pipeline_lib)
+target_link_libraries(${TARGET_NAME} cpu_extension ${InferenceEngine_LIBRARIES} gflags dynamic_vino_lib)
 
 if(UNIX)
     target_link_libraries( ${TARGET_NAME} ${LIB_DL} pthread ${OpenCV_LIBRARIES})

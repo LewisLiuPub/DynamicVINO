@@ -7,12 +7,14 @@ bool Input::StandardCamera::initialize() {
   setHeight((size_t) cap.get(CV_CAP_PROP_FRAME_HEIGHT));
   return isInit();
 }
+
 bool Input::StandardCamera::initialize(int camera_num) {
   setInitStatus(cap.open(camera_num));
   setWidth((size_t) cap.get(CV_CAP_PROP_FRAME_WIDTH));
   setHeight((size_t) cap.get(CV_CAP_PROP_FRAME_HEIGHT));
   return isInit();
 }
+
 bool Input::StandardCamera::initialize(size_t width, size_t height) {
   setWidth(width);
   setHeight(height);
@@ -23,11 +25,13 @@ bool Input::StandardCamera::initialize(size_t width, size_t height) {
   }
   return isInit();
 }
+
 bool Input::StandardCamera::read(cv::Mat *frame) {
   if (!isInit()) { return false; }
   cap.grab();
   return cap.retrieve(*frame);
 }
+
 void Input::StandardCamera::config() {
   //TODO
 }

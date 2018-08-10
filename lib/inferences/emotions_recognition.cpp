@@ -19,7 +19,7 @@ void openvino_service::EmotionsResult::decorateFrame(
               cv::Point2f(rect.x, rect.y - 30),
               cv::FONT_HERSHEY_COMPLEX_SMALL,
               0.8,
-              cv::Scalar(0, 0, 255));
+              cv::Scalar(0, 255, 0));
   cv::rectangle(*frame, rect, cv::Scalar(100, 100, 100), 1);
 }
 

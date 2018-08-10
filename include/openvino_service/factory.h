@@ -27,12 +27,12 @@ class Factory {
   * @param[in] input device name, can be RealSenseCamera, StandardCamera or video directory
   * @return the instance of derived input device referenced by a smart pointer
   */
-  static std::shared_ptr<Input::BaseInputDevice> makeInputDeviceByName(const std::string &);
+  static std::unique_ptr<Input::BaseInputDevice> makeInputDeviceByName(const std::string &);
   /**
   * @brief This function produces the derived inference plugin corresponding to the input string
   * @return the instance of derived inference plugin referenced by a smart pointer
   */
-  static std::shared_ptr<InferenceEngine::InferencePlugin> makePluginByName(
+  static std::unique_ptr<InferenceEngine::InferencePlugin> makePluginByName(
       const std::string &, const std::string &, const std::string &, bool);
 };
 

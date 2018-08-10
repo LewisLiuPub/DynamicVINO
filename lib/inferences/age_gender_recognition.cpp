@@ -10,14 +10,14 @@ void openvino_service::AgeGenderResult::decorateFrame(
   cv::Rect rect = getLocation();
 
   out.str("");
-  out << "Age is: " << age_ << "," <<
-      "Gender is: " << ((male_prob_ > 0.5)?"M":"F");
+  out << "Age: " << age_ << "," <<
+      "Gender: " << ((male_prob_ > 0.5)?"Male":"Female");
   cv::putText(*frame,
               out.str(),
-              cv::Point2f(rect.x, rect.y + 15),
+              cv::Point2f(rect.x, rect.y-5),
               cv::FONT_HERSHEY_COMPLEX_SMALL,
               0.8,
-              cv::Scalar(0, 0, 255));
+              cv::Scalar(0, 255, 0));
   cv::rectangle(*frame, rect, cv::Scalar(100, 100, 100), 1);
 }
 

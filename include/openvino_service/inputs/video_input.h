@@ -15,7 +15,7 @@ class Video : public BaseInputDevice {
  public:
   explicit Video(const std::string &);
   bool initialize() override;
-  bool initialize(int t) override { return true; };
+  bool initialize(int t) override { return initialize(); };
   bool initialize(size_t width, size_t height) override;
   bool read(cv::Mat *frame) override;
   void config() override;

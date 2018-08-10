@@ -5,18 +5,19 @@
 
 using namespace InferenceEngine;
 
-std::shared_ptr<Input::BaseInputDevice>
+std::unique_ptr<Input::BaseInputDevice>
 Factory::makeInputDeviceByName(const std::string &input_device_name) {
   if (input_device_name == "RealSenseCamera") {
-    return std::make_shared<Input::RealSenseCamera>();
+    return std::make_unique<Input::RealSenseCamera>();
   } else if (input_device_name == "StandardCamera") {
-    return std::make_shared<Input::StandardCamera>();
+    return std::make_unique<Input::StandardCamera>();
   } else {
-    return std::make_shared<Input::Video>(input_device_name);
+    return std::make_unique<Input::Video>(input_device_name);
   }
+
 }
 
-std::shared_ptr<InferencePlugin>
+std::unique_ptr<InferencePlugin>
 Factory::makePluginByName(const std::string &device_name,
                           const std::string &custom_cpu_library_message, //FLAGS_l
                           const std::string &custom_cldnn_message, //FLAGS_c
@@ -44,6 +45,6 @@ Factory::makePluginByName(const std::string &device_name,
     plugin.SetConfig({{PluginConfigParams::KEY_PERF_COUNT,
                        PluginConfigParams::YES}});
   }
-  return std::make_shared<InferencePlugin>(
+  return std::make_unique<InferencePlugin>(
       InferenceEngine::InferenceEnginePluginPtr(plugin));
 }

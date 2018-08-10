@@ -31,7 +31,7 @@ class Pipeline {
    * @return whether the add operation is successful
    */
   bool add(const std::string &name,
-           std::shared_ptr<Input::BaseInputDevice> input_device);
+           std::unique_ptr<Input::BaseInputDevice> input_device);
   /**
    * @brief Add inference network to the pipeline.
    * @param[in] parent name of the parent device or inference.

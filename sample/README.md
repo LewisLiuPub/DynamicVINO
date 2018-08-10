@@ -87,13 +87,3 @@ Notice that the network should be converted from the Caffe* (*.prototxt + *.mode
 ### Sample Output
 
 The sample uses OpenCV to display the resulting frame with detections (rendered as bounding boxes and labels, if provided).
-In the default mode the sample reports
-* **OpenCV time**: frame decoding + time to render the bounding boxes, labels, and displaying the results.
-* **Face Detection time**: inference time for the face Detection network. 
-
-If Age Gender Head Pose or Emotion detections are enabled the additional info below is reported also:
-* **Age Gender + Head Pose + Emotions Detection time**: combined inference time of simultaneously executed
-age gender, head pose and emotion recognition networks.
-
-## See Also
-* [Using Inference Engine Samples](@ref SamplesOverview)

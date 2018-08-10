@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cmake_minimum_required (VERSION 3.9)
+cmake_minimum_required (VERSION 2.8)
 
-project(openvino_pipeline_lib, VERSION 1.0.1 DESCRIPTION "openvino pipeline lib")
+project(dynamic_vino_lib)
 
 list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
@@ -163,7 +163,7 @@ set(HEADER_FILES
         )
 
 
-add_library(openvino_pipeline_lib SHARED
+add_library(${PROJECT_NAME} SHARED
         lib/factory.cpp
         lib/pipeline.cpp
         lib/engines/engine.cpp
@@ -183,17 +183,15 @@ add_library(openvino_pipeline_lib SHARED
         include/openvino_service/models/head_pose_detection_model
         lib/outputs/image_window_output.cpp
         )
-set_target_properties(openvino_pipeline_lib PROPERTIES
-        VERSION ${PROJECT_VERSION}
-        SOVERSION 1
+set_target_properties(${PROJECT_NAME} PROPERTIES
         PUBLIC_HEADER
         "${HEADER_FILES}"
         )
-target_link_libraries(openvino_pipeline_lib ${DEPENDENCIES})
+target_link_libraries(${PROJECT_NAME} ${DEPENDENCIES})
 add_subdirectory(sample)
 # include(GNUInstallDirs)
-# install(TARGETS openvino_pipeline_lib LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+# install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 #         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 #         )
-# install(FILES ${CMAKE_BINARY_DIR}/openvino_pipeline_lib.pc
+# install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.pc
 #         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)

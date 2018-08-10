@@ -1,19 +1,3 @@
-/*
-// Copyright (c) 2018 Intel Corporation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-*/
-
 /**
 * \brief A sample for this library. This sample performs face detection,
  * emotions detection, age gender detection and head pose estimation.
@@ -88,30 +72,30 @@ int main(int argc, char *argv[]) {
     }
 
     // --------------------------- 1. Load Plugin for inference engine -------------------------------------
-    std::map<std::string, InferencePlugin> pluginsForDevices;
-    std::vector<std::pair<std::string, std::string>> cmdOptions = {
+    std::map<std::string, InferencePlugin> plugins_for_devices;
+    std::vector<std::pair<std::string, std::string>> cmd_options = {
         {FLAGS_d, FLAGS_m},
         {FLAGS_d_ag, FLAGS_m_ag},
         {FLAGS_d_hp, FLAGS_m_hp},
         {FLAGS_d_em, FLAGS_m_em}
     };
-    for (auto &&option : cmdOptions) {
-      auto deviceName = option.first;
-      auto networkName = option.second;
-      if (deviceName.empty() || networkName.empty()) {
+    for (auto &&option : cmd_options) {
+      auto device_name = option.first;
+      auto network_name = option.second;
+      if (device_name.empty() || network_name.empty()) {
         continue;
       }
-      if (pluginsForDevices.find(deviceName) != pluginsForDevices.end()) {
+      if (plugins_for_devices.find(device_name) != plugins_for_devices.end()) {
         continue;
       }
-      pluginsForDevices[deviceName] = *Factory::makePluginByName(
-          deviceName, FLAGS_l, FLAGS_c, FLAGS_pc);
+      plugins_for_devices[device_name] = *Factory::makePluginByName(
+          device_name, FLAGS_l, FLAGS_c, FLAGS_pc);
     }
 
     // --------------------------- 2. Generate Input Device and Output Device--------------------------------
     slog::info << "Reading input" << slog::endl;
     auto input_ptr = Factory::makeInputDeviceByName(FLAGS_i);
-    if (!input_ptr->initialize(0)) {
+    if (!input_ptr->initialize()) {
       throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
     }
     std::string window_name = "Results";
@@ -126,7 +110,7 @@ int main(int argc, char *argv[]) {
     face_detection_model->modelInit();
     auto face_detection_engine =
         std::make_shared<Engines::Engine>(
-            &pluginsForDevices[FLAGS_d],*face_detection_model);
+            &plugins_for_devices[FLAGS_d],*face_detection_model);
     auto face_inference_ptr =
         std::make_shared<openvino_service::FaceDetection >(
             face_detection_model->getMaxProposalCount(),
@@ -141,7 +125,7 @@ int main(int argc, char *argv[]) {
     emotions_detection_model->modelInit();
     auto emotions_detection_engine =
         std::make_shared<Engines::Engine>(
-            &pluginsForDevices[FLAGS_d_em],*emotions_detection_model);
+            &plugins_for_devices[FLAGS_d_em],*emotions_detection_model);
     auto emotions_inference_ptr =
         std::make_shared<openvino_service::EmotionsDetection>();
     emotions_inference_ptr->loadNetwork(emotions_detection_model);
@@ -154,7 +138,7 @@ int main(int argc, char *argv[]) {
     agegender_detection_model->modelInit();
     auto agegender_detection_engine =
         std::make_shared<Engines::Engine>(
-            &pluginsForDevices[FLAGS_d_ag],*agegender_detection_model);
+            &plugins_for_devices[FLAGS_d_ag],*agegender_detection_model);
     auto agegender_inference_ptr =
         std::make_shared<openvino_service::AgeGenderDetection>();
     agegender_inference_ptr->loadNetwork(agegender_detection_model);
@@ -167,7 +151,7 @@ int main(int argc, char *argv[]) {
     headpose_detection_network->modelInit();
     auto headpose_detection_engine =
         std::make_shared<Engines::Engine>(
-            &pluginsForDevices[FLAGS_d_hp],*headpose_detection_network);
+            &plugins_for_devices[FLAGS_d_hp],*headpose_detection_network);
     auto headpose_inference_ptr =
         std::make_shared<openvino_service::HeadPoseDetection>();
     headpose_inference_ptr->loadNetwork(headpose_detection_network);
@@ -175,7 +159,7 @@ int main(int argc, char *argv[]) {
 
     // --------------------------- 3. Build Pipeline -------------------------------------------------------
     Pipeline pipe;
-    pipe.add("video_input", input_ptr);
+    pipe.add("video_input", std::move(input_ptr));
     pipe.add("video_input", "face_detection", face_inference_ptr);
     pipe.add("face_detection", "emotions_detection", emotions_inference_ptr);
     pipe.add("face_detection", "age_gender_detection", agegender_inference_ptr);

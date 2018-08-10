@@ -7,7 +7,7 @@ Pipeline::Pipeline() {
 }
 
 bool Pipeline::add(const std::string &name,
-                   std::shared_ptr<Input::BaseInputDevice> input_device) {
+                   std::unique_ptr<Input::BaseInputDevice> input_device) {
   input_device_name_ = name;
   input_device_ = std::move(input_device);
   next_.insert({"", name});
@@ -23,6 +23,9 @@ bool Pipeline::add(const std::string &parent, const std::string &name,
   if (name_to_detection_map_.find(parent) == name_to_detection_map_.end()) {
     slog::err << "parent detection does not exists!" << slog::endl;
     return false;
+  }
+  if (output_names_.find(name) != output_names_.end()) {
+    return add(parent, name);
   }
   output_names_.insert(name);
   name_to_output_map_[name] = std::move(output);
@@ -88,8 +91,9 @@ void Pipeline::runOnce() {
   //calculate fps
   ms secondDetection = std::chrono::duration_cast<ms>(t1 - t0);
   std::ostringstream out;
-  std::string window_output_string =
-      "(" + std::to_string(1000.f / secondDetection.count()) + " fps)";
+  std::string window_output_string = "";
+  //show fps?
+      //"(" + std::to_string(1000.f / secondDetection.count()) + " fps)";
   for (auto &pair : name_to_output_map_) {
     pair.second->handleOutput(window_output_string);
   }
