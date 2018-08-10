@@ -1,24 +1,37 @@
-//
-// Created by chris on 18-7-19.
-//
+/*
+ * Copyright (c) 2018 Intel Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include "openvino_service/pipeline.h"
 
 using namespace InferenceEngine;
 
-bool Pipeline::add(const std::string &parent, const std::string &name,
+Pipeline::Pipeline() {
+  counter_ = 0;
+}
+
+bool Pipeline::add(const std::string &name,
                    std::shared_ptr<Input::BaseInputDevice> input_device) {
-  if (!parent.empty()) {
-    slog::err << "input device should have no parent!" << slog::endl;
-    return false;
-  }
   input_device_name_ = name;
   input_device_ = std::move(input_device);
-  next_.insert({parent, name});
+  next_.insert({"", name});
   return true;
 };
 
 bool Pipeline::add(const std::string &parent, const std::string &name,
-                   std::shared_ptr<BaseOutput> output) {
+                   std::shared_ptr<Outputs::BaseOutput> output) {
   if (parent.empty()) {
     slog::err << "output device have no parent!" << slog::endl;
     return false;
@@ -60,19 +73,19 @@ bool Pipeline::add(const std::string &parent, const std::string &name,
   }
   next_.insert({parent, name});
   name_to_detection_map_[name] = std::move(inference);
-  ++total_detection_;
+  ++total_inference_;
   return true;
 };
 
 void Pipeline::runOnce() {
-  counter = 0;
-  if (!input_device_->read(&frame)) {
+  counter_ = 0;
+  if (!input_device_->read(&frame_)) {
     throw std::logic_error("Failed to get frame from cv::VideoCapture");
   }
-  width_ = frame.cols;
-  height_ = frame.rows;
+  width_ = frame_.cols;
+  height_ = frame_.rows;
   for (auto &pair: name_to_output_map_) {
-    pair.second->feedFrame(frame);
+    pair.second->feedFrame(frame_);
   }
   auto t0 = std::chrono::high_resolution_clock::now();
   for (auto pos = next_.equal_range(input_device_name_);
@@ -80,12 +93,12 @@ void Pipeline::runOnce() {
     std::string detection_name = pos.first->second;
     auto detection_ptr = name_to_detection_map_[detection_name];
     detection_ptr->enqueue(
-        frame, cv::Rect(width_ / 2, height_ / 2, width_, height_));
-    ++counter;
+        frame_, cv::Rect(width_ / 2, height_ / 2, width_, height_));
+    ++counter_;
     detection_ptr->submitRequest();
   }
-  std::unique_lock<std::mutex> lock(counter_mutex);
-  cv.wait(lock, [self = this]() { return self->counter == 0; });
+  std::unique_lock<std::mutex> lock(counter_mutex_);
+  cv_.wait(lock, [self = this]() { return self->counter_ == 0; });
   auto t1 = std::chrono::high_resolution_clock::now();
   typedef std::chrono::duration<double, std::ratio<1, 1000>> ms;
   //calculate fps
@@ -107,13 +120,13 @@ void Pipeline::printPipeline() {
 }
 
 void Pipeline::setcallback() {
-  if (!input_device_->read(&frame)) {
+  if (!input_device_->read(&frame_)) {
     throw std::logic_error("Failed to get frame from cv::VideoCapture");
   }
-  width_ = frame.cols;
-  height_ = frame.rows;
+  width_ = frame_.cols;
+  height_ = frame_.rows;
   for (auto &pair: name_to_output_map_) {
-    pair.second->feedFrame(frame);
+    pair.second->feedFrame(frame_);
   }
   for (auto &pair: name_to_detection_map_) {
     std::string detection_name = pair.first;
@@ -149,17 +162,17 @@ void Pipeline::callback(const std::string &detection_name) {
           auto clippedRect = prev_result.location & cv::Rect(0, 0,
                                                              width_,
                                                              height_);
-          cv::Mat next_input = frame(clippedRect);
+          cv::Mat next_input = frame_(clippedRect);
           next_detection_ptr->enqueue(next_input, prev_result.location);
         }
         if (detection_ptr->getResultsLength() > 0) {
-          ++counter;
+          ++counter_;
           next_detection_ptr->submitRequest();
         }
       }
     }
   }
-  std::lock_guard<std::mutex> lk(counter_mutex);
-  --counter;
-  cv.notify_all();
+  std::lock_guard<std::mutex> lk(counter_mutex_);
+  --counter_;
+  cv_.notify_all();
 }

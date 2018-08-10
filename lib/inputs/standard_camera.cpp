@@ -1,34 +1,46 @@
-//
-// Created by chris on 18-8-9.
-//
+/*
+ * Copyright (c) 2018 Intel Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 #include "openvino_service/inputs/standard_camera.h"
 
 //StandardCamera
 bool Input::StandardCamera::initialize() {
-  setIsInit(cap.open(0));
+  setInitStatus(cap.open(0));
   setWidth((size_t) cap.get(CV_CAP_PROP_FRAME_WIDTH));
   setHeight((size_t) cap.get(CV_CAP_PROP_FRAME_HEIGHT));
-  return getIsInit();
+  return isInit();
 }
 bool Input::StandardCamera::initialize(int camera_num) {
-  setIsInit(cap.open(camera_num));
+  setInitStatus(cap.open(camera_num));
   setWidth((size_t) cap.get(CV_CAP_PROP_FRAME_WIDTH));
   setHeight((size_t) cap.get(CV_CAP_PROP_FRAME_HEIGHT));
-  return getIsInit();
+  return isInit();
 }
 bool Input::StandardCamera::initialize(size_t width, size_t height) {
   setWidth(width);
   setHeight(height);
-  setIsInit(cap.open(0));
-  if (getIsInit()) {
+  setInitStatus(cap.open(0));
+  if (isInit()) {
     cap.set(CV_CAP_PROP_FRAME_WIDTH, width);
     cap.set(CV_CAP_PROP_FRAME_HEIGHT, height);
   }
-  return getIsInit();
+  return isInit();
 }
 bool Input::StandardCamera::read(cv::Mat *frame) {
-  if (!getIsInit()) { return false; }
+  if (!isInit()) { return false; }
   cap.grab();
   return cap.retrieve(*frame);
 }

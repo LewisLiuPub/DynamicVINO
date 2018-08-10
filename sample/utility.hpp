@@ -115,7 +115,7 @@ DEFINE_bool(h, false, help_message);
 
 /// \brief Define parameter for set image file <br>
 /// It is a required parameter
-DEFINE_string(i, "cam", video_message);
+DEFINE_string(i, "StandardCamera", video_message);
 
 /// \brief Define parameter for face detection  model file <br>
 /// It is a required parameter

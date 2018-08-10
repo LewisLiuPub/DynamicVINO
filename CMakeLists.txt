@@ -153,8 +153,13 @@ set(HEADER_FILES
         include/openvino_service/inputs/realsense_camera.h
         include/openvino_service/inputs/standard_camera.h
         include/openvino_service/inputs/video_input.h
-        include/openvino_service/models/validated_network.h
-        include/openvino_service/outputs/output.h
+        include/openvino_service/models/base_model.h
+        include/openvino_service/models/age_gender_detection_model.h
+        include/openvino_service/models/face_detection_model.h
+        include/openvino_service/models/head_pose_detection_model.h
+        include/openvino_service/models/emotion_detection_model.h
+        include/openvino_service/outputs/base_output.h
+        include/openvino_service/outputs/image_window_output.h
         )
 
 
@@ -170,8 +175,13 @@ add_library(openvino_pipeline_lib SHARED
         lib/inputs/realsense_camera.cpp
         lib/inputs/standard_camera.cpp
         lib/inputs/video_input.cpp
-        lib/network_models/validated_network.cpp
-        lib/outputs/output.cpp
+        lib/models/base_model.cpp
+        lib/models/head_pose_detection_model.cpp
+        lib/models/emotion_detection_model.cpp
+        lib/models/age_gender_detection_model.cpp
+        lib/models/face_detection_model.cpp
+        include/openvino_service/models/head_pose_detection_model
+        lib/outputs/image_window_output.cpp
         )
 set_target_properties(openvino_pipeline_lib PROPERTIES
         VERSION ${PROJECT_VERSION}

@@ -1,6 +1,18 @@
-//
-// Created by chris on 18-8-9.
-//
+/*
+ * Copyright (c) 2018 Intel Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 #include "openvino_service/inferences/face_detection.h"
 
@@ -17,8 +29,8 @@ openvino_service::FaceDetection::FaceDetection(
 openvino_service::FaceDetection::~FaceDetection() = default;
 
 void openvino_service::FaceDetection::loadNetwork(
-    const std::shared_ptr<ValidatedFaceDetectionNetwork> network) {
-  valid_network_ = network;
+    const std::shared_ptr<Models::FaceDetectionModel> network) {
+  valid_model_ = network;
   setMaxBatchSize(network->getMaxBatchSize());
 }
 
@@ -30,7 +42,7 @@ openvino_service::FaceDetection::enqueue(
     height_ = frame.rows;
   }
   if (!openvino_service::BaseInference::enqueue<u_int8_t>(frame, input_frame_loc, 1, 0,
-                                        valid_network_->getInputName())) {
+                                        valid_model_->getInputName())) {
     return false;
   };
   Result r;
@@ -50,13 +62,13 @@ bool openvino_service::FaceDetection::fetchResults() {
   bool found_result = false;
   results_.clear();
   InferenceEngine::InferRequest::Ptr request = getEngine()->getRequest();
-  std::string output = valid_network_->getOutputName();
+  std::string output = valid_model_->getOutputName();
   const float *detections = request->GetBlob(output)->buffer().as<float *>();
   for (int i = 0; i < max_proposal_count_; i++) {
     float image_id = detections[i * object_size_ + 0];
     Result r;
     auto label_num = static_cast<int>(detections[i * object_size_ + 1]);
-    std::vector<std::string> &labels = valid_network_->getLabels();
+    std::vector<std::string> &labels = valid_model_->getLabels();
     r.label = label_num < labels.size() ? labels[label_num] :
               std::string("label #") + std::to_string(label_num);
     r.confidence = detections[i * object_size_ + 2];
@@ -83,7 +95,7 @@ bool openvino_service::FaceDetection::fetchResults() {
 };
 
 void openvino_service::FaceDetection::accepts(
-    std::shared_ptr<BaseOutput> output_visitor) {
+    std::shared_ptr<Outputs::BaseOutput> output_visitor) {
   for (auto &result : results_) {
     output_visitor->prepareData(result);
   }
@@ -100,5 +112,5 @@ openvino_service::FaceDetection::getLocationResult(int idx) const {
 
 const std::string
 openvino_service::FaceDetection::getName() const {
-  return valid_network_->getNetworkName();
+  return valid_model_->getModelName();
 };

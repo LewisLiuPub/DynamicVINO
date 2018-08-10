@@ -1,6 +1,18 @@
-//
-// Created by chris on 18-8-9.
-//
+/*
+ * Copyright (c) 2018 Intel Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 #include "openvino_service/inputs/realsense_camera.h"
 
@@ -9,10 +21,10 @@
 //RealSenseCamera
 bool Input::RealSenseCamera::initialize() {
   cfg_.enable_stream(RS2_STREAM_COLOR, 640, 480, RS2_FORMAT_BGR8, 30);
-  setIsInit(pipe_.start(cfg_));
+  setInitStatus(pipe_.start(cfg_));
   setWidth(640);
   setHeight(480);
-  if (!getIsInit()) { return false; }
+  if (!isInit()) { return false; }
   if (first_read_) {
     rs2::frameset frames;
     for (int i = 0; i < 30; i++) {
@@ -38,10 +50,10 @@ bool Input::RealSenseCamera::initialize(size_t width, size_t height) {
                      (int) height,
                      RS2_FORMAT_BGR8,
                      30);
-  setIsInit(pipe_.start(cfg_));
+  setInitStatus(pipe_.start(cfg_));
   setWidth(width);
   setHeight(height);
-  if (!getIsInit()) { return false; }
+  if (!isInit()) { return false; }
   if (first_read_) {
     rs2::frameset frames;
     for (int i = 0; i < 30; i++) {
@@ -57,7 +69,7 @@ bool Input::RealSenseCamera::initialize(size_t width, size_t height) {
   return true;
 }
 bool Input::RealSenseCamera::read(cv::Mat *frame) {
-  if (!getIsInit()) { return false; }
+  if (!isInit()) { return false; }
   rs2::frameset data =
       pipe_.wait_for_frames(); // Wait for next set of frames from the camera
   rs2::frame color_frame;

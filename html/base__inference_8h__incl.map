@@ -1,7 +1,0 @@
-<map id="include/openvino_service/inferences/base_inference.h" name="include/openvino_service/inferences/base_inference.h">
-<area shape="rect" id="node5" href="$engine_8h.html" title="a header file with definition for NetworkEngine class " alt="" coords="99,95,271,136"/>
-<area shape="rect" id="node7" href="$data__struct_8h.html" title="a header file with denifition of the return result type of each network " alt="" coords="468,184,620,225"/>
-<area shape="rect" id="node8" href="$output_8h.html" title="a header file with definition of Output class " alt="" coords="397,95,568,136"/>
-<area shape="rect" id="node9" href="$slog_8hpp.html" title="openvino_service/slog.hpp" alt="" coords="643,102,819,129"/>
-<area shape="rect" id="node6" href="$validated__network_8h.html" title="openvino_service/models\l/validated_network.h" alt="" coords="102,184,271,225"/>
-</map>

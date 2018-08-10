@@ -1,6 +1,18 @@
-//
-// Created by chris on 18-8-9.
-//
+/*
+ * Copyright (c) 2018 Intel Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 #include "openvino_service/inferences/emotions_recognition.h"
 
@@ -13,8 +25,8 @@ openvino_service::EmotionsDetection::EmotionsDetection()
 openvino_service::EmotionsDetection::~EmotionsDetection() = default;
 
 void openvino_service::EmotionsDetection::loadNetwork(
-    const std::shared_ptr<ValidatedEmotionsClassificationNetwork> network) {
-  valid_network_ = network;
+    const std::shared_ptr<Models::EmotionDetectionModel> network) {
+  valid_model_ = network;
   setMaxBatchSize(network->getMaxBatchSize());
 }
 
@@ -23,7 +35,7 @@ bool openvino_service::EmotionsDetection::enqueue(const cv::Mat &frame,
   if (getEnqueuedNum() == 0) { results_.clear(); }
   bool succeed = openvino_service::BaseInference::enqueue<float>(
       frame, input_frame_loc, 1, getResultsLength(),
-      valid_network_->getInputName());
+      valid_model_->getInputName());
   if (!succeed ) return false;
   Result r;
   r.location = input_frame_loc;
@@ -38,8 +50,8 @@ bool openvino_service::EmotionsDetection::submitRequest() {
 bool openvino_service::EmotionsDetection::fetchResults() {
   bool can_fetch = openvino_service::BaseInference::fetchResults();
   if (!can_fetch) return false;
-  int label_length = static_cast<int>(valid_network_->getLabels().size());
-  std::string output_name = valid_network_->getOutputName();
+  int label_length = static_cast<int>(valid_model_->getLabels().size());
+  std::string output_name = valid_model_->getOutputName();
   InferenceEngine::Blob::Ptr
       emotions_blob = getEngine()->getRequest()->GetBlob(output_name);
   /** emotions vector must have the same size as number of channels
@@ -59,13 +71,13 @@ bool openvino_service::EmotionsDetection::fetchResults() {
     long max_prob_emotion_idx =
         std::max_element(output_idx_pos, output_idx_pos + label_length) -
             output_idx_pos;
-    results_[idx].label = valid_network_->getLabels()[max_prob_emotion_idx];
+    results_[idx].label = valid_model_->getLabels()[max_prob_emotion_idx];
   }
   return true;
 };
 
 void openvino_service::EmotionsDetection::accepts(
-    std::shared_ptr<BaseOutput> output_visitor) {
+    std::shared_ptr<Outputs::BaseOutput> output_visitor) {
   for (auto &result : results_) {
     output_visitor->prepareData(result);
   }
@@ -81,5 +93,5 @@ openvino_service::EmotionsDetection::getLocationResult(int idx) const {
 };
 
 const std::string openvino_service::EmotionsDetection::getName() const {
-  return valid_network_->getNetworkName();
+  return valid_model_->getModelName();
 };
