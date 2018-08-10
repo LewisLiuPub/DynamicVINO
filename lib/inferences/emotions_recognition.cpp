@@ -1,22 +1,27 @@
-/*
- * Copyright (c) 2018 Intel Corporation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 #include "openvino_service/inferences/emotions_recognition.h"
 
 #include "openvino_service/slog.hpp"
+
+//EmotionsResult
+openvino_service::EmotionsResult::EmotionsResult(const cv::Rect &location) :
+Result(location){}
+
+void openvino_service::EmotionsResult::decorateFrame(
+    cv::Mat *frame, cv::Mat *camera_matrix) const {
+  std::ostringstream out;
+  cv::Rect rect = getLocation();
+
+  out.str("");
+  out << "Emotions: " <<
+      label_ << ": ";
+  cv::putText(*frame,
+              out.str(),
+              cv::Point2f(rect.x, rect.y - 30),
+              cv::FONT_HERSHEY_COMPLEX_SMALL,
+              0.8,
+              cv::Scalar(0, 0, 255));
+  cv::rectangle(*frame, rect, cv::Scalar(100, 100, 100), 1);
+}
 
 // Emotions Detection
 openvino_service::EmotionsDetection::EmotionsDetection()
@@ -37,8 +42,7 @@ bool openvino_service::EmotionsDetection::enqueue(const cv::Mat &frame,
       frame, input_frame_loc, 1, getResultsLength(),
       valid_model_->getInputName());
   if (!succeed ) return false;
-  Result r;
-  r.location = input_frame_loc;
+  Result r(input_frame_loc);
   results_.emplace_back(r);
   return true;
 }
@@ -71,25 +75,19 @@ bool openvino_service::EmotionsDetection::fetchResults() {
     long max_prob_emotion_idx =
         std::max_element(output_idx_pos, output_idx_pos + label_length) -
             output_idx_pos;
-    results_[idx].label = valid_model_->getLabels()[max_prob_emotion_idx];
+    results_[idx].label_ = valid_model_->getLabels()[max_prob_emotion_idx];
   }
   return true;
 };
 
-void openvino_service::EmotionsDetection::accepts(
-    std::shared_ptr<Outputs::BaseOutput> output_visitor) {
-  for (auto &result : results_) {
-    output_visitor->prepareData(result);
-  }
-};
 
 const int openvino_service::EmotionsDetection::getResultsLength() const {
   return (int)results_.size();
 };
 
-const InferenceResult::Result
+const openvino_service::Result*
 openvino_service::EmotionsDetection::getLocationResult(int idx) const {
-  return results_[idx];
+  return &(results_[idx]);
 };
 
 const std::string openvino_service::EmotionsDetection::getName() const {

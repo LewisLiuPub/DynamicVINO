@@ -1,19 +1,3 @@
-/*
- * Copyright (c) 2018 Intel Corporation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 #include "openvino_service/pipeline.h"
 
 using namespace InferenceEngine;
@@ -113,7 +97,7 @@ void Pipeline::runOnce() {
 
 void Pipeline::printPipeline() {
   for (auto &current_node : next_) {
-    printf("Name: %s --> Name: %s",
+    printf("%s --> %s\n",
            current_node.first.c_str(),
            current_node.second.c_str());
   }
@@ -148,7 +132,10 @@ void Pipeline::callback(const std::string &detection_name) {
     std::string next_name = pos.first->second;
     // if next is output, then print
     if (output_names_.find(next_name) != output_names_.end()) {
-      detection_ptr->accepts(name_to_output_map_[next_name]);
+      for (size_t i = 0; i < detection_ptr->getResultsLength(); ++i) {
+        name_to_output_map_[next_name]->accept(
+            *detection_ptr->getLocationResult(i));
+      }
     }
     // if next is network, set input for next network
     else {
@@ -157,13 +144,13 @@ void Pipeline::callback(const std::string &detection_name) {
       if (detection_ptr_iter != name_to_detection_map_.end()) {
         auto next_detection_ptr = detection_ptr_iter->second;
         for (size_t i = 0; i < detection_ptr->getResultsLength(); ++i) {
-          InferenceResult::Result prev_result =
+          const openvino_service::Result *prev_result =
               detection_ptr->getLocationResult(i);
-          auto clippedRect = prev_result.location & cv::Rect(0, 0,
+          auto clippedRect = prev_result->getLocation() & cv::Rect(0, 0,
                                                              width_,
                                                              height_);
           cv::Mat next_input = frame_(clippedRect);
-          next_detection_ptr->enqueue(next_input, prev_result.location);
+          next_detection_ptr->enqueue(next_input, prev_result->getLocation());
         }
         if (detection_ptr->getResultsLength() > 0) {
           ++counter_;

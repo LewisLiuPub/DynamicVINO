@@ -1,20 +1,25 @@
-/*
- * Copyright (c) 2018 Intel Corporation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 #include "openvino_service/inferences/age_gender_recognition.h"
+
+//AgeGenderResult
+openvino_service::AgeGenderResult::AgeGenderResult(
+    const cv::Rect &location) : Result(location){};
+
+void openvino_service::AgeGenderResult::decorateFrame(
+    cv::Mat *frame, cv::Mat *camera_matrix) const {
+  std::ostringstream out;
+  cv::Rect rect = getLocation();
+
+  out.str("");
+  out << "Age is: " << age_ << "," <<
+      "Gender is: " << ((male_prob_ > 0.5)?"M":"F");
+  cv::putText(*frame,
+              out.str(),
+              cv::Point2f(rect.x, rect.y + 15),
+              cv::FONT_HERSHEY_COMPLEX_SMALL,
+              0.8,
+              cv::Scalar(0, 0, 255));
+  cv::rectangle(*frame, rect, cv::Scalar(100, 100, 100), 1);
+}
 
 // AgeGender Detection
 openvino_service::AgeGenderDetection::AgeGenderDetection()
@@ -28,15 +33,15 @@ void openvino_service::AgeGenderDetection::loadNetwork(
   setMaxBatchSize(network->getMaxBatchSize());
 }
 
-bool openvino_service::AgeGenderDetection::enqueue(const cv::Mat &frame,
-                                                   const cv::Rect &input_frame_loc) {
+bool openvino_service::AgeGenderDetection::enqueue(
+    const cv::Mat &frame,
+    const cv::Rect &input_frame_loc) {
   if (getEnqueuedNum() == 0) { results_.clear(); }
   bool succeed = openvino_service::BaseInference::enqueue<float>(
       frame, input_frame_loc, 1, getResultsLength(),
       valid_model_->getInputName());
   if (!succeed ) return false;
-  Result r;
-  r.location = input_frame_loc;
+  Result r(input_frame_loc);
   results_.emplace_back(r);
   return true;
 }
@@ -55,26 +60,19 @@ bool openvino_service::AgeGenderDetection::fetchResults() {
       ageBlob = request->GetBlob(valid_model_->getOutputAgeName());
 
   for (int i = 0; i < results_.size(); ++i) {
-    results_[i].age = ageBlob->buffer().as<float *>()[i] * 100;
-    results_[i].male_prob = genderBlob->buffer().as<float *>()[i * 2 + 1];
+    results_[i].age_ = ageBlob->buffer().as<float *>()[i] * 100;
+    results_[i].male_prob_ = genderBlob->buffer().as<float *>()[i * 2 + 1];
   }
   return true;
-};
-
-void openvino_service::AgeGenderDetection::accepts(
-    std::shared_ptr<Outputs::BaseOutput> output_visitor) {
-  for (auto &result : results_) {
-    output_visitor->prepareData(result);
-  }
 };
 
 const int openvino_service::AgeGenderDetection::getResultsLength() const {
   return (int)results_.size();
 };
 
-const InferenceResult::Result
+const openvino_service::Result*
 openvino_service::AgeGenderDetection::getLocationResult(int idx) const {
-  return results_[idx];
+  return &(results_[idx]);
 };
 
 const std::string openvino_service::AgeGenderDetection::getName() const {

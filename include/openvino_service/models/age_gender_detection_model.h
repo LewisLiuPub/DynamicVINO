@@ -1,6 +1,7 @@
-//
-// Created by chris on 18-8-9.
-//
+/**
+ * @brief A header file with declaration for AgeGenderDetection Class
+ * @file age_gender_detection_model.h
+ */
 
 #ifndef OPENVINO_PIPELINE_LIB_AGE_GENDER_DETECTION_MODEL_H
 #define OPENVINO_PIPELINE_LIB_AGE_GENDER_DETECTION_MODEL_H

@@ -1,8 +1,5 @@
-//
-// Created by chris on 18-7-19.
-//
 /**
- * @brief a header file with definition of Pipeline class
+ * @brief a header file with declaration of Pipeline class
  * @file pipeline.h
  */
 #ifndef SAMPLES_PIPELINE_H

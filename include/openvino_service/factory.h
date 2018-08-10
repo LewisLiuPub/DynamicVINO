@@ -1,6 +1,7 @@
-//
-// Created by chris on 18-7-11.
-//
+/**
+ * @brief a header file with declaration of Factory class
+ * @file factory.hpp
+ */
 
 #ifndef SAMPLES_FACTORY_H
 #define SAMPLES_FACTORY_H

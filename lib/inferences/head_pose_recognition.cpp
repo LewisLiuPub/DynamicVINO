@@ -1,20 +1,92 @@
-/*
- * Copyright (c) 2018 Intel Corporation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 #include "openvino_service/inferences/head_pose_recognition.h"
+
+//HeadPoseResult
+openvino_service::HeadPoseResult::HeadPoseResult(const cv::Rect &location) :
+Result(location){};
+
+void openvino_service::HeadPoseResult::decorateFrame(
+    cv::Mat *frame, cv::Mat *camera_matrix) const {
+  int scale  = 50;
+  int cx = frame->cols / 2;
+  int cy = frame->rows / 2;
+  double yaw = angle_y_ * CV_PI / 180.0;
+  double pitch = angle_p_ * CV_PI / 180.0;
+  double roll = angle_r_ * CV_PI / 180.0;
+  cv::Rect rect = getLocation();
+  cv::Point3f cpoint(rect.x + rect.width / 2, rect.y + rect.height / 2, 0);
+  cv::Matx33f Rx(1, 0, 0,
+                 0, cos(pitch), -sin(pitch),
+                 0, sin(pitch), cos(pitch));
+  cv::Matx33f Ry(cos(yaw), 0, -sin(yaw),
+                 0, 1, 0,
+                 sin(yaw), 0, cos(yaw));
+  cv::Matx33f Rz(cos(roll), -sin(roll), 0,
+                 sin(roll), cos(roll), 0,
+                 0, 0, 1);
+
+  auto r = cv::Mat(Rz * Ry * Rx);
+
+  cv::Mat xAxis(3, 1, CV_32F), yAxis(3, 1, CV_32F), zAxis(3, 1, CV_32F),
+      zAxis1(3, 1, CV_32F);
+
+  xAxis.at<float>(0) = 1 * scale;
+  xAxis.at<float>(1) = 0;
+  xAxis.at<float>(2) = 0;
+
+  yAxis.at<float>(0) = 0;
+  yAxis.at<float>(1) = -1 * scale;
+  yAxis.at<float>(2) = 0;
+
+  zAxis.at<float>(0) = 0;
+  zAxis.at<float>(1) = 0;
+  zAxis.at<float>(2) = -1 * scale;
+
+  zAxis1.at<float>(0) = 0;
+  zAxis1.at<float>(1) = 0;
+  zAxis1.at<float>(2) = 1 * scale;
+
+  cv::Mat o(3, 1, CV_32F, cv::Scalar(0));
+  o.at<float>(2) = camera_matrix->at<float>(0);
+
+  xAxis = r * xAxis + o;
+  yAxis = r * yAxis + o;
+  zAxis = r * zAxis + o;
+  zAxis1 = r * zAxis1 + o;
+
+  cv::Point p1, p2;
+
+  p2.x = static_cast<int>(
+      (xAxis.at<float>(0) / xAxis.at<float>(2) * camera_matrix->at<float>(0))
+          + cpoint.x);
+  p2.y = static_cast<int>(
+      (xAxis.at<float>(1) / xAxis.at<float>(2) * camera_matrix->at<float>(4))
+          + cpoint.y);
+  cv::line(*frame, cv::Point(cpoint.x, cpoint.y), p2, cv::Scalar(0, 0, 255), 2);
+
+  p2.x = static_cast<int>(
+      (yAxis.at<float>(0) / yAxis.at<float>(2) * camera_matrix->at<float>(0))
+          + cpoint.x);
+  p2.y = static_cast<int>(
+      (yAxis.at<float>(1) / yAxis.at<float>(2) * camera_matrix->at<float>(4))
+          + cpoint.y);
+  cv::line(*frame, cv::Point(cpoint.x, cpoint.y), p2, cv::Scalar(0, 255, 0), 2);
+
+  p1.x = static_cast<int>(
+      (zAxis1.at<float>(0) / zAxis1.at<float>(2) * camera_matrix->at<float>(0))
+          + cpoint.x);
+  p1.y = static_cast<int>(
+      (zAxis1.at<float>(1) / zAxis1.at<float>(2) * camera_matrix->at<float>(4))
+          + cpoint.y);
+
+  p2.x = static_cast<int>(
+      (zAxis.at<float>(0) / zAxis.at<float>(2) * camera_matrix->at<float>(0))
+          + cpoint.x);
+  p2.y = static_cast<int>(
+      (zAxis.at<float>(1) / zAxis.at<float>(2) * camera_matrix->at<float>(4))
+          + cpoint.y);
+  cv::line(*frame, p1, p2, cv::Scalar(255, 0, 0), 2);
+  cv::circle(*frame, p2, 3, cv::Scalar(255, 0, 0), 2);
+};
 
 //Head Pose Detection
 openvino_service::HeadPoseDetection::HeadPoseDetection()
@@ -35,8 +107,7 @@ bool openvino_service::HeadPoseDetection::enqueue(const cv::Mat &frame,
       frame, input_frame_loc, 1, getResultsLength(),
       valid_model_->getInputName());
   if (!succeed ) return false;
-  Result r;
-  r.location = input_frame_loc;
+  Result r(input_frame_loc);
   results_.emplace_back(r);
   return true;
 }
@@ -57,27 +128,20 @@ bool openvino_service::HeadPoseDetection::fetchResults() {
       angle_y = request->GetBlob(valid_model_->getOutputOutputAngleY());
 
   for (int i = 0; i < getResultsLength(); ++i) {
-    results_[i].angle_r = angle_r->buffer().as<float *>()[i];
-    results_[i].angle_p = angle_p->buffer().as<float *>()[i];
-    results_[i].angle_y = angle_y->buffer().as<float *>()[i];
+    results_[i].angle_r_ = angle_r->buffer().as<float *>()[i];
+    results_[i].angle_p_ = angle_p->buffer().as<float *>()[i];
+    results_[i].angle_y_ = angle_y->buffer().as<float *>()[i];
   }
   return true;
-};
-
-void openvino_service::HeadPoseDetection::accepts(
-    std::shared_ptr<Outputs::BaseOutput> output_visitor) {
-  for (auto &result : results_) {
-    output_visitor->prepareData(result);
-  }
 };
 
 const int openvino_service::HeadPoseDetection::getResultsLength() const {
   return (int)results_.size();
 };
 
-const InferenceResult::Result
+const openvino_service::Result*
 openvino_service::HeadPoseDetection::getLocationResult(int idx) const {
-  return results_[idx];
+  return &(results_[idx]);
 };
 
 const std::string openvino_service::HeadPoseDetection::getName() const {
