@@ -1,5 +1,5 @@
 /**
- * @brief A header file with declaration for Age Gender Recognition Class
+ * @brief A header file with declaration for AgeGenderDetection Class
  * @file age_gender_recignition.h
  */
 #ifndef OPENVINO_PIPELINE_LIB_AGE_GENDER_RECOGNITION_H

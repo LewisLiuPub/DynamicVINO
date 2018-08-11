@@ -1,5 +1,5 @@
 /**
- * @brief A header file with declaration for Base Inference Class
+ * @brief A header file with declaration for BaseInference Class
  * @file base_inference.h
  */
 #ifndef OPENVINO_PIPELINE_LIB_BASE_INFERENCE_H

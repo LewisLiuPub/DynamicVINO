@@ -1,5 +1,5 @@
 /**
- * @brief A header file with declaration for Base Model Class
+ * @brief A header file with declaration for BaseModel Class
  * @file base_model.h
  */
 

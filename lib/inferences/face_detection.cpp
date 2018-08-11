@@ -1,3 +1,8 @@
+/**
+ * @brief a header file with declaration of FaceDetection class and 
+ * FaceDetectionResult class
+ * @file face_detection.cpp
+ */
 #include "openvino_service/inferences/face_detection.h"
 
 #include "openvino_service/slog.hpp"

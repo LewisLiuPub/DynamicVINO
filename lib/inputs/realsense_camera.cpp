@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with declaration of RealSenseCamera class
+ * @file realsense_camera.cpp
+ */
 #include "openvino_service/inputs/realsense_camera.h"
 
 #include "openvino_service/slog.hpp"

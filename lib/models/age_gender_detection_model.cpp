@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with declaration of AgeGenderDetectionModel class
+ * @file age_gender_detection_model.cpp
+ */
 #include "openvino_service/models/age_gender_detection_model.h"
 
 #include "openvino_service/slog.hpp"

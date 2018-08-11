@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with declaration of BaseInference class
+ * @file base_inference.cpp
+ */
 #include "openvino_service/inferences/base_inference.h"
 
 //Result

@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with declaration of AgeGenderResult class
+ * @file age_gender_recognition.cpp
+ */
 #include "openvino_service/inferences/age_gender_recognition.h"
 
 //AgeGenderResult

@@ -1,3 +1,8 @@
+/**
+ * @brief a header file with declaration of HeadPoseDetection class and 
+ * HeadPoseResult class
+ * @file head_pose_recognition.cpp
+ */
 #include "openvino_service/inferences/head_pose_recognition.h"
 
 //HeadPoseResult

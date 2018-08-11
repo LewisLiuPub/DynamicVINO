@@ -1,5 +1,5 @@
 /**
- * @brief A header file with declaration for Face Detection Class
+ * @brief A header file with declaration for FaceDetection Class
  * @file head_pose_recognition.h
  */
 #ifndef OPENVINO_PIPELINE_LIB_HEAD_POSE_RECOGNITION_H

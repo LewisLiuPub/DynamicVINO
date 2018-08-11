@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with definition of Engine class
+ * @file engine.cpp
+ */
 #include "openvino_service/engines/engine.h"
 
 Engines::Engine::Engine(

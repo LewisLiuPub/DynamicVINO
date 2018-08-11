@@ -1,5 +1,5 @@
 /**
- * @brief A header file with declaration for AgeGenderDetection Class
+ * @brief A header file with declaration for AgeGenderDetectionModel Class
  * @file age_gender_detection_model.h
  */
 

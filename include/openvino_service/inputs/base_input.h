@@ -1,5 +1,5 @@
 /**
- * @brief A header file with declaration for Base Input Class
+ * @brief A header file with declaration for BaseInput Class
  * @file base_input.h
  */
 #ifndef OPENVINO_PIPELINE_LIB_BASE_INPUT_H

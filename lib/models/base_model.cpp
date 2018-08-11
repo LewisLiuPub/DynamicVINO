@@ -1,3 +1,8 @@
+/**
+ * @brief a header file with declaration of BaseModel class
+ * @file base_model.cpp
+ */
+
 #include "openvino_service/models/base_model.h"
 
 #include <fstream>

@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with declaration of Pipeline class
+ * @file pipeline.cpp
+ */
 #include "openvino_service/pipeline.h"
 
 using namespace InferenceEngine;

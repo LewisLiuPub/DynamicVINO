@@ -1,5 +1,5 @@
 /**
- * @brief A header file with declaration for Intel RealSense Camera
+ * @brief A header file with declaration for RealSenseCamera class
  * @file realsense_camera.h
  */
 

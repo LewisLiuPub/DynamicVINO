@@ -1,5 +1,5 @@
 /**
- * @brief A header file with declaration for Emotions Recognition Class
+ * @brief A header file with declaration for EmotionsDetection Class
  * @file emotions_recognition.h
  */
 #ifndef OPENVINO_PIPELINE_LIB_EMOTIONS_RECOGNITION_H

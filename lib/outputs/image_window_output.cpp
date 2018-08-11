@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with declaration of ImageWindowOutput class
+ * @file image_window_output.cpp
+ */
 #include "openvino_service/outputs/image_window_output.h"
 
 Outputs::ImageWindowOutput::ImageWindowOutput(

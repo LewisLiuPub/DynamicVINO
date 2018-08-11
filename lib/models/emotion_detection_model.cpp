@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with declaration of EmotionDetectionModel class
+ * @file emotion_detection_model.cpp
+ */
 #include "openvino_service/models/emotion_detection_model.h"
 
 #include "openvino_service/slog.hpp"

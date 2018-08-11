@@ -19,7 +19,8 @@
 /**
  * @class Pipeline
  * @brief This class is a pipeline class that stores the topology of 
- * the input device, output device and networks and make inference.
+ * the input device, output device and networks and make inference. One pipeline
+ * should have only one input device.
  */
 class Pipeline {
  public:

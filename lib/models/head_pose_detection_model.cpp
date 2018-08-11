@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with declaration of HeadPoseDetectionModel class
+ * @file head_pose_detection_model.cpp
+ */
 #include "openvino_service/models/head_pose_detection_model.h"
 
 #include "openvino_service/slog.hpp"

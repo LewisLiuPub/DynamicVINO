@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with declaration of Video class
+ * @file video_input.cpp
+ */
 #include "openvino_service/inputs/video_input.h"
 
 //Video

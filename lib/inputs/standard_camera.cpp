@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with declaration of StandardCamera class
+ * @file standard_camera.cpp
+ */
 #include "openvino_service/inputs/standard_camera.h"
 
 //StandardCamera

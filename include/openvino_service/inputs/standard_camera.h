@@ -1,5 +1,5 @@
 /**
- * @brief A header file with declaration for Standard Camera
+ * @brief A header file with declaration for StandardCamera class
  * @file standard_camera.h
  */
 

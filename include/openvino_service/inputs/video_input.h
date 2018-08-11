@@ -1,5 +1,5 @@
 /**
- * @brief A header file with declaration for Video Input Class
+ * @brief A header file with declaration for Video class
  * @file video_input.h
  */
 

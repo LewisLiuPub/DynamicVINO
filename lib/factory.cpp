@@ -1,3 +1,7 @@
+/**
+ * @brief a header file with declaration of Factory class
+ * @file factory.cpp
+ */
 #include "openvino_service/factory.h"
 #include "openvino_service/inputs/realsense_camera.h"
 #include "openvino_service/inputs/standard_camera.h"
