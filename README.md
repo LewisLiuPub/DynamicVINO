@@ -4,17 +4,19 @@ DynamicVINO is an open-source C++ library for establishing easy-to-use, extensib
 ### Prerequisites
 DynamicVINO is based on Intel' s [OpenVINO toolkit](https://software.intel.com/en-us/openvino-toolkit) version 2.299.  [Intel NC SDK](https://developer.movidius.com/start) is needed if you want to run the network on Intel Movidius NCS. To use Intel' s RealSense Camera with DynamicsVINO, you need to install [Intel RealSense Camera package](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md) for RealSense Camera installation guide. Other Intel plugins like Intel GPU has not yet been tested but should work well with this library.
 ### Build The Library
-The building of the library has been successfully tested on Ubuntu 16.04. DynamicVINO uses CMake>=2.8 as building tool. By default the directories of InferenceEngine and OpenCV for OpenVINO are set to the default location. If you install OpenVINO in custom location, you need to change the directories in CMakeLists. To build the library, simply type:
-`cd DynamicVINO`
-`mkdir build && cd build`
-`cmake ..`
-`make -j4`
-## Running sample
-The sample included in the library is an implementation of various network for human face detection. It uses a similar input API as the interactive_face_detection sample from Intel' s OpenVINO library.
-
-After building the library, in the build folder, type:
-`cd intel64/Release`
+The building of the library has been successfully tested on Ubuntu 16.04. DynamicVINO uses CMake>=2.8 as building tool. By default the directories of InferenceEngine and OpenCV for OpenVINO are set to the default location. If you install OpenVINO in custom location, you need to change the directories in CMakeLists. To build the library, simply type:\
 ```
+cd DynamicVINO
+mkdir build && cd build
+cmake ..
+make -j4
+```
+## Running sample
+The sample included in the library is an implementation of various network for human face detection. It uses a similar input API as the interactive_face_detection sample from Intel' s OpenVINO library.\
+\
+After building the library, in the build folder, type:\
+```
+cd intel64/Release`
 ./dynamic_vino_sample -m <location of the .xml file for face detection network> -m_em <location of the .xml file for emotions detection network> -m_ag <location of the .xml file for age gender detection network> -m_hp <location of the .xml file for head pose estimation network> -i StandardCamera -d CPU -d_em CPU -d_ag CPU -d_hp CPU
 ```
 This will let the sample build a multi-network inference system, where the output of the face detection network will be fed as the input to all the emotions detection network, age gender detection network and head pose estimation network. The result is like the following screenshot:
@@ -23,19 +25,19 @@ This will let the sample build a multi-network inference system, where the outpu
 
 Explanations for main options:
 
-	-h								Print a usage message.
-	-i "<device_name>"				The device can be one of the following three strings: 
-									1. "RealSenseCamera": The input cames from Intel RealSense Camera
-									2. "Standatd Camera": The input cames from ordinary Camera that can be ready by OpenCV
-									3. <Video File Path>: The path of a video file that is readable by OpenCV.
-	-m								Path to an .xml file with a trained face detection model.
-	-m_em							Path to an .xml file with a trained emotions detection model.
-	-m_ag							Path to an .xml file with a trained age gender detection model.
-	-m_hp							Path to an .xml file with a trained head pose evaluation model.
-	-d								Specify the target device for face detection (CPU, GPU, FPGA or MYRIAD)
-	-d_em							Specify the target device for emotions detection (CPU, GPU, FPGA or MYRIAD)
-	-d_ag							Specify the target device for age gender detection (CPU, GPU, FPGA or MYRIAD)
-	-d_hp							Specify the target device for head pose detection (CPU, GPU, FPGA or MYRIAD)
+	-h					Print a usage message.
+	-i "<device_name>"	The device can be one of the following three strings: 
+							1. "RealSenseCamera": The input cames from Intel RealSense Camera
+							2. "Standatd Camera": The input cames from ordinary Camera that can be ready by OpenCV
+							3. <Video File Path>: The path of a video file that is readable by OpenCV.
+	-m					Path to an .xml file with a trained face detection model.
+	-m_em				Path to an .xml file with a trained emotions detection model.
+	-m_ag				Path to an .xml file with a trained age gender detection model.
+	-m_hp				Path to an .xml file with a trained head pose evaluation model.
+	-d					Specify the target device for face detection (CPU, GPU, FPGA or MYRIAD)
+	-d_em				Specify the target device for emotions detection (CPU, GPU, FPGA or MYRIAD)
+	-d_ag				Specify the target device for age gender detection (CPU, GPU, FPGA or MYRIAD)
+	-d_hp				Specify the target device for head pose detection (CPU, GPU, FPGA or MYRIAD)
 ## How to use the library?
 In DynamicVINO, we provide high level encapsulation for input device, output device and network inference separately. And we use a class called Pipeline to handle the data flow between those encapsulation. The usage of DynamicVINO lib can be separated into four steps:
 
@@ -57,8 +59,10 @@ The inference instance is abstracted into a blackbox that enqueue input frames a
 ```
 //Establish a network model from given model.xml and model.bin file
 auto face_detection_model = std::make_shared<Models::FaceDetection>("model.xml", 1, 1, 1);
+
 //Create an engine that the previous model will run on from plugin for target device
 auto face_detection_engine = std::make_shared<Engines::Engine>(plugin_for_device, face_detection_model);
+
 //Generate a inference that uses the created engine to carry out inference for established model
 auto face_inference_ptr = std::make_shared<openvino_service::FaceDetection>(0.5); //0.5 is threshold for face detection
 face_inference_ptr->loadNetwork(face_detection_model);
@@ -75,18 +79,14 @@ pipe.add("face_detection","video_output", output_ptr); //add output device after
 pipe.setCallback(); //set callback function for each inference instance
 ```
 That' s all, now you have a pipeline that represents the whole face detection data flow. The topology of the pipeline should be like:
-```mermaid
-graph LR
-    Input[Camera Input] --> B[Face Detection Inference]
-    B --> C[Window Output]
-```
+![pipeline_single](https://raw.githubusercontent.com/chyacinth/MarkdownPhotos/master/DynamicVINO/pipeline_single.png)
 You can establish the Pipeline by a series of add function. You need to provide the name of previous device/inference, the name of the current device/inference and the current device/inference instance. One pipeline should have only one input device.
 To run the pipeline for one frame and print the result on output device, simply use:
 `pipe.runOnce();`
 
 ### 5. Add more networks and device to the pipeline
-The Pipeline class in DynamicVINO is scalable, which means we can add various kinds of networks and forms various topology. For example, if you want to add networks for emotions detection and age gender detection to the result of face detection, you can do step 3 twice to get two inference instances `emotions_inference_ptr` and `agegender_inference_ptr`. Then remove the statement that adds output after face detection: 
-`inferencepipe.add("face_detection","video_output", output_ptr);`. 
+The Pipeline class in DynamicVINO is scalable, which means we can add various kinds of networks and forms various topology. For example, if you want to add networks for emotions detection and age gender detection to the result of face detection, you can do step 3 twice to get two inference instances `emotions_inference_ptr` and `agegender_inference_ptr`. Then remove the statement that adds output after face detection: \
+`inferencepipe.add("face_detection","video_output", output_ptr);`. \
 Finally, we can add new instances to the previous pipeline:
 ```
 pipe.add("face_detection", "emotions_detection", emotions_inference_ptr);
@@ -96,14 +96,7 @@ pipe.add("emotions_detection","video_output", output_ptr);
 pipe.add("age_gender_detection","video_output");  //output device instance can be omitted if it has been added before.
 ```
 Now the pipeline topology is like:
-```mermaid
-graph LR
-    Input[Camera Input] --> B[Face Detection Inference]
-    B --> C[Emotions Detection Inference]
-    B --> D[Age Gender Detection Inference]
-    C --> E[Window Output]
-    D --> E[Window Output]
-```
+![pipeline_more](https://raw.githubusercontent.com/chyacinth/MarkdownPhotos/master/DynamicVINO/pipeline_more.png)
 You can also follow the same to add more output device instance to the pipeline.
 ## How to generate documents for this library?
 DynamicVINO is documented in Doxygen syntax. To get the Doxygen document, use:
