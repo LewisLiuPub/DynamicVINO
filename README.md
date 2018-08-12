@@ -4,7 +4,7 @@ DynamicVINO is an open-source C++ library for establishing easy-to-use, extensib
 ### Prerequisites
 DynamicVINO is based on Intel' s [OpenVINO toolkit](https://software.intel.com/en-us/openvino-toolkit) version 2.299.  [Intel NC SDK](https://developer.movidius.com/start) is needed if you want to run the network on Intel Movidius NCS. To use Intel' s RealSense Camera with DynamicsVINO, you need to install [Intel RealSense Camera package](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md) for RealSense Camera installation guide. Other Intel plugins like Intel GPU has not yet been tested but should work well with this library.
 ### Build The Library
-The building of the library has been successfully tested on Ubuntu 16.04. DynamicVINO uses CMake>=2.8 as building tool. By default the directories of InferenceEngine and OpenCV for OpenVINO are set to the default location. If you install OpenVINO in custom location, you need to change the directories in CMakeLists. To build the library, simply type:\
+The building of the library has been successfully tested on Ubuntu 16.04. DynamicVINO uses CMake>=2.8 as building tool. By default the directories of InferenceEngine and OpenCV for OpenVINO are set to the default location. If you install OpenVINO in custom location, you need to change the directories in CMakeLists. To build the library, simply type:
 ```
 cd DynamicVINO
 mkdir build && cd build
@@ -14,7 +14,7 @@ make -j4
 ## Running sample
 The sample included in the library is an implementation of various network for human face detection. It uses a similar input API as the interactive_face_detection sample from Intel' s OpenVINO library.\
 \
-After building the library, in the build folder, type:\
+After building the library, in the build folder, type:
 ```
 cd intel64/Release`
 ./dynamic_vino_sample -m <location of the .xml file for face detection network> -m_em <location of the .xml file for emotions detection network> -m_ag <location of the .xml file for age gender detection network> -m_hp <location of the .xml file for head pose estimation network> -i StandardCamera -d CPU -d_em CPU -d_ag CPU -d_hp CPU
@@ -81,7 +81,7 @@ pipe.setCallback(); //set callback function for each inference instance
 That' s all, now you have a pipeline that represents the whole face detection data flow. The topology of the pipeline should be like:
 ![pipeline_single](https://raw.githubusercontent.com/chyacinth/MarkdownPhotos/master/DynamicVINO/pipeline_single.png)
 You can establish the Pipeline by a series of add function. You need to provide the name of previous device/inference, the name of the current device/inference and the current device/inference instance. One pipeline should have only one input device.
-To run the pipeline for one frame and print the result on output device, simply use:
+To run the pipeline for one frame and print the result on output device, simply use:\ 
 `pipe.runOnce();`
 
 ### 5. Add more networks and device to the pipeline
@@ -99,7 +99,7 @@ Now the pipeline topology is like:
 ![pipeline_more](https://raw.githubusercontent.com/chyacinth/MarkdownPhotos/master/DynamicVINO/pipeline_more.png)
 You can also follow the same to add more output device instance to the pipeline.
 ## How to generate documents for this library?
-DynamicVINO is documented in Doxygen syntax. To get the Doxygen document, use:
+DynamicVINO is documented in Doxygen syntax. To get the Doxygen document, use:\ 
 `cd DynamicVINO`
 `doxygen Doxyfile`
 
