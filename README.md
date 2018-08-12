@@ -16,7 +16,8 @@ The sample included in the library is an implementation of various network for h
 \
 After building the library, in the build folder, type:
 ```
-cd intel64/Release`
+cd intel64/Release
+
 ./dynamic_vino_sample -m <location of the .xml file for face detection network> -m_em <location of the .xml file for emotions detection network> -m_ag <location of the .xml file for age gender detection network> -m_hp <location of the .xml file for head pose estimation network> -i StandardCamera -d CPU -d_em CPU -d_ag CPU -d_hp CPU
 ```
 This will let the sample build a multi-network inference system, where the output of the face detection network will be fed as the input to all the emotions detection network, age gender detection network and head pose estimation network. The result is like the following screenshot:
@@ -93,6 +94,7 @@ Finally, we can add new instances to the previous pipeline:
 ```
 pipe.add("face_detection", "emotions_detection", emotions_inference_ptr);
 pipe.add("face_detection", "age_gender_detection", agegender_inference_ptr);
+
 //add output device after new detection inference
 pipe.add("emotions_detection","video_output", output_ptr); 
 pipe.add("age_gender_detection","video_output");  //output device instance can be omitted if it has been added before.
@@ -104,6 +106,7 @@ You can also follow the same to add more output device instance to the pipeline.
 DynamicVINO is documented in Doxygen syntax. To get the Doxygen document, use:
 ```
 cd DynamicVINO
+
 doxygen Doxyfile
 ```
 
