@@ -81,8 +81,10 @@ pipe.setCallback(); //set callback function for each inference instance
 That' s all, now you have a pipeline that represents the whole face detection data flow. The topology of the pipeline should be like:
 ![pipeline_single](https://raw.githubusercontent.com/chyacinth/MarkdownPhotos/master/DynamicVINO/pipeline_single.png)
 You can establish the Pipeline by a series of add function. You need to provide the name of previous device/inference, the name of the current device/inference and the current device/inference instance. One pipeline should have only one input device.
-To run the pipeline for one frame and print the result on output device, simply use:\ 
-`pipe.runOnce();`
+To run the pipeline for one frame and print the result on output device, simply use:
+```
+pipe.runOnce();
+```
 
 ### 5. Add more networks and device to the pipeline
 The Pipeline class in DynamicVINO is scalable, which means we can add various kinds of networks and forms various topology. For example, if you want to add networks for emotions detection and age gender detection to the result of face detection, you can do step 3 twice to get two inference instances `emotions_inference_ptr` and `agegender_inference_ptr`. Then remove the statement that adds output after face detection: \
@@ -99,9 +101,11 @@ Now the pipeline topology is like:
 ![pipeline_more](https://raw.githubusercontent.com/chyacinth/MarkdownPhotos/master/DynamicVINO/pipeline_more.png)
 You can also follow the same to add more output device instance to the pipeline.
 ## How to generate documents for this library?
-DynamicVINO is documented in Doxygen syntax. To get the Doxygen document, use:\ 
-`cd DynamicVINO`
-`doxygen Doxyfile`
+DynamicVINO is documented in Doxygen syntax. To get the Doxygen document, use:
+```
+cd DynamicVINO
+doxygen Doxyfile
+```
 
 ## How to add new inference class?
 DynamicVINO is designed to be extensible for adding new inference class. To add new inference class you need to add three new classes: MyModels, MyInference and MyResult
