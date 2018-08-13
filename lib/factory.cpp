@@ -1,24 +1,31 @@
-//
-// Created by chris on 18-7-11.
-//
-#include "factory.h"
+/**
+ * @brief a header file with declaration of Factory class
+ * @file factory.cpp
+ */
+#include "openvino_service/factory.h"
+#include "openvino_service/inputs/realsense_camera.h"
+#include "openvino_service/inputs/standard_camera.h"
+#include "openvino_service/inputs/video_input.h"
 
 using namespace InferenceEngine;
 
-std::shared_ptr<BaseInputDevice> Factory::makeInputDeviceByName(const std::string &input_device_name) {
+std::unique_ptr<Input::BaseInputDevice>
+Factory::makeInputDeviceByName(const std::string &input_device_name) {
   if (input_device_name == "RealSenseCamera") {
-    return std::make_shared<RealSenseCamera>();
+    return std::make_unique<Input::RealSenseCamera>();
   } else if (input_device_name == "StandardCamera") {
-    return std::make_shared<StandardCamera>();
+    return std::make_unique<Input::StandardCamera>();
   } else {
-    return std::make_shared<Video>(input_device_name);
+    return std::make_unique<Input::Video>(input_device_name);
   }
+
 }
 
-std::shared_ptr<InferencePlugin> Factory::makePluginByName(const std::string &device_name,
-                                                           const std::string &custom_cpu_library_message, //FLAGS_l
-                                                           const std::string &custom_cldnn_message, //FLAGS_c
-                                                           bool performance_message) { //FLAGS_pc
+std::unique_ptr<InferencePlugin>
+Factory::makePluginByName(const std::string &device_name,
+                          const std::string &custom_cpu_library_message, //FLAGS_l
+                          const std::string &custom_cldnn_message, //FLAGS_c
+                          bool performance_message) { //FLAGS_pc
   InferencePlugin plugin =
       PluginDispatcher({"../../../lib/intel64", ""}).getPluginByDevice(
           device_name);
@@ -42,6 +49,6 @@ std::shared_ptr<InferencePlugin> Factory::makePluginByName(const std::string &de
     plugin.SetConfig({{PluginConfigParams::KEY_PERF_COUNT,
                        PluginConfigParams::YES}});
   }
-  return std::make_shared<InferencePlugin>(InferenceEngine::InferenceEnginePluginPtr(
-      plugin));
+  return std::make_unique<InferencePlugin>(
+      InferenceEngine::InferenceEnginePluginPtr(plugin));
 }

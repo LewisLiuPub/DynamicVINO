@@ -1,24 +1,25 @@
-//
-// Created by chris on 18-7-19.
-//
-#include "pipeline.h"
+/**
+ * @brief a header file with declaration of Pipeline class
+ * @file pipeline.cpp
+ */
+#include "openvino_service/pipeline.h"
 
 using namespace InferenceEngine;
 
-bool Pipeline::add(const std::string &parent, const std::string &name,
-                   std::shared_ptr<BaseInputDevice> input_device) {
-  if (!parent.empty()) {
-    slog::err << "input device should have no parent!" << slog::endl;
-    return false;
-  }
+Pipeline::Pipeline() {
+  counter_ = 0;
+}
+
+bool Pipeline::add(const std::string &name,
+                   std::unique_ptr<Input::BaseInputDevice> input_device) {
   input_device_name_ = name;
   input_device_ = std::move(input_device);
-  next_.insert({parent, name});
+  next_.insert({"", name});
   return true;
 };
 
 bool Pipeline::add(const std::string &parent, const std::string &name,
-                   std::shared_ptr<BaseOutput> output) {
+                   std::shared_ptr<Outputs::BaseOutput> output) {
   if (parent.empty()) {
     slog::err << "output device have no parent!" << slog::endl;
     return false;
@@ -26,6 +27,9 @@ bool Pipeline::add(const std::string &parent, const std::string &name,
   if (name_to_detection_map_.find(parent) == name_to_detection_map_.end()) {
     slog::err << "parent detection does not exists!" << slog::endl;
     return false;
+  }
+  if (output_names_.find(name) != output_names_.end()) {
+    return add(parent, name);
   }
   output_names_.insert(name);
   name_to_output_map_[name] = std::move(output);
@@ -60,19 +64,19 @@ bool Pipeline::add(const std::string &parent, const std::string &name,
   }
   next_.insert({parent, name});
   name_to_detection_map_[name] = std::move(inference);
-  ++total_detection_;
+  ++total_inference_;
   return true;
 };
 
 void Pipeline::runOnce() {
-  counter = 0;
-  if (!input_device_->read(&frame)) {
+  counter_ = 0;
+  if (!input_device_->read(&frame_)) {
     throw std::logic_error("Failed to get frame from cv::VideoCapture");
   }
-  width_ = frame.cols;
-  height_ = frame.rows;
+  width_ = frame_.cols;
+  height_ = frame_.rows;
   for (auto &pair: name_to_output_map_) {
-    pair.second->feedFrame(frame);
+    pair.second->feedFrame(frame_);
   }
   auto t0 = std::chrono::high_resolution_clock::now();
   for (auto pos = next_.equal_range(input_device_name_);
@@ -80,19 +84,20 @@ void Pipeline::runOnce() {
     std::string detection_name = pos.first->second;
     auto detection_ptr = name_to_detection_map_[detection_name];
     detection_ptr->enqueue(
-        frame, cv::Rect(width_ / 2, height_ / 2, width_, height_));
-    ++counter;
+        frame_, cv::Rect(width_ / 2, height_ / 2, width_, height_));
+    ++counter_;
     detection_ptr->submitRequest();
   }
-  std::unique_lock<std::mutex> lock(counter_mutex);
-  cv.wait(lock, [self = this]() { return self->counter == 0; });
+  std::unique_lock<std::mutex> lock(counter_mutex_);
+  cv_.wait(lock, [self = this]() { return self->counter_ == 0; });
   auto t1 = std::chrono::high_resolution_clock::now();
   typedef std::chrono::duration<double, std::ratio<1, 1000>> ms;
   //calculate fps
   ms secondDetection = std::chrono::duration_cast<ms>(t1 - t0);
   std::ostringstream out;
-  std::string window_output_string =
-      "(" + std::to_string(1000.f / secondDetection.count()) + " fps)";
+  std::string window_output_string = "";
+  //show fps?
+      //"(" + std::to_string(1000.f / secondDetection.count()) + " fps)";
   for (auto &pair : name_to_output_map_) {
     pair.second->handleOutput(window_output_string);
   }
@@ -100,20 +105,20 @@ void Pipeline::runOnce() {
 
 void Pipeline::printPipeline() {
   for (auto &current_node : next_) {
-    printf("Name: %s --> Name: %s",
+    printf("%s --> %s\n",
            current_node.first.c_str(),
            current_node.second.c_str());
   }
 }
 
-void Pipeline::setcallback() {
-  if (!input_device_->read(&frame)) {
+void Pipeline::setCallback() {
+  if (!input_device_->read(&frame_)) {
     throw std::logic_error("Failed to get frame from cv::VideoCapture");
   }
-  width_ = frame.cols;
-  height_ = frame.rows;
+  width_ = frame_.cols;
+  height_ = frame_.rows;
   for (auto &pair: name_to_output_map_) {
-    pair.second->feedFrame(frame);
+    pair.second->feedFrame(frame_);
   }
   for (auto &pair: name_to_detection_map_) {
     std::string detection_name = pair.first;
@@ -135,7 +140,10 @@ void Pipeline::callback(const std::string &detection_name) {
     std::string next_name = pos.first->second;
     // if next is output, then print
     if (output_names_.find(next_name) != output_names_.end()) {
-      detection_ptr->accepts(name_to_output_map_[next_name]);
+      for (size_t i = 0; i < detection_ptr->getResultsLength(); ++i) {
+        name_to_output_map_[next_name]->accept(
+            *detection_ptr->getLocationResult(i));
+      }
     }
     // if next is network, set input for next network
     else {
@@ -144,22 +152,22 @@ void Pipeline::callback(const std::string &detection_name) {
       if (detection_ptr_iter != name_to_detection_map_.end()) {
         auto next_detection_ptr = detection_ptr_iter->second;
         for (size_t i = 0; i < detection_ptr->getResultsLength(); ++i) {
-          InferenceResult::Result prev_result =
+          const openvino_service::Result *prev_result =
               detection_ptr->getLocationResult(i);
-          auto clippedRect = prev_result.location & cv::Rect(0, 0,
+          auto clippedRect = prev_result->getLocation() & cv::Rect(0, 0,
                                                              width_,
                                                              height_);
-          cv::Mat next_input = frame(clippedRect);
-          next_detection_ptr->enqueue(next_input, prev_result.location);
+          cv::Mat next_input = frame_(clippedRect);
+          next_detection_ptr->enqueue(next_input, prev_result->getLocation());
         }
         if (detection_ptr->getResultsLength() > 0) {
-          ++counter;
+          ++counter_;
           next_detection_ptr->submitRequest();
         }
       }
     }
   }
-  std::lock_guard<std::mutex> lk(counter_mutex);
-  --counter;
-  cv.notify_all();
+  std::lock_guard<std::mutex> lk(counter_mutex_);
+  --counter_;
+  cv_.notify_all();
 }

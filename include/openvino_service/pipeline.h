@@ -1,18 +1,13 @@
-//
-// Created by chris on 18-7-19.
-//
 /**
- * @brief a header file with definition of Pipeline class
+ * @brief a header file with declaration of Pipeline class
  * @file pipeline.h
  */
 #ifndef SAMPLES_PIPELINE_H
 #define SAMPLES_PIPELINE_H
 
-#include "detection.h"
-#include "samples/slog.hpp"
-#include "io_devices/input.h"
-#include "io_devices/output.h"
-#include "samples/slog.hpp"
+#include "openvino_service/inferences/base_inference.h"
+#include "openvino_service/inputs/standard_camera.h"
+#include "openvino_service/outputs/base_output.h"
 
 #include "opencv2/opencv.hpp"
 
@@ -24,20 +19,20 @@
 /**
  * @class Pipeline
  * @brief This class is a pipeline class that stores the topology of 
- * the input device, output device and networks and make inference.
+ * the input device, output device and networks and make inference. One pipeline
+ * should have only one input device.
  */
 class Pipeline {
  public:
-  Pipeline() = default;
+  Pipeline();
   /**
    * @brief Add input device to the pipeline.
-   * @param[in] parent name of the parent device of the input device. Should be empty.
    * @param[in] name name of the current input device.
    * @param[in] input_device the input device instance to be added.
    * @return whether the add operation is successful
    */
-  bool add(const std::string &parent, const std::string &name,
-           std::shared_ptr<BaseInputDevice> input_device);
+  bool add(const std::string &name,
+           std::unique_ptr<Input::BaseInputDevice> input_device);
   /**
    * @brief Add inference network to the pipeline.
    * @param[in] parent name of the parent device or inference.
@@ -55,7 +50,7 @@ class Pipeline {
    * @return whether the add operation is successful
    */         
   bool add(const std::string &parent, const std::string &name,
-           std::shared_ptr<BaseOutput> output);
+           std::shared_ptr<Outputs::BaseOutput> output);
   /**
    * @brief Add inference network-output device edge to the pipeline.
    * @param[in] parent name of the parent inference.
@@ -75,25 +70,24 @@ class Pipeline {
   /**
    * @brief Set the inference network to call the callback function as soon as each inference is finished.
    */
-  void setcallback();
-
+  void setCallback();
+  void printPipeline();
  private:
-  std::shared_ptr<BaseInputDevice> input_device_;
+  std::shared_ptr<Input::BaseInputDevice> input_device_;
   std::string input_device_name_;
   std::multimap<std::string, std::string> next_;
   std::map<std::string, std::shared_ptr<openvino_service::BaseInference>>
       name_to_detection_map_;
-  std::map<std::string, std::shared_ptr<BaseOutput>> name_to_output_map_;
-  void printPipeline();
-  int total_detection_ = 0;
+  std::map<std::string, std::shared_ptr<Outputs::BaseOutput>> name_to_output_map_;
+  int total_inference_ = 0;
   std::set<std::string> output_names_;
   int width_ = 0;
   int height_ = 0;
-  cv::Mat frame;
+  cv::Mat frame_;
   // for multi threads
-  std::atomic<int> counter;
-  std::mutex counter_mutex;
-  std::condition_variable cv;
+  std::atomic<int> counter_;
+  std::mutex counter_mutex_;
+  std::condition_variable cv_;
 };
 
 #endif //SAMPLES_PIPELINE_H

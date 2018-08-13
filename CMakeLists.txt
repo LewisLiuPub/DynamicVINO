@@ -14,7 +14,7 @@
 
 cmake_minimum_required (VERSION 2.8)
 
-project(OPENVINO_PIPELINE_LIB)
+project(dynamic_vino_lib)
 
 list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
@@ -30,7 +30,7 @@ if (NOT InferenceEngine_FOUND)
     message(FATAL_ERROR "")
 endif()
 
-
+set(CMAKE_BUILD_TYPE "Release")
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
     message(STATUS "CMAKE_BUILD_TYPE not defined, 'Release' will be used")
     set(CMAKE_BUILD_TYPE "Release")
@@ -118,26 +118,80 @@ set(CMAKE_CXX_FLAGS "-std=c++14 ${CMAKE_CXX_FLAGS}")
 
 set(GFLAGS_IS_SUBPROJECT TRUE)
 add_subdirectory(thirdparty/gflags)
-add_subdirectory(common/format_reader)
+# add_subdirectory(thirdparty/common/format_reader)
 
 # Properties->C/C++->General->Additional Include Directories
 include_directories (
-    ${CMAKE_CURRENT_SOURCE_DIR}/common/format_reader
+    # ${CMAKE_CURRENT_SOURCE_DIR}/common/format_reader
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${InferenceEngine_INCLUDE_DIRS}
     ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/gflags/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/common
+    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty
 )
 
 if (UNIX)
     SET(LIB_DL dl)
 endif()
 
-set(DEPENDENCIES realsense2 ${OpenCV_LIBS})
-
-add_subdirectory(lib)
+set(DEPENDENCIES realsense2 ${OpenCV_LIBS} cpu_extension)
 
 if (NEED_EXTENSIONS)
-    add_subdirectory(extension)
+    add_subdirectory(thirdparty/extension)
 endif()
 
+set(HEADER_FILES
+        include/openvino_service/data_struct.h
+        include/openvino_service/factory.h
+        include/openvino_service/pipeline.h
+        include/openvino_service/engines/engine.h
+        include/openvino_service/inferences/base_inference.h
+        include/openvino_service/inferences/age_gender_recognition.h
+        include/openvino_service/inferences/emotions_recognition.h
+        include/openvino_service/inferences/face_detection.h
+        include/openvino_service/inferences/head_pose_recognition.h
+        include/openvino_service/inputs/base_input.h
+        include/openvino_service/inputs/realsense_camera.h
+        include/openvino_service/inputs/standard_camera.h
+        include/openvino_service/inputs/video_input.h
+        include/openvino_service/models/base_model.h
+        include/openvino_service/models/age_gender_detection_model.h
+        include/openvino_service/models/face_detection_model.h
+        include/openvino_service/models/head_pose_detection_model.h
+        include/openvino_service/models/emotion_detection_model.h
+        include/openvino_service/outputs/base_output.h
+        include/openvino_service/outputs/image_window_output.h
+        )
+
+
+add_library(${PROJECT_NAME} SHARED
+        lib/factory.cpp
+        lib/pipeline.cpp
+        lib/engines/engine.cpp
+        lib/inferences/base_inference.cpp
+        lib/inferences/age_gender_recognition.cpp
+        lib/inferences/emotions_recognition.cpp
+        lib/inferences/face_detection.cpp
+        lib/inferences/head_pose_recognition.cpp
+        lib/inputs/realsense_camera.cpp
+        lib/inputs/standard_camera.cpp
+        lib/inputs/video_input.cpp
+        lib/models/base_model.cpp
+        lib/models/head_pose_detection_model.cpp
+        lib/models/emotion_detection_model.cpp
+        lib/models/age_gender_detection_model.cpp
+        lib/models/face_detection_model.cpp
+        include/openvino_service/models/head_pose_detection_model
+        lib/outputs/image_window_output.cpp
+        )
+set_target_properties(${PROJECT_NAME} PROPERTIES
+        PUBLIC_HEADER
+        "${HEADER_FILES}"
+        )
+target_link_libraries(${PROJECT_NAME} ${DEPENDENCIES})
+add_subdirectory(sample)
+# include(GNUInstallDirs)
+# install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+#         )
+# install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.pc
+#         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)

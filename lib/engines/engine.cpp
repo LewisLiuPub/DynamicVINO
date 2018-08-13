@@ -1,12 +1,12 @@
-//
-// Created by chris on 18-8-2.
-//
+/**
+ * @brief a header file with definition of Engine class
+ * @file engine.cpp
+ */
+#include "openvino_service/engines/engine.h"
 
-#include "engine.h"
-
-NetworkEngine::NetworkEngine(
-    InferenceEngine::InferencePlugin *plg,
-    const ValidatedBaseNetwork & validated_network) {
-  request_ = (plg->LoadNetwork(validated_network.net_reader_->getNetwork(), {}))
+Engines::Engine::Engine(
+    InferenceEngine::InferencePlugin plg,
+    const Models::BaseModel::Ptr base_model) {
+  request_ = (plg.LoadNetwork(base_model->net_reader_->getNetwork(), {}))
       .CreateInferRequestPtr();
 };
