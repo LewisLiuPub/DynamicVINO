@@ -1,5 +1,7 @@
 # DynamicVINO - Dynamic OpenVINO Library
 DynamicVINO is an open-source C++ library for establishing easy-to-use, extensible and scalable deep learning inference system based on Intel' s OpenVINO toolkit version 2.299. DynamicVINO provides an interface for adding new neural networks. It also provides asynchronous inference for various connection topology between neural networks. The connection topology can also be changed in runtime. Stars, Pull requests, issue report, forks are all welcome!
+## Author
+- [Xuyang Chen](https://github.com/chyacinth) - Design and Development
 ## Getting Started
 ### Prerequisites
 DynamicVINO is based on Intel' s [OpenVINO toolkit](https://software.intel.com/en-us/openvino-toolkit) version 2.299.  [Intel NC SDK](https://developer.movidius.com/start) is needed if you want to run the network on Intel Movidius NCS. To use Intel' s RealSense Camera with DynamicsVINO, you need to install [Intel RealSense Camera package](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md) for RealSense Camera installation guide. Other Intel plugins like Intel GPU has not yet been tested but should work well with this library.
@@ -12,7 +14,7 @@ cmake ..
 make -j4
 ```
 ## Running sample
-The sample included in the library is an implementation of various network for human face detection. It uses a similar input API as the interactive_face_detection sample from Intel' s OpenVINO library.\
+The sample included in the library is an implementation of various network for human face detection. It uses a similar input API as the samples from Intel' s OpenVINO library.\
 \
 After building the library, in the build folder, type:
 ```
